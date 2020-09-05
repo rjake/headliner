@@ -2,23 +2,43 @@
 % Please edit documentation in R/compare-groups.R
 \name{compare_conditions}
 \alias{compare_conditions}
-\title{Title}
+\title{Compare two conditions within a data frame}
 \usage{
-compare_conditions(
-  df,
-  compare = complete.cases(.),
-  reference = complete.cases(.),
-  ...,
-  calc = list(mean = mean),
-  cond = NULL
-)
+compare_conditions(df, compare, reference, ..., calc = list(mean = mean))
 }
 \arguments{
-\item{...}{}
-}
-\value{
+\item{df}{data frame}
 
+\item{compare}{condition for comparison, same criteria you would use in
+'dplyr::filter'}
+
+\item{reference}{same as compare}
+
+\item{...}{columns to use in comparison}
+
+\item{calc}{named list of the functions to use, ex:
+list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
+list(mean = ~mean(.x, na.rm = TRUE), sd = sd)}
 }
 \description{
-Title
+Compare two conditions within a data frame
+}
+\examples{
+flights_jfk \%>\%
+  compare_conditions(
+    compare = (carrier == "AA"),
+    reference = complete.cases(.),
+    c(dep_delay, arr_delay),
+    calc = list(mean = mean, sd = sd)
+  ) \%>\%
+  view_components()
+
+mtcars \%>\%
+  compare_conditions(
+    compare = (hp > 100 | gear == 4),
+    reference = (mpg > 24),
+    dplyr::starts_with("d"),
+    calc = list(mean = mean, max = max)
+  ) \%>\%
+  view_components()
 }

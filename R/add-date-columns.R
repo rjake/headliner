@@ -1,9 +1,12 @@
-#' Title
+#' Add columns with date calculations based on refernce date
 #'
-#' @param df
-#' @param date_col
-#' @param ref_date
-#' @param drop
+#' @param df data frame
+#' @param date_col column with class of 'date'
+#' @param ref_date reference date for calculations, defaults to current date
+#' @param drop some of the generated fields may match the input data frame. When
+#' TRUE, the original columns will be removed and replaced with the new field
+#' of the same name. Otherwise, columns with the same name will be appended with
+#' a '1'
 #' @importFrom dplyr pull select bind_cols
 #' @importFrom tibble tibble
 #' @export

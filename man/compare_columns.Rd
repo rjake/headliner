@@ -2,13 +2,24 @@
 % Please edit documentation in R/compare-groups.R
 \name{compare_columns}
 \alias{compare_columns}
-\title{Title}
+\title{Compare two columns}
 \usage{
 compare_columns(df, ..., calc = list(mean = mean))
 }
 \arguments{
-\item{calc}{}
+\item{df}{data frame}
+
+\item{...}{columns to compare, supports select helpers like 'starts_with()'
+or 'where(is.numeric)'}
+
+\item{calc}{named list of the functions to use, ex:
+list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
+list(mean = ~mean(.x, na.rm = TRUE), sd = sd)}
 }
 \description{
-Title
+Compare two columns
+}
+\examples{
+compare_columns(flights_jfk, )
+compare_columns(flights_jfk, ends_with("delay"))
 }

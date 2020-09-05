@@ -2,10 +2,22 @@
 % Please edit documentation in R/add-date-columns.R
 \name{add_date_columns}
 \alias{add_date_columns}
-\title{Title}
+\title{Add columns with date calculations based on refernce date}
 \usage{
 add_date_columns(df, date_col, ref_date = Sys.Date(), drop = FALSE)
 }
+\arguments{
+\item{df}{data frame}
+
+\item{date_col}{column with class of 'date'}
+
+\item{ref_date}{reference date for calculations, defaults to current date}
+
+\item{drop}{some of the generated fields may match the input data frame. When
+TRUE, the original columns will be removed and replaced with the new field
+of the same name. Otherwise, columns with the same name will be appended with
+a '1'}
+}
 \description{
-Title
+Add columns with date calculations based on refernce date
 }
