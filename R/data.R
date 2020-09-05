@@ -22,7 +22,7 @@
 #'   \item{wind_dir}{wind direction (degrees)}
 #'   \item{wind_speed}{wind speed (mph)}
 #'   \item{precip}{precipitaton (inches)}
-#'   \item{pressure}{visibility (mines)}
-#'   \item{visit}{}
+#'   \item{pressure}{sea level pressure (millibars)}
+#'   \item{visib}{visibility (miles)}
 #' }
 "flights_jfk"
