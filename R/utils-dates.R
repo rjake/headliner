@@ -1,9 +1,11 @@
-#' Title
+#' Calculate the difference between two dates
 #'
-#' @param from
-#' @param unit
-#' @param to
-#' @param n
+#' @param from date or date-time vector to be compared against reference date
+#' @param unit a character string specifying a unit of time. Valid base units
+#' are second, minute, hour, day, week, month, bimonth, quarter, season,
+#' halfyear and year.
+#' @param to referenme date or date-time (static) for comparison
+#' @param n multiple to use in \code{period(n, unit)}
 #' @noRd
 #' @importFrom lubridate floor_date interval period
 #'
