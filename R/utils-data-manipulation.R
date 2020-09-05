@@ -1,8 +1,9 @@
-#' Title
+#' Find and warn for overlapping column names
 #'
-#' @param orig_df
-#' @param new_df
-#' @param drop
+#' @param orig_df data frame
+#' @param new_df data frame
+#' @param drop when TRUE, columns with same name are dropped from the original
+#' and replaced with columns from the function output.
 #' @noRd
 #' @examples
 #' check_overlapping_names(mtcars, mtcars[,1:3])
@@ -27,15 +28,16 @@ check_overlapping_names <- function(orig_df, new_df, drop = FALSE) {
 }
 
 
-#' Title
+#' Rollup data using summarise(across(...))
 #'
-#' @param df
-#' @param group
-#' @param fun
-#' @param var
+#' @param df data frame
+#' @param name prefix for
+#' @param calc list of functions to be applied to variables
+#' @param cond when given, data will be filtered prior to aggregation
 #' @importFrom dplyr filter summarise across ungroup
-#'
+#' @noRd
 #' @examples
+#' aggregate_group(mtcars, "", mpg, calc = list(mean = mean))
 aggregate_group <- function(df, name, ..., calc, cond) {
   #df <- mtcars; cond <- dplyr::quo(cyl > 4); var <- dplyr::quo(mean(mpg))
 
