@@ -17,8 +17,16 @@ and San Francisco (SFO)}
 \item{tailnum}{tail number of plane}
 \item{distance}{distance from origin to destination}
 \item{air_time}{time in air from origin to destination}
-\item{dep_delay}{departure delay in minutes}
-\item{arr_delay}{arrival delay in minutes}
+\item{dep_delay}{departure delay (minutes)}
+\item{arr_delay}{arrival delay (minutes)}
+\item{temp}{temperature (F)}
+\item{dewp}{dewpoint (F)}
+\item{humid}{relative humidity}
+\item{wind_dir}{wind direction (degrees)}
+\item{wind_speed}{wind speed (mph)}
+\item{precip}{precipitaton (inches)}
+\item{pressure}{visibility (mines)}
+\item{visit}{}
 }
 }
 \usage{
