@@ -4,7 +4,13 @@
 \alias{add_date_columns}
 \title{Add columns with date calculations based on refernce date}
 \usage{
-add_date_columns(df, date_col, ref_date = Sys.Date(), drop = FALSE)
+add_date_columns(
+  df,
+  date_col,
+  ref_date = Sys.Date(),
+  fiscal_year_offset = 6,
+  drop = FALSE
+)
 }
 \arguments{
 \item{df}{data frame}
@@ -20,4 +26,12 @@ a '1'}
 }
 \description{
 Add columns with date calculations based on refernce date
+}
+\examples{
+# 0 indicates "current"
+data.frame(date = seq(Sys.Date(), Sys.Date() - 100, by = "-20 days")) \%>\%
+add_date_columns(
+  date_col = date,
+  ref_date = Sys.Date()
+)
 }
