@@ -16,6 +16,9 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
-    magrittr
+    dplyr,
+    lubridate,
+    magrittr,
+    tibble
 Depends: 
     R (>= 2.10)
