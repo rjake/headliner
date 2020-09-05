@@ -4,7 +4,7 @@
 #' @param unit
 #' @param to
 #' @param n
-#'
+#' @noRd
 #' @importFrom lubridate floor_date interval period
 
 #'
@@ -19,6 +19,7 @@ calc_distance <- function(from, unit, to = Sys.Date(), n = 1) {
 #'
 #' @param x
 #' @importFrom lubridate `%m+%` period
+#' @noRd
 #' @examples
 fiscal_date <- function(x) x %m+% period(6, "months")
 

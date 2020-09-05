@@ -22,6 +22,15 @@ compare_conditions <- function(df,
 }
 
 
+#' Title
+#'
+#' @param df
+#' @param ...
+#' @param calc
+#'
+#' @export
+#'
+#' @examples
 compare_columns <- function(df,
                             ...,
                             calc = list(mean = mean)) {

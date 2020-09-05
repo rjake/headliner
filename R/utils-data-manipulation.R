@@ -3,7 +3,7 @@
 #' @param orig_df
 #' @param new_df
 #' @param drop
-#'
+#' @noRd
 #' @examples
 #' check_overlapping_names(mtcars, mtcars[,1:3])
 check_overlapping_names <- function(orig_df, new_df, drop = FALSE) {
