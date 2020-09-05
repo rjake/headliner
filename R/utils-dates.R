@@ -8,9 +8,9 @@
 #' @importFrom lubridate floor_date interval period
 #'
 #' @examples
-calc_distance <- function(from, unit, to = Sys.Date(), n = 1) {
-  from_date <- floor_date(from, unit)
-  to_date <- floor_date(to, unit)
+calc_distance <- function(from, unit, to = Sys.Date(), n = 1, week_start = 1) {
+  from_date <- floor_date(from, unit, week_start = week_start)
+  to_date <- floor_date(to, unit, week_start = week_start)
   interval(to_date, from_date) %/% period(n, unit)
 }
 

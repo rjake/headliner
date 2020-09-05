@@ -3,6 +3,7 @@
 #' @param df data frame
 #' @param date_col column with class of 'date'
 #' @param ref_date reference date for calculations, defaults to current date
+#' @param week_start integer for start of week where Monday = 1 and Sunday = 7
 #' @param drop some of the generated fields may match the input data frame. When
 #' TRUE, the original columns will be removed and replaced with the new field
 #' of the same name. Otherwise, columns with the same name will be appended with
@@ -22,6 +23,7 @@ add_date_columns <- function(df,
                              date_col,
                              ref_date = Sys.Date(),
                              fiscal_year_offset = 6,
+                             week_start = 1,
                              drop = FALSE) {
   x <- pull(df, {{date_col}})
   offset <- fiscal_year_offset
@@ -29,7 +31,7 @@ add_date_columns <- function(df,
   new_fields <-
     tibble(
       day = calc_distance(x, "day", to = ref_date),
-      week = calc_distance(x, "week", to = ref_date),
+      week = calc_distance(x, "week", to = ref_date, week_start = week_start),
       month = calc_distance(x, "month", to = ref_date),
       quarter = calc_distance(x, "month", n = 3, to = ref_date),
       calendar_year = calc_distance(x, "year", to = ref_date),

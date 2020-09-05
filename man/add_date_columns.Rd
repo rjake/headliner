@@ -9,6 +9,7 @@ add_date_columns(
   date_col,
   ref_date = Sys.Date(),
   fiscal_year_offset = 6,
+  week_start = 1,
   drop = FALSE
 )
 }
@@ -18,6 +19,8 @@ add_date_columns(
 \item{date_col}{column with class of 'date'}
 
 \item{ref_date}{reference date for calculations, defaults to current date}
+
+\item{week_start}{integer for start of week where Monday = 1 and Sunday = 7}
 
 \item{drop}{some of the generated fields may match the input data frame. When
 TRUE, the original columns will be removed and replaced with the new field
