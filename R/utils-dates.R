@@ -6,7 +6,6 @@
 #' @param n
 #' @noRd
 #' @importFrom lubridate floor_date interval period
-
 #'
 #' @examples
 calc_distance <- function(from, unit, to = Sys.Date(), n = 1) {
@@ -15,11 +14,14 @@ calc_distance <- function(from, unit, to = Sys.Date(), n = 1) {
   interval(to_date, from_date) %/% period(n, unit)
 }
 
-#' Title
+
+#' Add 6 months to the date for fiscal year calculations
 #'
-#' @param x
+#' @param x date
+#' @param offset number of months to offset date
 #' @importFrom lubridate `%m+%` period
 #' @noRd
 #' @examples
-fiscal_date <- function(x) x %m+% period(6, "months")
+#' fiscal_date(as.Date("2020-01-01"))
+fiscal_date <- function(x, offset) x %m+% period(offset, "months")
 

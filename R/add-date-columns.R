@@ -15,8 +15,10 @@
 add_date_columns <- function(df,
                              date_col,
                              ref_date = Sys.Date(),
+                             fiscal_year_offset = 6,
                              drop = FALSE) {
   x <- pull(df, {{date_col}})
+  offset <- fiscal_year_offset
 
   new_fields <-
     tibble(
@@ -27,9 +29,9 @@ add_date_columns <- function(df,
       calendar_year = calc_distance(x, "year", to = ref_date),
       fiscal_year =
         calc_distance(
-          from = fiscal_date(x),
+          from = fiscal_date(x, offset),
           unit = "year",
-          to = fiscal_date(ref_date)
+          to = fiscal_date(ref_date, offset)
         )
     )
 
