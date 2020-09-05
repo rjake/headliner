@@ -1,11 +1,4 @@
 
-#' Title
-#'
-#' @param x
-#' @param ...
-#'
-#' @export
-#'
 build_phrase <- function(...) {
   UseMethod("build_phrase")
 }
@@ -73,27 +66,29 @@ build_phrase.default <- function(compare,
 #' @examples
 #'
 #' # Using a list as will be output of compare_conditions()
+#'
+#' # First a simplified example
 #' list(a = 1, b = 2) %>%
 #'   build_phrase(a, b) %>%
 #'   head(2)
 #'
-#' # can be combined with
-#'res <-
-#'  flights_jfk %>%
-#'  compare_conditions(
-#'    compare = carrier == "AA",
-#'    reference = carrier == "DL",
-#'    arr_delay
-#'  )
+#' # How it is used with compare_conditions()
+#' res <-
+#'   flights_jfk %>%
+#'   compare_conditions(
+#'     compare = carrier == "AA",
+#'     reference = carrier == "DL",
+#'     arr_delay
+#'   )
 #'
-#'res
+#' res
 #'
-#'res %>%
-#'  build_phrase(
-#'    comp_arr_delay_mean,
-#'    ref_arr_delay_mean
-#'  ) %>%
-#'  head(2)
+#' res %>%
+#'   build_phrase(
+#'     comp_arr_delay_mean,
+#'     ref_arr_delay_mean
+#'   ) %>%
+#'   head(2)
 build_phrase.list <- function(x, compare, reference, ...) {
   comp <- x[[deparse(match.call()[["compare"]])]]
   ref <- x[[deparse(match.call()[["reference"]])]]
@@ -108,7 +103,8 @@ build_phrase.list <- function(x, compare, reference, ...) {
 #' @export
 #' @seealso [build_phrase()]
 #' @examples
-#' build_phrase(10, 8) %>% view_components()
+#' build_phrase(10, 8) %>%
+#'   view_components()
 view_components <- function(x) {
   data.frame(
     VALUES = unlist(x)

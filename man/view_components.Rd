@@ -13,7 +13,8 @@ view_components(x)
 Compact view of phrase components
 }
 \examples{
-build_phrase(10, 8) \%>\% view_components()
+build_phrase(10, 8) \%>\%
+  view_components()
 }
 \seealso{
 \code{\link[=build_phrase]{build_phrase()}}
