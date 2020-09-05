@@ -3,6 +3,8 @@
 #' @param df data frame
 #' @param date_col column with class of 'date'
 #' @param ref_date reference date for calculations, defaults to current date
+#' @param fiscal_year_offset the number of months to offset date, if fiscal
+#' year ends in June, use 6
 #' @param week_start integer for start of week where Monday = 1 and Sunday = 7
 #' @param drop some of the generated fields may match the input data frame. When
 #' TRUE, the original columns will be removed and replaced with the new field

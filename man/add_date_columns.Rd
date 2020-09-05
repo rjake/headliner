@@ -20,6 +20,9 @@ add_date_columns(
 
 \item{ref_date}{reference date for calculations, defaults to current date}
 
+\item{fiscal_year_offset}{the number of months to offset date, if fiscal
+year ends in June, use 6}
+
 \item{week_start}{integer for start of week where Monday = 1 and Sunday = 7}
 
 \item{drop}{some of the generated fields may match the input data frame. When
