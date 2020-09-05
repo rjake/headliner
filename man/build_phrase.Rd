@@ -43,10 +43,35 @@ Build phrase components
 }}
 
 \examples{
+# manually entered
+
 build_phrase(10, 8) \%>\% head(2)
 build_phrase(10, 8, calc = "prop") \%>\% head(2)
 build_phrase(10, 8, phrasing = phrase_terms(more = "higher")) \%>\% head(2)
-build_phrase(list(a = 1, b = 2), a, b) \%>\% head(2)
+
+
+# Using a list as will be output of compare_conditions()
+list(a = 1, b = 2) \%>\%
+  build_phrase(a, b) \%>\%
+  head(2)
+
+# can be combined with
+res <-
+ flights_jfk \%>\%
+ compare_conditions(
+   compare = carrier == "AA",
+   reference = carrier == "DL",
+   arr_delay
+ )
+
+res
+
+res \%>\%
+ build_phrase(
+   comp_arr_delay_mean,
+   ref_arr_delay_mean
+ ) \%>\%
+ head(2)
 }
 \seealso{
 \code{\link[=view_components]{view_components()}} and \code{\link[=phrase_terms]{phrase_terms()}}
