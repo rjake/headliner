@@ -1,4 +1,4 @@
-
+#' @export
 build_phrase <- function(...) {
   UseMethod("build_phrase")
 }

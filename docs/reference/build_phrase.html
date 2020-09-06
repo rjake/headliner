@@ -117,7 +117,8 @@
   <span class='no'>compare</span>,
   <span class='no'>reference</span>,
   <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"value"</span>, <span class='st'>"prop"</span>),
-  <span class='kw'>phrasing</span> <span class='kw'>=</span> <span class='kw pkg'>headliner</span><span class='kw ns'>::</span><span class='fu'><a href='phrase_terms.html'>phrase_terms</a></span>()
+  <span class='kw'>phrasing</span> <span class='kw'>=</span> <span class='kw pkg'>headliner</span><span class='kw ns'>::</span><span class='fu'><a href='phrase_terms.html'>phrase_terms</a></span>(),
+  <span class='kw'>expr</span> <span class='kw'>=</span> <span class='st'>"{compare} vs. {reference}"</span>
 )
 
 <span class='co'># S3 method for list</span>
@@ -145,6 +146,10 @@ two ('value', y - x) or the percent difference ('prop', (y - x) / x)</p></td>
 same as x, or y is less than x.</p></td>
     </tr>
     <tr>
+      <th>expr</th>
+      <td><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax</p></td>
+    </tr>
+    <tr>
       <th>x</th>
       <td><p>a named list with values to compare</p></td>
     </tr>
@@ -163,34 +168,15 @@ same as x, or y is less than x.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># manually entered</span>
 
-<span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
-#&gt; [1] 2
-#&gt; 
-#&gt; $phrase
-#&gt; [1] "increase"
-#&gt; </div><div class='input'><span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>calc</span> <span class='kw'>=</span> <span class='st'>"prop"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
-#&gt; [1] 0.25
-#&gt; 
-#&gt; $phrase
-#&gt; [1] "increase"
-#&gt; </div><div class='input'><span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>phrasing</span> <span class='kw'>=</span> <span class='fu'><a href='phrase_terms.html'>phrase_terms</a></span>(<span class='kw'>more</span> <span class='kw'>=</span> <span class='st'>"higher"</span>)) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
-#&gt; [1] 2
-#&gt; 
-#&gt; $phrase
-#&gt; [1] "higher"
-#&gt; </div><div class='input'>
-
+<span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in build_phrase(10, 8): could not find function "build_phrase"</span></div><div class='input'><span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>calc</span> <span class='kw'>=</span> <span class='st'>"prop"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in build_phrase(10, 8, calc = "prop"): could not find function "build_phrase"</span></div><div class='input'><span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>phrasing</span> <span class='kw'>=</span> <span class='fu'><a href='phrase_terms.html'>phrase_terms</a></span>(<span class='kw'>more</span> <span class='kw'>=</span> <span class='st'>"higher"</span>)) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in build_phrase(10, 8, phrasing = phrase_terms(more = "higher")): could not find function "build_phrase"</span></div><div class='input'>
+<span class='co'># a phrase about the comparion can be edited by providing glue syntax</span>
+<span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>expr</span> <span class='kw'>=</span> <span class='st'>"{compare} to {reference} people"</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; <span class='error'>Error in build_phrase(10, 8, expr = "{compare} to {reference} people"): could not find function "build_phrase"</span></div><div class='input'>
 <span class='co'># Using a list as will be output of compare_conditions()</span>
 
 <span class='co'># First a simplified example</span>
 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>build_phrase</span>(<span class='no'>a</span>, <span class='no'>b</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
-#&gt; [1] 1
-#&gt; 
-#&gt; $phrase
-#&gt; [1] "decrease"
-#&gt; </div><div class='input'>
+  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in build_phrase(., a, b): could not find function "build_phrase"</span></div><div class='input'>
 <span class='co'># How it is used with compare_conditions()</span>
 <span class='no'>res</span> <span class='kw'>&lt;-</span>
   <span class='no'>flights_jfk</span> <span class='kw'>%&gt;%</span>
@@ -207,16 +193,12 @@ same as x, or y is less than x.</p></td>
 #&gt; [1] -5.013883
 #&gt; </div><div class='input'>
 <span class='no'>res</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>round</span>, <span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='co'># prevents endless decimal places</span>
   <span class='fu'>build_phrase</span>(
     <span class='no'>comp_arr_delay_mean</span>,
     <span class='no'>ref_arr_delay_mean</span>
   ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
-#&gt; [1] 8.567544
-#&gt; 
-#&gt; $phrase
-#&gt; [1] "increase"
-#&gt; </div></pre>
+  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in build_phrase(., comp_arr_delay_mean, ref_arr_delay_mean): could not find function "build_phrase"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
