@@ -9,7 +9,8 @@
   compare,
   reference,
   calc = c("value", "prop"),
-  phrasing = headliner::phrase_terms()
+  phrasing = headliner::phrase_terms(),
+  expr = "{compare} vs. {reference}"
 )
 
 \method{build_phrase}{list}(x, compare, reference, ...)
@@ -24,6 +25,8 @@ two ('value', y - x) or the percent difference ('prop', (y - x) / x)}
 
 \item{phrasing}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
+
+\item{expr}{a string using \code{\link[glue]{glue}} syntax}
 
 \item{x}{a named list with values to compare}
 }
@@ -42,6 +45,8 @@ build_phrase(10, 8) \%>\% head(2)
 build_phrase(10, 8, calc = "prop") \%>\% head(2)
 build_phrase(10, 8, phrasing = phrase_terms(more = "higher")) \%>\% head(2)
 
+# a phrase about the comparion can be edited by providing glue syntax
+build_phrase(10, 8, expr = "{compare} to {reference} people")$expr
 
 # Using a list as will be output of compare_conditions()
 
@@ -62,6 +67,7 @@ res <-
 res
 
 res \%>\%
+  lapply(round, 1) \%>\% # prevents endless decimal places
   build_phrase(
     comp_arr_delay_mean,
     ref_arr_delay_mean

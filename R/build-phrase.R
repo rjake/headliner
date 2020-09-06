@@ -12,6 +12,7 @@ build_phrase <- function(...) {
 #' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
 #' @param phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
+#' @param expr a string using \code{\link[glue]{glue}} syntax
 #'
 #' @export
 #' @rdname build_phrase
@@ -23,22 +24,21 @@ build_phrase <- function(...) {
 #' build_phrase(10, 8, calc = "prop") %>% head(2)
 #' build_phrase(10, 8, phrasing = phrase_terms(more = "higher")) %>% head(2)
 #'
+#' # a phrase about the comparion can be edited by providing glue syntax
+#' build_phrase(10, 8, expr = "{compare} to {reference} people")$expr
 build_phrase.default <- function(compare,
                                  reference,
                                  calc = c("value", "prop"),
-                                 phrasing = headliner::phrase_terms()
-) {
+                                 phrasing = headliner::phrase_terms(),
+                                 expr = "{compare} vs. {reference}") {
   calc <- match.arg(calc)
-  compare <- compare
-  reference <- reference
 
   if (calc == "value") {
-    math <- substitute(compare - reference)
+    res <- compare - reference
   } else {
-    math <- substitute((compare - reference) / reference)
+    res <- (compare - reference) / reference
   }
 
-  res <- eval(math)
   sign_res <- sign(res)
 
   phrase <-
@@ -58,7 +58,7 @@ build_phrase.default <- function(compare,
     raw_delta = res,
     sign = sign_res,
     calc = calc,
-    expr = deparse(math)
+    expr = glue(expr)
   )
 }
 
@@ -86,6 +86,7 @@ build_phrase.default <- function(compare,
 #' res
 #'
 #' res %>%
+#'   lapply(round, 1) %>% # prevents endless decimal places
 #'   build_phrase(
 #'     comp_arr_delay_mean,
 #'     ref_arr_delay_mean
