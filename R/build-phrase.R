@@ -27,15 +27,18 @@ build_phrase.default <- function(compare,
                                  reference,
                                  calc = c("value", "prop"),
                                  phrasing = headliner::phrase_terms()
-                                 ) {
+) {
   calc <- match.arg(calc)
+  compare <- compare
+  reference <- reference
 
   if (calc == "value") {
-    res <- compare - reference
+    math <- substitute(compare - reference)
   } else {
-    res <- (compare - reference) / reference
+    math <- substitute((compare - reference) / reference)
   }
 
+  res <- eval(math)
   sign_res <- sign(res)
 
   phrase <-
@@ -55,8 +58,7 @@ build_phrase.default <- function(compare,
     raw_delta = res,
     sign = sign_res,
     calc = calc,
-    expr_comp = deparse(match.call()[["compare"]]),
-    expr_ref = deparse(match.call()[["reference"]])
+    expr = deparse(math)
   )
 }
 
