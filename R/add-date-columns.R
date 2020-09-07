@@ -15,12 +15,8 @@
 #' @export
 #'
 #' @examples
-#' # 0 indicates "current"
-#' data.frame(date = seq(Sys.Date(), Sys.Date() - 100, by = "-20 days")) %>%
-#' add_date_columns(
-#'   date_col = date,
-#'   ref_date = Sys.Date()
-#' )
+#' demo_data() %>%
+#'   add_date_columns(date_col = date)
 add_date_columns <- function(df,
                              date_col,
                              ref_date = Sys.Date(),
