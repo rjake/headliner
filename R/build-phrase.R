@@ -13,7 +13,15 @@ build_phrase <- function(...) {
 #' @param phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
 #' @param expr a string using \code{\link[glue]{glue}} syntax
-#'
+#' @param n_decimal numeric value to limit the number of decimal places in
+#' the returned values.
+#' @param round_all logical value to indicate if all values should be rounded.
+#' When FALSE, the values will return with no modification. When TRUE (default)
+#' all values will be round to the length specified by 'n_decimal'.
+#' @param scale number indicating the scaling factor. When scale = 1, 1/4 will
+#' return 0.25, when scale = 100 (default) 1/4 will return 25
+#' @importFrom glue glue
+#' @importFrom purrr map_if
 #' @export
 #' @rdname build_phrase
 #' @seealso [view_components()] and [phrase_terms()]
@@ -25,18 +33,26 @@ build_phrase <- function(...) {
 #' build_phrase(10, 8, phrasing = phrase_terms(more = "higher")) %>% head(2)
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
-#' build_phrase(10, 8, expr = "{compare} to {reference} people")$expr
+#' # '{c}' = 'compare' value, '{r}' = 'reference'
+#' build_phrase(10, 8, expr = "{c} to {r} people")$expr
+#'
+#' # you can also adjust the rounding, although the default is 1
+#' build_phrase(22/7, 22/3)$expr
+#' build_phrase(22/7, 22/3, n_decimal = 3)$expr
 build_phrase.default <- function(compare,
                                  reference,
                                  calc = c("value", "prop"),
                                  phrasing = headliner::phrase_terms(),
-                                 expr = "{compare} vs. {reference}") {
+                                 expr = "{c} vs. {r}",
+                                 n_decimal = 1,
+                                 round_all = TRUE,
+                                 scale = 100) {
   calc <- match.arg(calc)
 
   if (calc == "value") {
     res <- compare - reference
   } else {
-    res <- (compare - reference) / reference
+    res <- (compare - reference) / reference  * scale
   }
 
   sign_res <- sign(res)
@@ -50,16 +66,29 @@ build_phrase.default <- function(compare,
     )
 
 
-  list(
-    delta = abs(res),
-    phrase = phrase,
-    comp_value = compare,
-    ref_value = reference,
-    raw_delta = res,
-    sign = sign_res,
-    calc = calc,
-    expr = glue(expr)
-  )
+  output <-
+    list(
+      delta = abs(res),
+      phrase = phrase,
+      comp_value = compare,
+      ref_value = reference,
+      raw_delta = res,
+      sign = sign_res,
+      calc = calc,
+      expr = glue(
+        expr,
+        c = round(compare, n_decimal),
+        r = round(reference, n_decimal)
+      )
+    )
+
+  if (round_all) {
+    output <-
+      output %>%
+      map_if(is.numeric, round, n_decimal)
+  }
+
+  output
 }
 
 #' @param x a named list with values to compare
