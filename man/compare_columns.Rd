@@ -2,7 +2,7 @@
 % Please edit documentation in R/compare-groups.R
 \name{compare_columns}
 \alias{compare_columns}
-\title{Compare two columns}
+\title{Compare two columns within a data frame}
 \usage{
 compare_columns(df, ..., calc = list(mean = mean))
 }
@@ -17,7 +17,7 @@ list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
 list(mean = ~mean(.x, na.rm = TRUE), sd = sd)}
 }
 \description{
-Compare two columns
+Compare two columns within a data frame
 }
 \examples{
 compare_columns(flights_jfk, )

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compare two columns — compare_columns • headliner</title>
+<title>Compare two columns within a data frame — compare_columns • headliner</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Compare two columns — compare_columns" />
-<meta property="og:description" content="Compare two columns" />
+<meta property="og:title" content="Compare two columns within a data frame — compare_columns" />
+<meta property="og:description" content="Compare two columns within a data frame" />
 
 
 
@@ -103,13 +103,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compare two columns</h1>
+    <h1>Compare two columns within a data frame</h1>
     
     <div class="hidden name"><code>compare_columns.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compare two columns</p>
+    <p>Compare two columns within a data frame</p>
     </div>
 
     <pre class="usage"><span class='fu'>compare_columns</span>(<span class='no'>df</span>, <span class='no'>...</span>, <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>mean</span>))</pre>
@@ -137,13 +137,13 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, )</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; $year_mean
-#&gt; [1] 2012.5
+#&gt; [1] 2012.499954
 #&gt; 
 #&gt; $date_mean
 #&gt; [1] "2013-01-01"
 #&gt; 
 #&gt; $hour_mean
-#&gt; [1] 15.03484
+#&gt; [1] 15.03484192
 #&gt; 
 #&gt; $carrier_mean
 #&gt; [1] NA
@@ -155,45 +155,45 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 #&gt; [1] NA
 #&gt; 
 #&gt; $distance_mean
-#&gt; [1] 2453.746
+#&gt; [1] 2453.745691
 #&gt; 
 #&gt; $air_time_mean
-#&gt; [1] 327.7805
+#&gt; [1] 327.7805328
 #&gt; 
 #&gt; $dep_delay_mean
-#&gt; [1] 10.41128
+#&gt; [1] 10.41128215
 #&gt; 
 #&gt; $arr_delay_mean
-#&gt; [1] 0.1459121
+#&gt; [1] 0.1459120656
 #&gt; 
 #&gt; $temp_mean
-#&gt; [1] 57.27722
+#&gt; [1] 57.27721633
 #&gt; 
 #&gt; $dewp_mean
-#&gt; [1] 41.06711
+#&gt; [1] 41.06711218
 #&gt; 
 #&gt; $humid_mean
-#&gt; [1] 57.20094
+#&gt; [1] 57.20094294
 #&gt; 
 #&gt; $wind_dir_mean
-#&gt; [1] 207.5795
+#&gt; [1] 207.5795004
 #&gt; 
 #&gt; $wind_speed_mean
-#&gt; [1] 12.43572
+#&gt; [1] 12.43572178
 #&gt; 
 #&gt; $precip_mean
-#&gt; [1] 0.001494147
+#&gt; [1] 0.001494146926
 #&gt; 
 #&gt; $pressure_mean
-#&gt; [1] 1018.002
+#&gt; [1] 1018.002212
 #&gt; 
 #&gt; $visib_mean
-#&gt; [1] 9.576753
+#&gt; [1] 9.576752696
 #&gt; </div><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, <span class='fu'>ends_with</span>(<span class='st'>"delay"</span>))</div><div class='output co'>#&gt; $dep_delay_mean
-#&gt; [1] 10.41128
+#&gt; [1] 10.41128215
 #&gt; 
 #&gt; $arr_delay_mean
-#&gt; [1] 0.1459121
+#&gt; [1] 0.1459120656
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

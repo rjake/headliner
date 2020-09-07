@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build phrase components — build_phrase.default • headliner</title>
+<title>Compare two values and get talking points — compare_values.default • headliner</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Build phrase components — build_phrase.default" />
-<meta property="og:description" content="Build phrase components" />
+<meta property="og:title" content="Compare two values and get talking points — compare_values.default" />
+<meta property="og:description" content="Compare two values and get talking points" />
 
 
 
@@ -103,17 +103,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build phrase components</h1>
+    <h1>Compare two values and get talking points</h1>
     
-    <div class="hidden name"><code>build_phrase.Rd</code></div>
+    <div class="hidden name"><code>compare_values.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Build phrase components</p>
+    <p>Compare two values and get talking points</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for default</span>
-<span class='fu'>build_phrase</span>(
+<span class='fu'>compare_values</span>(
   <span class='no'>compare</span>,
   <span class='no'>reference</span>,
   <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"value"</span>, <span class='st'>"prop"</span>),
@@ -125,7 +125,7 @@
 )
 
 <span class='co'># S3 method for list</span>
-<span class='fu'>build_phrase</span>(<span class='no'>x</span>, <span class='no'>compare</span>, <span class='no'>reference</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>compare_values</span>(<span class='no'>x</span>, <span class='no'>compare</span>, <span class='no'>reference</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,22 +183,22 @@ return 0.25, when scale = 100 (default) 1/4 will return 25</p></td>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='view_components.html'>view_components()</a></code> and <code>trend_terms()</code></p></div>
+    <div class='dont-index'><p><code>view_list()</code> and <code>trend_terms()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># manually entered</span>
 
-<span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
+<span class='fu'>compare_values</span>(<span class='fl'>10</span>, <span class='fl'>8</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
 #&gt; [1] 2
 #&gt; 
 #&gt; $phrase
 #&gt; [1] "increase"
-#&gt; </div><div class='input'><span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>calc</span> <span class='kw'>=</span> <span class='st'>"prop"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
+#&gt; </div><div class='input'><span class='fu'>compare_values</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>calc</span> <span class='kw'>=</span> <span class='st'>"prop"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
 #&gt; [1] 25
 #&gt; 
 #&gt; $phrase
 #&gt; [1] "increase"
-#&gt; </div><div class='input'><span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>trend_phrasing</span> <span class='kw'>=</span> <span class='fu'>trend_terms</span>(<span class='kw'>more</span> <span class='kw'>=</span> <span class='st'>"higher"</span>)) <span class='kw'>%&gt;%</span>
+#&gt; </div><div class='input'><span class='fu'>compare_values</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>trend_phrasing</span> <span class='kw'>=</span> <span class='fu'>trend_terms</span>(<span class='kw'>more</span> <span class='kw'>=</span> <span class='st'>"higher"</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
 #&gt; [1] 2
 #&gt; 
@@ -207,14 +207,14 @@ return 0.25, when scale = 100 (default) 1/4 will return 25</p></td>
 #&gt; </div><div class='input'>
 <span class='co'># a phrase about the comparion can be edited by providing glue syntax</span>
 <span class='co'># 'c' = the 'compare' value, 'r' = 'reference'</span>
-<span class='fu'>build_phrase</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>expr</span> <span class='kw'>=</span> <span class='st'>"{c} to {r} people"</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; 10 to 8 people</div><div class='input'>
+<span class='fu'>compare_values</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>expr</span> <span class='kw'>=</span> <span class='st'>"{c} to {r} people"</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; 10 to 8 people</div><div class='input'>
 <span class='co'># you can also adjust the rounding, although the default is 1</span>
-<span class='fu'>build_phrase</span>(<span class='fl'>22</span>/<span class='fl'>7</span>, <span class='fl'>22</span>/<span class='fl'>3</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; 3.1 vs. 7.3</div><div class='input'><span class='fu'>build_phrase</span>(<span class='fl'>22</span>/<span class='fl'>7</span>, <span class='fl'>22</span>/<span class='fl'>3</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; 3.143 vs. 7.333</div><div class='input'>
+<span class='fu'>compare_values</span>(<span class='fl'>22</span>/<span class='fl'>7</span>, <span class='fl'>22</span>/<span class='fl'>3</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; 3.1 vs. 7.3</div><div class='input'><span class='fu'>compare_values</span>(<span class='fl'>22</span>/<span class='fl'>7</span>, <span class='fl'>22</span>/<span class='fl'>3</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; 3.143 vs. 7.333</div><div class='input'>
 <span class='co'># Using a list as will be output of compare_conditions()</span>
 
 <span class='co'># First a simplified example</span>
 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>build_phrase</span>(<span class='no'>a</span>, <span class='no'>b</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>compare_values</span>(<span class='no'>a</span>, <span class='no'>b</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; $delta
 #&gt; [1] 1
 #&gt; 
@@ -238,7 +238,7 @@ return 0.25, when scale = 100 (default) 1/4 will return 25</p></td>
 #&gt; </div><div class='input'>
 <span class='no'>res</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>round</span>, <span class='fl'>1</span>) <span class='kw'>%&gt;%</span> <span class='co'># prevents endless decimal places</span>
-  <span class='fu'>build_phrase</span>(
+  <span class='fu'>compare_values</span>(
     <span class='no'>comp_arr_delay_mean</span>,
     <span class='no'>ref_arr_delay_mean</span>
   ) <span class='kw'>%&gt;%</span>
