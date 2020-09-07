@@ -1,16 +1,16 @@
 #' @export
-build_phrase <- function(...) {
-  UseMethod("build_phrase")
+compare_values <- function(...) {
+  UseMethod("compare_values")
 }
 
 
-#' Build phrase components
+#' Compare two values and get talking points
 #'
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
 #' @param calc string should comparison be made as the difference between the
 #' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
-#' @param phrasing list of values to use for when y is more than x, y is the
+#' @param trend_phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
 #' @param expr a string using \code{\link[glue]{glue}} syntax. `{c}` =
 #' the 'compare' value, and `{r}` = 'reference'
@@ -24,26 +24,27 @@ build_phrase <- function(...) {
 #' @importFrom glue glue
 #' @importFrom purrr map_if
 #' @export
-#' @rdname build_phrase
-#' @seealso [view_components()] and [phrase_terms()]
+#' @rdname compare_values
+#' @seealso [view_list()] and [trend_terms()]
 #' @examples
 #' # manually entered
 #'
-#' build_phrase(10, 8) %>% head(2)
-#' build_phrase(10, 8, calc = "prop") %>% head(2)
-#' build_phrase(10, 8, phrasing = phrase_terms(more = "higher")) %>% head(2)
+#' compare_values(10, 8) %>% head(2)
+#' compare_values(10, 8, calc = "prop") %>% head(2)
+#' compare_values(10, 8, trend_phrasing = trend_terms(more = "higher")) %>%
+#'   head(2)
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
-#' build_phrase(10, 8, expr = "{c} to {r} people")$expr
+#' compare_values(10, 8, expr = "{c} to {r} people")$expr
 #'
 #' # you can also adjust the rounding, although the default is 1
-#' build_phrase(22/7, 22/3)$expr
-#' build_phrase(22/7, 22/3, n_decimal = 3)$expr
-build_phrase.default <- function(compare,
+#' compare_values(22/7, 22/3)$expr
+#' compare_values(22/7, 22/3, n_decimal = 3)$expr
+compare_values.default <- function(compare,
                                  reference,
                                  calc = c("value", "prop"),
-                                 phrasing = headliner::phrase_terms(),
+                                 trend_phrasing = headliner::trend_terms(),
                                  expr = "{c} vs. {r}",
                                  n_decimal = 1,
                                  round_all = TRUE,
@@ -61,9 +62,9 @@ build_phrase.default <- function(compare,
   phrase <-
     switch(
       as.character(sign_res), # must be a character
-      "1" = phrasing$more,
-      "-1" = phrasing$less,
-      "0" = phrasing$same
+      "1" = trend_phrasing$more,
+      "-1" = trend_phrasing$less,
+      "0" = trend_phrasing$same
     )
 
 
@@ -94,14 +95,14 @@ build_phrase.default <- function(compare,
 
 #' @param x a named list with values to compare
 #' @export
-#' @describeIn build_phrase Build phrase components from named list
+#' @describeIn compare_values Build phrase components from named list
 #' @examples
 #'
 #' # Using a list as will be output of compare_conditions()
 #'
 #' # First a simplified example
 #' list(a = 1, b = 2) %>%
-#'   build_phrase(a, b) %>%
+#'   compare_values(a, b) %>%
 #'   head(2)
 #'
 #' # How it is used with compare_conditions()
@@ -116,29 +117,28 @@ build_phrase.default <- function(compare,
 #' res
 #'
 #' res %>%
-#'   lapply(round, 1) %>% # prevents endless decimal places
-#'   build_phrase(
+#'   compare_values(
 #'     comp_arr_delay_mean,
 #'     ref_arr_delay_mean
 #'   ) %>%
 #'   head(2)
-build_phrase.list <- function(x, compare, reference, ...) {
+compare_values.list <- function(x, compare, reference, ...) {
   comp <- x[[deparse(match.call()[["compare"]])]]
   ref <- x[[deparse(match.call()[["reference"]])]]
 
-  build_phrase(comp, ref, ...)
+  compare_values(comp, ref, ...)
 }
 
 
-#' Compact view of phrase components
+#' Compact view of list values
 #'
-#' @param x list from 'build_phrase()'
+#' @param x list from 'compare_values()'
 #' @export
-#' @seealso [build_phrase()]
+#' @seealso [compare_values()]
 #' @examples
-#' build_phrase(10, 8) %>%
-#'   view_components()
-view_components <- function(x) {
+#' compare_values(10, 8) %>%
+#'   view_list()
+view_list <- function(x) {
   data.frame(
     VALUES = unlist(x)
   )
@@ -152,12 +152,12 @@ view_components <- function(x) {
 #' @param same string to use when x == y
 #'
 #' @export
-#' @seealso [build_phrase()]
+#' @seealso [compare_values()]
 #' @examples
-#' phrase_terms(same = "no change")
-phrase_terms <- function(more = "increase",
-                         less = "decrease",
-                         same = "difference") {
+#' trend_terms(same = "no change")
+trend_terms <- function(more = "increase",
+                        less = "decrease",
+                        same = "difference") {
   list(
     more = more,
     less = less,
