@@ -12,7 +12,8 @@ build_phrase <- function(...) {
 #' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
 #' @param phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
-#' @param expr a string using \code{\link[glue]{glue}} syntax
+#' @param expr a string using \code{\link[glue]{glue}} syntax. `{c}` =
+#' the 'compare' value, and `{r}` = 'reference'
 #' @param n_decimal numeric value to limit the number of decimal places in
 #' the returned values.
 #' @param round_all logical value to indicate if all values should be rounded.
@@ -33,7 +34,7 @@ build_phrase <- function(...) {
 #' build_phrase(10, 8, phrasing = phrase_terms(more = "higher")) %>% head(2)
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
-#' # '{c}' = 'compare' value, '{r}' = 'reference'
+#' # 'c' = the 'compare' value, 'r' = 'reference'
 #' build_phrase(10, 8, expr = "{c} to {r} people")$expr
 #'
 #' # you can also adjust the rounding, although the default is 1
