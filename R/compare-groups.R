@@ -41,7 +41,7 @@ compare_conditions <- function(df,
 }
 
 
-#' Compare two columns
+#' Compare two columns within a data frame
 #'
 #' @param df data frame
 #' @param ... columns to compare, supports select helpers like 'starts_with()'
