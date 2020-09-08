@@ -4,11 +4,11 @@
 #' @param compare condition for comparison, same criteria you would use in
 #' 'dplyr::filter'
 #' @param reference same as compare
-#' @param ... columns to use in comparison
+#' @param cols columns to use in comparison
 #' @param calc named list of the functions to use, ex:
 #' list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
 #' list(mean = ~mean(.x, na.rm = TRUE), sd = sd)
-#'
+#' @importFrom dplyr everything
 #' @export
 #'
 #' @examples
@@ -32,32 +32,34 @@
 compare_conditions <- function(df,
                                compare,
                                reference,
-                               ...,
+                               cols = everything(),
                                calc = list(mean = mean)
                                ) {
-  res_1 <- aggregate_group(df, "comp_", ..., calc = calc, cond = {{compare}})
-  res_2 <- aggregate_group(df, "ref_", ..., calc = calc, cond = {{reference}})
-  append(res_1, res_2)
+  res_1 <- aggregate_group(df, "_comp", {{cols}}, calc = calc, cond = {{compare}})
+  res_2 <- aggregate_group(df, "_ref", {{cols}}, calc = calc, cond = {{reference}})
+  final <- append(res_1, res_2)
+  final[order(names(final))]
 }
 
 
 #' Compare two columns within a data frame
 #'
 #' @param df data frame
-#' @param ... columns to compare, supports select helpers like 'starts_with()'
+#' @param cols columns to compare, supports select helpers like 'starts_with()'
 #' or 'where(is.numeric)'
 #' @param calc named list of the functions to use, ex:
 #' list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
 #' list(mean = ~mean(.x, na.rm = TRUE), sd = sd)
-#'
+#' @importFrom dplyr everything
 #' @export
 #'
 #' @examples
 #' compare_columns(flights_jfk, )
 #' compare_columns(flights_jfk, ends_with("delay"))
 compare_columns <- function(df,
-                            ...,
+                            cols = everything(),
                             calc = list(mean = mean)) {
-  aggregate_group(df, "", ..., calc = calc)
+  res <- aggregate_group(df, "", {{cols}}, calc = calc)
+  res[order(names(res))]
 }
 

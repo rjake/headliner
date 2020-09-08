@@ -71,7 +71,7 @@ compare_values.default <- function(compare,
   output <-
     list(
       delta = abs(res),
-      phrase = phrase,
+      trend = phrase,
       comp_value = compare,
       ref_value = reference,
       raw_delta = res,
@@ -98,7 +98,7 @@ compare_values.default <- function(compare,
 #' @describeIn compare_values Build phrase components from named list
 #' @examples
 #'
-#' # Using a list as will be output of compare_conditions()
+#' # Piping into compare_value() from a list
 #'
 #' # First a simplified example
 #' list(a = 1, b = 2) %>%
