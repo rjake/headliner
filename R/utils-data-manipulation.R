@@ -46,7 +46,7 @@ aggregate_group <- function(df, name, ..., calc, cond) {
   }
 
   df %>%
-    summarise(across(..., calc, .names = "{name}{.col}_{.fn}")) %>%
+    summarise(across(..., calc, .names = "{.fn}_{.col}{name}")) %>%
     ungroup() %>%
     as.list()
 }
