@@ -112,7 +112,7 @@
     <p>Compare two columns within a data frame</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compare_columns</span>(<span class='no'>df</span>, <span class='no'>...</span>, <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>mean</span>))</pre>
+    <pre class="usage"><span class='fu'>compare_columns</span>(<span class='no'>df</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>everything</span>(), <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>mean</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -122,7 +122,7 @@
       <td><p>data frame</p></td>
     </tr>
     <tr>
-      <th>...</th>
+      <th>cols</th>
       <td><p>columns to compare, supports select helpers like 'starts_with()'
 or 'where(is.numeric)'</p></td>
     </tr>
@@ -136,64 +136,64 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, )</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; $year_mean
-#&gt; [1] 2012.499954
-#&gt; 
-#&gt; $date_mean
-#&gt; [1] "2013-01-01"
-#&gt; 
-#&gt; $hour_mean
-#&gt; [1] 15.03484192
-#&gt; 
-#&gt; $carrier_mean
-#&gt; [1] NA
-#&gt; 
-#&gt; $dest_mean
-#&gt; [1] NA
-#&gt; 
-#&gt; $tailnum_mean
-#&gt; [1] NA
-#&gt; 
-#&gt; $distance_mean
-#&gt; [1] 2453.745691
-#&gt; 
-#&gt; $air_time_mean
+    <pre class="examples"><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, )</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; $mean_air_time
 #&gt; [1] 327.7805328
 #&gt; 
-#&gt; $dep_delay_mean
-#&gt; [1] 10.41128215
-#&gt; 
-#&gt; $arr_delay_mean
+#&gt; $mean_arr_delay
 #&gt; [1] 0.1459120656
 #&gt; 
-#&gt; $temp_mean
-#&gt; [1] 57.27721633
+#&gt; $mean_carrier
+#&gt; [1] NA
 #&gt; 
-#&gt; $dewp_mean
+#&gt; $mean_date
+#&gt; [1] "2013-01-01"
+#&gt; 
+#&gt; $mean_dep_delay
+#&gt; [1] 10.41128215
+#&gt; 
+#&gt; $mean_dest
+#&gt; [1] NA
+#&gt; 
+#&gt; $mean_dewp
 #&gt; [1] 41.06711218
 #&gt; 
-#&gt; $humid_mean
+#&gt; $mean_distance
+#&gt; [1] 2453.745691
+#&gt; 
+#&gt; $mean_hour
+#&gt; [1] 15.03484192
+#&gt; 
+#&gt; $mean_humid
 #&gt; [1] 57.20094294
 #&gt; 
-#&gt; $wind_dir_mean
-#&gt; [1] 207.5795004
-#&gt; 
-#&gt; $wind_speed_mean
-#&gt; [1] 12.43572178
-#&gt; 
-#&gt; $precip_mean
+#&gt; $mean_precip
 #&gt; [1] 0.001494146926
 #&gt; 
-#&gt; $pressure_mean
+#&gt; $mean_pressure
 #&gt; [1] 1018.002212
 #&gt; 
-#&gt; $visib_mean
-#&gt; [1] 9.576752696
-#&gt; </div><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, <span class='fu'>ends_with</span>(<span class='st'>"delay"</span>))</div><div class='output co'>#&gt; $dep_delay_mean
-#&gt; [1] 10.41128215
+#&gt; $mean_tailnum
+#&gt; [1] NA
 #&gt; 
-#&gt; $arr_delay_mean
+#&gt; $mean_temp
+#&gt; [1] 57.27721633
+#&gt; 
+#&gt; $mean_visib
+#&gt; [1] 9.576752696
+#&gt; 
+#&gt; $mean_wind_dir
+#&gt; [1] 207.5795004
+#&gt; 
+#&gt; $mean_wind_speed
+#&gt; [1] 12.43572178
+#&gt; 
+#&gt; $mean_year
+#&gt; [1] 2012.499954
+#&gt; </div><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, <span class='fu'>ends_with</span>(<span class='st'>"delay"</span>))</div><div class='output co'>#&gt; $mean_arr_delay
 #&gt; [1] 0.1459120656
+#&gt; 
+#&gt; $mean_dep_delay
+#&gt; [1] 10.41128215
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

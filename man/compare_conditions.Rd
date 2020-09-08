@@ -4,7 +4,13 @@
 \alias{compare_conditions}
 \title{Compare two conditions within a data frame}
 \usage{
-compare_conditions(df, compare, reference, ..., calc = list(mean = mean))
+compare_conditions(
+  df,
+  compare,
+  reference,
+  cols = everything(),
+  calc = list(mean = mean)
+)
 }
 \arguments{
 \item{df}{data frame}
@@ -14,7 +20,7 @@ compare_conditions(df, compare, reference, ..., calc = list(mean = mean))
 
 \item{reference}{same as compare}
 
-\item{...}{columns to use in comparison}
+\item{cols}{columns to use in comparison}
 
 \item{calc}{named list of the functions to use, ex:
 list(mean = mean, sd = sd) 'purrr' style phrases are also supported like

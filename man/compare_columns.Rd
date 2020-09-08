@@ -4,12 +4,12 @@
 \alias{compare_columns}
 \title{Compare two columns within a data frame}
 \usage{
-compare_columns(df, ..., calc = list(mean = mean))
+compare_columns(df, cols = everything(), calc = list(mean = mean))
 }
 \arguments{
 \item{df}{data frame}
 
-\item{...}{columns to compare, supports select helpers like 'starts_with()'
+\item{cols}{columns to compare, supports select helpers like 'starts_with()'
 or 'where(is.numeric)'}
 
 \item{calc}{named list of the functions to use, ex:

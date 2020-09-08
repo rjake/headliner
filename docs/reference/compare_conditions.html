@@ -112,7 +112,13 @@
     <p>Compare two conditions within a data frame</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compare_conditions</span>(<span class='no'>df</span>, <span class='no'>compare</span>, <span class='no'>reference</span>, <span class='no'>...</span>, <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>mean</span>))</pre>
+    <pre class="usage"><span class='fu'>compare_conditions</span>(
+  <span class='no'>df</span>,
+  <span class='no'>compare</span>,
+  <span class='no'>reference</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>everything</span>(),
+  <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>mean</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,7 +137,7 @@
       <td><p>same as compare</p></td>
     </tr>
     <tr>
-      <th>...</th>
+      <th>cols</th>
       <td><p>columns to use in comparison</p></td>
     </tr>
     <tr>
@@ -151,15 +157,7 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>dep_delay</span>, <span class='no'>arr_delay</span>),
     <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='no'>sd</span>)
   ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='view_components.html'>view_components</a></span>()</div><div class='output co'>#&gt;                     VALUES
-#&gt; comp_dep_delay_mean 13.407
-#&gt; comp_dep_delay_sd   47.973
-#&gt; comp_arr_delay_mean  3.554
-#&gt; comp_arr_delay_sd   53.368
-#&gt; ref_dep_delay_mean  10.411
-#&gt; ref_dep_delay_sd    37.779
-#&gt; ref_arr_delay_mean   0.146
-#&gt; ref_arr_delay_sd    44.039</div><div class='input'>
+  <span class='fu'>view_components</span>()</div><div class='output co'>#&gt; <span class='error'>Error in view_components(.): could not find function "view_components"</span></div><div class='input'>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>compare_conditions</span>(
     <span class='kw'>compare</span> <span class='kw'>=</span> (<span class='no'>hp</span> <span class='kw'>&gt;</span> <span class='fl'>100</span> <span class='kw'>|</span> <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>4</span>),
@@ -167,15 +165,7 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
     <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>starts_with</a></span>(<span class='st'>"d"</span>),
     <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='no'>max</span>)
   ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='view_components.html'>view_components</a></span>()</div><div class='output co'>#&gt;                VALUES
-#&gt; comp_disp_mean 238.09
-#&gt; comp_disp_max  472.00
-#&gt; comp_drat_mean   3.57
-#&gt; comp_drat_max    4.93
-#&gt; ref_disp_mean   95.23
-#&gt; ref_disp_max   146.70
-#&gt; ref_drat_mean    4.17
-#&gt; ref_drat_max     4.93</div></pre>
+  <span class='fu'>view_components</span>()</div><div class='output co'>#&gt; <span class='error'>Error in view_components(.): could not find function "view_components"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
