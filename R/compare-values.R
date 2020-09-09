@@ -1,9 +1,3 @@
-#' @export
-compare_values <- function(...) {
-  UseMethod("compare_values")
-}
-
-
 #' Compare two values and get talking points
 #'
 #' @param compare numeric value to compare against reference (base) value
@@ -41,7 +35,7 @@ compare_values <- function(...) {
 #' # you can also adjust the rounding, although the default is 1
 #' compare_values(22/7, 22/3)$expr
 #' compare_values(22/7, 22/3, n_decimal = 3)$expr
-compare_values.default <- function(compare,
+compare_values <- function(compare,
                                  reference,
                                  calc = c("value", "prop"),
                                  trend_phrasing = headliner::trend_terms(),
@@ -91,42 +85,6 @@ compare_values.default <- function(compare,
   }
 
   output
-}
-
-#' @param x a named list with values to compare
-#' @export
-#' @describeIn compare_values Build phrase components from named list
-#' @examples
-#'
-#' # Piping into compare_value() from a list
-#'
-#' # First a simplified example
-#' list(a = 1, b = 2) %>%
-#'   compare_values(a, b) %>%
-#'   head(2)
-#'
-#' # How it is used with compare_conditions()
-#' res <-
-#'   flights_jfk %>%
-#'   compare_conditions(
-#'     compare = carrier == "AA",
-#'     reference = carrier == "DL",
-#'     arr_delay
-#'   )
-#'
-#' res
-#'
-#' res %>%
-#'   compare_values(
-#'     comp_arr_delay_mean,
-#'     ref_arr_delay_mean
-#'   ) %>%
-#'   head(2)
-compare_values.list <- function(x, compare, reference, ...) {
-  comp <- x[[deparse(match.call()[["compare"]])]]
-  ref <- x[[deparse(match.call()[["reference"]])]]
-
-  compare_values(comp, ref, ...)
 }
 
 
