@@ -118,16 +118,14 @@
   <span class='no'>reference</span>,
   <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"{trend} of {delta} ({orig_values})"</span>,
   <span class='no'>...</span>,
+  <span class='kw'>if_match</span> <span class='kw'>=</span> <span class='st'>"There was no difference."</span>,
   <span class='kw'>trend_phrasing</span> <span class='kw'>=</span> <span class='kw pkg'>headliner</span><span class='kw ns'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span>(),
   <span class='kw'>orig_values</span> <span class='kw'>=</span> <span class='st'>"{c} vs. {r}"</span>,
   <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>round_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>return_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
-
-<span class='co'># S3 method for list</span>
-<span class='fu'>headline</span>(<span class='no'>x</span>, <span class='no'>compare</span>, <span class='no'>reference</span>, <span class='no'>...</span>)</pre>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,17 +139,25 @@
       <td><p>numeric value that 'compare' value will be compared against</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Arguments passed on to <code>compare_values</code></p><dl'>
-    <dt><code>orig_values</code></dt><dd><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax. <code>{c}</code> =
-the 'compare' value, and <code>{r}</code> = 'reference'</p></dd>
-  
-</dl></td>
+      <th>headline</th>
+      <td><p>a string to format the final output. Uses
+<code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax</p></td>
+    </tr>
+    <tr>
+      <th>if_match</th>
+      <td><p>string to display if numbers match, uses
+<code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax</p></td>
     </tr>
     <tr>
       <th>trend_phrasing</th>
       <td><p>list of values to use for when y is more than x, y is the
 same as x, or y is less than x.</p></td>
+    </tr>
+    <tr>
+      <th>orig_values</th>
+      <td><p>a string to display the two original values. Uses
+<code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax. <code>{c}</code> = the 'compare' value, and
+<code>{r}</code> = 'reference'</p></td>
     </tr>
     <tr>
       <th>n_decimal</th>
@@ -169,36 +175,23 @@ all values will be round to the length specified by 'n_decimal'.</p></td>
       <td><p>number indicating the scaling factor. When scale = 1, 1/4 will
 return 0.25, when scale = 100 (default) 1/4 will return 25</p></td>
     </tr>
-    <tr>
-      <th>x</th>
-      <td><p>a named list with values to compare</p></td>
-    </tr>
-    <tr>
-      <th>calc</th>
-      <td><p>string should comparison be made as the difference between the
-two ('value', y - x) or the percent difference ('prop', (y - x) / x)</p></td>
-    </tr>
-    <tr>
-      <th>expr</th>
-      <td><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax. <code>{c}</code> =
-the 'compare' value, and <code>{r}</code> = 'reference'</p></td>
-    </tr>
     </table>
 
-    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
-
-    
-<ul>
-<li><p><code>list</code>: Build phrase components from named list</p></li>
-</ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='view_list.html'>view_list()</a></code> and <code><a href='trend_terms.html'>trend_terms()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># manually entered</span>
-
-<span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; increase of 2 (10 vs. 8)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"There was a ${delta} {trend} vs last year"</span>)</div><div class='output co'>#&gt; There was a $2 increase vs last year</div><div class='input'><span class='fu'>headline</span>(
+    <pre class="examples"><div class='input'><span class='co'># values can be manually entered, some headlines are provided by default</span>
+<span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; increase of 2 (10 vs. 8)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>8</span>, <span class='fl'>10</span>)</div><div class='output co'>#&gt; decrease of 2 (8 vs. 10)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>10</span>)</div><div class='output co'>#&gt; There was no difference.</div><div class='input'>
+<span class='co'># most likely you'll edit the headline by hand</span>
+<span class='fu'>headline</span>(
+  <span class='kw'>compare</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>reference</span> <span class='kw'>=</span> <span class='fl'>8</span>,
+  <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"There was a ${delta} {trend} vs last year"</span>
+)</div><div class='output co'>#&gt; There was a $2 increase vs last year</div><div class='input'>
+<span class='co'># you can also adjust the phrasing of higher/lower values</span>
+<span class='fu'>headline</span>(
   <span class='kw'>compare</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>reference</span> <span class='kw'>=</span> <span class='fl'>8</span>,
   <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"Group A was {trend} by {delta_p}%."</span>,
@@ -209,31 +202,29 @@ the 'compare' value, and <code>{r}</code> = 'reference'</p></td>
 <span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>orig_values</span> <span class='kw'>=</span> <span class='st'>"{c} to {r} people"</span>)</div><div class='output co'>#&gt; increase of 2 (10 to 8 people)</div><div class='input'>
 <span class='co'># you can also adjust the rounding, although the default is 1</span>
 <span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>)</div><div class='output co'>#&gt; decrease of 0.3 (0.1 vs. 0.4)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; decrease of 0.309 (0.123 vs. 0.432)</div><div class='input'>
-<span class='co'># Piping from a list (ex. compare_value())</span>
-
-<span class='co'># First a simplified example</span>
-<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>headline</span>(<span class='no'>a</span>, <span class='no'>b</span>)</div><div class='output co'>#&gt; decrease of 1 (1 vs. 2)</div><div class='input'>
-<span class='co'># How it is used with compare_conditions()</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span>
-  <span class='no'>flights_jfk</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='compare_conditions.html'>compare_conditions</a></span>(
-    <span class='kw'>compare</span> <span class='kw'>=</span> <span class='no'>carrier</span> <span class='kw'>==</span> <span class='st'>"AA"</span>,
-    <span class='kw'>reference</span> <span class='kw'>=</span> <span class='no'>carrier</span> <span class='kw'>==</span> <span class='st'>"DL"</span>,
-    <span class='no'>arr_delay</span>
-  )
-
-<span class='no'>res</span></div><div class='output co'>#&gt; $mean_arr_delay_comp
-#&gt; [1] 3.553661784
-#&gt; 
-#&gt; $mean_arr_delay_ref
-#&gt; [1] -5.013882567
-#&gt; </div><div class='input'>
-<span class='no'>res</span> <span class='kw'>%&gt;%</span>
+<span class='co'># the values can come from a summarized data frame or a named list</span>
+<span class='no'>iris</span> <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_at</a></span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span>(<span class='no'>Sepal.Length</span>, <span class='no'>Petal.Length</span>), <span class='no'>mean</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>headline</span>(
-    <span class='no'>mean_arr_delay_comp</span>,
-    <span class='no'>mean_arr_delay_ref</span>
-  )</div><div class='output co'>#&gt; increase of 8.6 (3.6 vs. -5)</div></pre>
+    <span class='kw'>compare</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span>,
+    <span class='kw'>reference</span> <span class='kw'>=</span> <span class='no'>Petal.Length</span>,
+    <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"A difference of {delta}"</span>
+  )</div><div class='output co'>#&gt; A difference of 2.1</div><div class='input'>
+<span class='co'># compare_conditions() produces a named list that can be passed to headline()</span>
+ <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
+   <span class='fu'><a href='compare_conditions.html'>compare_conditions</a></span>(
+     <span class='kw'>compare</span> <span class='kw'>=</span> <span class='no'>cyl</span> <span class='kw'>==</span> <span class='fl'>4</span>,
+     <span class='kw'>reference</span> <span class='kw'>=</span> <span class='no'>cyl</span> <span class='kw'>==</span> <span class='fl'>6</span>,
+     <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>mpg</span>)
+   ) <span class='kw'>%&gt;%</span>
+   <span class='fu'>headline</span>(
+     <span class='kw'>compare</span> <span class='kw'>=</span> <span class='no'>mean_mpg_comp</span>,
+     <span class='kw'>reference</span> <span class='kw'>=</span> <span class='no'>mean_mpg_ref</span>,
+     <span class='kw'>headline</span> <span class='kw'>=</span>
+       <span class='st'>"4-cylinder cars get an average of {delta} {trend} miles \\
+       per gallon than 6-cylinder cars ({orig_values})."</span>,
+     <span class='kw'>trend_phrasing</span> <span class='kw'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span>(<span class='st'>"more"</span>, <span class='st'>"less"</span>)
+   )</div><div class='output co'>#&gt; 4-cylinder cars get an average of 6.9 more miles per gallon than 6-cylinder cars (26.7 vs. 19.7).</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

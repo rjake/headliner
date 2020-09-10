@@ -2,7 +2,6 @@
 % Please edit documentation in R/headline.R
 \name{headline.default}
 \alias{headline.default}
-\alias{headline.list}
 \title{Compare two values and get talking points}
 \usage{
 \method{headline}{default}(
@@ -10,6 +9,7 @@
   reference,
   headline = "{trend} of {delta} ({orig_values})",
   ...,
+  if_match = "There was no difference.",
   trend_phrasing = headliner::trend_terms(),
   orig_values = "{c} vs. {r}",
   n_decimal = 1,
@@ -17,23 +17,24 @@
   scale = 100,
   return_data = FALSE
 )
-
-\method{headline}{list}(x, compare, reference, ...)
 }
 \arguments{
 \item{compare}{numeric value to compare against reference (base) value}
 
 \item{reference}{numeric value that 'compare' value will be compared against}
 
-\item{...}{
-  Arguments passed on to \code{\link[=compare_values]{compare_values}}
-  \describe{
-    \item{\code{orig_values}}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
-the 'compare' value, and \code{{r}} = 'reference'}
-  }}
+\item{headline}{a string to format the final output. Uses
+\code{\link[glue]{glue}} syntax}
+
+\item{if_match}{string to display if numbers match, uses
+\code{\link[glue]{glue}} syntax}
 
 \item{trend_phrasing}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
+
+\item{orig_values}{a string to display the two original values. Uses
+\code{\link[glue]{glue}} syntax. \code{{c}} = the 'compare' value, and
+\code{{r}} = 'reference'}
 
 \item{n_decimal}{numeric value to limit the number of decimal places in
 the returned values.}
@@ -44,28 +45,24 @@ all values will be round to the length specified by 'n_decimal'.}
 
 \item{scale}{number indicating the scaling factor. When scale = 1, 1/4 will
 return 0.25, when scale = 100 (default) 1/4 will return 25}
-
-\item{x}{a named list with values to compare}
-
-\item{calc}{string should comparison be made as the difference between the
-two ('value', y - x) or the percent difference ('prop', (y - x) / x)}
-
-\item{expr}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
-the 'compare' value, and \code{{r}} = 'reference'}
 }
 \description{
 Compare two values and get talking points
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{list}: Build phrase components from named list
-}}
-
 \examples{
-# manually entered
-
+# values can be manually entered, some headlines are provided by default
 headline(10, 8)
-headline(10, 8, headline = "There was a ${delta} {trend} vs last year")
+headline(8, 10)
+headline(10, 10)
+
+# most likely you'll edit the headline by hand
+headline(
+  compare = 10,
+  reference = 8,
+  headline = "There was a ${delta} {trend} vs last year"
+)
+
+# you can also adjust the phrasing of higher/lower values
 headline(
   compare = 10,
   reference = 8,
@@ -81,28 +78,30 @@ headline(10, 8, orig_values = "{c} to {r} people")
 headline(0.1234, 0.4321)
 headline(0.1234, 0.4321, n_decimal = 3)
 
-# Piping from a list (ex. compare_value())
-
-# First a simplified example
-list(a = 1, b = 2) \%>\%
-  headline(a, b)
-
-# How it is used with compare_conditions()
-res <-
-  flights_jfk \%>\%
-  compare_conditions(
-    compare = carrier == "AA",
-    reference = carrier == "DL",
-    arr_delay
-  )
-
-res
-
-res \%>\%
+# the values can come from a summarized data frame or a named list
+iris \%>\%
+  dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) \%>\%
   headline(
-    mean_arr_delay_comp,
-    mean_arr_delay_ref
+    compare = Sepal.Length,
+    reference = Petal.Length,
+    headline = "A difference of {delta}"
   )
+
+# compare_conditions() produces a named list that can be passed to headline()
+ mtcars \%>\%
+   compare_conditions(
+     compare = cyl == 4,
+     reference = cyl == 6,
+     cols = c(mpg)
+   ) \%>\%
+   headline(
+     compare = mean_mpg_comp,
+     reference = mean_mpg_ref,
+     headline =
+       "4-cylinder cars get an average of {delta} {trend} miles \\\\
+       per gallon than 6-cylinder cars ({orig_values}).",
+     trend_phrasing = trend_terms("more", "less")
+   )
 }
 \seealso{
 \code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}

@@ -7,12 +7,15 @@ headline <- function(...) {
 #'
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
-#' @param calc string should comparison be made as the difference between the
-#' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
+#' @param headline a string to format the final output. Uses
+#' \code{\link[glue]{glue}} syntax
+#' @param if_match string to display if numbers match, uses
+#' \code{\link[glue]{glue}} syntax
 #' @param trend_phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
-#' @param expr a string using \code{\link[glue]{glue}} syntax. `{c}` =
-#' the 'compare' value, and `{r}` = 'reference'
+#' @param orig_values a string to display the two original values. Uses
+#'  \code{\link[glue]{glue}} syntax. `{c}` = the 'compare' value, and
+#'  `{r}` = 'reference'
 #' @param n_decimal numeric value to limit the number of decimal places in
 #' the returned values.
 #' @param round_all logical value to indicate if all values should be rounded.
@@ -26,10 +29,19 @@ headline <- function(...) {
 #' @rdname headline
 #' @seealso [view_list()] and [trend_terms()]
 #' @examples
-#' # manually entered
-#'
+#' # values can be manually entered, some headlines are provided by default
 #' headline(10, 8)
-#' headline(10, 8, headline = "There was a ${delta} {trend} vs last year")
+#' headline(8, 10)
+#' headline(10, 10)
+#'
+#' # most likely you'll edit the headline by hand
+#' headline(
+#'   compare = 10,
+#'   reference = 8,
+#'   headline = "There was a ${delta} {trend} vs last year"
+#' )
+#'
+#' # you can also adjust the phrasing of higher/lower values
 #' headline(
 #'   compare = 10,
 #'   reference = 8,
@@ -44,10 +56,36 @@ headline <- function(...) {
 #' # you can also adjust the rounding, although the default is 1
 #' headline(0.1234, 0.4321)
 #' headline(0.1234, 0.4321, n_decimal = 3)
+#'
+#' # the values can come from a summarized data frame or a named list
+#' iris %>%
+#'   dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) %>%
+#'   headline(
+#'     compare = Sepal.Length,
+#'     reference = Petal.Length,
+#'     headline = "A difference of {delta}"
+#'   )
+#'
+#' # compare_conditions() produces a named list that can be passed to headline()
+#'  mtcars %>%
+#'    compare_conditions(
+#'      compare = cyl == 4,
+#'      reference = cyl == 6,
+#'      cols = c(mpg)
+#'    ) %>%
+#'    headline(
+#'      compare = mean_mpg_comp,
+#'      reference = mean_mpg_ref,
+#'      headline =
+#'        "4-cylinder cars get an average of {delta} {trend} miles \\
+#'        per gallon than 6-cylinder cars ({orig_values}).",
+#'      trend_phrasing = trend_terms("more", "less")
+#'    )
 headline.default <- function(compare,
                              reference,
                              headline = "{trend} of {delta} ({orig_values})",
                              ...,
+                             if_match = "There was no difference.",
                              trend_phrasing = headliner::trend_terms(),
                              orig_values = "{c} vs. {r}",
                              n_decimal = 1,
@@ -65,7 +103,12 @@ headline.default <- function(compare,
       scale = scale
     )
 
+  if (res$sign == 0) {
+    headline <- if_match
+  }
+
   if (return_data) {
+    res <- append(res, list(headline = glue_data(res, headline)))
     return(res)
   }
 
@@ -78,31 +121,7 @@ headline.default <- function(compare,
 #' @inheritParams headline.default
 #' @inheritDotParams compare_values
 #' @export
-#' @describeIn headline Build phrase components from named list
 #' @examples
-#'
-#' # Piping from a list (ex. compare_value())
-#'
-#' # First a simplified example
-#' list(a = 1, b = 2) %>%
-#'   headline(a, b)
-#'
-#' # How it is used with compare_conditions()
-#' res <-
-#'   flights_jfk %>%
-#'   compare_conditions(
-#'     compare = carrier == "AA",
-#'     reference = carrier == "DL",
-#'     arr_delay
-#'   )
-#'
-#' res
-#'
-#' res %>%
-#'   headline(
-#'     mean_arr_delay_comp,
-#'     mean_arr_delay_ref
-#'   )
 headline.list <- function(x, compare, reference, ...) {
   comp <- x[[deparse(match.call()[["compare"]])]]
   ref <- x[[deparse(match.call()[["reference"]])]]
