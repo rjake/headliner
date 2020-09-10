@@ -8,14 +8,14 @@
 \method{headline}{default}(
   compare,
   reference,
-  headline = "",
+  headline = "{delta} {trend} {orig_values}",
   ...,
-  calc = c("value", "prop"),
   trend_phrasing = headliner::trend_terms(),
-  expr = "{c} vs. {r}",
+  orig_values = "{c} vs. {r}",
   n_decimal = 1,
   round_all = TRUE,
-  scale = 100
+  scale = 100,
+  return_data = FALSE
 )
 
 \method{headline}{list}(x, compare, reference, ...)
@@ -28,17 +28,12 @@
 \item{...}{
   Arguments passed on to \code{\link[=compare_values]{compare_values}}
   \describe{
-    \item{\code{}}{}
+    \item{\code{orig_values}}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
+the 'compare' value, and \code{{r}} = 'reference'}
   }}
-
-\item{calc}{string should comparison be made as the difference between the
-two ('value', y - x) or the percent difference ('prop', (y - x) / x)}
 
 \item{trend_phrasing}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
-
-\item{expr}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
-the 'compare' value, and \code{{r}} = 'reference'}
 
 \item{n_decimal}{numeric value to limit the number of decimal places in
 the returned values.}
@@ -51,6 +46,12 @@ all values will be round to the length specified by 'n_decimal'.}
 return 0.25, when scale = 100 (default) 1/4 will return 25}
 
 \item{x}{a named list with values to compare}
+
+\item{calc}{string should comparison be made as the difference between the
+two ('value', y - x) or the percent difference ('prop', (y - x) / x)}
+
+\item{expr}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
+the 'compare' value, and \code{{r}} = 'reference'}
 }
 \description{
 Compare two values and get talking points

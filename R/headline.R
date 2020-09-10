@@ -42,9 +42,8 @@ headline <- function(...) {
 #' headline(22/7, 22/3, n_decimal = 3)$expr
 headline.default <- function(compare,
                              reference,
-                             headline = "{delta} {trend} {orig_expr}",
+                             headline = "{delta} {trend} {orig_values}",
                              ...,
-                             calc = c("value", "prop"),
                              trend_phrasing = headliner::trend_terms(),
                              orig_values = "{c} vs. {r}",
                              n_decimal = 1,
@@ -55,7 +54,6 @@ headline.default <- function(compare,
     compare_values(
       compare = compare,
       reference = reference,
-      calc = calc,
       trend_phrasing = trend_phrasing,
       orig_values = orig_values,
       n_decimal = n_decimal,
@@ -109,3 +107,29 @@ headline.list <- function(x, compare, reference, ...) {
 
   headline(comp, ref, ...)
 }
+
+#' @export
+#' @importFrom glue glue
+headline.data.frame <- function(df, compare, reference, ...) {
+  if (nrow(df) > 1) {
+    stop(
+      glue("Data frame must be a single row. Consider using \\
+      compare_conditions() or compare_columns() before using headline()"),
+      call. = FALSE
+    )
+  }
+
+  comp <- pull(df, {{compare}})
+  ref <- pull(df, {{reference}})
+
+  headline(comp, ref, ...)
+}
+
+
+# pull_vector <- function(x, col) {
+#   x[[deparse(match.call()[["col"]])]]
+# }
+#
+# pull_vector(head(mtcars), hp)
+# pull_vector(list(a = 123, b = 234), a)
+

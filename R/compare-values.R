@@ -19,12 +19,13 @@
 #' @importFrom purrr map_if
 #' @export
 #' @rdname compare_values
-#' @seealso [view_list()] and [trend_terms()]
+#' @seealso [headline()], [view_list()] and [trend_terms()]
 #' @examples
-#' # manually entered
+#' # the values can be manually entered
 #'
 #' compare_values(10, 8) %>% head(2)
-#' compare_values(10, 8, calc = "prop") %>% head(2)
+#' # percent difference (10-8)/8
+#' compare_values(10, 8)$delta_p
 #' compare_values(10, 8, trend_phrasing = trend_terms(more = "higher")) %>%
 #'   head(2)
 #'
@@ -36,20 +37,20 @@
 #' compare_values(22/7, 22/3)$orig_values
 #' compare_values(22/7, 22/3, n_decimal = 3)$orig_values
 compare_values <- function(compare,
-                                 reference,
-                                 trend_phrasing = headliner::trend_terms(),
-                                 orig_values = "{c} vs. {r}",
-                                 n_decimal = 1,
-                                 round_all = TRUE,
-                                 scale = 100) {
-  res <- compare - reference
-  res_p <- (compare - reference) / reference  * scale
+                           reference,
+                           trend_phrasing = headliner::trend_terms(),
+                           orig_values = "{c} vs. {r}",
+                           n_decimal = 1,
+                           round_all = TRUE,
+                           scale = 100) {
+  calc <- compare - reference
+  calc_p <- (compare - reference) / reference  * scale
 
-  sign_res <- sign(res)
+  sign_calc <- sign(calc)
 
   phrase <-
     switch(
-      as.character(sign_res), # must be a character
+      as.character(sign_calc), # must be a character
       "1" = trend_phrasing$more,
       "-1" = trend_phrasing$less,
       "0" = trend_phrasing$same
@@ -58,15 +59,14 @@ compare_values <- function(compare,
 
   output <-
     list(
-      delta = abs(res),
+      delta = abs(calc),
       trend = phrase,
+      delta_p = abs(calc_p),
       comp_value = compare,
-      delta_p = abs(res_p),
       ref_value = reference,
-      raw_delta = res,
-      raw_delta_p = res_p,
-      sign = sign_res,
-      calc = calc,
+      raw_delta = calc,
+      raw_delta_p = calc_p,
+      sign = sign_calc,
       orig_values = glue(
         orig_values,
         c = round(compare, n_decimal),

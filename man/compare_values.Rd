@@ -7,9 +7,8 @@
 compare_values(
   compare,
   reference,
-  calc = c("value", "prop"),
   trend_phrasing = headliner::trend_terms(),
-  expr = "{c} vs. {r}",
+  orig_values = "{c} vs. {r}",
   n_decimal = 1,
   round_all = TRUE,
   scale = 100
@@ -20,13 +19,10 @@ compare_values(
 
 \item{reference}{numeric value that 'compare' value will be compared against}
 
-\item{calc}{string should comparison be made as the difference between the
-two ('value', y - x) or the percent difference ('prop', (y - x) / x)}
-
 \item{trend_phrasing}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
 
-\item{expr}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
+\item{orig_values}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
 the 'compare' value, and \code{{r}} = 'reference'}
 
 \item{n_decimal}{numeric value to limit the number of decimal places in
@@ -38,26 +34,30 @@ all values will be round to the length specified by 'n_decimal'.}
 
 \item{scale}{number indicating the scaling factor. When scale = 1, 1/4 will
 return 0.25, when scale = 100 (default) 1/4 will return 25}
+
+\item{calc}{string should comparison be made as the difference between the
+two ('value', y - x) or the percent difference ('prop', (y - x) / x)}
 }
 \description{
 Compare two values and get talking points
 }
 \examples{
-# manually entered
+# the values can be manually entered
 
 compare_values(10, 8) \%>\% head(2)
-compare_values(10, 8, calc = "prop") \%>\% head(2)
+# percent difference (10-8)/8
+compare_values(10, 8)$delta_p
 compare_values(10, 8, trend_phrasing = trend_terms(more = "higher")) \%>\%
   head(2)
 
 # a phrase about the comparion can be edited by providing glue syntax
 # 'c' = the 'compare' value, 'r' = 'reference'
-compare_values(10, 8, expr = "{c} to {r} people")$expr
+compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
 
 # you can also adjust the rounding, although the default is 1
-compare_values(22/7, 22/3)$expr
-compare_values(22/7, 22/3, n_decimal = 3)$expr
+compare_values(22/7, 22/3)$orig_values
+compare_values(22/7, 22/3, n_decimal = 3)$orig_values
 }
 \seealso{
-\code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}
+\code{\link[=headline]{headline()}}, \code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}
 }
