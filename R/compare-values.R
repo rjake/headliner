@@ -34,8 +34,8 @@
 #' compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
 #'
 #' # you can also adjust the rounding, although the default is 1
-#' compare_values(22/7, 22/3)$orig_values
-#' compare_values(22/7, 22/3, n_decimal = 3)$orig_values
+#' compare_values(0.1234, 0.4321)$orig_values
+#' compare_values(0.1234, 0.4321, n_decimal = 3)$orig_values
 compare_values <- function(compare,
                            reference,
                            trend_phrasing = headliner::trend_terms(),

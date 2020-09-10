@@ -190,7 +190,7 @@ two ('value', y - x) or the percent difference ('prop', (y - x) / x)</p></td>
 <span class='co'># 'c' = the 'compare' value, 'r' = 'reference'</span>
 <span class='fu'>compare_values</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>orig_values</span> <span class='kw'>=</span> <span class='st'>"{c} to {r} people"</span>)$<span class='no'>orig_values</span></div><div class='output co'>#&gt; 10 to 8 people</div><div class='input'>
 <span class='co'># you can also adjust the rounding, although the default is 1</span>
-<span class='fu'>compare_values</span>(<span class='fl'>22</span>/<span class='fl'>7</span>, <span class='fl'>22</span>/<span class='fl'>3</span>)$<span class='no'>orig_values</span></div><div class='output co'>#&gt; 3.1 vs. 7.3</div><div class='input'><span class='fu'>compare_values</span>(<span class='fl'>22</span>/<span class='fl'>7</span>, <span class='fl'>22</span>/<span class='fl'>3</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)$<span class='no'>orig_values</span></div><div class='output co'>#&gt; 3.143 vs. 7.333</div></pre>
+<span class='fu'>compare_values</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>)$<span class='no'>orig_values</span></div><div class='output co'>#&gt; 0.1 vs. 0.4</div><div class='input'><span class='fu'>compare_values</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)$<span class='no'>orig_values</span></div><div class='output co'>#&gt; 0.123 vs. 0.432</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

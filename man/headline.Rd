@@ -8,7 +8,7 @@
 \method{headline}{default}(
   compare,
   reference,
-  headline = "{delta} {trend} {orig_values}",
+  headline = "{trend} of {delta} ({orig_values})",
   ...,
   trend_phrasing = headliner::trend_terms(),
   orig_values = "{c} vs. {r}",
@@ -64,25 +64,28 @@ Compare two values and get talking points
 \examples{
 # manually entered
 
-headline(10, 8) \%>\% head(2)
-headline(10, 8, calc = "prop") \%>\% head(2)
-headline(10, 8, trend_phrasing = trend_terms(more = "higher")) \%>\%
-  head(2)
+headline(10, 8)
+headline(10, 8, headline = "There was a ${delta} {trend} vs last year")
+headline(
+  compare = 10,
+  reference = 8,
+  headline = "Group A was {trend} by {delta_p}\%.",
+  trend_phrasing = trend_terms(more = "higher", less = "lower")
+ )
 
 # a phrase about the comparion can be edited by providing glue syntax
 # 'c' = the 'compare' value, 'r' = 'reference'
-headline(10, 8, expr = "{c} to {r} people")$expr
+headline(10, 8, orig_values = "{c} to {r} people")
 
 # you can also adjust the rounding, although the default is 1
-headline(22/7, 22/3)$expr
-headline(22/7, 22/3, n_decimal = 3)$expr
+headline(0.1234, 0.4321)
+headline(0.1234, 0.4321, n_decimal = 3)
 
-# Piping into compare_value() from a list
+# Piping from a list (ex. compare_value())
 
 # First a simplified example
 list(a = 1, b = 2) \%>\%
-  headline(a, b) \%>\%
-  head(2)
+  headline(a, b)
 
 # How it is used with compare_conditions()
 res <-
@@ -97,10 +100,9 @@ res
 
 res \%>\%
   headline(
-    comp_arr_delay_mean,
-    ref_arr_delay_mean
-  ) \%>\%
-  head(2)
+    mean_arr_delay_comp,
+    mean_arr_delay_ref
+  )
 }
 \seealso{
 \code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}

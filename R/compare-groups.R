@@ -51,6 +51,7 @@ compare_conditions <- function(df,
 #' list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
 #' list(mean = ~mean(.x, na.rm = TRUE), sd = sd)
 #' @importFrom dplyr everything
+#' @importFrom glue glue
 #' @export
 #'
 #' @examples

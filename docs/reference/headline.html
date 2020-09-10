@@ -116,7 +116,7 @@
 <span class='fu'>headline</span>(
   <span class='no'>compare</span>,
   <span class='no'>reference</span>,
-  <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"{delta} {trend} {orig_values}"</span>,
+  <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"{trend} of {delta} ({orig_values})"</span>,
   <span class='no'>...</span>,
   <span class='kw'>trend_phrasing</span> <span class='kw'>=</span> <span class='kw pkg'>headliner</span><span class='kw ns'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span>(),
   <span class='kw'>orig_values</span> <span class='kw'>=</span> <span class='st'>"{c} vs. {r}"</span>,
@@ -198,19 +198,22 @@ the 'compare' value, and <code>{r}</code> = 'reference'</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># manually entered</span>
 
-<span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; 2 increase 10 vs. 8</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>calc</span> <span class='kw'>=</span> <span class='st'>"prop"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; 2 increase 10 vs. 8</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>trend_phrasing</span> <span class='kw'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span>(<span class='kw'>more</span> <span class='kw'>=</span> <span class='st'>"higher"</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; 2 higher 10 vs. 8</div><div class='input'>
+<span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt; increase of 2 (10 vs. 8)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"There was a ${delta} {trend} vs last year"</span>)</div><div class='output co'>#&gt; There was a $2 increase vs last year</div><div class='input'><span class='fu'>headline</span>(
+  <span class='kw'>compare</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>reference</span> <span class='kw'>=</span> <span class='fl'>8</span>,
+  <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"Group A was {trend} by {delta_p}%."</span>,
+  <span class='kw'>trend_phrasing</span> <span class='kw'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span>(<span class='kw'>more</span> <span class='kw'>=</span> <span class='st'>"higher"</span>, <span class='kw'>less</span> <span class='kw'>=</span> <span class='st'>"lower"</span>)
+ )</div><div class='output co'>#&gt; Group A was higher by 25%.</div><div class='input'>
 <span class='co'># a phrase about the comparion can be edited by providing glue syntax</span>
 <span class='co'># 'c' = the 'compare' value, 'r' = 'reference'</span>
-<span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>expr</span> <span class='kw'>=</span> <span class='st'>"{c} to {r} people"</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; <span class='error'>Error in headline(10, 8, expr = "{c} to {r} people")$expr: $ operator is invalid for atomic vectors</span></div><div class='input'>
+<span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>orig_values</span> <span class='kw'>=</span> <span class='st'>"{c} to {r} people"</span>)</div><div class='output co'>#&gt; increase of 2 (10 to 8 people)</div><div class='input'>
 <span class='co'># you can also adjust the rounding, although the default is 1</span>
-<span class='fu'>headline</span>(<span class='fl'>22</span>/<span class='fl'>7</span>, <span class='fl'>22</span>/<span class='fl'>3</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; <span class='error'>Error in headline(22/7, 22/3)$expr: $ operator is invalid for atomic vectors</span></div><div class='input'><span class='fu'>headline</span>(<span class='fl'>22</span>/<span class='fl'>7</span>, <span class='fl'>22</span>/<span class='fl'>3</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)$<span class='no'>expr</span></div><div class='output co'>#&gt; <span class='error'>Error in headline(22/7, 22/3, n_decimal = 3)$expr: $ operator is invalid for atomic vectors</span></div><div class='input'>
-<span class='co'># Piping into compare_value() from a list</span>
+<span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>)</div><div class='output co'>#&gt; decrease of 0.3 (0.1 vs. 0.4)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; decrease of 0.309 (0.123 vs. 0.432)</div><div class='input'>
+<span class='co'># Piping from a list (ex. compare_value())</span>
 
 <span class='co'># First a simplified example</span>
 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>headline</span>(<span class='no'>a</span>, <span class='no'>b</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; 1 decrease 1 vs. 2</div><div class='input'>
+  <span class='fu'>headline</span>(<span class='no'>a</span>, <span class='no'>b</span>)</div><div class='output co'>#&gt; decrease of 1 (1 vs. 2)</div><div class='input'>
 <span class='co'># How it is used with compare_conditions()</span>
 <span class='no'>res</span> <span class='kw'>&lt;-</span>
   <span class='no'>flights_jfk</span> <span class='kw'>%&gt;%</span>
@@ -228,10 +231,9 @@ the 'compare' value, and <code>{r}</code> = 'reference'</p></td>
 #&gt; </div><div class='input'>
 <span class='no'>res</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>headline</span>(
-    <span class='no'>comp_arr_delay_mean</span>,
-    <span class='no'>ref_arr_delay_mean</span>
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in switch(as.character(sign_calc), `1` = trend_phrasing$more, `-1` = trend_phrasing$less,     `0` = trend_phrasing$same): EXPR must be a length 1 vector</span></div></pre>
+    <span class='no'>mean_arr_delay_comp</span>,
+    <span class='no'>mean_arr_delay_ref</span>
+  )</div><div class='output co'>#&gt; increase of 8.6 (3.6 vs. -5)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
