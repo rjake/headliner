@@ -59,6 +59,13 @@ compare_conditions <- function(df,
 compare_columns <- function(df,
                             cols = everything(),
                             calc = list(mean = mean)) {
+  if (nrow(df) == 1) {
+    warning(
+      glue("There is only 1 row in the data frame. Did you mean to use \\
+           compare_values() or headline()?"),
+      call. = FALSE
+    )
+  }
   res <- aggregate_group(df, "", {{cols}}, calc = calc)
   res[order(names(res))]
 }
