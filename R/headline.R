@@ -42,25 +42,30 @@ headline <- function(...) {
 #' headline(22/7, 22/3, n_decimal = 3)$expr
 headline.default <- function(compare,
                              reference,
-                             headline = "",
+                             headline = "{delta} {trend} {orig_expr}",
                              ...,
                              calc = c("value", "prop"),
                              trend_phrasing = headliner::trend_terms(),
-                             expr = "{c} vs. {r}",
+                             orig_values = "{c} vs. {r}",
                              n_decimal = 1,
                              round_all = TRUE,
-                             scale = 100) {
+                             scale = 100,
+                             return_data = FALSE) {
   res <-
     compare_values(
       compare = compare,
       reference = reference,
       calc = calc,
       trend_phrasing = trend_phrasing,
-      expr = expr,
+      orig_values = orig_values,
       n_decimal = n_decimal,
       round_all = round_all,
       scale = scale
     )
+
+  if (return_data) {
+    return(res)
+  }
 
   glue_data(res, headline, ...)
 }

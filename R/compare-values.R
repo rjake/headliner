@@ -6,7 +6,7 @@
 #' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
 #' @param trend_phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
-#' @param expr a string using \code{\link[glue]{glue}} syntax. `{c}` =
+#' @param orig_values a string using \code{\link[glue]{glue}} syntax. `{c}` =
 #' the 'compare' value, and `{r}` = 'reference'
 #' @param n_decimal numeric value to limit the number of decimal places in
 #' the returned values.
@@ -30,26 +30,20 @@
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
-#' compare_values(10, 8, expr = "{c} to {r} people")$expr
+#' compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
 #'
 #' # you can also adjust the rounding, although the default is 1
-#' compare_values(22/7, 22/3)$expr
-#' compare_values(22/7, 22/3, n_decimal = 3)$expr
+#' compare_values(22/7, 22/3)$orig_values
+#' compare_values(22/7, 22/3, n_decimal = 3)$orig_values
 compare_values <- function(compare,
                                  reference,
-                                 calc = c("value", "prop"),
                                  trend_phrasing = headliner::trend_terms(),
-                                 expr = "{c} vs. {r}",
+                                 orig_values = "{c} vs. {r}",
                                  n_decimal = 1,
                                  round_all = TRUE,
                                  scale = 100) {
-  calc <- match.arg(calc)
-
-  if (calc == "value") {
-    res <- compare - reference
-  } else {
-    res <- (compare - reference) / reference  * scale
-  }
+  res <- compare - reference
+  res_p <- (compare - reference) / reference  * scale
 
   sign_res <- sign(res)
 
@@ -67,12 +61,14 @@ compare_values <- function(compare,
       delta = abs(res),
       trend = phrase,
       comp_value = compare,
+      delta_p = abs(res_p),
       ref_value = reference,
       raw_delta = res,
+      raw_delta_p = res_p,
       sign = sign_res,
       calc = calc,
-      expr = glue(
-        expr,
+      orig_values = glue(
+        orig_values,
         c = round(compare, n_decimal),
         r = round(reference, n_decimal)
       )
