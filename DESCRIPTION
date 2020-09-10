@@ -1,5 +1,5 @@
 Package: headliner
-Title: What the Package Does (One Line, Title Case)
+Title: Compose Sentences to Describe Comparisons
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Jake",
@@ -7,8 +7,9 @@ Authors@R:
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Write sentences to compare values by generating talking points and stringing them together.
 License: MIT + file LICENSE
+BugReports: https://github.com/rjake/headliner/issues
 Suggests: 
     testthat
 Encoding: UTF-8
