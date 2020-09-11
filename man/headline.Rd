@@ -78,16 +78,23 @@ headline(10, 8, orig_values = "{c} to {r} people")
 headline(0.1234, 0.4321)
 headline(0.1234, 0.4321, n_decimal = 3)
 
-# the values can come from a summarized data frame or a named list
+# The values can come from a summarized data frame or a named list
+# if the data frame is only 2 columns or the list has only 2 elements
+# you don't need to specify the 'compare' or 'reference' arguments unless
+# you need to change the order. If the # of columns is > 3 you'll need to
+# specify these arguments.
+iris \%>\%
+  dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) \%>\%
+  headline()
+
 iris \%>\%
   dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) \%>\%
   headline(
-    compare = Sepal.Length,
-    reference = Petal.Length,
-    headline = "A difference of {delta}"
+    compare = Petal.Length,
+    reference = Sepal.Length
   )
 
-# compare_conditions() produces a named list that can be passed to headline()
+# compare_conditions() produces a list that can be passed to headline()
  mtcars \%>\%
    compare_conditions(
      compare = cyl == 4,
@@ -95,8 +102,6 @@ iris \%>\%
      cols = c(mpg)
    ) \%>\%
    headline(
-     compare = mean_mpg_comp,
-     reference = mean_mpg_ref,
      headline =
        "4-cylinder cars get an average of {delta} {trend} miles \\\\
        per gallon than 6-cylinder cars ({orig_values}).",

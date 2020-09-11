@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • headliner</title>
+<title>For a list — headline.list • headliner</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="For a list — headline.list" />
+<meta property="og:description" content="For a list" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,96 +106,56 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>For a list</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rjake/headliner/blob/master/R/headline.R'><code>R/headline.R</code></a></small>
+    <div class="hidden name"><code>headline.list.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>For a list</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='co'># S3 method for list</span>
+<span class='fu'>headline</span>(<span class='no'>x</span>, <span class='no'>compare</span>, <span class='no'>reference</span>, <span class='no'>...</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="add_date_columns.html">add_date_columns()</a></code> </p>
-        </td>
-        <td><p>Add columns with date calculations based on refernce date</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="compare_columns.html">compare_columns()</a></code> </p>
-        </td>
-        <td><p>Compare two columns within a data frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="compare_conditions.html">compare_conditions()</a></code> </p>
-        </td>
-        <td><p>Compare two conditions within a data frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="compare_values.html">compare_values()</a></code> </p>
-        </td>
-        <td><p>Compare two values and get talking points</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="demo_data.html">demo_data()</a></code> </p>
-        </td>
-        <td><p>Small dataset referencing the current date</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="flights_jfk.html">flights_jfk</a></code> </p>
-        </td>
-        <td><p>Flights from JFK Airport</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="headline.default.html">headline(<i>&lt;list&gt;</i>)</a></code> <code><a href="headline.default.html">headline(<i>&lt;data.frame&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>For a list</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="headline.html">headline(<i>&lt;default&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Compare two values and get talking points</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trend_terms.html">trend_terms()</a></code> </p>
-        </td>
-        <td><p>Phrases for direction of difference</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="view_list.html">view_list()</a></code> </p>
-        </td>
-        <td><p>Compact view of list values</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>a list with values to compare, if named, can call by name</p></td>
+    </tr>
+    <tr>
+      <th>compare</th>
+      <td><p>numeric value to compare against reference (base) value</p></td>
+    </tr>
+    <tr>
+      <th>reference</th>
+      <td><p>numeric value that 'compare' value will be compared against</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed on to <code><a href='compare_values.html'>compare_values</a></code></p><dl'>
+    <dt><code>trend_phrasing</code></dt><dd><p>list of values to use for when y is more than x, y is the
+same as x, or y is less than x.</p></dd>
+    <dt><code>orig_values</code></dt><dd><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax. <code>{c}</code> =
+the 'compare' value, and <code>{r}</code> = 'reference'</p></dd>
+    <dt><code>n_decimal</code></dt><dd><p>numeric value to limit the number of decimal places in
+the returned values.</p></dd>
+    <dt><code>round_all</code></dt><dd><p>logical value to indicate if all values should be rounded.
+When FALSE, the values will return with no modification. When TRUE (default)
+all values will be round to the length specified by 'n_decimal'.</p></dd>
+    <dt><code>scale</code></dt><dd><p>number indicating the scaling factor. When scale = 1, 1/4 will
+return 0.25, when scale = 100 (default) 1/4 will return 25</p></dd>
+  
+</dl></td>
+    </tr>
     </table>
-  </div>
 
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
