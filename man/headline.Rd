@@ -94,6 +94,13 @@ iris \%>\%
     reference = Sepal.Length
   )
 
+# there are many components you can assemble
+headline(
+  16, 8,
+  headline = "there was {article_delta_p} {delta_p}\% {trend}, \\\\
+  {article_trend} {trend} of {delta} ({orig_values})"
+)
+
 # compare_conditions() produces a list that can be passed to headline()
  mtcars \%>\%
    compare_conditions(
