@@ -73,6 +73,13 @@ headline <- function(...) {
 #'     reference = Sepal.Length
 #'   )
 #'
+#' # there are many components you can assemble
+#' headline(
+#'   16, 8,
+#'   headline = "there was {article_delta_p} {delta_p}% {trend}, \\
+#'   {article_trend} {trend} of {delta} ({orig_values})"
+#' )
+#'
 #' # compare_conditions() produces a list that can be passed to headline()
 #'  mtcars %>%
 #'    compare_conditions(
@@ -129,7 +136,7 @@ headline.default <- function(compare,
 #' @export
 headline.list <- function(x, compare, reference, ...) {
   if (missing(compare) & missing(reference)) {
-    if (length(x) > 2){
+    if (length(x) > 2) {
       stop(paste(
         "Not sure which columns to use, please pass list of two",
         "elements long or specify using 'compare' and 'reference'"
@@ -160,7 +167,7 @@ headline.data.frame <- function(x, compare, reference, ...) {
   }
 
   if (missing(compare) & missing(reference)) {
-    if (length(x) > 2){
+    if (length(x) > 2) {
       stop(paste(
         "Not sure which columns to use, please pass data frame of two",
         "columns or specify using 'compare' and 'reference'"
