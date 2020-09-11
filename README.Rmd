@@ -118,7 +118,7 @@ yoy %>%
   ) 
 ```
 
-You can add phrases to customize your sentences
+You can add phrases to customize your sentences. `plural_phrases()` allows you to add new variables to the list of components available. Here I am adding `{people}` for use in my headline.
 ```{r}
 headline(
   compare = 10, 
@@ -144,8 +144,8 @@ are_people <-
   )
 
 headline(
-  compare = 2, 
-  reference = 1,
+  compare = 1, 
+  reference = 2,
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
@@ -202,6 +202,50 @@ shinyApp(
 )
 ```
 
+If your list/data frame has more than 2 values, you can specify the values you need by calling their names
+```{r}
+car_stats <-
+  mtcars %>% 
+  compare_conditions(
+    compare = cyl == 4,
+    reference = cyl > 4,
+    cols = starts_with("d"),
+    calc = list(avg = mean, min = min)
+  )
+
+view_list(car_stats)
+
+headline(
+  car_stats,
+  avg_disp_comp,
+  avg_disp_ref,
+  "Difference in avg. displacement of {delta}cu.in. ({orig_values})"
+)
+
+headline(
+  car_stats,
+  avg_drat_comp,
+  avg_drat_ref,
+  "Difference in avg. rear axle ratio of {delta} ({orig_values})"
+)
+```
+
+If your data has more than one row, you can use `purrr::map2_chr()` to get multiple headlines (may be simplified in a future release)
+```{r}
+library(tidyverse)
+
+flights_jfk %>% 
+  head(3) %>% 
+  select(arr_delay, dep_delay) %>% 
+  mutate(
+    headline = map2_chr( # from purrr
+      .x = arr_delay, 
+      .y = dep_delay, 
+      headline,
+      headline = "Difference of {raw_delta} minutes"
+    )
+  )
+```
 
 `compare_conditions()` can also be used to compare categorical criteria.
 ```{r}

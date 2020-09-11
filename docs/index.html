@@ -171,7 +171,7 @@
     <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"We have seen a {delta_p}% {trend} compared to the same time last year ({orig_values})."</span>
   )
 <span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></pre></div>
-<p>You can add phrases to customize your sentences</p>
+<p>You can add phrases to customize your sentences. <code>plural_phrases()</code> allows you to add new variables to the list of components available. Here I am adding <code>{people}</code> for use in my headline.</p>
 <div class="sourceCode" id="cb11"><pre class="r"><span class="fu">headline</span>(
   <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">10</span>,
   <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">8</span>,
@@ -194,13 +194,13 @@
   )
 
 <span class="fu">headline</span>(
-  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">2</span>,
-  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">1</span>,
+  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">1</span>,
+  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">2</span>,
   <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"There {are} {delta} {trend} {people}"</span>,
   <span class="kw">trend_phrasing</span> <span class="kw">=</span> <span class="no">more_less</span>,
   <span class="kw">plural_phrases</span> <span class="kw">=</span> <span class="no">are_people</span>
 )
-<span class="co">#&gt; There is 1 more person</span>
+<span class="co">#&gt; There is 1 less person</span>
 
 <span class="fu">headline</span>(
   <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">3</span>,
@@ -227,8 +227,64 @@
 <div style="text-align:center">
 <p><img src="reference/figures/value_box.png" width="300/"></p>
 </div>
+<p>If your list/data frame has more than 2 values, you can specify the values you need by calling their names</p>
+<div class="sourceCode" id="cb15"><pre class="r"><span class="no">car_stats</span> <span class="kw">&lt;-</span>
+  <span class="no">mtcars</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/compare_conditions.html">compare_conditions</a></span>(
+    <span class="kw">compare</span> <span class="kw">=</span> <span class="no">cyl</span> <span class="kw">==</span> <span class="fl">4</span>,
+    <span class="kw">reference</span> <span class="kw">=</span> <span class="no">cyl</span> <span class="kw">&gt;</span> <span class="fl">4</span>,
+    <span class="kw">cols</span> <span class="kw">=</span> <span class="fu">starts_with</span>(<span class="st">"d"</span>),
+    <span class="kw">calc</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">avg</span> <span class="kw">=</span> <span class="no">mean</span>, <span class="kw">min</span> <span class="kw">=</span> <span class="no">min</span>)
+  )
+
+<span class="fu"><a href="reference/view_list.html">view_list</a></span>(<span class="no">car_stats</span>)
+<span class="co">#&gt;               VALUES</span>
+<span class="co">#&gt; avg_disp_comp 105.14</span>
+<span class="co">#&gt; avg_disp_ref  296.50</span>
+<span class="co">#&gt; avg_drat_comp   4.07</span>
+<span class="co">#&gt; avg_drat_ref    3.35</span>
+<span class="co">#&gt; min_disp_comp  71.10</span>
+<span class="co">#&gt; min_disp_ref  145.00</span>
+<span class="co">#&gt; min_drat_comp   3.69</span>
+<span class="co">#&gt; min_drat_ref    2.76</span>
+
+<span class="fu">headline</span>(
+  <span class="no">car_stats</span>,
+  <span class="no">avg_disp_comp</span>,
+  <span class="no">avg_disp_ref</span>,
+  <span class="st">"Difference in avg. displacement of {delta}cu.in. ({orig_values})"</span>
+)
+<span class="co">#&gt; Difference in avg. displacement of 191.4cu.in. (105.1 vs. 296.5)</span>
+
+<span class="fu">headline</span>(
+  <span class="no">car_stats</span>,
+  <span class="no">avg_drat_comp</span>,
+  <span class="no">avg_drat_ref</span>,
+  <span class="st">"Difference in avg. rear axle ratio of {delta} ({orig_values})"</span>
+)
+<span class="co">#&gt; Difference in avg. rear axle ratio of 0.7 (4.1 vs. 3.3)</span></pre></div>
+<p>If your data has more than one row, you can use <code><a href="https://purrr.tidyverse.org/reference/map2.html">purrr::map2_chr()</a></code> to get multiple headlines (may be simplified in a future release)</p>
+<div class="sourceCode" id="cb16"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+
+<span class="no">flights_jfk</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">3</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">select</span>(<span class="no">arr_delay</span>, <span class="no">dep_delay</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(
+    <span class="kw">headline</span> <span class="kw">=</span> <span class="fu">map2_chr</span>( <span class="co"># from purrr</span>
+      <span class="kw">.x</span> <span class="kw">=</span> <span class="no">arr_delay</span>,
+      <span class="kw">.y</span> <span class="kw">=</span> <span class="no">dep_delay</span>,
+      <span class="no">headline</span>,
+      <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"Difference of {raw_delta} minutes"</span>
+    )
+  )
+<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt;   arr_delay dep_delay headline                 </span>
+<span class="co">#&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                    </span>
+<span class="co">#&gt; 1         6        -4 Difference of 10 minutes </span>
+<span class="co">#&gt; 2        10        21 Difference of -11 minutes</span>
+<span class="co">#&gt; 3         2        -4 Difference of 6 minutes</span></pre></div>
 <p><code><a href="reference/compare_conditions.html">compare_conditions()</a></code> can also be used to compare categorical criteria.</p>
-<div class="sourceCode" id="cb15"><pre class="r"><span class="fu"><a href="reference/demo_data.html">demo_data</a></span>() <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb17"><pre class="r"><span class="fu"><a href="reference/demo_data.html">demo_data</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/compare_conditions.html">compare_conditions</a></span>(
     <span class="kw">compare</span> <span class="kw">=</span> <span class="no">group</span> <span class="kw">==</span> <span class="st">"a"</span>,
     <span class="kw">reference</span> <span class="kw">=</span> <span class="no">group</span> <span class="kw">==</span> <span class="st">"c"</span>,
