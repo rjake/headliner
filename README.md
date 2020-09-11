@@ -40,62 +40,85 @@ devtools::install_github("rjake/headliner")
 ## Usage
 
 For these examples, I will use a function called `demo_data()` to build
-a data set based on the current date 09/07/20.
+a data set based on the current date 09/11/20.
 
 ``` r
 library(headliner)
-library(glue)
-
 demo_data()
 ```
 
     #> # A tibble: 10 x 5
     #>    group     x     y     z date      
     #>    <chr> <dbl> <dbl> <dbl> <date>    
-    #>  1 a       101    10     1 2020-09-07
-    #>  2 a       102    20     0 2020-07-09
-    #>  3 b       103    30     1 2020-05-10
-    #>  4 b       104    40     0 2020-03-11
-    #>  5 c       105    50     1 2020-01-11
-    #>  6 c       106    60     0 2019-11-12
-    #>  7 d       107    70     1 2019-09-13
-    #>  8 d       108    80     0 2019-07-15
-    #>  9 e       109    90     1 2019-05-16
-    #> 10 e       110   100     0 2019-03-17
+    #>  1 a       101    10     1 2020-09-11
+    #>  2 a       102    20     0 2020-07-13
+    #>  3 b       103    30     1 2020-05-14
+    #>  4 b       104    40     0 2020-03-15
+    #>  5 c       105    50     1 2020-01-15
+    #>  6 c       106    60     0 2019-11-16
+    #>  7 d       107    70     1 2019-09-17
+    #>  8 d       108    80     0 2019-07-19
+    #>  9 e       109    90     1 2019-05-20
+    #> 10 e       110   100     0 2019-03-21
 
 What we want is to say something like this:
 
-    #> We have seen a 5.6% decrease compared to the same time last year.
+    #> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
 
 We can look at the data an see that about 12 months ago, x was 107 where
-as today it is 101. One function available in headliner is
-`compare_values()`. This function returns a named list.
+as today it is 101. We can give these values to `headline()` and get a
+simple phrase
 
 ``` r
-compare_values(101, 107, calc = "prop") %>% head(2)
-#> $delta
-#> [1] 5.6
-#> 
-#> $trend
-#> [1] "decrease"
+headline(compare = 101, reference = 107)
+#> decrease of 6 (101 vs. 107)
 ```
 
-With this list, you can use `glue_data()` to combine the results.
+To see how the sentence was constructed, we can look at the components
+used under the hood. This `return_data = TRUE` returns a named list. I
+will condense with `view_list()`
 
 ``` r
-compare_values(101, 107, calc = "prop") %>% 
-  glue_data(
-    "we had a {delta}% {trend} since last year ({expr})"
-  )
-#> we had a 5.6% decrease since last year (101 vs. 107)
+headline(101, 107, return_data = TRUE) %>% 
+  view_list()
+#>                                      VALUES
+#> delta                                     6
+#> trend                              decrease
+#> delta_p                                 5.6
+#> article_delta                             a
+#> article_delta_p                           a
+#> article_trend                             a
+#> comp_value                              101
+#> ref_value                               107
+#> raw_delta                                -6
+#> raw_delta_p                            -5.6
+#> sign                                     -1
+#> orig_values                     101 vs. 107
+#> headline        decrease of 6 (101 vs. 107)
 ```
 
-But let’s see if we can make this more dynamic…
+We can compose it like this using `glue::glue()` syntax
+
+``` r
+headline(
+  101, 107, 
+  "We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."
+)
+#> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
+```
+
+You might have noticed that there are multiple `article_*` components
+available. `article_delta` is for the difference between the two values
+(“**a** 6 person loss” vs “**an** 8 person loss”), `article_delta_p` is
+for the percentage difference for “**a** 5.6%” vs “**an** 8.6%”, and
+`article_trend` gives us “**an** increase” vs “**a** decrease”.
+
+But let’s see if we can make the calculations more dynamic…
 
 First, we can use a function called `add_date_columns()` to calculate
 distances from the current date (or the refence date specified) to the
 values in the `date` column . With these new fields we can see that
-07/09/20 was 60 days ago (or 9 weeks or 2 months, …) from the current
+07/13/20 was 60 days ago (or 9 weeks or 2 months, …) from the current
 date.
 
 ``` r
@@ -104,16 +127,16 @@ demo_data() %>%
 #> # A tibble: 10 x 11
 #>    group     x     y     z date         day  week month quarter calendar_year
 #>    <chr> <dbl> <dbl> <dbl> <date>     <dbl> <dbl> <dbl>   <dbl>         <dbl>
-#>  1 a       101    10     1 2020-09-07     0     0     0       0             0
-#>  2 a       102    20     0 2020-07-09   -60    -9    -2       0             0
-#>  3 b       103    30     1 2020-05-10  -120   -18    -4      -1             0
-#>  4 b       104    40     0 2020-03-11  -180   -26    -6      -2             0
-#>  5 c       105    50     1 2020-01-11  -240   -35    -8      -2             0
-#>  6 c       106    60     0 2019-11-12  -300   -43   -10      -3            -1
-#>  7 d       107    70     1 2019-09-13  -360   -52   -12      -4            -1
-#>  8 d       108    80     0 2019-07-15  -420   -60   -14      -4            -1
-#>  9 e       109    90     1 2019-05-16  -480   -69   -16      -5            -1
-#> 10 e       110   100     0 2019-03-17  -540   -78   -18      -6            -1
+#>  1 a       101    10     1 2020-09-11     0     0     0       0             0
+#>  2 a       102    20     0 2020-07-13   -60    -8    -2       0             0
+#>  3 b       103    30     1 2020-05-14  -120   -17    -4      -1             0
+#>  4 b       104    40     0 2020-03-15  -180   -26    -6      -2             0
+#>  5 c       105    50     1 2020-01-15  -240   -34    -8      -2             0
+#>  6 c       106    60     0 2019-11-16  -300   -43   -10      -3            -1
+#>  7 d       107    70     1 2019-09-17  -360   -51   -12      -4            -1
+#>  8 d       108    80     0 2019-07-19  -420   -60   -14      -4            -1
+#>  9 e       109    90     1 2019-05-20  -480   -68   -16      -5            -1
+#> 10 e       110   100     0 2019-03-21  -540   -77   -18      -6            -1
 #> # ... with 1 more variable: fiscal_year <dbl>
 ```
 
@@ -122,7 +145,8 @@ our reference group (`reference`). This step uses the kind of logic you
 would use in `dplyr::filter()` or `base::subset()`
 
 ``` r
-demo_data() %>%
+yoy <- # year over year
+  demo_data() %>%
   add_date_columns(date) %>% 
   compare_conditions(
     compare = (month == 0),     # this month
@@ -130,6 +154,8 @@ demo_data() %>%
     cols = c(x),                # the column(s) to aggregate
     calc = list(mean = mean)    # the list of functions passed to summarise(across(...))
   )
+
+yoy
 #> $mean_x_comp
 #> [1] 101
 #> 
@@ -141,69 +167,81 @@ It might look funny to see `list(mean = mean)`. The name (left side) is
 how it will name the values, the right side is the function to use. If I
 had used `calc = list(avg = mean)` The names would have been `avg_x_*`.
 Because `compare_conditions()` uses the mean as the default, I’ll omit
-it going forward. Now that I have my output as a named list, I can pipe
-it into `compare_values()`. This step will give me the building blocks
-to write my phrases.
+it going forward. Now that I have my output as a list (or 1 row data
+frame), I can pipe it into `headline()` to see the underlying data.
 
 ``` r
-compare <-
-  demo_data() %>%
-  add_date_columns(date) %>% 
-  compare_conditions(
-    compare = (month == 0),
-    reference = (month == -12),
-    cols = c(x)
-  ) %>% 
-  compare_values(
-    compare = mean_x_comp, 
-    reference = mean_x_ref,
-    calc = "prop"
-  )
-
-compare
-#> $delta
-#> [1] 5.6
-#> 
-#> $trend
-#> [1] "decrease"
-#> 
-#> $comp_value
-#> [1] 101
-#> 
-#> $ref_value
-#> [1] 107
-#> 
-#> $raw_delta
-#> [1] -5.6
-#> 
-#> $sign
-#> [1] -1
-#> 
-#> $calc
-#> [1] "prop"
-#> 
-#> $expr
-#> 101 vs. 107
+yoy %>% 
+  headline(
+    headline = "We have seen a {delta_p}% {trend} compared to the same time last year ({orig_values})."
+  ) 
+#> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
 ```
 
-I can then use `paste()` or `glue::glue_data()` to create my final
-phrase
+You can add phrases to customize your sentences
 
 ``` r
-compare %>% 
-  glue_data(
-    "We have seen a {delta}% {trend} compared to the same time last year ({expr})"
+headline(
+  compare = 10, 
+  reference = 8,
+  headline =  
+    "There is {article_trend} {trend} of {delta} {people} enrolled \\
+    {article_delta_p} {delta_p}% {trend} ({orig_values})",
+  plural_phrases = list(  
+    people = plural_phrasing(single = "person", multi = "people")
   )
-#> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107)
+)
+#> There is an increase of 2 people enrolled a 25% increase (10 vs. 8)
 ```
 
-We can also use these pieces in a `valueBox()`
+Notice the difference in these two outputs
 
 ``` r
-box_color <- ifelse(compare$sign == -1, "red", "blue")
+more_less <- # "more" & "less" instead of "increase" & "decrease" defaults
+  trend_terms(more = "more", less = "less")
 
-shinydashboard::valueBox(
-  value = glue_data(compare, '{delta}% {trend}'),
+are_people <-
+  list(
+    are = plural_phrasing(single = "is", multi = "are"),
+    people = plural_phrasing(single = "person", multi = "people")
+  )
+
+headline(
+  compare = 2, 
+  reference = 1,
+  headline = "There {are} {delta} {trend} {people}",
+  trend_phrasing = more_less,
+  plural_phrases = are_people
+)
+#> There is 1 more person
+
+headline(
+  compare = 3, 
+  reference = 1,
+  headline = "There {are} {delta} {trend} {people}",
+  trend_phrasing = more_less,
+  plural_phrases = are_people
+)
+#> There are 2 more people
+```
+
+You can also adjust the text if the numbers are the same
+
+``` r
+headline(3, 3)
+#> There was no difference.
+
+headline(3, 3, if_match = "There were no additional applicants ({comp_value} total)")
+#> There were no additional applicants (3 total)
+```
+
+`headline()` can also be used in a `valueBox()` for `shiny`
+
+``` r
+box_color <- ifelse(yoy$sign == -1, "red", "blue")
+
+valueBox(
+  value = headline(yoy, headline = '{delta_p}% {trend}'),
   subtitle = "vs. the same time last year",
   color = box_color
 ) 
@@ -215,9 +253,7 @@ shinydashboard::valueBox(
 
 </div>
 
-We can also used `compare_conditions()` to compare categorical criteria.
-Here I am using `trend_terms()` to use “more” and “less” instead of the
-default “increase” and “decrease” terminology.
+`compare_conditions()` can also be used to compare categorical criteria.
 
 ``` r
 demo_data() %>%
@@ -226,15 +262,9 @@ demo_data() %>%
     reference = group == "c",
     cols = c(x)
   ) %>% 
-  compare_values(
-    compare = mean_x_comp, 
-    reference = mean_x_ref, 
-    trend_phrasing = 
-      trend_terms(more = "up",  less = "down")
-  ) %>% 
-  glue_data(
-    "Group A is {trend} {delta} points ({comp_value}) \\
-    compared to Group C ({ref_value})"
+  headline(
+    headline = "Group A ({comp_value}) is {delta} points {trend} Group C ({ref_value})",
+    trend_phrasing = trend_terms(more = "ahead",  less = "behind")
   )
-#> Group A is down 4 points (101.5) compared to Group C (105.5)
+#> Group A (101.5) is 4 points behind Group C (105.5)
 ```
