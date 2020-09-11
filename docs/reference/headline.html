@@ -211,6 +211,16 @@ return 0.25, when scale = 100 (default) 1/4 will return 25</p></td>
 <span class='co'># a phrase about the comparion can be edited by providing glue syntax</span>
 <span class='co'># 'c' = the 'compare' value, 'r' = 'reference'</span>
 <span class='fu'>headline</span>(<span class='fl'>10</span>, <span class='fl'>8</span>, <span class='kw'>orig_values</span> <span class='kw'>=</span> <span class='st'>"{c} to {r} people"</span>)</div><div class='output co'>#&gt; increase of 2 (10 to 8 people)</div><div class='input'>
+<span class='co'># you can also add phrases for when the difference = 1 or not</span>
+<span class='fu'>headline</span>(
+  <span class='kw'>compare</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>reference</span> <span class='kw'>=</span> <span class='fl'>8</span>,
+  <span class='kw'>plural_phrases</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+    <span class='kw'>were</span> <span class='kw'>=</span> <span class='fu'><a href='plural_phrasing.html'>plural_phrasing</a></span>(<span class='kw'>single</span> <span class='kw'>=</span> <span class='st'>"was"</span>, <span class='kw'>multi</span> <span class='kw'>=</span> <span class='st'>"were"</span>),
+    <span class='kw'>people</span> <span class='kw'>=</span> <span class='fu'><a href='plural_phrasing.html'>plural_phrasing</a></span>(<span class='kw'>single</span> <span class='kw'>=</span> <span class='st'>"person"</span>, <span class='kw'>multi</span> <span class='kw'>=</span> <span class='st'>"people"</span>)
+  ),
+  <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"there {were} {delta} {people}"</span>
+)</div><div class='output co'>#&gt; there were 2 people</div><div class='input'>
 <span class='co'># you can also adjust the rounding, although the default is 1</span>
 <span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>)</div><div class='output co'>#&gt; decrease of 0.3 (0.1 vs. 0.4)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; decrease of 0.309 (0.123 vs. 0.432)</div><div class='input'>
 <span class='co'># The values can come from a summarized data frame or a named list</span>
