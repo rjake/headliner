@@ -178,7 +178,9 @@ yoy %>%
 #> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
 ```
 
-You can add phrases to customize your sentences
+You can add phrases to customize your sentences. `plural_phrases()`
+allows you to add new variables to the list of components available.
+Here I am adding `{people}` for use in my headline.
 
 ``` r
 headline(
@@ -207,13 +209,13 @@ are_people <-
   )
 
 headline(
-  compare = 2, 
-  reference = 1,
+  compare = 1, 
+  reference = 2,
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
 )
-#> There is 1 more person
+#> There is 1 less person
 
 headline(
   compare = 3, 
@@ -252,6 +254,72 @@ valueBox(
 <img src="man/figures/value_box.png"  width=300/>
 
 </div>
+
+If your list/data frame has more than 2 values, you can specify the
+values you need by calling their names
+
+``` r
+car_stats <-
+  mtcars %>% 
+  compare_conditions(
+    compare = cyl == 4,
+    reference = cyl > 4,
+    cols = starts_with("d"),
+    calc = list(avg = mean, min = min)
+  )
+
+view_list(car_stats)
+#>               VALUES
+#> avg_disp_comp 105.14
+#> avg_disp_ref  296.50
+#> avg_drat_comp   4.07
+#> avg_drat_ref    3.35
+#> min_disp_comp  71.10
+#> min_disp_ref  145.00
+#> min_drat_comp   3.69
+#> min_drat_ref    2.76
+
+headline(
+  car_stats,
+  avg_disp_comp,
+  avg_disp_ref,
+  "Difference in avg. displacement of {delta}cu.in. ({orig_values})"
+)
+#> Difference in avg. displacement of 191.4cu.in. (105.1 vs. 296.5)
+
+headline(
+  car_stats,
+  avg_drat_comp,
+  avg_drat_ref,
+  "Difference in avg. rear axle ratio of {delta} ({orig_values})"
+)
+#> Difference in avg. rear axle ratio of 0.7 (4.1 vs. 3.3)
+```
+
+If your data has more than one row, you can use `purrr::map2_chr()` to
+get multiple headlines (may be simplified in a future release)
+
+``` r
+library(tidyverse)
+
+flights_jfk %>% 
+  head(3) %>% 
+  select(arr_delay, dep_delay) %>% 
+  mutate(
+    headline = map2_chr( # from purrr
+      .x = arr_delay, 
+      .y = dep_delay, 
+      headline,
+      headline = "Difference of {raw_delta} minutes"
+    )
+  )
+#> # A tibble: 3 x 3
+#>   arr_delay dep_delay headline                 
+#>       <dbl>     <dbl> <chr>                    
+#> 1         6        -4 Difference of 10 minutes 
+#> 2        10        21 Difference of -11 minutes
+#> 3         2        -4 Difference of 6 minutes
+```
 
 `compare_conditions()` can also be used to compare categorical criteria.
 
