@@ -57,16 +57,23 @@ headline <- function(...) {
 #' headline(0.1234, 0.4321)
 #' headline(0.1234, 0.4321, n_decimal = 3)
 #'
-#' # the values can come from a summarized data frame or a named list
+#' # The values can come from a summarized data frame or a named list
+#' # if the data frame is only 2 columns or the list has only 2 elements
+#' # you don't need to specify the 'compare' or 'reference' arguments unless
+#' # you need to change the order. If the # of columns is > 3 you'll need to
+#' # specify these arguments.
+#' iris %>%
+#'   dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) %>%
+#'   headline()
+#'
 #' iris %>%
 #'   dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) %>%
 #'   headline(
-#'     compare = Sepal.Length,
-#'     reference = Petal.Length,
-#'     headline = "A difference of {delta}"
+#'     compare = Petal.Length,
+#'     reference = Sepal.Length
 #'   )
 #'
-#' # compare_conditions() produces a named list that can be passed to headline()
+#' # compare_conditions() produces a list that can be passed to headline()
 #'  mtcars %>%
 #'    compare_conditions(
 #'      compare = cyl == 4,
@@ -74,8 +81,6 @@ headline <- function(...) {
 #'      cols = c(mpg)
 #'    ) %>%
 #'    headline(
-#'      compare = mean_mpg_comp,
-#'      reference = mean_mpg_ref,
 #'      headline =
 #'        "4-cylinder cars get an average of {delta} {trend} miles \\
 #'        per gallon than 6-cylinder cars ({orig_values}).",
@@ -116,23 +121,37 @@ headline.default <- function(compare,
 }
 
 
-
-#' @param x a named list with values to compare
+#' For a list
+#' @param x a list with values to compare, if named, can call by name
 #' @inheritParams headline.default
 #' @inheritDotParams compare_values
+#' @describeIn headline.default for lists
 #' @export
-#' @examples
 headline.list <- function(x, compare, reference, ...) {
-  comp <- x[[deparse(match.call()[["compare"]])]]
-  ref <- x[[deparse(match.call()[["reference"]])]]
+  if (missing(compare) & missing(reference)) {
+    if (length(x) > 2){
+      stop(paste(
+        "Not sure which columns to use, please pass list of two",
+        "elements long or specify using 'compare' and 'reference'"
+      ), call. = FALSE)
+    }
+    comp <- x[[1]][1]
+    ref <- x[[2]][1]
+  } else {
+    comp <- x[[deparse(match.call()[["compare"]])]]
+    ref <- x[[deparse(match.call()[["reference"]])]]
+  }
 
   headline(comp, ref, ...)
 }
 
+#' For a data frame
+#' @param x data frame, must be a single row
+#' @describeIn headline.default for data frames
 #' @export
 #' @importFrom glue glue
-headline.data.frame <- function(df, compare, reference, ...) {
-  if (nrow(df) > 1) {
+headline.data.frame <- function(x, compare, reference, ...) {
+  if (nrow(x) > 1) {
     stop(
       glue("Data frame must be a single row. Consider using \\
       compare_conditions() or compare_columns() before using headline()"),
@@ -140,8 +159,20 @@ headline.data.frame <- function(df, compare, reference, ...) {
     )
   }
 
-  comp <- pull(df, {{compare}})
-  ref <- pull(df, {{reference}})
+  if (missing(compare) & missing(reference)) {
+    if (length(x) > 2){
+      stop(paste(
+        "Not sure which columns to use, please pass data frame of two",
+        "columns or specify using 'compare' and 'reference'"
+      ), call. = FALSE)
+    }
+
+    comp <- x[[1]][1]
+    ref <- x[[2]][1]
+  } else {
+    comp <- pull(x, {{compare}})
+    ref <- pull(x, {{reference}})
+  }
 
   headline(comp, ref, ...)
 }

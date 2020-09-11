@@ -105,15 +105,15 @@
 <a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; 10 e       110   100     0 2019-03-17</span></a></code></pre></div>
 <p>What we want is to say something like this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year.</span></a></code></pre></div>
-<p>We can look at the data an see that about 12 months ago, x was 107 where as today it is 101. One function available in headliner is <code>compare_values()</code>. This function returns a named list.</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu">compare_values</span>(<span class="fl">101</span>, <span class="fl">107</span>, <span class="kw">calc</span> <span class="kw">=</span> <span class="st">"prop"</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">2</span>)
+<p>We can look at the data an see that about 12 months ago, x was 107 where as today it is 101. One function available in headliner is <code><a href="reference/compare_values.html">compare_values()</a></code>. This function returns a named list.</p>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="reference/compare_values.html">compare_values</a></span>(<span class="fl">101</span>, <span class="fl">107</span>, <span class="kw">calc</span> <span class="kw">=</span> <span class="st">"prop"</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">2</span>)
 <span class="co">#&gt; $delta</span>
 <span class="co">#&gt; [1] 5.6</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $trend</span>
 <span class="co">#&gt; [1] "decrease"</span></pre></div>
 <p>With this list, you can use <code><a href="https://glue.tidyverse.org/reference/glue.html">glue_data()</a></code> to combine the results.</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu">compare_values</span>(<span class="fl">101</span>, <span class="fl">107</span>, <span class="kw">calc</span> <span class="kw">=</span> <span class="st">"prop"</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/compare_values.html">compare_values</a></span>(<span class="fl">101</span>, <span class="fl">107</span>, <span class="kw">calc</span> <span class="kw">=</span> <span class="st">"prop"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue_data</a></span>(
     <span class="st">"we had a {delta}% {trend} since last year ({expr})"</span>
   )
@@ -150,7 +150,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $mean_x_ref</span>
 <span class="co">#&gt; [1] 107</span></pre></div>
-<p>It might look funny to see <code><a href="https://rdrr.io/r/base/list.html">list(mean = mean)</a></code>. The name (left side) is how it will name the values, the right side is the function to use. If I had used <code>calc = list(avg = mean)</code> The names would have been <code>avg_x_*</code>. Because <code><a href="reference/compare_conditions.html">compare_conditions()</a></code> uses the mean as the default, I’ll omit it going forward. Now that I have my output as a named list, I can pipe it into <code>compare_values()</code>. This step will give me the building blocks to write my phrases.</p>
+<p>It might look funny to see <code><a href="https://rdrr.io/r/base/list.html">list(mean = mean)</a></code>. The name (left side) is how it will name the values, the right side is the function to use. If I had used <code>calc = list(avg = mean)</code> The names would have been <code>avg_x_*</code>. Because <code><a href="reference/compare_conditions.html">compare_conditions()</a></code> uses the mean as the default, I’ll omit it going forward. Now that I have my output as a named list, I can pipe it into <code><a href="reference/compare_values.html">compare_values()</a></code>. This step will give me the building blocks to write my phrases.</p>
 <div class="sourceCode" id="cb9"><pre class="r"><span class="no">compare</span> <span class="kw">&lt;-</span>
   <span class="fu"><a href="reference/demo_data.html">demo_data</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/add_date_columns.html">add_date_columns</a></span>(<span class="no">date</span>) <span class="kw">%&gt;%</span>
@@ -159,7 +159,7 @@
     <span class="kw">reference</span> <span class="kw">=</span> (<span class="no">month</span> <span class="kw">==</span> -<span class="fl">12</span>),
     <span class="kw">cols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">x</span>)
   ) <span class="kw">%&gt;%</span>
-  <span class="fu">compare_values</span>(
+  <span class="fu"><a href="reference/compare_values.html">compare_values</a></span>(
     <span class="kw">compare</span> <span class="kw">=</span> <span class="no">mean_x_comp</span>,
     <span class="kw">reference</span> <span class="kw">=</span> <span class="no">mean_x_ref</span>,
     <span class="kw">calc</span> <span class="kw">=</span> <span class="st">"prop"</span>
@@ -213,7 +213,7 @@
     <span class="kw">reference</span> <span class="kw">=</span> <span class="no">group</span> <span class="kw">==</span> <span class="st">"c"</span>,
     <span class="kw">cols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">x</span>)
   ) <span class="kw">%&gt;%</span>
-  <span class="fu">compare_values</span>(
+  <span class="fu"><a href="reference/compare_values.html">compare_values</a></span>(
     <span class="kw">compare</span> <span class="kw">=</span> <span class="no">mean_x_comp</span>,
     <span class="kw">reference</span> <span class="kw">=</span> <span class="no">mean_x_ref</span>,
     <span class="kw">trend_phrasing</span> <span class="kw">=</span>
