@@ -25,7 +25,7 @@ headline <- function(...) {
 #' all values will be round to the length specified by 'n_decimal'.
 #' @param scale number indicating the scaling factor. When scale = 1, 1/4 will
 #' return 0.25, when scale = 100 (default) 1/4 will return 25
-#' @importFrom glue glue
+#' @importFrom glue glue_data
 #' @importFrom purrr map_if
 #' @export
 #' @rdname headline
