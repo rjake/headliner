@@ -9,6 +9,7 @@ compare_values(
   reference,
   trend_phrasing = headliner::trend_terms(),
   orig_values = "{c} vs. {r}",
+  plural_phrases = NULL,
   n_decimal = 1,
   round_all = TRUE,
   scale = 100
@@ -24,6 +25,9 @@ same as x, or y is less than x.}
 
 \item{orig_values}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
 the 'compare' value, and \code{{r}} = 'reference'}
+
+\item{plural_phrases}{named list of values to use when difference (delta) is
+singular (delta = 1) or plural (delta != 1)}
 
 \item{n_decimal}{numeric value to limit the number of decimal places in
 the returned values.}

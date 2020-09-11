@@ -21,6 +21,8 @@
   \describe{
     \item{\code{trend_phrasing}}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
+    \item{\code{plural_phrases}}{named list of values to use when difference (delta) is
+singular (delta = 1) or plural (delta != 1)}
     \item{\code{orig_values}}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
 the 'compare' value, and \code{{r}} = 'reference'}
     \item{\code{n_decimal}}{numeric value to limit the number of decimal places in

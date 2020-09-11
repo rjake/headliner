@@ -6,6 +6,8 @@
 #' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
 #' @param trend_phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
+#' @param plural_phrases named list of values to use when difference (delta) is
+#' singular (delta = 1) or plural (delta != 1)
 #' @param orig_values a string using \code{\link[glue]{glue}} syntax. `{c}` =
 #' the 'compare' value, and `{r}` = 'reference'
 #' @param n_decimal numeric value to limit the number of decimal places in
@@ -16,7 +18,7 @@
 #' @param scale number indicating the scaling factor. When scale = 1, 1/4 will
 #' return 0.25, when scale = 100 (default) 1/4 will return 25
 #' @importFrom glue glue
-#' @importFrom purrr map_if
+#' @importFrom purrr map_if map pluck
 #' @export
 #' @rdname compare_values
 #' @seealso [headline()], [view_list()] and [trend_terms()]
@@ -40,6 +42,7 @@ compare_values <- function(compare,
                            reference,
                            trend_phrasing = headliner::trend_terms(),
                            orig_values = "{c} vs. {r}",
+                           plural_phrases = NULL,
                            n_decimal = 1,
                            round_all = TRUE,
                            scale = 100) {
@@ -81,6 +84,20 @@ compare_values <- function(compare,
     output <-
       output %>%
       map_if(is.numeric, round, n_decimal)
+  }
+
+  if (!is.null(plural_phrases)) {
+    # stop if items in list aren't named
+    if (any(is.null(names(plural_phrases)))) {
+      stop(paste0(
+        "'plural_phrases' should be a named list. \nex. ",
+        'list(people = plural_phrasing("person", "people"))'
+        ), call. = FALSE)
+    }
+    # identify which list element to choose if delta = 1 then single else multi
+    value <- ifelse(output$delta == 1, "single", "multi")
+    # append to list
+    output <- append(output, map(plural_phrases, pluck, value))
   }
 
   output
