@@ -55,6 +55,17 @@ headline <- function(...) {
 #' # 'c' = the 'compare' value, 'r' = 'reference'
 #' headline(10, 8, orig_values = "{c} to {r} people")
 #'
+#' # you can also add phrases for when the difference = 1 or not
+#' headline(
+#'   compare = 10,
+#'   reference = 8,
+#'   plural_phrases = list(
+#'     were = plural_phrasing(single = "was", multi = "were"),
+#'     people = plural_phrasing(single = "person", multi = "people")
+#'   ),
+#'   headline = "there {were} {delta} {people}"
+#' )
+#'
 #' # you can also adjust the rounding, although the default is 1
 #' headline(0.1234, 0.4321)
 #' headline(0.1234, 0.4321, n_decimal = 3)
