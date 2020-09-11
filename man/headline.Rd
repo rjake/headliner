@@ -11,6 +11,7 @@
   ...,
   if_match = "There was no difference.",
   trend_phrasing = headliner::trend_terms(),
+  plural_phrases = NULL,
   orig_values = "{c} vs. {r}",
   n_decimal = 1,
   round_all = TRUE,
@@ -31,6 +32,9 @@
 
 \item{trend_phrasing}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
+
+\item{plural_phrases}{named list of values to use when difference (delta) is
+singular (delta = 1) or plural (delta != 1)}
 
 \item{orig_values}{a string to display the two original values. Uses
 \code{\link[glue]{glue}} syntax. \code{{c}} = the 'compare' value, and

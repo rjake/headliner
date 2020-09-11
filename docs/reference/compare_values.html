@@ -89,7 +89,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/rjake/headliner/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -104,7 +109,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compare two values and get talking points</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/rjake/headliner/blob/master/R/compare-values.R'><code>R/compare-values.R</code></a></small>
     <div class="hidden name"><code>compare_values.Rd</code></div>
     </div>
 
@@ -117,6 +122,7 @@
   <span class='no'>reference</span>,
   <span class='kw'>trend_phrasing</span> <span class='kw'>=</span> <span class='kw pkg'>headliner</span><span class='kw ns'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span>(),
   <span class='kw'>orig_values</span> <span class='kw'>=</span> <span class='st'>"{c} vs. {r}"</span>,
+  <span class='kw'>plural_phrases</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>round_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>100</span>
@@ -142,6 +148,11 @@ same as x, or y is less than x.</p></td>
       <th>orig_values</th>
       <td><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax. <code>{c}</code> =
 the 'compare' value, and <code>{r}</code> = 'reference'</p></td>
+    </tr>
+    <tr>
+      <th>plural_phrases</th>
+      <td><p>named list of values to use when difference (delta) is
+singular (delta = 1) or plural (delta != 1)</p></td>
     </tr>
     <tr>
       <th>n_decimal</th>

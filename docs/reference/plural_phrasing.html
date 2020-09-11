@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>For a list — headline.list • headliner</title>
+<title>List of values to use when change is plural (or singlular) — plural_phrasing • headliner</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="For a list — headline.list" />
-<meta property="og:description" content="For a list
-For a data frame" />
+<meta property="og:title" content="List of values to use when change is plural (or singlular) — plural_phrasing" />
+<meta property="og:description" content="List of values to use when change is plural (or singlular)" />
 
 
 
@@ -109,66 +108,38 @@ For a data frame" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>For a list</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rjake/headliner/blob/master/R/headline.R'><code>R/headline.R</code></a></small>
-    <div class="hidden name"><code>headline.default.Rd</code></div>
+    <h1>List of values to use when change is plural (or singlular)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rjake/headliner/blob/master/R/plural-phrasing.R'><code>R/plural-phrasing.R</code></a></small>
+    <div class="hidden name"><code>plural_phrasing.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>For a list</p>
-<p>For a data frame</p>
+    <p>List of values to use when change is plural (or singlular)</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for list</span>
-<span class='fu'>headline</span>(<span class='no'>x</span>, <span class='no'>compare</span>, <span class='no'>reference</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>headline</span>(<span class='no'>x</span>, <span class='no'>compare</span>, <span class='no'>reference</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plural_phrasing</span>(<span class='no'>single</span>, <span class='no'>multi</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>data frame, must be a single row</p></td>
+      <th>single</th>
+      <td><p>string to use when delta = 1</p></td>
     </tr>
     <tr>
-      <th>compare</th>
-      <td><p>numeric value to compare against reference (base) value</p></td>
-    </tr>
-    <tr>
-      <th>reference</th>
-      <td><p>numeric value that 'compare' value will be compared against</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed on to <code><a href='compare_values.html'>compare_values</a></code></p><dl'>
-    <dt><code>trend_phrasing</code></dt><dd><p>list of values to use for when y is more than x, y is the
-same as x, or y is less than x.</p></dd>
-    <dt><code>plural_phrases</code></dt><dd><p>named list of values to use when difference (delta) is
-singular (delta = 1) or plural (delta != 1)</p></dd>
-    <dt><code>orig_values</code></dt><dd><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax. <code>{c}</code> =
-the 'compare' value, and <code>{r}</code> = 'reference'</p></dd>
-    <dt><code>n_decimal</code></dt><dd><p>numeric value to limit the number of decimal places in
-the returned values.</p></dd>
-    <dt><code>round_all</code></dt><dd><p>logical value to indicate if all values should be rounded.
-When FALSE, the values will return with no modification. When TRUE (default)
-all values will be round to the length specified by 'n_decimal'.</p></dd>
-    <dt><code>scale</code></dt><dd><p>number indicating the scaling factor. When scale = 1, 1/4 will
-return 0.25, when scale = 100 (default) 1/4 will return 25</p></dd>
-  
-</dl></td>
+      <th>multi</th>
+      <td><p>string to use when delta &gt; 1</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
-    
-<ul>
-<li><p><code>headline.list</code>: for lists</p></li>
-<li><p><code>headline.data.frame</code>: for data frames</p></li>
-</ul>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>plural_phrasing</span>(<span class='st'>"person"</span>, <span class='st'>"people"</span>)</div><div class='output co'>#&gt; $single
+#&gt; [1] "person"
+#&gt; 
+#&gt; $multi
+#&gt; [1] "people"
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

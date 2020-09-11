@@ -125,6 +125,7 @@
   <span class='no'>...</span>,
   <span class='kw'>if_match</span> <span class='kw'>=</span> <span class='st'>"There was no difference."</span>,
   <span class='kw'>trend_phrasing</span> <span class='kw'>=</span> <span class='kw pkg'>headliner</span><span class='kw ns'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span>(),
+  <span class='kw'>plural_phrases</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>orig_values</span> <span class='kw'>=</span> <span class='st'>"{c} vs. {r}"</span>,
   <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>round_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -157,6 +158,11 @@
       <th>trend_phrasing</th>
       <td><p>list of values to use for when y is more than x, y is the
 same as x, or y is less than x.</p></td>
+    </tr>
+    <tr>
+      <th>plural_phrases</th>
+      <td><p>named list of values to use when difference (delta) is
+singular (delta = 1) or plural (delta != 1)</p></td>
     </tr>
     <tr>
       <th>orig_values</th>
