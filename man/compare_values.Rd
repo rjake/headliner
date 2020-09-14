@@ -5,8 +5,7 @@
 \title{Compare two values and get talking points}
 \usage{
 compare_values(
-  compare,
-  reference,
+  x,
   trend_phrasing = headliner::trend_terms(),
   orig_values = "{c} vs. {r}",
   plural_phrases = NULL,
@@ -16,9 +15,8 @@ compare_values(
 )
 }
 \arguments{
-\item{compare}{numeric value to compare against reference (base) value}
-
-\item{reference}{numeric value that 'compare' value will be compared against}
+\item{x}{a numeric vector of length 2. The first value is the value to
+compare against reference (base) value, the second value}
 
 \item{trend_phrasing}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
@@ -48,19 +46,19 @@ Compare two values and get talking points
 \examples{
 # the values can be manually entered
 
-compare_values(10, 8) \%>\% head(2)
+compare_values(c(10, 8)) \%>\% head(2)
 # percent difference (10-8)/8
-compare_values(10, 8)$delta_p
-compare_values(10, 8, trend_phrasing = trend_terms(more = "higher")) \%>\%
+compare_values(c(10, 8))$delta_p
+compare_values(c(10, 8), trend_phrasing = trend_terms(more = "higher")) \%>\%
   head(2)
 
 # a phrase about the comparion can be edited by providing glue syntax
 # 'c' = the 'compare' value, 'r' = 'reference'
-compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
+compare_values(c(10, 8), orig_values = "{c} to {r} people")$orig_values
 
 # you can also adjust the rounding, although the default is 1
-compare_values(0.1234, 0.4321)$orig_values
-compare_values(0.1234, 0.4321, n_decimal = 3)$orig_values
+compare_values(c(0.1234, 0.4321))$orig_values
+compare_values(c(0.1234, 0.4321), n_decimal = 3)$orig_values
 }
 \seealso{
 \code{\link[=headline]{headline()}}, \code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}

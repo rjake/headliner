@@ -1,3 +1,9 @@
+test_that("vector works correctly", {
+ res <- "decrease of 2 (1 vs. 3)"
+ expect_equal(headline(c(1, 3)), res)
+ expect_equal(headline(range(1, 3)), res)
+})
+
 
 test_that("data frame is passed correctly", {
   named <-
@@ -44,9 +50,10 @@ test_that("phrases added", {
     person = plural_phrasing("person", "people"),
     was = plural_phrasing("was", "were")
   )
-  when_multi <- headline(3, 1, plural_phrases = phrases, "{person} {was}")
-  when_single <- headline(2, 1, plural_phrases = phrases, "{person} {was}")
+  when_multi <- headline(c(3, 1), plural_phrases = phrases, "{person} {was}")
+  when_single <- headline(c(2, 1), plural_phrases = phrases, "{person} {was}")
 
   expect_true(when_multi == "people were")
   expect_true(when_single == "person was")
 })
+
