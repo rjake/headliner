@@ -4,9 +4,7 @@ headline <- function(...) {
 }
 
 #' Compare two values and get talking points
-#'
-#' @param compare numeric value to compare against reference (base) value
-#' @param reference numeric value that 'compare' value will be compared against
+#' @param x a vector of length 2 used to generate headlines
 #' @param headline a string to format the final output. Uses
 #' \code{\link[glue]{glue}} syntax
 #' @param if_match string to display if numbers match, uses
@@ -140,6 +138,8 @@ headline.default <- function(x,
 
 #' For a list
 #' @param x a list with values to compare, if named, can call by name
+#' @param compare numeric value to compare against reference (base) value
+#' @param reference numeric value that 'compare' value will be compared against
 #' @inheritParams headline.default
 #' @inheritDotParams compare_values
 #' @describeIn headline.default for lists
@@ -164,6 +164,8 @@ headline.list <- function(x, compare, reference, ...) {
 
 #' For a data frame
 #' @param x data frame, must be a single row
+#' @param compare numeric value to compare against reference (base) value
+#' @param reference numeric value that 'compare' value will be compared against
 #' @describeIn headline.default for data frames
 #' @export
 #' @importFrom glue glue
