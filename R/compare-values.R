@@ -2,7 +2,6 @@
 #'
 #' @param x a numeric vector of length 2. The first value is the value to
 #' compare against reference (base) value, the second value
-#' @param calc string should comparison be made as the difference between the
 #' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
 #' @param trend_phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
