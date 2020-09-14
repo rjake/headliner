@@ -193,12 +193,3 @@ headline.data.frame <- function(x, compare, reference, ...) {
 
   headline(c(comp, ref), ...)
 }
-
-
-# pull_vector <- function(x, col) {
-#   x[[deparse(match.call()[["col"]])]]
-# }
-#
-# pull_vector(head(mtcars), hp)
-# pull_vector(list(a = 123, b = 234), a)
-
