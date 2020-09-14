@@ -40,7 +40,7 @@ devtools::install_github("rjake/headliner")
 ## Usage
 
 For these examples, I will use a function called `demo_data()` to build
-a data set based on the current date 09/11/20.
+a data set based on the current date 09/14/20.
 
 ``` r
 library(headliner)
@@ -50,16 +50,16 @@ demo_data()
     #> # A tibble: 10 x 5
     #>    group     x     y     z date      
     #>    <chr> <dbl> <dbl> <dbl> <date>    
-    #>  1 a       101    10     1 2020-09-11
-    #>  2 a       102    20     0 2020-07-13
-    #>  3 b       103    30     1 2020-05-14
-    #>  4 b       104    40     0 2020-03-15
-    #>  5 c       105    50     1 2020-01-15
-    #>  6 c       106    60     0 2019-11-16
-    #>  7 d       107    70     1 2019-09-17
-    #>  8 d       108    80     0 2019-07-19
-    #>  9 e       109    90     1 2019-05-20
-    #> 10 e       110   100     0 2019-03-21
+    #>  1 a       101    10     1 2020-09-14
+    #>  2 a       102    20     0 2020-07-16
+    #>  3 b       103    30     1 2020-05-17
+    #>  4 b       104    40     0 2020-03-18
+    #>  5 c       105    50     1 2020-01-18
+    #>  6 c       106    60     0 2019-11-19
+    #>  7 d       107    70     1 2019-09-20
+    #>  8 d       108    80     0 2019-07-22
+    #>  9 e       109    90     1 2019-05-23
+    #> 10 e       110   100     0 2019-03-24
 
 What we want is to say something like this:
 
@@ -70,7 +70,7 @@ as today it is 101. We can give these values to `headline()` and get a
 simple phrase
 
 ``` r
-headline(compare = 101, reference = 107)
+headline(x = c(101, 107))
 #> decrease of 6 (101 vs. 107)
 ```
 
@@ -79,7 +79,10 @@ used under the hood. This `return_data = TRUE` returns a named list. I
 will condense with `view_list()`
 
 ``` r
-headline(101, 107, return_data = TRUE) %>% 
+headline(
+  x = c(101, 107), 
+  return_data = TRUE
+) %>% 
   view_list()
 #>                                      VALUES
 #> delta                                     6
@@ -101,7 +104,7 @@ We can compose it like this using `glue::glue()` syntax
 
 ``` r
 headline(
-  101, 107, 
+  x = c(101, 107), 
   "We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."
 )
 #> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
@@ -118,7 +121,7 @@ But let’s see if we can make the calculations more dynamic…
 First, we can use a function called `add_date_columns()` to calculate
 distances from the current date (or the refence date specified) to the
 values in the `date` column . With these new fields we can see that
-07/13/20 was 60 days ago (or 9 weeks or 2 months, …) from the current
+07/16/20 was 60 days ago (or 9 weeks or 2 months, …) from the current
 date.
 
 ``` r
@@ -127,16 +130,16 @@ demo_data() %>%
 #> # A tibble: 10 x 11
 #>    group     x     y     z date         day  week month quarter calendar_year
 #>    <chr> <dbl> <dbl> <dbl> <date>     <dbl> <dbl> <dbl>   <dbl>         <dbl>
-#>  1 a       101    10     1 2020-09-11     0     0     0       0             0
-#>  2 a       102    20     0 2020-07-13   -60    -8    -2       0             0
-#>  3 b       103    30     1 2020-05-14  -120   -17    -4      -1             0
-#>  4 b       104    40     0 2020-03-15  -180   -26    -6      -2             0
-#>  5 c       105    50     1 2020-01-15  -240   -34    -8      -2             0
-#>  6 c       106    60     0 2019-11-16  -300   -43   -10      -3            -1
-#>  7 d       107    70     1 2019-09-17  -360   -51   -12      -4            -1
-#>  8 d       108    80     0 2019-07-19  -420   -60   -14      -4            -1
-#>  9 e       109    90     1 2019-05-20  -480   -68   -16      -5            -1
-#> 10 e       110   100     0 2019-03-21  -540   -77   -18      -6            -1
+#>  1 a       101    10     1 2020-09-14     0     0     0       0             0
+#>  2 a       102    20     0 2020-07-16   -60    -9    -2       0             0
+#>  3 b       103    30     1 2020-05-17  -120   -18    -4      -1             0
+#>  4 b       104    40     0 2020-03-18  -180   -26    -6      -2             0
+#>  5 c       105    50     1 2020-01-18  -240   -35    -8      -2             0
+#>  6 c       106    60     0 2019-11-19  -300   -43   -10      -3            -1
+#>  7 d       107    70     1 2019-09-20  -360   -52   -12      -4            -1
+#>  8 d       108    80     0 2019-07-22  -420   -60   -14      -4            -1
+#>  9 e       109    90     1 2019-05-23  -480   -69   -16      -5            -1
+#> 10 e       110   100     0 2019-03-24  -540   -78   -18      -6            -1
 #> # ... with 1 more variable: fiscal_year <dbl>
 ```
 
@@ -184,8 +187,7 @@ Here I am adding `{people}` for use in my headline.
 
 ``` r
 headline(
-  compare = 10, 
-  reference = 8,
+  x = c(10, 8),
   headline =  
     "There is {article_trend} {trend} of {delta} {people} enrolled \\
     {article_delta_p} {delta_p}% {trend} ({orig_values})",
@@ -209,8 +211,7 @@ are_people <-
   )
 
 headline(
-  compare = 1, 
-  reference = 2,
+  x = c(1, 2),
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
@@ -218,8 +219,7 @@ headline(
 #> There is 1 less person
 
 headline(
-  compare = 3, 
-  reference = 1,
+  x = c(3, 1),
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
@@ -230,10 +230,10 @@ headline(
 You can also adjust the text if the numbers are the same
 
 ``` r
-headline(3, 3)
+headline(c(3, 3))
 #> There was no difference.
 
-headline(3, 3, if_match = "There were no additional applicants ({comp_value} total)")
+headline(c(3, 3), if_match = "There were no additional applicants ({comp_value} total)")
 #> There were no additional applicants (3 total)
 ```
 
@@ -269,15 +269,15 @@ car_stats <-
   )
 
 view_list(car_stats)
-#>               VALUES
-#> avg_disp_comp 105.14
-#> avg_disp_ref  296.50
-#> avg_drat_comp   4.07
-#> avg_drat_ref    3.35
-#> min_disp_comp  71.10
-#> min_disp_ref  145.00
-#> min_drat_comp   3.69
-#> min_drat_ref    2.76
+#>                   VALUES
+#> avg_disp_comp 105.136364
+#> avg_disp_ref  296.504762
+#> avg_drat_comp   4.070909
+#> avg_drat_ref    3.348095
+#> min_disp_comp  71.100000
+#> min_disp_ref  145.000000
+#> min_drat_comp   3.690000
+#> min_drat_ref    2.760000
 
 headline(
   car_stats,
@@ -303,22 +303,14 @@ get multiple headlines (may be simplified in a future release)
 library(tidyverse)
 
 flights_jfk %>% 
-  head(3) %>% 
+  head(1) %>% 
   select(arr_delay, dep_delay) %>% 
-  mutate(
-    headline = map2_chr( # from purrr
-      .x = arr_delay, 
-      .y = dep_delay, 
-      headline,
-      headline = "Difference of {raw_delta} minutes"
-    )
+  headline(
+    compare = arr_delay, 
+    reference = dep_delay, 
+    headline = "Difference of {raw_delta} minutes"
   )
-#> # A tibble: 3 x 3
-#>   arr_delay dep_delay headline                 
-#>       <dbl>     <dbl> <chr>                    
-#> 1         6        -4 Difference of 10 minutes 
-#> 2        10        21 Difference of -11 minutes
-#> 3         2        -4 Difference of 6 minutes
+#> Difference of 10 minutes
 ```
 
 `compare_conditions()` can also be used to compare categorical criteria.

@@ -66,20 +66,23 @@ demo_data() %>%
 
 We can look at the data an see that about 12 months ago, x was 107 where as today it is 101. We can give these values to `headline()` and get a simple phrase
 ```{r}
-headline(compare = 101, reference = 107)
+headline(x = c(101, 107))
 ```
 
 To see how the sentence was constructed, we can look at the components used under the hood. This `return_data = TRUE` returns a named list.  I will condense with `view_list()`
 
 ```{r}
-headline(101, 107, return_data = TRUE) %>% 
+headline(
+  x = c(101, 107), 
+  return_data = TRUE
+) %>% 
   view_list()
 ```
 
 We can compose it like this using `glue::glue()` syntax
 ```{r}
 headline(
-  101, 107, 
+  x = c(101, 107), 
   "We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."
 )
 ```
@@ -121,8 +124,7 @@ yoy %>%
 You can add phrases to customize your sentences. `plural_phrases()` allows you to add new variables to the list of components available. Here I am adding `{people}` for use in my headline.
 ```{r}
 headline(
-  compare = 10, 
-  reference = 8,
+  x = c(10, 8),
   headline =  
     "There is {article_trend} {trend} of {delta} {people} enrolled \\
     {article_delta_p} {delta_p}% {trend} ({orig_values})",
@@ -144,16 +146,14 @@ are_people <-
   )
 
 headline(
-  compare = 1, 
-  reference = 2,
+  x = c(1, 2),
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
 )
 
 headline(
-  compare = 3, 
-  reference = 1,
+  x = c(3, 1),
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
@@ -162,9 +162,9 @@ headline(
 
 You can also adjust the text if the numbers are the same
 ```{r}
-headline(3, 3)
+headline(c(3, 3))
 
-headline(3, 3, if_match = "There were no additional applicants ({comp_value} total)")
+headline(c(3, 3), if_match = "There were no additional applicants ({comp_value} total)")
 ```
 
 
@@ -235,15 +235,12 @@ If your data has more than one row, you can use `purrr::map2_chr()` to get multi
 library(tidyverse)
 
 flights_jfk %>% 
-  head(3) %>% 
+  head(1) %>% 
   select(arr_delay, dep_delay) %>% 
-  mutate(
-    headline = map2_chr( # from purrr
-      .x = arr_delay, 
-      .y = dep_delay, 
-      headline,
-      headline = "Difference of {raw_delta} minutes"
-    )
+  headline(
+    compare = arr_delay, 
+    reference = dep_delay, 
+    headline = "Difference of {raw_delta} minutes"
   )
 ```
 
