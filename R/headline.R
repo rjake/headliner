@@ -7,6 +7,7 @@ headline <- function(...) {
 #' @param x a vector of length 2 used to generate headlines
 #' @param headline a string to format the final output. Uses
 #' \code{\link[glue]{glue}} syntax
+#' @param ... arguments passed to \code{\link[glue]{glue_data}}
 #' @param if_match string to display if numbers match, uses
 #' \code{\link[glue]{glue}} syntax
 #' @param trend_phrasing list of values to use for when y is more than x, y is the
@@ -23,6 +24,8 @@ headline <- function(...) {
 #' all values will be round to the length specified by 'n_decimal'.
 #' @param scale number indicating the scaling factor. When scale = 1, 1/4 will
 #' return 0.25, when scale = 100 (default) 1/4 will return 25
+#' @param return_data logical to indicate whether function should return the
+#' phrase components used to compose the headline
 #' @importFrom glue glue_data
 #' @importFrom purrr map_if
 #' @export
