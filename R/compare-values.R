@@ -1,7 +1,7 @@
 #' Compare two values and get talking points
 #'
-#' @param compare numeric value to compare against reference (base) value
-#' @param reference numeric value that 'compare' value will be compared against
+#' @param x a numeric vector of length 2. The first value is the value to
+#' compare against reference (base) value, the second value
 #' @param calc string should comparison be made as the difference between the
 #' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
 #' @param trend_phrasing list of values to use for when y is more than x, y is the
@@ -25,29 +25,36 @@
 #' @examples
 #' # the values can be manually entered
 #'
-#' compare_values(10, 8) %>% head(2)
+#' compare_values(c(10, 8)) %>% head(2)
 #' # percent difference (10-8)/8
-#' compare_values(10, 8)$delta_p
-#' compare_values(10, 8, trend_phrasing = trend_terms(more = "higher")) %>%
+#' compare_values(c(10, 8))$delta_p
+#' compare_values(c(10, 8), trend_phrasing = trend_terms(more = "higher")) %>%
 #'   head(2)
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
-#' compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
+#' compare_values(c(10, 8), orig_values = "{c} to {r} people")$orig_values
 #'
 #' # you can also adjust the rounding, although the default is 1
-#' compare_values(0.1234, 0.4321)$orig_values
-#' compare_values(0.1234, 0.4321, n_decimal = 3)$orig_values
-compare_values <- function(compare,
-                           reference,
+#' compare_values(c(0.1234, 0.4321))$orig_values
+#' compare_values(c(0.1234, 0.4321), n_decimal = 3)$orig_values
+compare_values <- function(x,
                            trend_phrasing = headliner::trend_terms(),
                            orig_values = "{c} vs. {r}",
                            plural_phrases = NULL,
                            n_decimal = 1,
                            round_all = TRUE,
                            scale = 100) {
-  calc <- compare - reference
-  calc_p <- (compare - reference) / reference  * scale
+  # make sure correct input type
+  check_valid_vector(x)
+
+  # set variables
+  compare <- x[[1]]
+  reference <- x[[2]]
+
+  # calcs
+  calc <- as.numeric(compare - reference)
+  calc_p <- as.numeric((compare - reference) / reference  * scale)
 
   sign_calc <- sign(calc)
 
@@ -86,6 +93,7 @@ compare_values <- function(compare,
       map_if(is.numeric, round, n_decimal)
   }
 
+  # append plural phrases if provided
   if (!is.null(plural_phrases)) {
     # stop if items in list aren't named
     if (any(is.null(names(plural_phrases)))) {

@@ -32,33 +32,30 @@ headline <- function(...) {
 #' @seealso [view_list()] and [trend_terms()]
 #' @examples
 #' # values can be manually entered, some headlines are provided by default
-#' headline(10, 8)
-#' headline(8, 10)
-#' headline(10, 10)
+#' headline(c(10, 8))
+#' headline(c(8, 10))
+#' headline(c(10, 10))
 #'
 #' # most likely you'll edit the headline by hand
 #' headline(
-#'   compare = 10,
-#'   reference = 8,
+#'   x = c(10, 8),
 #'   headline = "There was a ${delta} {trend} vs last year"
 #' )
 #'
 #' # you can also adjust the phrasing of higher/lower values
 #' headline(
-#'   compare = 10,
-#'   reference = 8,
+#'   x = c(10, 8),
 #'   headline = "Group A was {trend} by {delta_p}%.",
 #'   trend_phrasing = trend_terms(more = "higher", less = "lower")
 #'  )
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
-#' headline(10, 8, orig_values = "{c} to {r} people")
+#' headline(c(10, 8), orig_values = "{c} to {r} people")
 #'
 #' # you can also add phrases for when the difference = 1 or not
 #' headline(
-#'   compare = 10,
-#'   reference = 8,
+#'   x = c(10, 8),
 #'   plural_phrases = list(
 #'     were = plural_phrasing(single = "was", multi = "were"),
 #'     people = plural_phrasing(single = "person", multi = "people")
@@ -67,8 +64,8 @@ headline <- function(...) {
 #' )
 #'
 #' # you can also adjust the rounding, although the default is 1
-#' headline(0.1234, 0.4321)
-#' headline(0.1234, 0.4321, n_decimal = 3)
+#' headline(c(0.1234, 0.4321))
+#' headline(c(0.1234, 0.4321), n_decimal = 3)
 #'
 #' # The values can come from a summarized data frame or a named list
 #' # if the data frame is only 2 columns or the list has only 2 elements
@@ -88,7 +85,7 @@ headline <- function(...) {
 #'
 #' # there are many components you can assemble
 #' headline(
-#'   16, 8,
+#'   x = c(16, 8),
 #'   headline = "there was {article_delta_p} {delta_p}% {trend}, \\
 #'   {article_trend} {trend} of {delta} ({orig_values})"
 #' )
@@ -106,8 +103,7 @@ headline <- function(...) {
 #'        per gallon than 6-cylinder cars ({orig_values}).",
 #'      trend_phrasing = trend_terms("more", "less")
 #'    )
-headline.default <- function(compare,
-                             reference,
+headline.default <- function(x,
                              headline = "{trend} of {delta} ({orig_values})",
                              ...,
                              if_match = "There was no difference.",
@@ -120,8 +116,7 @@ headline.default <- function(compare,
                              return_data = FALSE) {
   res <-
     compare_values(
-      compare = compare,
-      reference = reference,
+      x = x,
       trend_phrasing = trend_phrasing,
       plural_phrases = plural_phrases,
       orig_values = orig_values,
@@ -164,7 +159,7 @@ headline.list <- function(x, compare, reference, ...) {
     ref <- x[[deparse(match.call()[["reference"]])]]
   }
 
-  headline(comp, ref, ...)
+  headline(c(comp, ref), ...)
 }
 
 #' For a data frame
@@ -196,7 +191,7 @@ headline.data.frame <- function(x, compare, reference, ...) {
     ref <- pull(x, {{reference}})
   }
 
-  headline(comp, ref, ...)
+  headline(c(comp, ref), ...)
 }
 
 
