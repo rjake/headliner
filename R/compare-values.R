@@ -117,7 +117,7 @@ compare_values <- function(x,
 #' @export
 #' @seealso [compare_values()]
 #' @examples
-#' compare_values(10, 8) %>%
+#' compare_values(c(10, 8)) %>%
 #'   view_list()
 view_list <- function(x) {
   data.frame(
