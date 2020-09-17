@@ -85,29 +85,32 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>For these examples, I will use a function called <code><a href="reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date 09/11/20.</p>
+<p>For these examples, I will use a function called <code><a href="reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date 09/14/20.</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">headliner</span>)
 <span class="fu"><a href="reference/demo_data.html">demo_data</a></span>()</pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">#&gt; # A tibble: 10 x 5</span></a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;    group     x     y     z date      </span></a>
 <a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt;  1 a       101    10     1 2020-09-11</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;  2 a       102    20     0 2020-07-13</span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;  3 b       103    30     1 2020-05-14</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;  4 b       104    40     0 2020-03-15</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;  5 c       105    50     1 2020-01-15</span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  6 c       106    60     0 2019-11-16</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;  7 d       107    70     1 2019-09-17</span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt;  8 d       108    80     0 2019-07-19</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;  9 e       109    90     1 2019-05-20</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; 10 e       110   100     0 2019-03-21</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt;  1 a       101    10     1 2020-09-14</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;  2 a       102    20     0 2020-07-16</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;  3 b       103    30     1 2020-05-17</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;  4 b       104    40     0 2020-03-18</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;  5 c       105    50     1 2020-01-18</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  6 c       106    60     0 2019-11-19</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;  7 d       107    70     1 2019-09-20</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt;  8 d       108    80     0 2019-07-22</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;  9 e       109    90     1 2019-05-23</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; 10 e       110   100     0 2019-03-24</span></a></code></pre></div>
 <p>What we want is to say something like this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></a></code></pre></div>
 <p>We can look at the data an see that about 12 months ago, x was 107 where as today it is 101. We can give these values to <code>headline()</code> and get a simple phrase</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu">headline</span>(<span class="kw">compare</span> <span class="kw">=</span> <span class="fl">101</span>, <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">107</span>)
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu">headline</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">101</span>, <span class="fl">107</span>))
 <span class="co">#&gt; decrease of 6 (101 vs. 107)</span></pre></div>
 <p>To see how the sentence was constructed, we can look at the components used under the hood. This <code>return_data = TRUE</code> returns a named list. I will condense with <code><a href="reference/view_list.html">view_list()</a></code></p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu">headline</span>(<span class="fl">101</span>, <span class="fl">107</span>, <span class="kw">return_data</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu">headline</span>(
+  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">101</span>, <span class="fl">107</span>),
+  <span class="kw">return_data</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/view_list.html">view_list</a></span>()
 <span class="co">#&gt;                                      VALUES</span>
 <span class="co">#&gt; delta                                     6</span>
@@ -125,28 +128,28 @@
 <span class="co">#&gt; headline        decrease of 6 (101 vs. 107)</span></pre></div>
 <p>We can compose it like this using <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue()</a></code> syntax</p>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="fu">headline</span>(
-  <span class="fl">101</span>, <span class="fl">107</span>,
+  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">101</span>, <span class="fl">107</span>),
   <span class="st">"We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."</span>
 )
 <span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></pre></div>
 <p>You might have noticed that there are multiple <code>article_*</code> components available. <code>article_delta</code> is for the difference between the two values (“<strong>a</strong> 6 person loss” vs “<strong>an</strong> 8 person loss”), <code>article_delta_p</code> is for the percentage difference for “<strong>a</strong> 5.6%” vs “<strong>an</strong> 8.6%”, and <code>article_trend</code> gives us “<strong>an</strong> increase” vs “<strong>a</strong> decrease”.</p>
 <p>But let’s see if we can make the calculations more dynamic…</p>
-<p>First, we can use a function called <code><a href="reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 07/13/20 was 60 days ago (or 9 weeks or 2 months, …) from the current date.</p>
+<p>First, we can use a function called <code><a href="reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 07/16/20 was 60 days ago (or 9 weeks or 2 months, …) from the current date.</p>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="reference/demo_data.html">demo_data</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/add_date_columns.html">add_date_columns</a></span>(<span class="kw">date_col</span> <span class="kw">=</span> <span class="no">date</span>)
 <span class="co">#&gt; # A tibble: 10 x 11</span>
 <span class="co">#&gt;    group     x     y     z date         day  week month quarter calendar_year</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 a       101    10     1 2020-09-11     0     0     0       0             0</span>
-<span class="co">#&gt;  2 a       102    20     0 2020-07-13   -60    -8    -2       0             0</span>
-<span class="co">#&gt;  3 b       103    30     1 2020-05-14  -120   -17    -4      -1             0</span>
-<span class="co">#&gt;  4 b       104    40     0 2020-03-15  -180   -26    -6      -2             0</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-01-15  -240   -34    -8      -2             0</span>
-<span class="co">#&gt;  6 c       106    60     0 2019-11-16  -300   -43   -10      -3            -1</span>
-<span class="co">#&gt;  7 d       107    70     1 2019-09-17  -360   -51   -12      -4            -1</span>
-<span class="co">#&gt;  8 d       108    80     0 2019-07-19  -420   -60   -14      -4            -1</span>
-<span class="co">#&gt;  9 e       109    90     1 2019-05-20  -480   -68   -16      -5            -1</span>
-<span class="co">#&gt; 10 e       110   100     0 2019-03-21  -540   -77   -18      -6            -1</span>
+<span class="co">#&gt;  1 a       101    10     1 2020-09-14     0     0     0       0             0</span>
+<span class="co">#&gt;  2 a       102    20     0 2020-07-16   -60    -9    -2       0             0</span>
+<span class="co">#&gt;  3 b       103    30     1 2020-05-17  -120   -18    -4      -1             0</span>
+<span class="co">#&gt;  4 b       104    40     0 2020-03-18  -180   -26    -6      -2             0</span>
+<span class="co">#&gt;  5 c       105    50     1 2020-01-18  -240   -35    -8      -2             0</span>
+<span class="co">#&gt;  6 c       106    60     0 2019-11-19  -300   -43   -10      -3            -1</span>
+<span class="co">#&gt;  7 d       107    70     1 2019-09-20  -360   -52   -12      -4            -1</span>
+<span class="co">#&gt;  8 d       108    80     0 2019-07-22  -420   -60   -14      -4            -1</span>
+<span class="co">#&gt;  9 e       109    90     1 2019-05-23  -480   -69   -16      -5            -1</span>
+<span class="co">#&gt; 10 e       110   100     0 2019-03-24  -540   -78   -18      -6            -1</span>
 <span class="co">#&gt; # ... with 1 more variable: fiscal_year &lt;dbl&gt;</span></pre></div>
 <p>We can then identify some conditions for our comparison (<code>compare</code>) and our reference group (<code>reference</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code></p>
 <div class="sourceCode" id="cb9"><pre class="r"><span class="no">yoy</span> <span class="kw">&lt;-</span> <span class="co"># year over year</span>
@@ -173,8 +176,7 @@
 <span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></pre></div>
 <p>You can add phrases to customize your sentences. <code>plural_phrases()</code> allows you to add new variables to the list of components available. Here I am adding <code>{people}</code> for use in my headline.</p>
 <div class="sourceCode" id="cb11"><pre class="r"><span class="fu">headline</span>(
-  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">10</span>,
-  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">8</span>,
+  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">8</span>),
   <span class="kw">headline</span> <span class="kw">=</span>
     <span class="st">"There is {article_trend} {trend} of {delta} {people} enrolled \\
     {article_delta_p} {delta_p}% {trend} ({orig_values})"</span>,
@@ -194,8 +196,7 @@
   )
 
 <span class="fu">headline</span>(
-  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">1</span>,
-  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">2</span>,
+  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>),
   <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"There {are} {delta} {trend} {people}"</span>,
   <span class="kw">trend_phrasing</span> <span class="kw">=</span> <span class="no">more_less</span>,
   <span class="kw">plural_phrases</span> <span class="kw">=</span> <span class="no">are_people</span>
@@ -203,18 +204,17 @@
 <span class="co">#&gt; There is 1 less person</span>
 
 <span class="fu">headline</span>(
-  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">3</span>,
-  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">1</span>,
+  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">1</span>),
   <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"There {are} {delta} {trend} {people}"</span>,
   <span class="kw">trend_phrasing</span> <span class="kw">=</span> <span class="no">more_less</span>,
   <span class="kw">plural_phrases</span> <span class="kw">=</span> <span class="no">are_people</span>
 )
 <span class="co">#&gt; There are 2 more people</span></pre></div>
 <p>You can also adjust the text if the numbers are the same</p>
-<div class="sourceCode" id="cb13"><pre class="r"><span class="fu">headline</span>(<span class="fl">3</span>, <span class="fl">3</span>)
+<div class="sourceCode" id="cb13"><pre class="r"><span class="fu">headline</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">3</span>))
 <span class="co">#&gt; There was no difference.</span>
 
-<span class="fu">headline</span>(<span class="fl">3</span>, <span class="fl">3</span>, <span class="kw">if_match</span> <span class="kw">=</span> <span class="st">"There were no additional applicants ({comp_value} total)"</span>)
+<span class="fu">headline</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">3</span>), <span class="kw">if_match</span> <span class="kw">=</span> <span class="st">"There were no additional applicants ({comp_value} total)"</span>)
 <span class="co">#&gt; There were no additional applicants (3 total)</span></pre></div>
 <p><code>headline()</code> can also be used in a <code>valueBox()</code> for <code>shiny</code></p>
 <div class="sourceCode" id="cb14"><pre class="r"><span class="no">box_color</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">yoy</span>$<span class="no">sign</span> <span class="kw">==</span> -<span class="fl">1</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>)
@@ -238,15 +238,15 @@
   )
 
 <span class="fu"><a href="reference/view_list.html">view_list</a></span>(<span class="no">car_stats</span>)
-<span class="co">#&gt;               VALUES</span>
-<span class="co">#&gt; avg_disp_comp 105.14</span>
-<span class="co">#&gt; avg_disp_ref  296.50</span>
-<span class="co">#&gt; avg_drat_comp   4.07</span>
-<span class="co">#&gt; avg_drat_ref    3.35</span>
-<span class="co">#&gt; min_disp_comp  71.10</span>
-<span class="co">#&gt; min_disp_ref  145.00</span>
-<span class="co">#&gt; min_drat_comp   3.69</span>
-<span class="co">#&gt; min_drat_ref    2.76</span>
+<span class="co">#&gt;                   VALUES</span>
+<span class="co">#&gt; avg_disp_comp 105.136364</span>
+<span class="co">#&gt; avg_disp_ref  296.504762</span>
+<span class="co">#&gt; avg_drat_comp   4.070909</span>
+<span class="co">#&gt; avg_drat_ref    3.348095</span>
+<span class="co">#&gt; min_disp_comp  71.100000</span>
+<span class="co">#&gt; min_disp_ref  145.000000</span>
+<span class="co">#&gt; min_drat_comp   3.690000</span>
+<span class="co">#&gt; min_drat_ref    2.760000</span>
 
 <span class="fu">headline</span>(
   <span class="no">car_stats</span>,
@@ -267,22 +267,14 @@
 <div class="sourceCode" id="cb16"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
 
 <span class="no">flights_jfk</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">3</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">1</span>) <span class="kw">%&gt;%</span>
   <span class="fu">select</span>(<span class="no">arr_delay</span>, <span class="no">dep_delay</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(
-    <span class="kw">headline</span> <span class="kw">=</span> <span class="fu">map2_chr</span>( <span class="co"># from purrr</span>
-      <span class="kw">.x</span> <span class="kw">=</span> <span class="no">arr_delay</span>,
-      <span class="kw">.y</span> <span class="kw">=</span> <span class="no">dep_delay</span>,
-      <span class="no">headline</span>,
-      <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"Difference of {raw_delta} minutes"</span>
-    )
+  <span class="fu">headline</span>(
+    <span class="kw">compare</span> <span class="kw">=</span> <span class="no">arr_delay</span>,
+    <span class="kw">reference</span> <span class="kw">=</span> <span class="no">dep_delay</span>,
+    <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"Difference of {raw_delta} minutes"</span>
   )
-<span class="co">#&gt; # A tibble: 3 x 3</span>
-<span class="co">#&gt;   arr_delay dep_delay headline                 </span>
-<span class="co">#&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                    </span>
-<span class="co">#&gt; 1         6        -4 Difference of 10 minutes </span>
-<span class="co">#&gt; 2        10        21 Difference of -11 minutes</span>
-<span class="co">#&gt; 3         2        -4 Difference of 6 minutes</span></pre></div>
+<span class="co">#&gt; Difference of 10 minutes</span></pre></div>
 <p><code><a href="reference/compare_conditions.html">compare_conditions()</a></code> can also be used to compare categorical criteria.</p>
 <div class="sourceCode" id="cb17"><pre class="r"><span class="fu"><a href="reference/demo_data.html">demo_data</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/compare_conditions.html">compare_conditions</a></span>(
