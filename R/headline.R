@@ -1,9 +1,9 @@
+#' Compose phrases that describe differences in the data
 #' @export
 headline <- function(...) {
   UseMethod("headline")
 }
 
-#' Compare two values and get talking points
 #' @param x a vector of length 2 used to generate headlines
 #' @param headline a string to format the final output. Uses
 #' \code{\link[glue]{glue}} syntax
@@ -139,13 +139,11 @@ headline.default <- function(x,
 }
 
 
-#' For a list
 #' @param x a list with values to compare, if named, can call by name
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
-#' @inheritParams headline.default
-#' @inheritDotParams compare_values
-#' @describeIn headline.default for lists
+#' @inheritDotParams headline.default
+#' @rdname headline
 #' @export
 headline.list <- function(x, compare, reference, ...) {
   if (missing(compare) & missing(reference)) {
@@ -165,11 +163,11 @@ headline.list <- function(x, compare, reference, ...) {
   headline(c(comp, ref), ...)
 }
 
-#' For a data frame
 #' @param x data frame, must be a single row
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
-#' @describeIn headline.default for data frames
+#' @inheritDotParams headline.default
+#' @rdname headline
 #' @export
 #' @importFrom glue glue
 headline.data.frame <- function(x, compare, reference, ...) {
