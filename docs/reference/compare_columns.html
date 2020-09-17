@@ -89,7 +89,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/rjake/headliner/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -104,7 +109,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compare two columns within a data frame</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/rjake/headliner/blob/master/R/compare-groups.R'><code>R/compare-groups.R</code></a></small>
     <div class="hidden name"><code>compare_columns.Rd</code></div>
     </div>
 
@@ -137,10 +142,10 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, )</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; $mean_air_time
-#&gt; [1] 327.7805328
+#&gt; [1] 327.7805
 #&gt; 
 #&gt; $mean_arr_delay
-#&gt; [1] 0.1459120656
+#&gt; [1] 0.1459121
 #&gt; 
 #&gt; $mean_carrier
 #&gt; [1] NA
@@ -149,51 +154,51 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 #&gt; [1] "2013-01-01"
 #&gt; 
 #&gt; $mean_dep_delay
-#&gt; [1] 10.41128215
+#&gt; [1] 10.41128
 #&gt; 
 #&gt; $mean_dest
 #&gt; [1] NA
 #&gt; 
 #&gt; $mean_dewp
-#&gt; [1] 41.06711218
+#&gt; [1] 41.06711
 #&gt; 
 #&gt; $mean_distance
-#&gt; [1] 2453.745691
+#&gt; [1] 2453.746
 #&gt; 
 #&gt; $mean_hour
-#&gt; [1] 15.03484192
+#&gt; [1] 15.03484
 #&gt; 
 #&gt; $mean_humid
-#&gt; [1] 57.20094294
+#&gt; [1] 57.20094
 #&gt; 
 #&gt; $mean_precip
-#&gt; [1] 0.001494146926
+#&gt; [1] 0.001494147
 #&gt; 
 #&gt; $mean_pressure
-#&gt; [1] 1018.002212
+#&gt; [1] 1018.002
 #&gt; 
 #&gt; $mean_tailnum
 #&gt; [1] NA
 #&gt; 
 #&gt; $mean_temp
-#&gt; [1] 57.27721633
+#&gt; [1] 57.27722
 #&gt; 
 #&gt; $mean_visib
-#&gt; [1] 9.576752696
+#&gt; [1] 9.576753
 #&gt; 
 #&gt; $mean_wind_dir
-#&gt; [1] 207.5795004
+#&gt; [1] 207.5795
 #&gt; 
 #&gt; $mean_wind_speed
-#&gt; [1] 12.43572178
+#&gt; [1] 12.43572
 #&gt; 
 #&gt; $mean_year
-#&gt; [1] 2012.499954
+#&gt; [1] 2012.5
 #&gt; </div><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, <span class='fu'>ends_with</span>(<span class='st'>"delay"</span>))</div><div class='output co'>#&gt; $mean_arr_delay
-#&gt; [1] 0.1459120656
+#&gt; [1] 0.1459121
 #&gt; 
 #&gt; $mean_dep_delay
-#&gt; [1] 10.41128215
+#&gt; [1] 10.41128
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -206,7 +211,7 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by First Last.</p>
+  <p>Developed by Jake Riley.</p>
 </div>
 
 <div class="pkgdown">
