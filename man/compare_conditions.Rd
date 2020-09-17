@@ -37,7 +37,7 @@ flights_jfk \%>\%
     c(dep_delay, arr_delay),
     calc = list(mean = mean, sd = sd)
   ) \%>\%
-  view_components()
+  view_list()
 
 mtcars \%>\%
   compare_conditions(
@@ -46,5 +46,5 @@ mtcars \%>\%
     dplyr::starts_with("d"),
     calc = list(mean = mean, max = max)
   ) \%>\%
-  view_components()
+  view_list()
 }

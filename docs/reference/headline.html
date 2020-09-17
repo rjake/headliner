@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compare two values and get talking points — headline.default • headliner</title>
+<title>Compose phrases that describe differences in the data — headline • headliner</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Compare two values and get talking points — headline.default" />
-<meta property="og:description" content="Compare two values and get talking points" />
+<meta property="og:title" content="Compose phrases that describe differences in the data — headline" />
+<meta property="og:description" content="Compose phrases that describe differences in the data" />
 
 
 
@@ -108,16 +108,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compare two values and get talking points</h1>
+    <h1>Compose phrases that describe differences in the data</h1>
     <small class="dont-index">Source: <a href='https://github.com/rjake/headliner/blob/master/R/headline.R'><code>R/headline.R</code></a></small>
     <div class="hidden name"><code>headline.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compare two values and get talking points</p>
+    <p>Compose phrases that describe differences in the data</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for default</span>
+    <pre class="usage"><span class='fu'>headline</span>(<span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
 <span class='fu'>headline</span>(
   <span class='no'>x</span>,
   <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"{trend} of {delta} ({orig_values})"</span>,
@@ -130,14 +132,27 @@
   <span class='kw'>round_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>return_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+)
+
+<span class='co'># S3 method for list</span>
+<span class='fu'>headline</span>(<span class='no'>x</span>, <span class='no'>compare</span>, <span class='no'>reference</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>headline</span>(<span class='no'>x</span>, <span class='no'>compare</span>, <span class='no'>reference</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>...</th>
+      <td><p>Arguments passed on to <code>headline.default</code>, <code>headline.default</code></p><dl'>
+    <dt><code></code></dt><dd><p></p></dd>
+  
+</dl></td>
+    </tr>
+    <tr>
       <th>x</th>
-      <td><p>a vector of length 2 used to generate headlines</p></td>
+      <td><p>data frame, must be a single row</p></td>
     </tr>
     <tr>
       <th>headline</th>
@@ -180,6 +195,19 @@ all values will be round to the length specified by 'n_decimal'.</p></td>
       <th>scale</th>
       <td><p>number indicating the scaling factor. When scale = 1, 1/4 will
 return 0.25, when scale = 100 (default) 1/4 will return 25</p></td>
+    </tr>
+    <tr>
+      <th>return_data</th>
+      <td><p>logical to indicate whether function should return the
+phrase components used to compose the headline</p></td>
+    </tr>
+    <tr>
+      <th>compare</th>
+      <td><p>numeric value to compare against reference (base) value</p></td>
+    </tr>
+    <tr>
+      <th>reference</th>
+      <td><p>numeric value that 'compare' value will be compared against</p></td>
     </tr>
     </table>
 

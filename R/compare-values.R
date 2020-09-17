@@ -2,7 +2,6 @@
 #'
 #' @param x a numeric vector of length 2. The first value is the value to
 #' compare against reference (base) value, the second value
-#' @param calc string should comparison be made as the difference between the
 #' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
 #' @param trend_phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
@@ -21,7 +20,7 @@
 #' @importFrom purrr map_if map pluck
 #' @export
 #' @rdname compare_values
-#' @seealso [headline()], [view_list()] and [trend_terms()]
+#' @seealso [view_list()], [trend_terms()], and [plural_phrasing()]
 #' @examples
 #' # the values can be manually entered
 #'
@@ -118,7 +117,7 @@ compare_values <- function(x,
 #' @export
 #' @seealso [compare_values()]
 #' @examples
-#' compare_values(10, 8) %>%
+#' compare_values(c(10, 8)) %>%
 #'   view_list()
 view_list <- function(x) {
   data.frame(

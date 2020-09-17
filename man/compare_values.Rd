@@ -16,7 +16,8 @@ compare_values(
 }
 \arguments{
 \item{x}{a numeric vector of length 2. The first value is the value to
-compare against reference (base) value, the second value}
+compare against reference (base) value, the second value
+two ('value', y - x) or the percent difference ('prop', (y - x) / x)}
 
 \item{trend_phrasing}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
@@ -36,9 +37,6 @@ all values will be round to the length specified by 'n_decimal'.}
 
 \item{scale}{number indicating the scaling factor. When scale = 1, 1/4 will
 return 0.25, when scale = 100 (default) 1/4 will return 25}
-
-\item{calc}{string should comparison be made as the difference between the
-two ('value', y - x) or the percent difference ('prop', (y - x) / x)}
 }
 \description{
 Compare two values and get talking points
@@ -61,5 +59,5 @@ compare_values(c(0.1234, 0.4321))$orig_values
 compare_values(c(0.1234, 0.4321), n_decimal = 3)$orig_values
 }
 \seealso{
-\code{\link[=headline]{headline()}}, \code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}
+\code{\link[=view_list]{view_list()}}, \code{\link[=trend_terms]{trend_terms()}}, and \code{\link[=plural_phrasing]{plural_phrasing()}}
 }
