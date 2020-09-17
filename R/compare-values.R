@@ -20,7 +20,7 @@
 #' @importFrom purrr map_if map pluck
 #' @export
 #' @rdname compare_values
-#' @seealso [headline()], [view_list()] and [trend_terms()]
+#' @seealso [view_list()], [trend_terms()], and [plural_phrasing()]
 #' @examples
 #' # the values can be manually entered
 #'
