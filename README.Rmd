@@ -37,7 +37,7 @@ devtools::install_github("rjake/headliner")
 
 ## Usage
 
-For these examples, I will use a function called `demo_data()` to build a data set based on the current date `r format(Sys.Date(), "%D")`.
+For these examples, I will use a function called `demo_data()` to build a data set based on the current date (this was last run on `r format(Sys.Date(), "%D")`).
 ```{r eval=FALSE}
 library(headliner)
 demo_data()
