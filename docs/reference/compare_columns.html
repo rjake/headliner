@@ -8,6 +8,13 @@
 
 <title>Compare two columns within a data frame — compare_columns • headliner</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="Compare two columns within a data frame — compare_columns" />
 <meta property="og:description" content="Compare two columns within a data frame" />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -109,7 +117,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compare two columns within a data frame</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rjake/headliner/blob/master/R/compare-groups.R'><code>R/compare-groups.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/rjake/headliner/blob/master/R/compare-columns.R'><code>R/compare-columns.R</code></a></small>
     <div class="hidden name"><code>compare_columns.Rd</code></div>
     </div>
 
@@ -142,10 +150,10 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, )</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; $mean_air_time
-#&gt; [1] 327.7805
+#&gt; [1] 328
 #&gt; 
 #&gt; $mean_arr_delay
-#&gt; [1] 0.1459121
+#&gt; [1] 0.146
 #&gt; 
 #&gt; $mean_carrier
 #&gt; [1] NA
@@ -154,51 +162,51 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 #&gt; [1] "2013-01-01"
 #&gt; 
 #&gt; $mean_dep_delay
-#&gt; [1] 10.41128
+#&gt; [1] 10.4
 #&gt; 
 #&gt; $mean_dest
 #&gt; [1] NA
 #&gt; 
 #&gt; $mean_dewp
-#&gt; [1] 41.06711
+#&gt; [1] 41.1
 #&gt; 
 #&gt; $mean_distance
-#&gt; [1] 2453.746
+#&gt; [1] 2454
 #&gt; 
 #&gt; $mean_hour
-#&gt; [1] 15.03484
+#&gt; [1] 15
 #&gt; 
 #&gt; $mean_humid
-#&gt; [1] 57.20094
+#&gt; [1] 57.2
 #&gt; 
 #&gt; $mean_precip
-#&gt; [1] 0.001494147
+#&gt; [1] 0.00149
 #&gt; 
 #&gt; $mean_pressure
-#&gt; [1] 1018.002
+#&gt; [1] 1018
 #&gt; 
 #&gt; $mean_tailnum
 #&gt; [1] NA
 #&gt; 
 #&gt; $mean_temp
-#&gt; [1] 57.27722
+#&gt; [1] 57.3
 #&gt; 
 #&gt; $mean_visib
-#&gt; [1] 9.576753
+#&gt; [1] 9.58
 #&gt; 
 #&gt; $mean_wind_dir
-#&gt; [1] 207.5795
+#&gt; [1] 208
 #&gt; 
 #&gt; $mean_wind_speed
-#&gt; [1] 12.43572
+#&gt; [1] 12.4
 #&gt; 
 #&gt; $mean_year
-#&gt; [1] 2012.5
+#&gt; [1] 2012
 #&gt; </div><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, <span class='fu'>ends_with</span>(<span class='st'>"delay"</span>))</div><div class='output co'>#&gt; $mean_arr_delay
-#&gt; [1] 0.1459121
+#&gt; [1] 0.146
 #&gt; 
 #&gt; $mean_dep_delay
-#&gt; [1] 10.41128
+#&gt; [1] 10.4
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
