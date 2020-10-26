@@ -110,39 +110,3 @@ compare_values <- function(x,
   output
 }
 
-
-#' Compact view of list values
-#'
-#' @param x list from 'compare_values()'
-#' @export
-#' @seealso [compare_values()]
-#' @examples
-#' compare_values(c(10, 8)) %>%
-#'   view_list()
-view_list <- function(x) {
-  data.frame(
-    VALUES = unlist(x)
-  )
-}
-
-
-#' Phrases for direction of difference
-#'
-#' @param more string to use when x > y
-#' @param less string to use when x < y
-#' @param same string to use when x == y
-#'
-#' @export
-#' @seealso [compare_values()]
-#' @examples
-#' trend_terms(same = "no change")
-trend_terms <- function(more = "increase",
-                        less = "decrease",
-                        same = "difference") {
-  list(
-    more = more,
-    less = less,
-    same = same
-  )
-}
-
