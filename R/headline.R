@@ -4,7 +4,8 @@ headline <- function(...) {
   UseMethod("headline")
 }
 
-#' @param x a vector of length 2 used to generate headlines
+#' @param compare a numeric value to compare to a reference value
+#' @param reference a numeric value to act as a control for the 'compare' value
 #' @param headline a string to format the final output. Uses
 #' \code{\link[glue]{glue}} syntax
 #' @param ... arguments passed to \code{\link[glue]{glue_data}}
@@ -86,7 +87,8 @@ headline <- function(...) {
 #'
 #' # there are many components you can assemble
 #' headline(
-#'   x = c(16, 8),
+#'   compare = 16,
+#'   reference = 8,
 #'   headline = "there was {article_delta_p} {delta_p}% {trend}, \\
 #'   {article_trend} {trend} of {delta} ({orig_values})"
 #' )
@@ -104,7 +106,8 @@ headline <- function(...) {
 #'        per gallon than 6-cylinder cars ({orig_values}).",
 #'      trend_phrasing = trend_terms("more", "less")
 #'    )
-headline.default <- function(x,
+headline.default <- function(compare,
+                             reference,
                              headline = "{trend} of {delta} ({orig_values})",
                              ...,
                              if_match = "There was no difference.",
@@ -117,7 +120,8 @@ headline.default <- function(x,
                              return_data = FALSE) {
   res <-
     compare_values(
-      x = x,
+      compare,
+      reference,
       trend_phrasing = trend_phrasing,
       plural_phrases = plural_phrases,
       orig_values = orig_values,
@@ -126,16 +130,17 @@ headline.default <- function(x,
       scale = scale
     )
 
-  if (res$sign == 0) {
-    headline <- if_match
-  }
 
   if (return_data) {
     res <- append(res, list(headline = glue_data(res, headline)))
     return(res)
   }
 
-  glue_data(res, headline, ...)
+  # determine which headline phrasing to use
+  final_output <- glue_data(res, headline, ...)
+  final_output[res$sign == 0] <- glue_data(res, if_match, ...)
+
+  final_output
 }
 
 
@@ -160,7 +165,7 @@ headline.list <- function(x, compare, reference, ...) {
     ref <- x[[deparse(match.call()[["reference"]])]]
   }
 
-  headline(c(comp, ref), ...)
+  headline(comp, ref, ...)
 }
 
 #' @param x data frame, must be a single row
@@ -194,5 +199,5 @@ headline.data.frame <- function(x, compare, reference, ...) {
     ref <- pull(x, {{reference}})
   }
 
-  headline(c(comp, ref), ...)
+  headline(comp, ref, ...)
 }

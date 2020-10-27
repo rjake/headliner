@@ -1,8 +1,7 @@
 #' Compare two values and get talking points
 #'
-#' @param x a numeric vector of length 2. The first value is the value to
-#' compare against reference (base) value, the second value
-#' two ('value', y - x) or the percent difference ('prop', (y - x) / x)
+#' @param compare a numeric value to compare to a reference value
+#' @param reference a numeric value to act as a control for the 'compare' value
 #' @param trend_phrasing list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
 #' @param plural_phrases named list of values to use when difference (delta) is
@@ -37,7 +36,7 @@
 #' # you can also adjust the rounding, although the default is 1
 #' compare_values(c(0.1234, 0.4321))$orig_values
 #' compare_values(c(0.1234, 0.4321), n_decimal = 3)$orig_values
-compare_values <- function(x,
+compare_values <- function(compare, reference,
                            trend_phrasing = headliner::trend_terms(),
                            orig_values = "{c} vs. {r}",
                            plural_phrases = NULL,
@@ -45,11 +44,7 @@ compare_values <- function(x,
                            round_all = TRUE,
                            scale = 100) {
   # make sure correct input type
-  check_valid_vector(x)
-
-  # set variables
-  compare <- x[[1]]
-  reference <- x[[2]]
+  check_valid_vector(c(compare, reference))
 
   # calcs
   calc <- as.numeric(compare - reference)
@@ -58,7 +53,7 @@ compare_values <- function(x,
   sign_calc <- sign(calc)
 
   phrase <-
-    switch(
+    recode(
       as.character(sign_calc), # must be a character
       "1" = trend_phrasing$more,
       "-1" = trend_phrasing$less,
@@ -109,4 +104,5 @@ compare_values <- function(x,
 
   output
 }
+
 

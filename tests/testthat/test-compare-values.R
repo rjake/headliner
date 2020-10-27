@@ -1,5 +1,5 @@
 test_that("compare_values produces list", {
-  x <- compare_values(c(2, 3))
+  x <- compare_values(2, 3)
 
   expect_true(is.list(x))
 
