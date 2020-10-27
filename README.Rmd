@@ -242,7 +242,7 @@ headline(
 )
 ```
 
-You can also use it in a `mutate()` function
+You can also use `headliner()` with `mutate()`
 ```{r}
 library(tidyverse)
 

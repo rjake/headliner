@@ -301,7 +301,7 @@ headline(
 #> Difference in avg. rear axle ratio of 0.7 (4.1 vs. 3.3)
 ```
 
-You can also use it in a `mutate()` function
+You can also use `headliner()` with `mutate()`
 
 ``` r
 library(tidyverse)
