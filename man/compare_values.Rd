@@ -5,7 +5,8 @@
 \title{Compare two values and get talking points}
 \usage{
 compare_values(
-  x,
+  compare,
+  reference,
   trend_phrasing = headliner::trend_terms(),
   orig_values = "{c} vs. {r}",
   plural_phrases = NULL,
@@ -15,9 +16,9 @@ compare_values(
 )
 }
 \arguments{
-\item{x}{a numeric vector of length 2. The first value is the value to
-compare against reference (base) value, the second value
-two ('value', y - x) or the percent difference ('prop', (y - x) / x)}
+\item{compare}{a numeric value to compare to a reference value}
+
+\item{reference}{a numeric value to act as a control for the 'compare' value}
 
 \item{trend_phrasing}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}

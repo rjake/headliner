@@ -10,7 +10,8 @@
 headline(...)
 
 \method{headline}{default}(
-  x,
+  compare,
+  reference,
   headline = "{trend} of {delta} ({orig_values})",
   ...,
   if_match = "There was no difference.",
@@ -34,7 +35,9 @@ headline(...)
     \item{\code{}}{}
   }}
 
-\item{x}{data frame, must be a single row}
+\item{compare}{numeric value to compare against reference (base) value}
+
+\item{reference}{numeric value that 'compare' value will be compared against}
 
 \item{headline}{a string to format the final output. Uses
 \code{\link[glue]{glue}} syntax}
@@ -65,39 +68,40 @@ return 0.25, when scale = 100 (default) 1/4 will return 25}
 \item{return_data}{logical to indicate whether function should return the
 phrase components used to compose the headline}
 
-\item{compare}{numeric value to compare against reference (base) value}
-
-\item{reference}{numeric value that 'compare' value will be compared against}
+\item{x}{data frame, must be a single row}
 }
 \description{
 Compose phrases that describe differences in the data
 }
 \examples{
 # values can be manually entered, some headlines are provided by default
-headline(c(10, 8))
-headline(c(8, 10))
-headline(c(10, 10))
+headline(10, 8)
+headline(8, 10)
+headline(10, 10)
 
 # most likely you'll edit the headline by hand
 headline(
-  x = c(10, 8),
+  compare = 10,
+  reference = 8,
   headline = "There was a ${delta} {trend} vs last year"
 )
 
 # you can also adjust the phrasing of higher/lower values
 headline(
-  x = c(10, 8),
+  compare = 10,
+  reference = 8,
   headline = "Group A was {trend} by {delta_p}\%.",
   trend_phrasing = trend_terms(more = "higher", less = "lower")
  )
 
 # a phrase about the comparion can be edited by providing glue syntax
 # 'c' = the 'compare' value, 'r' = 'reference'
-headline(c(10, 8), orig_values = "{c} to {r} people")
+headline(10, 8, orig_values = "{c} to {r} people")
 
 # you can also add phrases for when the difference = 1 or not
 headline(
-  x = c(10, 8),
+  compare = 10,
+  reference = 8,
   plural_phrases = list(
     were = plural_phrasing(single = "was", multi = "were"),
     people = plural_phrasing(single = "person", multi = "people")
@@ -106,8 +110,8 @@ headline(
 )
 
 # you can also adjust the rounding, although the default is 1
-headline(c(0.1234, 0.4321))
-headline(c(0.1234, 0.4321), n_decimal = 3)
+headline(0.1234, 0.4321)
+headline(c0.1234, 0.4321, n_decimal = 3)
 
 # The values can come from a summarized data frame or a named list
 # if the data frame is only 2 columns or the list has only 2 elements
@@ -127,7 +131,8 @@ iris \%>\%
 
 # there are many components you can assemble
 headline(
-  x = c(16, 8),
+  compare = 16,
+  reference = 8,
   headline = "there was {article_delta_p} {delta_p}\% {trend}, \\\\
   {article_trend} {trend} of {delta} ({orig_values})"
 )

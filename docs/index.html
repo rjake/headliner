@@ -113,13 +113,13 @@
 <p>What we want is to say something like this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></a></code></pre></div>
 <p>We can look at the data an see that about 12 months ago, x was 107 where as today it is 101. We can give these values to <code><a href="reference/headline.html">headline()</a></code> and get a simple phrase</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="reference/headline.html">headline</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">101</span>, <span class="fl">107</span>))
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="reference/headline.html">headline</a></span>(
+  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">101</span>,
+  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">107</span>
+)
 <span class="co">#&gt; decrease of 6 (101 vs. 107)</span></pre></div>
 <p>To see how the sentence was constructed, we can look at the components used under the hood. This <code>return_data = TRUE</code> returns a named list. I will condense with <code><a href="reference/view_list.html">view_list()</a></code></p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/headline.html">headline</a></span>(
-  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">101</span>, <span class="fl">107</span>),
-  <span class="kw">return_data</span> <span class="kw">=</span> <span class="fl">TRUE</span>
-) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/headline.html">headline</a></span>(<span class="fl">101</span>, <span class="fl">107</span>, <span class="kw">return_data</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/view_list.html">view_list</a></span>()
 <span class="co">#&gt;                                      VALUES</span>
 <span class="co">#&gt; delta                                     6</span>
@@ -137,8 +137,9 @@
 <span class="co">#&gt; headline        decrease of 6 (101 vs. 107)</span></pre></div>
 <p>We can compose it like this using <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue()</a></code> syntax</p>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="reference/headline.html">headline</a></span>(
-  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">101</span>, <span class="fl">107</span>),
-  <span class="st">"We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."</span>
+  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">101</span>,
+  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">107</span>,
+  <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."</span>
 )
 <span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></pre></div>
 <p>You might have noticed that there are multiple <code>article_*</code> components available. <code>article_delta</code> is for the difference between the two values (“<strong>a</strong> 6 person loss” vs “<strong>an</strong> 8 person loss”), <code>article_delta_p</code> is for the percentage difference for “<strong>a</strong> 5.6%” vs “<strong>an</strong> 8.6%”, and <code>article_trend</code> gives us “<strong>an</strong> increase” vs “<strong>a</strong> decrease”.</p>
@@ -185,7 +186,8 @@
 <span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></pre></div>
 <p>You can add phrases to customize your sentences. <code>plural_phrases()</code> allows you to add new variables to the list of components available. Here I am adding <code>{people}</code> for use in my headline.</p>
 <div class="sourceCode" id="cb11"><pre class="r"><span class="fu"><a href="reference/headline.html">headline</a></span>(
-  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">8</span>),
+  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">10</span>,
+  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">8</span>,
   <span class="kw">headline</span> <span class="kw">=</span>
     <span class="st">"There is {article_trend} {trend} of {delta} {people} enrolled \\
     {article_delta_p} {delta_p}% {trend} ({orig_values})"</span>,
@@ -205,7 +207,8 @@
   )
 
 <span class="fu"><a href="reference/headline.html">headline</a></span>(
-  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>),
+  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">1</span>,
+  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">2</span>,
   <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"There {are} {delta} {trend} {people}"</span>,
   <span class="kw">trend_phrasing</span> <span class="kw">=</span> <span class="no">more_less</span>,
   <span class="kw">plural_phrases</span> <span class="kw">=</span> <span class="no">are_people</span>
@@ -213,17 +216,18 @@
 <span class="co">#&gt; There is 1 less person</span>
 
 <span class="fu"><a href="reference/headline.html">headline</a></span>(
-  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">1</span>),
+  <span class="kw">compare</span> <span class="kw">=</span> <span class="fl">3</span>,
+  <span class="kw">reference</span> <span class="kw">=</span> <span class="fl">1</span>,
   <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"There {are} {delta} {trend} {people}"</span>,
   <span class="kw">trend_phrasing</span> <span class="kw">=</span> <span class="no">more_less</span>,
   <span class="kw">plural_phrases</span> <span class="kw">=</span> <span class="no">are_people</span>
 )
 <span class="co">#&gt; There are 2 more people</span></pre></div>
 <p>You can also adjust the text if the numbers are the same</p>
-<div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="reference/headline.html">headline</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">3</span>))
+<div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="reference/headline.html">headline</a></span>(<span class="fl">3</span>, <span class="fl">3</span>)
 <span class="co">#&gt; There was no difference.</span>
 
-<span class="fu"><a href="reference/headline.html">headline</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">3</span>), <span class="kw">if_match</span> <span class="kw">=</span> <span class="st">"There were no additional applicants ({comp_value} total)"</span>)
+<span class="fu"><a href="reference/headline.html">headline</a></span>(<span class="fl">3</span>, <span class="fl">3</span>, <span class="kw">if_match</span> <span class="kw">=</span> <span class="st">"There were no additional applicants ({comp_value} total)"</span>)
 <span class="co">#&gt; There were no additional applicants (3 total)</span></pre></div>
 <p><code><a href="reference/headline.html">headline()</a></code> can also be used in a <code>valueBox()</code> for <code>shiny</code></p>
 <div class="sourceCode" id="cb14"><pre class="r"><span class="no">box_color</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">yoy</span>$<span class="no">sign</span> <span class="kw">==</span> -<span class="fl">1</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>)
@@ -272,18 +276,27 @@
   <span class="st">"Difference in avg. rear axle ratio of {delta} ({orig_values})"</span>
 )
 <span class="co">#&gt; Difference in avg. rear axle ratio of 0.7 (4.1 vs. 3.3)</span></pre></div>
-<p>If your data has more than one row, you can use <code><a href="https://purrr.tidyverse.org/reference/map2.html">purrr::map2_chr()</a></code> to get multiple headlines (may be simplified in a future release)</p>
+<p>You can also use <code>headliner()</code> with <code>mutate()</code></p>
 <div class="sourceCode" id="cb16"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
 
 <span class="no">flights_jfk</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">1</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">5</span>) <span class="kw">%&gt;%</span>
   <span class="fu">select</span>(<span class="no">arr_delay</span>, <span class="no">dep_delay</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/headline.html">headline</a></span>(
-    <span class="kw">compare</span> <span class="kw">=</span> <span class="no">arr_delay</span>,
-    <span class="kw">reference</span> <span class="kw">=</span> <span class="no">dep_delay</span>,
-    <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"Difference of {raw_delta} minutes"</span>
+  <span class="fu">mutate</span>(
+    <span class="kw">text</span> <span class="kw">=</span>
+      <span class="fu"><a href="reference/headline.html">headline</a></span>(
+        <span class="kw">compare</span> <span class="kw">=</span> <span class="no">arr_delay</span>, <span class="kw">reference</span> <span class="kw">=</span> <span class="no">dep_delay</span>,
+        <span class="kw">headline</span> <span class="kw">=</span> <span class="st">"Difference of {raw_delta} minutes"</span>
+    )
   )
-<span class="co">#&gt; Difference of 10 minutes</span></pre></div>
+<span class="co">#&gt; # A tibble: 5 x 3</span>
+<span class="co">#&gt;   arr_delay dep_delay text                     </span>
+<span class="co">#&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;glue&gt;                   </span>
+<span class="co">#&gt; 1         6        -4 Difference of 10 minutes </span>
+<span class="co">#&gt; 2        10        21 Difference of -11 minutes</span>
+<span class="co">#&gt; 3         2        -4 Difference of 6 minutes  </span>
+<span class="co">#&gt; 4       -21        -4 Difference of -17 minutes</span>
+<span class="co">#&gt; 5        11        -4 Difference of 15 minutes</span></pre></div>
 <p><code><a href="reference/compare_conditions.html">compare_conditions()</a></code> can also be used to compare categorical criteria.</p>
 <div class="sourceCode" id="cb17"><pre class="r"><span class="fu"><a href="reference/demo_data.html">demo_data</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/compare_conditions.html">compare_conditions</a></span>(
