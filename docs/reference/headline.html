@@ -254,7 +254,7 @@ phrase components used to compose the headline</p></td>
   <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"there {were} {delta} {people}"</span>
 )</div><div class='output co'>#&gt; there were 2 people</div><div class='input'>
 <span class='co'># you can also adjust the rounding, although the default is 1</span>
-<span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>)</div><div class='output co'>#&gt; decrease of 0.3 (0.1 vs. 0.4)</div><div class='input'><span class='fu'>headline</span>(<span class='no'>c0.1234</span>, <span class='fl'>0.4321</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in headline(c0.1234, 0.4321, n_decimal = 3): object 'c0.1234' not found</span></div><div class='input'>
+<span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>)</div><div class='output co'>#&gt; decrease of 0.3 (0.1 vs. 0.4)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; decrease of 0.309 (0.123 vs. 0.432)</div><div class='input'>
 <span class='co'># The values can come from a summarized data frame or a named list</span>
 <span class='co'># if the data frame is only 2 columns or the list has only 2 elements</span>
 <span class='co'># you don't need to specify the 'compare' or 'reference' arguments unless</span>
