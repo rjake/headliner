@@ -17,25 +17,26 @@
 #' return 0.25, when scale = 100 (default) 1/4 will return 25
 #' @importFrom glue glue
 #' @importFrom purrr map_if map pluck
+#' @importFrom dplyr recode
 #' @export
 #' @rdname compare_values
 #' @seealso [view_list()], [trend_terms()], and [plural_phrasing()]
 #' @examples
 #' # the values can be manually entered
 #'
-#' compare_values(c(10, 8)) %>% head(2)
+#' compare_values(10, 8) %>% head(2)
 #' # percent difference (10-8)/8
-#' compare_values(c(10, 8))$delta_p
-#' compare_values(c(10, 8), trend_phrasing = trend_terms(more = "higher")) %>%
+#' compare_values(10, 8)$delta_p
+#' compare_values(10, 8, trend_phrasing = trend_terms(more = "higher")) %>%
 #'   head(2)
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
-#' compare_values(c(10, 8), orig_values = "{c} to {r} people")$orig_values
+#' compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
 #'
 #' # you can also adjust the rounding, although the default is 1
-#' compare_values(c(0.1234, 0.4321))$orig_values
-#' compare_values(c(0.1234, 0.4321), n_decimal = 3)$orig_values
+#' compare_values(0.1234, 0.4321)$orig_values
+#' compare_values(0.1234, 0.4321, n_decimal = 3)$orig_values
 compare_values <- function(compare, reference,
                            trend_phrasing = headliner::trend_terms(),
                            orig_values = "{c} vs. {r}",
