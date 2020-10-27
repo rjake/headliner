@@ -1,21 +1,19 @@
-test_that("plural_phrases works", {
-  expect_error(
-    compare_values(c(10, 2), plural_phrases = list(plural_phrasing("a", "an"))),
-    "named list"
+test_that("compare_values produces list", {
+  x <- compare_values(c(2, 3))
+
+  expect_true(is.list(x))
+
+  expect_true(x$delta == 1)
+  expect_true(x$raw_delta == -1)
+
+  expect_true(
+    all(
+      names(x) == c(
+        "delta", "trend", "delta_p", "article_delta",  "article_delta_p",
+        "article_trend", "comp_value", "ref_value", "raw_delta", "raw_delta_p",
+        "sign", "orig_values"
+      )
+    )
   )
-
-  phrases <- list(
-    person = plural_phrasing("person", "people"),
-    was = plural_phrasing("was", "were")
-  )
-
-  when_multi <- compare_values(c(3, 1), plural_phrases = phrases)
-  when_single <- compare_values(c(2, 1), plural_phrases = phrases)
-
-  expect_true(when_multi$person == "people")
-  expect_true(when_single$person == "person")
-
-  expect_true(when_multi$was == "were")
-  expect_true(when_single$was == "was")
 })
 
