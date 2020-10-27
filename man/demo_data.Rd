@@ -4,7 +4,7 @@
 \alias{demo_data}
 \title{Small dataset referencing the current date}
 \usage{
-demo_data(n = 10, by = "-60 days")
+demo_data(n = 10, by = "-2 month")
 }
 \arguments{
 \item{n}{number of rows to return}

@@ -8,6 +8,13 @@
 
 <title>Small dataset referencing the current date — demo_data • headliner</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="Small dataset referencing the current date — demo_data" />
 <meta property="og:description" content="Small dataset referencing the current date" />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -117,7 +125,7 @@
     <p>Small dataset referencing the current date</p>
     </div>
 
-    <pre class="usage"><span class='fu'>demo_data</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"-60 days"</span>)</pre>
+    <pre class="usage"><span class='fu'>demo_data</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"-2 month"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,16 +146,16 @@
     <pre class="examples"><div class='input'><span class='fu'>demo_data</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 5</span><span>
 #&gt;    group     x     y     z date      
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>    
-#&gt; </span><span style='color: #555555;'> 1</span><span> a       101    10     1 2020-09-15
-#&gt; </span><span style='color: #555555;'> 2</span><span> a       102    20     0 2020-07-17
-#&gt; </span><span style='color: #555555;'> 3</span><span> b       103    30     1 2020-05-18
-#&gt; </span><span style='color: #555555;'> 4</span><span> b       104    40     0 2020-03-19
-#&gt; </span><span style='color: #555555;'> 5</span><span> c       105    50     1 2020-01-19
-#&gt; </span><span style='color: #555555;'> 6</span><span> c       106    60     0 2019-11-20
-#&gt; </span><span style='color: #555555;'> 7</span><span> d       107    70     1 2019-09-21
-#&gt; </span><span style='color: #555555;'> 8</span><span> d       108    80     0 2019-07-23
-#&gt; </span><span style='color: #555555;'> 9</span><span> e       109    90     1 2019-05-24
-#&gt; </span><span style='color: #555555;'>10</span><span> e       110   100     0 2019-03-25</div></span></pre>
+#&gt; </span><span style='color: #555555;'> 1</span><span> a       101    10     1 2020-10-26
+#&gt; </span><span style='color: #555555;'> 2</span><span> a       102    20     0 2020-08-26
+#&gt; </span><span style='color: #555555;'> 3</span><span> b       103    30     1 2020-06-26
+#&gt; </span><span style='color: #555555;'> 4</span><span> b       104    40     0 2020-04-26
+#&gt; </span><span style='color: #555555;'> 5</span><span> c       105    50     1 2020-02-26
+#&gt; </span><span style='color: #555555;'> 6</span><span> c       106    60     0 2019-12-26
+#&gt; </span><span style='color: #555555;'> 7</span><span> d       107    70     1 2019-10-26
+#&gt; </span><span style='color: #555555;'> 8</span><span> d       108    80     0 2019-08-26
+#&gt; </span><span style='color: #555555;'> 9</span><span> e       109    90     1 2019-06-26
+#&gt; </span><span style='color: #555555;'>10</span><span> e       110   100     0 2019-04-26</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
