@@ -74,24 +74,25 @@ demo_data() %>%
 
 We can look at the data an see that about 12 months ago, x was 107 where as today it is 101. We can give these values to `headline()` and get a simple phrase
 ```{r}
-headline(x = c(101, 107))
+headline(
+  compare = 101, 
+  reference = 107
+)
 ```
 
 To see how the sentence was constructed, we can look at the components used under the hood. This `return_data = TRUE` returns a named list.  I will condense with `view_list()`
 
 ```{r}
-headline(
-  x = c(101, 107), 
-  return_data = TRUE
-) %>% 
+headline(101, 107, return_data = TRUE) %>% 
   view_list()
 ```
 
 We can compose it like this using `glue::glue()` syntax
 ```{r}
 headline(
-  x = c(101, 107), 
-  "We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."
+  compare = 101, 
+  reference = 107, 
+  headline = "We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."
 )
 ```
 You might have noticed that there are multiple `article_*` components available. `article_delta` is for the difference between the two values ("**a** 6 person loss" vs "**an** 8 person loss"), `article_delta_p` is for the percentage difference for "**a** 5.6%" vs "**an** 8.6%", and `article_trend` gives us "**an** increase" vs "**a** decrease".
@@ -132,7 +133,8 @@ yoy %>%
 You can add phrases to customize your sentences. `plural_phrases()` allows you to add new variables to the list of components available. Here I am adding `{people}` for use in my headline.
 ```{r}
 headline(
-  x = c(10, 8),
+  compare = 10, 
+  reference = 8,
   headline =  
     "There is {article_trend} {trend} of {delta} {people} enrolled \\
     {article_delta_p} {delta_p}% {trend} ({orig_values})",
@@ -154,14 +156,16 @@ are_people <-
   )
 
 headline(
-  x = c(1, 2),
+  compare = 1, 
+  reference = 2,
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
 )
 
 headline(
-  x = c(3, 1),
+  compare = 3, 
+  reference = 1,
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
@@ -170,9 +174,9 @@ headline(
 
 You can also adjust the text if the numbers are the same
 ```{r}
-headline(c(3, 3))
+headline(3, 3)
 
-headline(c(3, 3), if_match = "There were no additional applicants ({comp_value} total)")
+headline(3, 3, if_match = "There were no additional applicants ({comp_value} total)")
 ```
 
 
@@ -238,18 +242,21 @@ headline(
 )
 ```
 
-If your data has more than one row, you can use `purrr::map2_chr()` to get multiple headlines (may be simplified in a future release)
+You can also use `headliner()` with `mutate()`
 ```{r}
 library(tidyverse)
 
 flights_jfk %>% 
-  head(1) %>% 
+  head(5) %>% 
   select(arr_delay, dep_delay) %>% 
-  headline(
-    compare = arr_delay, 
-    reference = dep_delay, 
-    headline = "Difference of {raw_delta} minutes"
+  mutate(
+    text = 
+      headline(
+        compare = arr_delay, reference = dep_delay,
+        headline = "Difference of {raw_delta} minutes"
+    )
   )
+
 ```
 
 `compare_conditions()` can also be used to compare categorical criteria.

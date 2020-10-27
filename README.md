@@ -71,7 +71,10 @@ as today it is 101. We can give these values to `headline()` and get a
 simple phrase
 
 ``` r
-headline(x = c(101, 107))
+headline(
+  compare = 101, 
+  reference = 107
+)
 #> decrease of 6 (101 vs. 107)
 ```
 
@@ -80,10 +83,7 @@ used under the hood. This `return_data = TRUE` returns a named list. I
 will condense with `view_list()`
 
 ``` r
-headline(
-  x = c(101, 107), 
-  return_data = TRUE
-) %>% 
+headline(101, 107, return_data = TRUE) %>% 
   view_list()
 #>                                      VALUES
 #> delta                                     6
@@ -105,8 +105,9 @@ We can compose it like this using `glue::glue()` syntax
 
 ``` r
 headline(
-  x = c(101, 107), 
-  "We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."
+  compare = 101, 
+  reference = 107, 
+  headline = "We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."
 )
 #> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
 ```
@@ -188,7 +189,8 @@ Here I am adding `{people}` for use in my headline.
 
 ``` r
 headline(
-  x = c(10, 8),
+  compare = 10, 
+  reference = 8,
   headline =  
     "There is {article_trend} {trend} of {delta} {people} enrolled \\
     {article_delta_p} {delta_p}% {trend} ({orig_values})",
@@ -212,7 +214,8 @@ are_people <-
   )
 
 headline(
-  x = c(1, 2),
+  compare = 1, 
+  reference = 2,
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
@@ -220,7 +223,8 @@ headline(
 #> There is 1 less person
 
 headline(
-  x = c(3, 1),
+  compare = 3, 
+  reference = 1,
   headline = "There {are} {delta} {trend} {people}",
   trend_phrasing = more_less,
   plural_phrases = are_people
@@ -231,10 +235,10 @@ headline(
 You can also adjust the text if the numbers are the same
 
 ``` r
-headline(c(3, 3))
+headline(3, 3)
 #> There was no difference.
 
-headline(c(3, 3), if_match = "There were no additional applicants ({comp_value} total)")
+headline(3, 3, if_match = "There were no additional applicants ({comp_value} total)")
 #> There were no additional applicants (3 total)
 ```
 
@@ -297,21 +301,29 @@ headline(
 #> Difference in avg. rear axle ratio of 0.7 (4.1 vs. 3.3)
 ```
 
-If your data has more than one row, you can use `purrr::map2_chr()` to
-get multiple headlines (may be simplified in a future release)
+You can also use `headliner()` with `mutate()`
 
 ``` r
 library(tidyverse)
 
 flights_jfk %>% 
-  head(1) %>% 
+  head(5) %>% 
   select(arr_delay, dep_delay) %>% 
-  headline(
-    compare = arr_delay, 
-    reference = dep_delay, 
-    headline = "Difference of {raw_delta} minutes"
+  mutate(
+    text = 
+      headline(
+        compare = arr_delay, reference = dep_delay,
+        headline = "Difference of {raw_delta} minutes"
+    )
   )
-#> Difference of 10 minutes
+#> # A tibble: 5 x 3
+#>   arr_delay dep_delay text                     
+#>       <dbl>     <dbl> <glue>                   
+#> 1         6        -4 Difference of 10 minutes 
+#> 2        10        21 Difference of -11 minutes
+#> 3         2        -4 Difference of 6 minutes  
+#> 4       -21        -4 Difference of -17 minutes
+#> 5        11        -4 Difference of 15 minutes
 ```
 
 `compare_conditions()` can also be used to compare categorical criteria.
