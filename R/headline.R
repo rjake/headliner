@@ -34,30 +34,33 @@ headline <- function(...) {
 #' @seealso [view_list()] and [trend_terms()]
 #' @examples
 #' # values can be manually entered, some headlines are provided by default
-#' headline(c(10, 8))
-#' headline(c(8, 10))
-#' headline(c(10, 10))
+#' headline(10, 8)
+#' headline(8, 10)
+#' headline(10, 10)
 #'
 #' # most likely you'll edit the headline by hand
 #' headline(
-#'   x = c(10, 8),
+#'   compare = 10,
+#'   reference = 8,
 #'   headline = "There was a ${delta} {trend} vs last year"
 #' )
 #'
 #' # you can also adjust the phrasing of higher/lower values
 #' headline(
-#'   x = c(10, 8),
+#'   compare = 10,
+#'   reference = 8,
 #'   headline = "Group A was {trend} by {delta_p}%.",
 #'   trend_phrasing = trend_terms(more = "higher", less = "lower")
 #'  )
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
-#' headline(c(10, 8), orig_values = "{c} to {r} people")
+#' headline(10, 8, orig_values = "{c} to {r} people")
 #'
 #' # you can also add phrases for when the difference = 1 or not
 #' headline(
-#'   x = c(10, 8),
+#'   compare = 10,
+#'   reference = 8,
 #'   plural_phrases = list(
 #'     were = plural_phrasing(single = "was", multi = "were"),
 #'     people = plural_phrasing(single = "person", multi = "people")
@@ -66,8 +69,8 @@ headline <- function(...) {
 #' )
 #'
 #' # you can also adjust the rounding, although the default is 1
-#' headline(c(0.1234, 0.4321))
-#' headline(c(0.1234, 0.4321), n_decimal = 3)
+#' headline(0.1234, 0.4321)
+#' headline(c0.1234, 0.4321, n_decimal = 3)
 #'
 #' # The values can come from a summarized data frame or a named list
 #' # if the data frame is only 2 columns or the list has only 2 elements
