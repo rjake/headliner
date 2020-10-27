@@ -40,26 +40,27 @@ devtools::install_github("rjake/headliner")
 ## Usage
 
 For these examples, I will use a function called `demo_data()` to build
-a data set based on the current date (this was last run on 10/02/20).
+a data set based on the current date (this was last run on 10/26/20).
 
 ``` r
 library(headliner)
+library(tidyverse)
 demo_data()
 ```
 
     #> # A tibble: 10 x 5
     #>    group     x     y     z date      
     #>    <chr> <dbl> <dbl> <dbl> <date>    
-    #>  1 a       101    10     1 2020-10-02
-    #>  2 a       102    20     0 2020-08-03
-    #>  3 b       103    30     1 2020-06-04
-    #>  4 b       104    40     0 2020-04-05
-    #>  5 c       105    50     1 2020-02-05
-    #>  6 c       106    60     0 2019-12-07
-    #>  7 d       107    70     1 2019-10-08
-    #>  8 d       108    80     0 2019-08-09
-    #>  9 e       109    90     1 2019-06-10
-    #> 10 e       110   100     0 2019-04-11
+    #>  1 a       101    10     1 2020-10-26
+    #>  2 a       102    20     0 2020-08-26
+    #>  3 b       103    30     1 2020-06-26
+    #>  4 b       104    40     0 2020-04-26
+    #>  5 c       105    50     1 2020-02-26
+    #>  6 c       106    60     0 2019-12-26
+    #>  7 d       107    70     1 2019-10-26
+    #>  8 d       108    80     0 2019-08-26
+    #>  9 e       109    90     1 2019-06-26
+    #> 10 e       110   100     0 2019-04-26
 
 What we want is to say something like this:
 
@@ -121,7 +122,7 @@ But let’s see if we can make the calculations more dynamic…
 First, we can use a function called `add_date_columns()` to calculate
 distances from the current date (or the refence date specified) to the
 values in the `date` column . With these new fields we can see that
-08/03/20 was 60 days ago (or 9 weeks or 2 months, …) from the current
+08/26/20 was 61 days ago (or 9 weeks or 2 months, …) from the current
 date.
 
 ``` r
@@ -130,17 +131,16 @@ demo_data() %>%
 #> # A tibble: 10 x 11
 #>    group     x     y     z date         day  week month quarter calendar_year
 #>    <chr> <dbl> <dbl> <dbl> <date>     <dbl> <dbl> <dbl>   <dbl>         <dbl>
-#>  1 a       101    10     1 2020-10-02     0     0     0       0             0
-#>  2 a       102    20     0 2020-08-03   -60    -8    -2       0             0
-#>  3 b       103    30     1 2020-06-04  -120   -17    -4      -1             0
-#>  4 b       104    40     0 2020-04-05  -180   -26    -6      -2             0
-#>  5 c       105    50     1 2020-02-05  -240   -34    -8      -2             0
-#>  6 c       106    60     0 2019-12-07  -300   -43   -10      -3            -1
-#>  7 d       107    70     1 2019-10-08  -360   -51   -12      -4            -1
-#>  8 d       108    80     0 2019-08-09  -420   -60   -14      -4            -1
-#>  9 e       109    90     1 2019-06-10  -480   -68   -16      -5            -1
-#> 10 e       110   100     0 2019-04-11  -540   -77   -18      -6            -1
-
+#>  1 a       101    10     1 2020-10-26     0     0     0       0             0
+#>  2 a       102    20     0 2020-08-26   -61    -9    -2       0             0
+#>  3 b       103    30     1 2020-06-26  -122   -18    -4      -1             0
+#>  4 b       104    40     0 2020-04-26  -183   -27    -6      -2             0
+#>  5 c       105    50     1 2020-02-26  -243   -35    -8      -2             0
+#>  6 c       106    60     0 2019-12-26  -305   -44   -10      -3            -1
+#>  7 d       107    70     1 2019-10-26  -366   -53   -12      -4            -1
+#>  8 d       108    80     0 2019-08-26  -427   -61   -14      -4            -1
+#>  9 e       109    90     1 2019-06-26  -488   -70   -16      -5            -1
+#> 10 e       110   100     0 2019-04-26  -549   -79   -18      -6            -1
 #> # ... with 1 more variable: fiscal_year <dbl>
 ```
 

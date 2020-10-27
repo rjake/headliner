@@ -93,22 +93,23 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>For these examples, I will use a function called <code><a href="reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 10/02/20).</p>
+<p>For these examples, I will use a function called <code><a href="reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 10/26/20).</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">headliner</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
 <span class="fu"><a href="reference/demo_data.html">demo_data</a></span>()</pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">#&gt; # A tibble: 10 x 5</span></a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;    group     x     y     z date      </span></a>
 <a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt;  1 a       101    10     1 2020-10-02</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;  2 a       102    20     0 2020-08-03</span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;  3 b       103    30     1 2020-06-04</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;  4 b       104    40     0 2020-04-05</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;  5 c       105    50     1 2020-02-05</span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  6 c       106    60     0 2019-12-07</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;  7 d       107    70     1 2019-10-08</span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt;  8 d       108    80     0 2019-08-09</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;  9 e       109    90     1 2019-06-10</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; 10 e       110   100     0 2019-04-11</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt;  1 a       101    10     1 2020-10-26</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;  2 a       102    20     0 2020-08-26</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;  3 b       103    30     1 2020-06-26</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;  4 b       104    40     0 2020-04-26</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;  5 c       105    50     1 2020-02-26</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  6 c       106    60     0 2019-12-26</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;  7 d       107    70     1 2019-10-26</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt;  8 d       108    80     0 2019-08-26</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;  9 e       109    90     1 2019-06-26</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; 10 e       110   100     0 2019-04-26</span></a></code></pre></div>
 <p>What we want is to say something like this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></a></code></pre></div>
 <p>We can look at the data an see that about 12 months ago, x was 107 where as today it is 101. We can give these values to <code><a href="reference/headline.html">headline()</a></code> and get a simple phrase</p>
@@ -142,23 +143,22 @@
 <span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></pre></div>
 <p>You might have noticed that there are multiple <code>article_*</code> components available. <code>article_delta</code> is for the difference between the two values (“<strong>a</strong> 6 person loss” vs “<strong>an</strong> 8 person loss”), <code>article_delta_p</code> is for the percentage difference for “<strong>a</strong> 5.6%” vs “<strong>an</strong> 8.6%”, and <code>article_trend</code> gives us “<strong>an</strong> increase” vs “<strong>a</strong> decrease”.</p>
 <p>But let’s see if we can make the calculations more dynamic…</p>
-<p>First, we can use a function called <code><a href="reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 08/03/20 was 60 days ago (or 9 weeks or 2 months, …) from the current date.</p>
+<p>First, we can use a function called <code><a href="reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 08/26/20 was 61 days ago (or 9 weeks or 2 months, …) from the current date.</p>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="reference/demo_data.html">demo_data</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/add_date_columns.html">add_date_columns</a></span>(<span class="kw">date_col</span> <span class="kw">=</span> <span class="no">date</span>)
 <span class="co">#&gt; # A tibble: 10 x 11</span>
 <span class="co">#&gt;    group     x     y     z date         day  week month quarter calendar_year</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 a       101    10     1 2020-10-02     0     0     0       0             0</span>
-<span class="co">#&gt;  2 a       102    20     0 2020-08-03   -60    -8    -2       0             0</span>
-<span class="co">#&gt;  3 b       103    30     1 2020-06-04  -120   -17    -4      -1             0</span>
-<span class="co">#&gt;  4 b       104    40     0 2020-04-05  -180   -26    -6      -2             0</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-02-05  -240   -34    -8      -2             0</span>
-<span class="co">#&gt;  6 c       106    60     0 2019-12-07  -300   -43   -10      -3            -1</span>
-<span class="co">#&gt;  7 d       107    70     1 2019-10-08  -360   -51   -12      -4            -1</span>
-<span class="co">#&gt;  8 d       108    80     0 2019-08-09  -420   -60   -14      -4            -1</span>
-<span class="co">#&gt;  9 e       109    90     1 2019-06-10  -480   -68   -16      -5            -1</span>
-<span class="co">#&gt; 10 e       110   100     0 2019-04-11  -540   -77   -18      -6            -1</span>
-
+<span class="co">#&gt;  1 a       101    10     1 2020-10-26     0     0     0       0             0</span>
+<span class="co">#&gt;  2 a       102    20     0 2020-08-26   -61    -9    -2       0             0</span>
+<span class="co">#&gt;  3 b       103    30     1 2020-06-26  -122   -18    -4      -1             0</span>
+<span class="co">#&gt;  4 b       104    40     0 2020-04-26  -183   -27    -6      -2             0</span>
+<span class="co">#&gt;  5 c       105    50     1 2020-02-26  -243   -35    -8      -2             0</span>
+<span class="co">#&gt;  6 c       106    60     0 2019-12-26  -305   -44   -10      -3            -1</span>
+<span class="co">#&gt;  7 d       107    70     1 2019-10-26  -366   -53   -12      -4            -1</span>
+<span class="co">#&gt;  8 d       108    80     0 2019-08-26  -427   -61   -14      -4            -1</span>
+<span class="co">#&gt;  9 e       109    90     1 2019-06-26  -488   -70   -16      -5            -1</span>
+<span class="co">#&gt; 10 e       110   100     0 2019-04-26  -549   -79   -18      -6            -1</span>
 <span class="co">#&gt; # ... with 1 more variable: fiscal_year &lt;dbl&gt;</span></pre></div>
 <p>We can then identify some conditions for our comparison (<code>compare</code>) and our reference group (<code>reference</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code></p>
 <div class="sourceCode" id="cb9"><pre class="r"><span class="no">yoy</span> <span class="kw">&lt;-</span> <span class="co"># year over year</span>

@@ -6,7 +6,7 @@
 #' @export
 #' @examples
 #' demo_data()
-demo_data <- function(n = 10, by = "-60 days") {
+demo_data <- function(n = 10, by = "-2 month") {
   tibble(
     group = letters[2:(n + 1) %/% 2],
     x = 1:n + 100,
