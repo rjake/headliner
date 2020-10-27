@@ -43,9 +43,6 @@ compare_values <- function(compare, reference,
                            n_decimal = 1,
                            round_all = TRUE,
                            scale = 100) {
-  # make sure correct input type
-  check_valid_vector(c(compare, reference))
-
   # calcs
   calc <- as.numeric(compare - reference)
   calc_p <- as.numeric((compare - reference) / reference  * scale)
