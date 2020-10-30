@@ -170,15 +170,15 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>dep_delay</span>, <span class='no'>arr_delay</span>),
     <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='no'>sd</span>)
   ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='view_list.html'>view_list</a></span>()</div><div class='output co'>#&gt;                     VALUES
-#&gt; mean_arr_delay_comp  3.554
-#&gt; mean_arr_delay_ref   0.146
-#&gt; mean_dep_delay_comp 13.407
-#&gt; mean_dep_delay_ref  10.411
-#&gt; sd_arr_delay_comp   53.368
-#&gt; sd_arr_delay_ref    44.039
-#&gt; sd_dep_delay_comp   47.973
-#&gt; sd_dep_delay_ref    37.779</div><div class='input'>
+  <span class='fu'><a href='view_list.html'>view_list</a></span>()</div><div class='output co'>#&gt;                         VALUES
+#&gt; mean_arr_delay_comp  3.5536618
+#&gt; mean_arr_delay_ref   0.1459121
+#&gt; mean_dep_delay_comp 13.4071904
+#&gt; mean_dep_delay_ref  10.4112821
+#&gt; sd_arr_delay_comp   53.3677492
+#&gt; sd_arr_delay_ref    44.0386496
+#&gt; sd_dep_delay_comp   47.9725670
+#&gt; sd_dep_delay_ref    37.7792880</div><div class='input'>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>compare_conditions</span>(
     <span class='kw'>compare</span> <span class='kw'>=</span> (<span class='no'>hp</span> <span class='kw'>&gt;</span> <span class='fl'>100</span> <span class='kw'>|</span> <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>4</span>),
@@ -186,15 +186,15 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
     <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>starts_with</a></span>(<span class='st'>"d"</span>),
     <span class='kw'>calc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='no'>max</span>)
   ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='view_list.html'>view_list</a></span>()</div><div class='output co'>#&gt;                VALUES
-#&gt; max_disp_comp  472.00
-#&gt; max_disp_ref   146.70
-#&gt; max_drat_comp    4.93
-#&gt; max_drat_ref     4.93
-#&gt; mean_disp_comp 238.09
-#&gt; mean_disp_ref   95.23
-#&gt; mean_drat_comp   3.57
-#&gt; mean_drat_ref    4.17</div></pre>
+  <span class='fu'><a href='view_list.html'>view_list</a></span>()</div><div class='output co'>#&gt;                    VALUES
+#&gt; max_disp_comp  472.000000
+#&gt; max_disp_ref   146.700000
+#&gt; max_drat_comp    4.930000
+#&gt; max_drat_ref     4.930000
+#&gt; mean_disp_comp 238.090000
+#&gt; mean_disp_ref   95.228571
+#&gt; mean_drat_comp   3.565333
+#&gt; mean_drat_ref    4.171429</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

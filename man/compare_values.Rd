@@ -12,7 +12,7 @@ compare_values(
   plural_phrases = NULL,
   n_decimal = 1,
   round_all = TRUE,
-  scale = 100
+  multiplier = 1
 )
 }
 \arguments{
@@ -36,8 +36,8 @@ the returned values.}
 When FALSE, the values will return with no modification. When TRUE (default)
 all values will be round to the length specified by 'n_decimal'.}
 
-\item{scale}{number indicating the scaling factor. When scale = 1, 1/4 will
-return 0.25, when scale = 100 (default) 1/4 will return 25}
+\item{multiplier}{number indicating the scaling factor. When multiplier = 1
+(default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.}
 }
 \description{
 Compare two values and get talking points
@@ -58,6 +58,8 @@ compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
 # you can also adjust the rounding, although the default is 1
 compare_values(0.1234, 0.4321)$orig_values
 compare_values(0.1234, 0.4321, n_decimal = 3)$orig_values
+# or add a multiplier
+compare_values(0.1234, 0.4321, multiplier = 100)$orig_values
 }
 \seealso{
 \code{\link[=view_list]{view_list()}}, \code{\link[=trend_terms]{trend_terms()}}, and \code{\link[=plural_phrasing]{plural_phrasing()}}
