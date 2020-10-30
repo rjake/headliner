@@ -139,7 +139,7 @@
   <span class='kw'>orig_values</span> <span class='kw'>=</span> <span class='st'>"{c} vs. {r}"</span>,
   <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>round_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>multiplier</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>return_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
@@ -205,9 +205,9 @@ When FALSE, the values will return with no modification. When TRUE (default)
 all values will be round to the length specified by 'n_decimal'.</p></td>
     </tr>
     <tr>
-      <th>scale</th>
-      <td><p>number indicating the scaling factor. When scale = 1, 1/4 will
-return 0.25, when scale = 100 (default) 1/4 will return 25</p></td>
+      <th>multiplier</th>
+      <td><p>number indicating the scaling factor. When multiplier = 1
+(default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.</p></td>
     </tr>
     <tr>
       <th>return_data</th>
@@ -254,7 +254,8 @@ phrase components used to compose the headline</p></td>
   <span class='kw'>headline</span> <span class='kw'>=</span> <span class='st'>"there {were} {delta} {people}"</span>
 )</div><div class='output co'>#&gt; there were 2 people</div><div class='input'>
 <span class='co'># you can also adjust the rounding, although the default is 1</span>
-<span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>)</div><div class='output co'>#&gt; decrease of 0.3 (0.1 vs. 0.4)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; decrease of 0.309 (0.123 vs. 0.432)</div><div class='input'>
+<span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>)</div><div class='output co'>#&gt; decrease of 0.3 (0.1 vs. 0.4)</div><div class='input'><span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, <span class='kw'>n_decimal</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; decrease of 0.309 (0.123 vs. 0.432)</div><div class='input'><span class='co'># or use a multiplier</span>
+<span class='fu'>headline</span>(<span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, <span class='kw'>multiplier</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; decrease of 30.9 (12.3 vs. 43.2)</div><div class='input'>
 <span class='co'># The values can come from a summarized data frame or a named list</span>
 <span class='co'># if the data frame is only 2 columns or the list has only 2 elements</span>
 <span class='co'># you don't need to specify the 'compare' or 'reference' arguments unless</span>

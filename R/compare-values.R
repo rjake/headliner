@@ -13,8 +13,8 @@
 #' @param round_all logical value to indicate if all values should be rounded.
 #' When FALSE, the values will return with no modification. When TRUE (default)
 #' all values will be round to the length specified by 'n_decimal'.
-#' @param scale number indicating the scaling factor. When scale = 1, 1/4 will
-#' return 0.25, when scale = 100 (default) 1/4 will return 25
+#' @param multiplier number indicating the scaling factor. When multiplier = 1
+#' (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.
 #' @importFrom glue glue
 #' @importFrom purrr map_if map pluck
 #' @importFrom dplyr recode
@@ -37,16 +37,21 @@
 #' # you can also adjust the rounding, although the default is 1
 #' compare_values(0.1234, 0.4321)$orig_values
 #' compare_values(0.1234, 0.4321, n_decimal = 3)$orig_values
+#' # or add a multiplier
+#' compare_values(0.1234, 0.4321, multiplier = 100)$orig_values
 compare_values <- function(compare, reference,
                            trend_phrasing = headliner::trend_terms(),
                            orig_values = "{c} vs. {r}",
                            plural_phrases = NULL,
                            n_decimal = 1,
                            round_all = TRUE,
-                           scale = 100) {
+                           multiplier = 1) {
   # calcs
-  calc <- as.numeric(compare - reference)
-  calc_p <- as.numeric((compare - reference) / reference  * scale)
+  comp <- (compare * multiplier)
+  ref <- (reference * multiplier)
+
+  calc <- as.numeric(comp - ref)
+  calc_p <- as.numeric(calc / ref  * 100)
 
   sign_calc <- sign(calc)
 
@@ -74,12 +79,20 @@ compare_values <- function(compare, reference,
       sign = sign_calc,
       orig_values = glue(
         orig_values,
-        c = round(compare, n_decimal),
-        r = round(reference, n_decimal)
+        c = round(comp, n_decimal),
+        r = round(ref, n_decimal)
       )
     )
 
   if (round_all) {
+    # give a warning if rounding causes a delta of 0 due to inputs having
+    # decimals >= n_decimal parameter
+    check_rounding(
+      x = output$comp_value,
+      y = output$ref_value,
+      n_decimal = n_decimal
+    )
+
     output <-
       output %>%
       map_if(is.numeric, round, n_decimal)

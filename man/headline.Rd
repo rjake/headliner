@@ -20,7 +20,7 @@ headline(...)
   orig_values = "{c} vs. {r}",
   n_decimal = 1,
   round_all = TRUE,
-  scale = 100,
+  multiplier = 1,
   return_data = FALSE
 )
 
@@ -62,8 +62,8 @@ the returned values.}
 When FALSE, the values will return with no modification. When TRUE (default)
 all values will be round to the length specified by 'n_decimal'.}
 
-\item{scale}{number indicating the scaling factor. When scale = 1, 1/4 will
-return 0.25, when scale = 100 (default) 1/4 will return 25}
+\item{multiplier}{number indicating the scaling factor. When multiplier = 1
+(default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.}
 
 \item{return_data}{logical to indicate whether function should return the
 phrase components used to compose the headline}
@@ -112,6 +112,8 @@ headline(
 # you can also adjust the rounding, although the default is 1
 headline(0.1234, 0.4321)
 headline(0.1234, 0.4321, n_decimal = 3)
+# or use a multiplier
+headline(0.1234, 0.4321, multiplier = 100)
 
 # The values can come from a summarized data frame or a named list
 # if the data frame is only 2 columns or the list has only 2 elements
