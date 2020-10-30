@@ -13,8 +13,8 @@
 #' @param round_all logical value to indicate if all values should be rounded.
 #' When FALSE, the values will return with no modification. When TRUE (default)
 #' all values will be round to the length specified by 'n_decimal'.
-#' @param scale number indicating the scaling factor. When scale = 1, 1/4 will
-#' return 0.25, when scale = 100 (default) 1/4 will return 25
+#' @param rescale number indicating the scaling factor. When rescale = 1
+#' (default), 0.25 will return 0.25. When rescale = 100, 0.25 will return 25.
 #' @importFrom glue glue
 #' @importFrom purrr map_if map pluck
 #' @importFrom dplyr recode
@@ -43,10 +43,10 @@ compare_values <- function(compare, reference,
                            plural_phrases = NULL,
                            n_decimal = 1,
                            round_all = TRUE,
-                           scale = 100) {
+                           rescale = 1) {
   # calcs
-  calc <- as.numeric(compare - reference)
-  calc_p <- as.numeric((compare - reference) / reference  * scale)
+  calc <- as.numeric((compare * rescale) - (reference * rescale))
+  calc_p <- as.numeric((compare - reference) / reference  * 100)
 
   sign_calc <- sign(calc)
 
