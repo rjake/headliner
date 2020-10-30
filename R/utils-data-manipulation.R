@@ -108,8 +108,10 @@ check_rounding <- function(x, y, n_decimal) {
       num %>%
       as.numeric() %>%  # turn 1.200 into 1.2
       as.character() %>%
-      stringr::str_extract("(?<=\\.).*[^0]$") %>%
+      # remove anything up to and including the period
+      gsub(pattern = "^[^\\.]*(\\.)?", replacement = "") %>%
       nchar()
+
     ifelse(is.na(n), 0, n)
   }
 
