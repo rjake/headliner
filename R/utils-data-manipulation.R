@@ -86,3 +86,46 @@ get_article <- function(x) {
     )
   }
 }
+
+
+
+#' Checks to see if rounding is causing the zero
+#' @param x compare value from compare_values()
+#' @param y reference value from compare_values()
+#' @param n_decimal n_decimal value from compare_values()
+#' @importFrom glue glue
+#' @noRd
+#' @examples
+#' check_rounding(x = 0.2, y = 0.24, n_decimal = 1)
+#' check_rounding(x = 0.2, y = 0.24, n_decimal = 2)
+check_rounding <- function(x, y, n_decimal) {
+  # only need if delta comes back as zero
+  if (round(x - y, n_decimal) != 0) return()
+  # both values need to be less than 2...  if (abs(x) + abs(y) > 2) return()
+
+  n_decimals <- function(num) {
+    n <-
+      num %>%
+      as.numeric() %>%  # turn 1.200 into 1.2
+      as.character() %>%
+      stringr::str_extract("(?<=\\.).*[^0]$") %>%
+      nchar()
+    ifelse(is.na(n), 0, n)
+  }
+
+  max_decimals <- max(n_decimals(c(x, y)), na.rm = TRUE)[1]
+
+  if (n_decimal <= max_decimals & max_decimals != 0) {
+    warning(
+      glue(
+        "With the rounding applied ('n_decimal = {n_decimal}'), \\
+        your result shows a change of zero
+
+        Your inputs had a maximum decimal length of {max_decimals} ({x}, {y}).
+        Consider increasing the 'n_decimal' parameter to \\
+        {max_decimals + 1} or more"
+      ),
+      call. = FALSE
+    )
+  }
+}
