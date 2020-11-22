@@ -57,3 +57,10 @@ test_that("phrases added", {
   expect_true(when_single == "person was")
 })
 
+
+
+test_that("list is returned", {
+  x <- headline(1, 2, return_data = TRUE)
+
+  expect_true(inherits(x, "list"))
+})
