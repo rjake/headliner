@@ -15,7 +15,8 @@
 calc_distance <- function(from, unit, to = Sys.Date(), n = 1, week_start = 1) {
   from_date <- floor_date(from, unit, week_start = week_start)
   to_date <- floor_date(to, unit, week_start = week_start)
-  interval(to_date, from_date) %/% period(n, unit)
+  interval_diff <- interval(to_date, from_date) / period(n, unit)
+  round(interval_diff)
 }
 
 
@@ -26,6 +27,6 @@ calc_distance <- function(from, unit, to = Sys.Date(), n = 1, week_start = 1) {
 #' @importFrom lubridate `%m+%` period
 #' @noRd
 #' @examples
-#' fiscal_date(as.Date("2020-01-01"))
+#' fiscal_date(as.Date("2020-01-01"), offset = 6)
 fiscal_date <- function(x, offset) x %m+% period(offset, "months")
 

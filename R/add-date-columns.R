@@ -12,6 +12,7 @@
 #' a '1'
 #' @importFrom dplyr pull select bind_cols
 #' @importFrom tibble tibble
+#' @importFrom lubridate floor_date
 #' @export
 #'
 #' @examples
@@ -31,7 +32,13 @@ add_date_columns <- function(df,
       day = calc_distance(x, "day", to = ref_date),
       week = calc_distance(x, "week", to = ref_date, week_start = week_start),
       month = calc_distance(x, "month", to = ref_date),
-      quarter = calc_distance(x, "month", n = 3, to = ref_date),
+      quarter =
+        calc_distance(
+          from = floor_date(x, "quarter"),
+          unit = "month",
+          n = 3,
+          to = floor_date(ref_date, "quarter")
+        ),
       calendar_year = calc_distance(x, "year", to = ref_date),
       fiscal_year =
         calc_distance(
