@@ -1,3 +1,11 @@
+test_that("check rounding throws warnings", {
+  expect_warning(check_rounding(0.2, 0.24, n_decimal = 1))
+  expect_null(check_rounding(0.2, 0.24, n_decimal = 2))
+  expect_null(check_rounding(21, 21, n_decimal = 1))
+})
+
+
+
 test_that("get_article() works for characters", {
   expect_equal(get_article("decrease"), "a")
   expect_equal(get_article("increase"), "an")
