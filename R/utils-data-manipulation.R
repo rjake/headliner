@@ -16,9 +16,9 @@ check_overlapping_names <- function(orig_df, new_df, drop = FALSE) {
     warning(
       paste(
         "This step produced duplicate names and",
-        "these fields will have new names\n",
-        paste0(paste0(overlap, 1), collapse = ", "),
-        "\nUse 'drop = TRUE' to remove the original columns"
+        "some fields have new names (see above)",
+        "\nUse 'drop = TRUE' to remove the overlapping columns",
+        "prior to adding the new date fields"
       ),
       call. = FALSE
     )
