@@ -1,3 +1,17 @@
+test_that("check_overlapping_names() works", {
+  expect_warning(
+    object = check_overlapping_names(mtcars, mtcars[,1:3]),
+    regexp = "duplicate names"
+  )
+
+  # no warning/no overlap
+  expect_warning(
+    object = check_overlapping_names(mtcars, iris),
+    regexp = NA
+  )
+})
+
+
 test_that("aggregate_group() works", {
   x <-
     aggregate_group(
