@@ -149,63 +149,19 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, )</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; $mean_air_time
-#&gt; [1] 327.7805
-#&gt; 
-#&gt; $mean_arr_delay
+    <pre class="examples"><div class='input'><span class='co'># by default the function will compute the means</span>
+<span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dep_delay"</span>, <span class='st'>"arr_delay"</span>))</div><div class='output co'>#&gt; $mean_arr_delay
 #&gt; [1] 0.1459121
-#&gt; 
-#&gt; $mean_carrier
-#&gt; [1] NA
-#&gt; 
-#&gt; $mean_date
-#&gt; [1] "2013-01-01"
 #&gt; 
 #&gt; $mean_dep_delay
 #&gt; [1] 10.41128
-#&gt; 
-#&gt; $mean_dest
-#&gt; [1] NA
-#&gt; 
-#&gt; $mean_dewp
-#&gt; [1] 41.06711
-#&gt; 
-#&gt; $mean_distance
-#&gt; [1] 2453.746
-#&gt; 
-#&gt; $mean_hour
-#&gt; [1] 15.03484
-#&gt; 
-#&gt; $mean_humid
-#&gt; [1] 57.20094
-#&gt; 
-#&gt; $mean_precip
-#&gt; [1] 0.001494147
-#&gt; 
-#&gt; $mean_pressure
-#&gt; [1] 1018.002
-#&gt; 
-#&gt; $mean_tailnum
-#&gt; [1] NA
-#&gt; 
-#&gt; $mean_temp
-#&gt; [1] 57.27722
-#&gt; 
-#&gt; $mean_visib
-#&gt; [1] 9.576753
-#&gt; 
-#&gt; $mean_wind_dir
-#&gt; [1] 207.5795
-#&gt; 
-#&gt; $mean_wind_speed
-#&gt; [1] 12.43572
-#&gt; 
-#&gt; $mean_year
-#&gt; [1] 2012.5
-#&gt; </div><div class='input'><span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, <span class='fu'>ends_with</span>(<span class='st'>"delay"</span>))</div><div class='output co'>#&gt; $mean_arr_delay
+#&gt; </div><div class='input'>
+<span class='co'># you can name the output using 'list()' and select the columns using</span>
+<span class='co'># any of the 'select()' helpers</span>
+<span class='fu'>compare_columns</span>(<span class='no'>flights_jfk</span>, <span class='fu'>ends_with</span>(<span class='st'>"delay"</span>), <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>avg</span> <span class='kw'>=</span> <span class='no'>mean</span>))</div><div class='output co'>#&gt; $avg_arr_delay
 #&gt; [1] 0.1459121
 #&gt; 
-#&gt; $mean_dep_delay
+#&gt; $avg_dep_delay
 #&gt; [1] 10.41128
 #&gt; </div></pre>
   </div>
