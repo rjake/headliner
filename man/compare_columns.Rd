@@ -20,6 +20,10 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)}
 Compare two columns within a data frame
 }
 \examples{
-compare_columns(flights_jfk, )
-compare_columns(flights_jfk, ends_with("delay"))
+# by default the function will compute the means
+compare_columns(flights_jfk, c("dep_delay", "arr_delay"))
+
+# you can name the output using 'list()' and select the columns using
+# any of the 'select()' helpers
+compare_columns(flights_jfk, ends_with("delay"), list(avg = mean))
 }

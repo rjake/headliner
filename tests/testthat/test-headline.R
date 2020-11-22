@@ -57,3 +57,24 @@ test_that("phrases added", {
   expect_true(when_single == "person was")
 })
 
+
+
+test_that("list is returned", {
+  x <- headline(1, 2, return_data = TRUE)
+
+  expect_true(inherits(x, "list"))
+})
+
+
+
+test_that("stops if df has > 1 row", {
+  expect_error(
+    object = headline(mtcars),
+    regexp = "single row"
+  )
+
+  expect_error(
+    object = headline(mtcars[1,1:2]),
+    regexp = NA
+  )
+})

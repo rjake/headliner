@@ -11,18 +11,15 @@
 #' @export
 #'
 #' @examples
-#' compare_columns(flights_jfk, )
-#' compare_columns(flights_jfk, ends_with("delay"))
+#' # by default the function will compute the means
+#' compare_columns(flights_jfk, c("dep_delay", "arr_delay"))
+#'
+#' # you can name the output using 'list()' and select the columns using
+#' # any of the 'select()' helpers
+#' compare_columns(flights_jfk, ends_with("delay"), list(avg = mean))
 compare_columns <- function(df,
                             cols = everything(),
                             calc = list(mean = mean)) {
-  if (nrow(df) == 1) {
-    warning(
-      glue("There is only 1 row in the data frame. Did you mean to use \\
-           compare_values() or headline()?"),
-      call. = FALSE
-    )
-  }
   res <- aggregate_group(df, "", {{cols}}, calc = calc)
   res[order(names(res))]
 }

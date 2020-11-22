@@ -27,3 +27,16 @@ test_that("add_date_columns works", {
   expect_equal(sum(df_positive$calendar_year), 0)
   expect_equal(sum(df_positive$fiscal_year), 4)
 })
+
+test_that("overlapping columns dropped or renamed", {
+  df <-
+    demo_data() %>%
+    dplyr::mutate(day = weekdays(date))
+
+  expect_warning(add_date_columns(df, date), "duplicate names")
+
+  expect_equal(
+    names(add_date_columns(df, date, drop = TRUE)),
+    names(add_date_columns(demo_data(), date))
+  )
+})
