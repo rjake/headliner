@@ -38,7 +38,8 @@ my_css <-
   }"
 
 
-ui <- {fluidPage(
+# UI ----
+ui <- fluidPage(
   tags$head(tags$style(HTML(my_css))),
   fixedRow(
     column(3, textInput("comp", "New", 3.5)),
@@ -59,9 +60,10 @@ ui <- {fluidPage(
   ),
   verbatimTextOutput(outputId = "headline"),
   uiOutput(outputId = "components")
-)}
+)
 
 
+# server ----
 server <- function(input, output, session) {
   output$components <- renderUI({
     res <-
@@ -117,6 +119,8 @@ server <- function(input, output, session) {
   })
 }
 
+# runApp ----
+# only seems to render correctly when shown in browser
 runApp(
   list(ui = ui, server = server),
   host = "127.0.0.1",
