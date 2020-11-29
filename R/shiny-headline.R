@@ -1,7 +1,7 @@
 # TOD):
 # [ ] replace cursor area https://stackoverflow.com/questions/50430219/how-to-get-the-cursor-position-in-a-shiny-textareainput
 #
-# [ ]
+# [ ] Copy to clipboard
 #
 # [ ]
 #
@@ -81,7 +81,7 @@ server <- function(input, output, session) {
         x = as.numeric(c(input$comp, input$ref)),
         orig_values = input$orig_values
       )
-    # names(res)
+
     choices <-
       res[c(
         "article_delta", "article_delta_p", "article_trend",
@@ -124,7 +124,6 @@ server <- function(input, output, session) {
     updateTextAreaInput(
       session = session,
       inputId = "phrase",
-      # label = "phrase",
       value = paste0(input$phrase, input$component)
     )
   })
