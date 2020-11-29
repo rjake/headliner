@@ -9,19 +9,21 @@
 #
 options(browser = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
 
-dummy_input <- list(
-  comp = "3.5",
-  ref = "2.7",
-  orig_values = "{c} vs. {r}",
-  phrase = "",
-  component = "delta"
-)
+dummy_input <- # for shinyobject debugging
+  list(
+    comp = "3.5",
+    ref = "2.7",
+    orig_values = "{c} vs. {r}",
+    phrase = "",
+    component = "delta"
+  )
 
 library(shiny)
 library(shinyWidgets)
 library(headliner)
 library(glue)
 
+# need radioGroupButtons to be in columns
 my_css <-
   ".btn-group, .btn-group-vertical {
     column-count: 5;
@@ -35,20 +37,6 @@ my_css <-
     width:200px;
   }"
 
-
-ui <-
-  fluidPage(
-    tags$head(tags$style(HTML(my_css))),
-    radioGroupButtons(
-      inputId = "somevalue1",
-      label = NULL,
-      choices =
-        setNames(
-          1:20,
-          rep(c("xs", "medium", "very long", "a whole lotta text"), 5)
-        )#, direction = "vertical"
-    )
-  )
 
 ui <- {fluidPage(
   tags$head(tags$style(HTML(my_css))),
