@@ -7,7 +7,7 @@
 #
 # [ ]
 #
-options(browser = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
+# options(browser = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
 
 dummy_input <- # for shinyobject debugging
   list(
@@ -37,10 +37,14 @@ my_css <-
     width:200px;
   }"
 
+get_replacement_location <- '//js to find cursor position'
 
 # UI ----
 ui <- fluidPage(
-  tags$head(tags$style(HTML(my_css))),
+  tags$head(
+    tags$script(get_replacement_location),
+    tags$style(HTML(my_css))
+  ),
   fixedRow(
     column(3, textInput("comp", "New", 3.5)),
     column(3, textInput("ref", "Old", 2.7)),
