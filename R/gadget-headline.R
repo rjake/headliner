@@ -17,8 +17,8 @@
 
 dummy_input <- # for shinyobject debugging
   list(
-    comp = "3.5",
-    ref = "2.7",
+    comp = "27",
+    ref = "35",
     orig_values = "{c} vs. {r}",
     phrase = "",
     component = "{delta_p}"
@@ -59,7 +59,6 @@ create_headline <- function(new = 40, old = 50) {
         flex = c(1, 2, 1, 3),
         fillRow(
           flex = c(1,1,3),
-          # fillCol(
           textInput("comp", "New", new),
           textInput("ref", "Old", old),
           textInput(
@@ -125,9 +124,7 @@ create_headline <- function(new = 40, old = 50) {
         choices = button_options,
         size = "sm",
         selected = ""
-      ) # %>%
-      # tagAppendAttributes(onclick = "document.getElementById('phrase').focus();")
-      # tagAppendAttributes(onmouseup = set_cursor_position)
+      )
     })
 
     output$headline <- renderPrint({
@@ -142,8 +139,6 @@ create_headline <- function(new = 40, old = 50) {
       selected_text <<- input$selected_text
       print(selected_text)
       print(input$component)
-      #shinyjs::reset(id = "component")
-      #print(input$component)
     })
 
     observeEvent(input$component, {
@@ -181,13 +176,6 @@ create_headline <- function(new = 40, old = 50) {
         inputId = "phrase",
         value = new_phrase
       )
-
-      # reset radioGroupButton
-      # updateRadioGroupButtons(
-      #   session = session,
-      #   inputId = "component",
-      #   selected = ""
-      # )
     })
   }
 
