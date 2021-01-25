@@ -106,7 +106,10 @@ create_headline <- function(new = 40, old = 50) {
 
       button_options <-
         setNames(
-          object = c(glue("{[names(choices)]}", .open = "[", .close = "]"), "Clear"),
+          object = c(
+            glue("{[names(choices)]}", .open = "[", .close = "]"),
+            "Clear"
+          ),
           nm =c(
             glue(
               '<big>[choices]</big>
