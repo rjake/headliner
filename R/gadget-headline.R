@@ -1,9 +1,10 @@
 # TODO:
 # [ ] replace cursor area https://stackoverflow.com/questions/50430219/how-to-get-the-cursor-position-in-a-shiny-textareainput
 #
-# [ ] Copy phrase to clipboard
-# [ ] Copy code to clipboard
-# [ ] add headline() settings
+# [x] Copy phrase to clipboard
+# [x] Copy code to clipboard
+# [x] add headline() settings
+# [ ] only add
 # [ ] custom phrases
 #
 # [ ] Place cursor at the end of inserted text
@@ -20,7 +21,7 @@ dummy_input <- # for shinyobject debugging
     comp = "40.123",
     ref = "50.456",
     orig_values = "{c} vs. {r}",
-    phrase = "",
+    phrase = "{trend} of {delta} ({orig_values})",
     component = "{delta_p}",
     n_decimal = 2,
     scale = "1"
@@ -60,7 +61,7 @@ create_headline <- function(new = 40.123, old = 50.456) {
       miniUI::miniContentPanel(
         padding = 0,
         fillCol(
-          flex = c(1, 2, 1, 4),
+          flex = c(1, 2, 1, 3, 2),
           fillRow(
             flex = c(1,1,1,3),
             dropdownButton(
@@ -91,18 +92,27 @@ create_headline <- function(new = 40.123, old = 50.456) {
               value = "{c} vs. {r}"
             )
           ),
-          textAreaInput(
-            inputId = "phrase",
-            label = 'Phrase: default: "{trend} of {delta} ({orig_values})"',
-            value = default_phrase
-          ) %>%
-            tagAppendAttributes(
-              style = 'width: 100%; height:100%;',
-              onmouseup = get_replacement_location,
-              onkeyup =   get_replacement_location
+          fillRow(
+            flex = c(7, 1),
+            textAreaInput(
+              inputId = "phrase",
+              label = 'Phrase: default: "{trend} of {delta} ({orig_values})"',
+              value = default_phrase
+            ) %>%
+              tagAppendAttributes(
+                style = 'width: 100%; height:100%;',
+                onmouseup = get_replacement_location,
+                onkeyup =   get_replacement_location
             ),
+            actionButton("copy_phrase", "Copy")
+          ),
           verbatimTextOutput(outputId = "headline"),
-          uiOutput(outputId = "components")
+          uiOutput(outputId = "components"),
+          fillRow(
+            flex = c(7, 1),
+            verbatimTextOutput(outputId = "view_code"),
+            actionButton("copy_code", "Copy")
+          )
         )
       )
     )
@@ -110,8 +120,34 @@ create_headline <- function(new = 40.123, old = 50.456) {
 
   # server ----
   server <- function(input, output, session) {
-    print(selected_text)
+    #print(selected_text)
     #reactive(print(input$comp))
+
+    get_call <- reactive({
+      substitute_headline <- function(){
+        comp <- as.numeric(input$comp)
+        ref <- as.numeric(input$ref)
+        phrase <- input$phrase
+        scale <- as.integer(input$scale)
+        n_decimal <- input$n_decimal
+        orig_values <- input$orig_values
+
+        use_call <-
+          substitute(
+            headline(
+              x = c(comp, ref),
+              headline = phrase,
+              orig_values = orig_values,
+              scale = scale,
+              n_decimal = n_decimal
+            )
+          )
+        use_call
+      }
+
+      substitute_headline()
+
+    })
 
     output$components <- renderUI({
       # print(input$n_decimal)
@@ -125,7 +161,7 @@ create_headline <- function(new = 40.123, old = 50.456) {
           scale = as.integer(input$scale)
         )
 
-      print(res$comp_value)
+      # print(res$comp_value)
       # print(res$article_delta_p)
 
       # res$delta_p <- paste0(res$delta_p, "%")
@@ -172,29 +208,41 @@ create_headline <- function(new = 40.123, old = 50.456) {
     })
 
     output$headline <- renderPrint({
-      headline(
-        list(as.numeric(input$comp), as.numeric(input$ref)),
-        headline = input$phrase,
-        orig_values = input$orig_values,
-        n_decimal = input$n_decimal,
-        scale = as.integer(input$scale)
-      )
+      x <- get_call()
+      eval(x)
+    })
+
+    output$view_code <- renderPrint({
+      rlang::expr_text(get_call()) %>%
+        styler::style_text()
+    })
+
+    observeEvent(input$copy_phrase, {
+      glue('"{input$phrase}"') %>%
+        clipr::write_clip()
+    })
+
+
+    observeEvent(input$copy_code, {
+      rlang::expr_text(get_call()) %>%
+        styler::style_text() %>%
+        clipr::write_clip()
     })
 
     observeEvent(input$selected_text, {
       selected_text <<- input$selected_text
-      print(selected_text)
-      print(input$component)
+      #print(selected_text)
+      #print(input$component)
     })
 
     observeEvent(input$component, {
       if (input$component == "Clear") {
         return(TRUE)
       }
-      print(selected_text)
+      #print(selected_text)
       loc_start <- selected_text[1]
       loc_end <- selected_text[2]
-      print(c(loc_start, loc_end))
+      #print(c(loc_start, loc_end))
 
       if (loc_start == loc_end) loc_end <- selected_text[2] + 1
 
