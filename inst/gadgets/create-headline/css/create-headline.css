@@ -1,0 +1,13 @@
+.btn-group-container-sw {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+.radiobtn {
+    width: 100%;
+}
+
+textarea.form-control {
+    height: 75%;
+}
+
