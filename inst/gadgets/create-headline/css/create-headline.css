@@ -9,5 +9,6 @@
 
 textarea.form-control {
     height: 75%;
+    font-family: monospace;
 }
 
