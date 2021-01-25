@@ -17,11 +17,13 @@
 
 dummy_input <- # for shinyobject debugging
   list(
-    comp = "27",
-    ref = "35",
+    comp = "40.123",
+    ref = "50.456",
     orig_values = "{c} vs. {r}",
     phrase = "",
-    component = "{delta_p}"
+    component = "{delta_p}",
+    n_decimal = 2,
+    scale = "1"
   )
 
 library(shiny)
@@ -30,8 +32,9 @@ library(headliner)
 library(glue)
 library(miniUI)
 
-create_headline <- function(new = 40, old = 50) {
+create_headline <- function(new = 40.123, old = 50.456) {
   # shinyjs::useShinyjs()
+
   resource_path <- "inst/gadgets/create-headline"
   # system.file("gadgets", "create-headline", package = "headliner")
 
@@ -46,56 +49,87 @@ create_headline <- function(new = 40, old = 50) {
   default_phrase <- "{trend} of {delta} ({orig_values})"
   selected_text <- rep(nchar(default_phrase), 2)
 
-  ui <- {miniUI::miniPage(
-    shiny::tags$head(
-      tags$script(get_replacement_location),
-      # shiny::includeScript(file.path(resource_path, "js", "create-headline.js")),
-      shiny::includeCSS(file.path(resource_path, "css", "create-headline.css")),
-    ),
-    miniUI::gadgetTitleBar("Create Headline"),
-    miniUI::miniContentPanel(
-      padding = 0,
-      fillCol(
-        flex = c(1, 2, 1, 3),
-        fillRow(
-          flex = c(1,1,3),
-          textInput("comp", "New", new),
-          textInput("ref", "Old", old),
-          textInput(
-            inputId = "orig_values",
-            label = '{orig_values} default: "{c} vs. {r}"',
-            value = "{c} vs. {r}"
-          )
-        ),
-        textAreaInput(
-          inputId = "phrase",
-          label = 'Phrase: default: "{trend} of {delta} ({orig_values})"',
-          value = default_phrase
-        ) %>%
-          tagAppendAttributes(
-            style = 'width: 100%; height:100%;',
-            onmouseup = get_replacement_location,
-            onkeyup =   get_replacement_location
+  ui <- {
+    miniUI::miniPage(
+      shiny::tags$head(
+        tags$script(get_replacement_location),
+        # shiny::includeScript(file.path(resource_path, "js", "create-headline.js")),
+        shiny::includeCSS(file.path(resource_path, "css", "create-headline.css")),
+      ),
+      miniUI::gadgetTitleBar("Create Headline"),
+      miniUI::miniContentPanel(
+        padding = 0,
+        fillCol(
+          flex = c(1, 2, 1, 4),
+          fillRow(
+            flex = c(1,1,1,3),
+            dropdownButton(
+              tags$h4("Advanced Options"),
+              tags$b("# of Decimal Places"),
+              tags$p("value to limit the number of decimal places in the returned values"),
+              shinyWidgets::sliderTextInput(
+                inputId = "n_decimal",
+                label = NULL,
+                choices = 0:5, selected = 1
+              ),
+              tags$b("Scale"),
+              tags$p("How should a 75% difference be represented?"),
+              radioGroupButtons(
+                inputId = "scale",
+                label = NULL,
+                choices = setNames(c(100, 1), c("75%", "0.75"))
+              ),
+              icon = icon("gear"),
+              tooltip =
+                tooltipOptions(title = "Click to see advanced options!", placement = "bottom")
+            ),
+            textInput("comp", "New", new),
+            textInput("ref", "Old", old),
+            textInput(
+              inputId = "orig_values",
+              label = '{orig_values} default: "{c} vs. {r}"',
+              value = "{c} vs. {r}"
+            )
           ),
-        verbatimTextOutput(outputId = "headline"),
-        uiOutput(outputId = "components")
+          textAreaInput(
+            inputId = "phrase",
+            label = 'Phrase: default: "{trend} of {delta} ({orig_values})"',
+            value = default_phrase
+          ) %>%
+            tagAppendAttributes(
+              style = 'width: 100%; height:100%;',
+              onmouseup = get_replacement_location,
+              onkeyup =   get_replacement_location
+            ),
+          verbatimTextOutput(outputId = "headline"),
+          uiOutput(outputId = "components")
+        )
       )
     )
-  )}
+  }
 
   # server ----
   server <- function(input, output, session) {
     print(selected_text)
+    #reactive(print(input$comp))
 
     output$components <- renderUI({
+      # print(input$n_decimal)
+      # print(input$scale)
+
       res <-
         compare_values(
           x = as.numeric(c(input$comp, input$ref)),
-          orig_values = input$orig_values
+          orig_values = input$orig_values,
+          n_decimal = input$n_decimal,
+          scale = as.integer(input$scale)
         )
 
-      res$delta_p <- paste0(res$delta_p, "%")
-      res$raw_delta_p <- paste0(res$raw_delta_p, "%")
+      print(res$comp_value)
+      # print(res$article_delta_p)
+
+      # res$delta_p <- paste0(res$delta_p, "%")
+      # res$raw_delta_p <- paste0(res$raw_delta_p, "%")
 
       choices <-
         res[c(
@@ -104,22 +138,29 @@ create_headline <- function(new = 40, old = 50) {
           "article_trend", "trend", "sign", "orig_values"
         )]
 
-      button_options <-
-        setNames(
-          object = c(
-            glue("{[names(choices)]}", .open = "[", .close = "]"),
-            "Clear"
-          ),
-          nm =c(
-            glue(
-              '<big>[choices]</big>
-              <br> <small>{[names(choices)]}</small>',
-              .open = "[",
-              .close = "]"
-            ),
-            "Unselect"
+      button_options <- local({
+        button_values <-
+          glue("{[names(choices)]}", .open = "[", .close = "]")
+
+        button_names <-
+          glue(
+            "<big>[choices]</big><br><small>{[names(choices)]}</small>",
+            .open = "[", .close = "]"
           )
+
+        delta_p <- which(str_detect(button_values, "^.(raw_)?delta_p"))
+
+        if (input$scale == "100") {
+          button_names[delta_p] <-
+            str_replace(button_names[delta_p], "(\\d)(\\<)", "\\1 (%)\\2")
+        }
+
+        setNames(
+          object = c(button_values, "Clear"),
+          nm = c(button_names, "Unselect")
         )
+      })
+
 
       radioGroupButtons(
         inputId = "component",
@@ -134,7 +175,9 @@ create_headline <- function(new = 40, old = 50) {
       headline(
         list(as.numeric(input$comp), as.numeric(input$ref)),
         headline = input$phrase,
-        orig_values = input$orig_values
+        orig_values = input$orig_values,
+        n_decimal = input$n_decimal,
+        scale = as.integer(input$scale)
       )
     })
 
@@ -163,7 +206,9 @@ create_headline <- function(new = 40, old = 50) {
 
       selected_component <- input$component
 
-      if (str_detect(selected_component, "^.(raw_)?delta_p")) {
+      if (str_detect(selected_component, "^.(raw_)?delta_p") &
+          input$scale == 100
+          ) {
         selected_component <- paste0(input$component, "%")
       }
 
