@@ -10,11 +10,14 @@ keep_numeric <- function(x) {
 
 test_that("compare_values produces list", {
   x <- compare_values(2, 3)
+  x <- compare_values(2, 10)
 
   expect_true(is.list(x))
 
-  expect_true(x$delta == 1)
-  expect_true(x$raw_delta == -1)
+  expect_true(x$delta == 8)
+  expect_true(x$raw_delta == -8)
+  expect_true(x$article_delta == "an 8")
+  expect_true(x$article_raw_delta == "a -8")
 
   expect_true(
     all(
