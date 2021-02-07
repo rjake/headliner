@@ -22,8 +22,11 @@ test_that("compare_values produces list", {
   expect_true(
     all(
       names(x) == c(
-        "delta", "trend", "delta_p", "article_delta",  "article_delta_p",
-        "article_trend", "comp_value", "ref_value", "raw_delta", "raw_delta_p",
+        "delta", "trend", "delta_p",
+        "article_delta",  "article_delta_p", "article_trend",
+        "comp_value", "ref_value",
+        "raw_delta", "raw_delta_p",
+        "article_raw_delta", "article_raw_delta_p",
         "sign", "orig_values"
       )
     )
