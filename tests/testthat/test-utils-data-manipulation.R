@@ -45,7 +45,7 @@ test_that("get_article() works for characters", {
 test_that("get_article() works for numbers", {
   is_a <-
     purrr::map_chr(
-      c(0:7, 9, 10, 12:20, 199, 1234, 1000111, 12000111),
+      c(-8, -6, -0.2, 0:7, 9, 10, 12:20, 199, 1234, 1000111, 12000111),
       get_article
     )
 
