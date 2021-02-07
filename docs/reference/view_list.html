@@ -125,7 +125,7 @@
     <p>Compact view of list values</p>
     </div>
 
-    <pre class="usage"><span class='fu'>view_list</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>view_list</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,9 +141,23 @@
     <div class='dont-index'><p><code><a href='compare_values.html'>compare_values()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='compare_values.html'>compare_values</a></span>(<span class='fl'>10</span>, <span class='fl'>8</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>view_list</span>()</div><div class='output co'>#&gt; <span class='error'>Error: </span>
-#&gt; <span class='error'>expecting a length of 2</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='compare_values.html'>compare_values</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>view_list</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                          VALUES
+#&gt; delta                         2
+#&gt; trend                  increase
+#&gt; delta_p                      25
+#&gt; article_delta               a 2
+#&gt; article_delta_p            a 25
+#&gt; article_trend       an increase
+#&gt; comp_value                   10
+#&gt; ref_value                     8
+#&gt; raw_delta                     2
+#&gt; raw_delta_p                  25
+#&gt; article_raw_delta           a 2
+#&gt; article_raw_delta_p        a 25
+#&gt; sign                          1
+#&gt; orig_values            10 vs. 8</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -159,7 +173,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

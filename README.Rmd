@@ -67,8 +67,8 @@ demo_data() %>%
     cols = x
   ) %>% 
   headline(
-    headline = "We have seen a {delta_p}% {trend} compared to the same time \\
-    last year ({orig_values})."
+    headline = 
+    "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
   )
 ```
 
@@ -92,7 +92,7 @@ We can compose it like this using `glue::glue()` syntax
 headline(
   compare = 101, 
   reference = 107, 
-  headline = "We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."
+  headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
 )
 ```
 You might have noticed that there are multiple `article_*` components available. `article_delta` is for the difference between the two values ("**a** 6 person loss" vs "**an** 8 person loss"), `article_delta_p` is for the percentage difference for "**a** 5.6%" vs "**an** 8.6%", and `article_trend` gives us "**an** increase" vs "**a** decrease".
@@ -126,7 +126,7 @@ It might look funny to see `list(mean = mean)`. The name (left side) is how it w
 ```{r}
 yoy %>% 
   headline(
-    headline = "We have seen a {delta_p}% {trend} compared to the same time last year ({orig_values})."
+    headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
   ) 
 ```
 
@@ -136,8 +136,8 @@ headline(
   compare = 10, 
   reference = 8,
   headline =  
-    "There is {article_trend} {trend} of {delta} {people} enrolled \\
-    {article_delta_p} {delta_p}% {trend} ({orig_values})",
+    "There is {article_trend} of {delta} {people} enrolled, \\
+    {article_delta_p}% {trend} ({orig_values})",
   plural_phrases = list(  
     people = plural_phrasing(single = "person", multi = "people")
   )

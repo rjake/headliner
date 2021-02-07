@@ -94,7 +94,7 @@ headline <- function(...) {
 #' headline(
 #'   compare = 16,
 #'   reference = 8,
-#'   headline = "there was {article_delta_p} {delta_p}% {trend}, \\
+#'   headline = "there was {article_delta_p}% {trend}, \\
 #'   {article_trend} {trend} of {delta} ({orig_values})"
 #' )
 #'

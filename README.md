@@ -40,7 +40,7 @@ devtools::install_github("rjake/headliner")
 ## Usage
 
 For these examples, I will use a function called `demo_data()` to build
-a data set based on the current date (this was last run on 10/26/20).
+a data set based on the current date (this was last run on 02/07/21).
 
 ``` r
 library(headliner)
@@ -51,16 +51,16 @@ demo_data()
     #> # A tibble: 10 x 5
     #>    group     x     y     z date      
     #>    <chr> <dbl> <dbl> <dbl> <date>    
-    #>  1 a       101    10     1 2020-10-26
-    #>  2 a       102    20     0 2020-08-26
-    #>  3 b       103    30     1 2020-06-26
-    #>  4 b       104    40     0 2020-04-26
-    #>  5 c       105    50     1 2020-02-26
-    #>  6 c       106    60     0 2019-12-26
-    #>  7 d       107    70     1 2019-10-26
-    #>  8 d       108    80     0 2019-08-26
-    #>  9 e       109    90     1 2019-06-26
-    #> 10 e       110   100     0 2019-04-26
+    #>  1 a       101    10     1 2021-02-07
+    #>  2 a       102    20     0 2020-12-07
+    #>  3 b       103    30     1 2020-10-07
+    #>  4 b       104    40     0 2020-08-07
+    #>  5 c       105    50     1 2020-06-07
+    #>  6 c       106    60     0 2020-04-07
+    #>  7 d       107    70     1 2020-02-07
+    #>  8 d       108    80     0 2019-12-07
+    #>  9 e       109    90     1 2019-10-07
+    #> 10 e       110   100     0 2019-08-07
 
 What we want is to say something like this:
 
@@ -85,20 +85,22 @@ will condense with `view_list()`
 ``` r
 headline(101, 107, return_data = TRUE) %>% 
   view_list()
-#>                                      VALUES
-#> delta                                     6
-#> trend                              decrease
-#> delta_p                                 5.6
-#> article_delta                             a
-#> article_delta_p                           a
-#> article_trend                             a
-#> comp_value                              101
-#> ref_value                               107
-#> raw_delta                                -6
-#> raw_delta_p                            -5.6
-#> sign                                     -1
-#> orig_values                     101 vs. 107
-#> headline        decrease of 6 (101 vs. 107)
+#>                                          VALUES
+#> delta                                         6
+#> trend                                  decrease
+#> delta_p                                     5.6
+#> article_delta                               a 6
+#> article_delta_p                           a 5.6
+#> article_trend                        a decrease
+#> comp_value                                  101
+#> ref_value                                   107
+#> raw_delta                                    -6
+#> raw_delta_p                                -5.6
+#> article_raw_delta                          a -6
+#> article_raw_delta_p                      a -5.6
+#> sign                                         -1
+#> orig_values                         101 vs. 107
+#> headline            decrease of 6 (101 vs. 107)
 ```
 
 We can compose it like this using `glue::glue()` syntax
@@ -107,7 +109,7 @@ We can compose it like this using `glue::glue()` syntax
 headline(
   compare = 101, 
   reference = 107, 
-  headline = "We have seen {article_delta_p} {delta_p}% {trend} compared to the same time last year ({orig_values})."
+  headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
 )
 #> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
 ```
@@ -123,7 +125,7 @@ But let’s see if we can make the calculations more dynamic…
 First, we can use a function called `add_date_columns()` to calculate
 distances from the current date (or the refence date specified) to the
 values in the `date` column . With these new fields we can see that
-08/26/20 was 61 days ago (or 9 weeks or 2 months, …) from the current
+12/07/20 was 62 days ago (or 8 weeks or 2 months, …) from the current
 date.
 
 ``` r
@@ -132,16 +134,16 @@ demo_data() %>%
 #> # A tibble: 10 x 11
 #>    group     x     y     z date         day  week month quarter calendar_year
 #>    <chr> <dbl> <dbl> <dbl> <date>     <dbl> <dbl> <dbl>   <dbl>         <dbl>
-#>  1 a       101    10     1 2020-10-26     0     0     0       0             0
-#>  2 a       102    20     0 2020-08-26   -61    -9    -2       0             0
-#>  3 b       103    30     1 2020-06-26  -122   -18    -4      -1             0
-#>  4 b       104    40     0 2020-04-26  -183   -27    -6      -2             0
-#>  5 c       105    50     1 2020-02-26  -243   -35    -8      -2             0
-#>  6 c       106    60     0 2019-12-26  -305   -44   -10      -3            -1
-#>  7 d       107    70     1 2019-10-26  -366   -53   -12      -4            -1
-#>  8 d       108    80     0 2019-08-26  -427   -61   -14      -4            -1
-#>  9 e       109    90     1 2019-06-26  -488   -70   -16      -5            -1
-#> 10 e       110   100     0 2019-04-26  -549   -79   -18      -6            -1
+#>  1 a       101    10     1 2021-02-07     0     0     0       0             0
+#>  2 a       102    20     0 2020-12-07   -62    -8    -2      -1            -1
+#>  3 b       103    30     1 2020-10-07  -123   -17    -4      -1            -1
+#>  4 b       104    40     0 2020-08-07  -184   -26    -6      -2            -1
+#>  5 c       105    50     1 2020-06-07  -245   -35    -8      -3            -1
+#>  6 c       106    60     0 2020-04-07  -306   -43   -10      -3            -1
+#>  7 d       107    70     1 2020-02-07  -366   -52   -12      -4            -1
+#>  8 d       108    80     0 2019-12-07  -428   -61   -14      -5            -2
+#>  9 e       109    90     1 2019-10-07  -489   -69   -16      -5            -2
+#> 10 e       110   100     0 2019-08-07  -550   -78   -18      -6            -2
 #> # ... with 1 more variable: fiscal_year <dbl>
 ```
 
@@ -178,7 +180,7 @@ frame), I can pipe it into `headline()` to see the underlying data.
 ``` r
 yoy %>% 
   headline(
-    headline = "We have seen a {delta_p}% {trend} compared to the same time last year ({orig_values})."
+    headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
   ) 
 #> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
 ```
@@ -192,13 +194,13 @@ headline(
   compare = 10, 
   reference = 8,
   headline =  
-    "There is {article_trend} {trend} of {delta} {people} enrolled \\
-    {article_delta_p} {delta_p}% {trend} ({orig_values})",
+    "There is {article_trend} of {delta} {people} enrolled, \\
+    {article_delta_p}% {trend} ({orig_values})",
   plural_phrases = list(  
     people = plural_phrasing(single = "person", multi = "people")
   )
 )
-#> There is an increase of 2 people enrolled a 25% increase (10 vs. 8)
+#> There is an increase of 2 people enrolled, a 25% increase (10 vs. 8)
 ```
 
 Notice the difference in these two outputs
@@ -274,15 +276,15 @@ car_stats <-
   )
 
 view_list(car_stats)
-#>                   VALUES
-#> avg_disp_comp 105.136364
-#> avg_disp_ref  296.504762
-#> avg_drat_comp   4.070909
-#> avg_drat_ref    3.348095
-#> min_disp_comp  71.100000
-#> min_disp_ref  145.000000
-#> min_drat_comp   3.690000
-#> min_drat_ref    2.760000
+#>               VALUES
+#> avg_disp_comp 105.14
+#> avg_disp_ref  296.50
+#> avg_drat_comp   4.07
+#> avg_drat_ref    3.35
+#> min_disp_comp  71.10
+#> min_disp_ref  145.00
+#> min_drat_comp   3.69
+#> min_drat_ref    2.76
 
 headline(
   car_stats,

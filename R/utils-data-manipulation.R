@@ -75,6 +75,8 @@ get_article <- function(x) {
     n_char <- nchar(x_char)
 
     case_when(
+      # -8, -6, -0.1 = a
+      grepl("^-", x_char) ~ "a",
       # 80 = an
       grepl("^8", x_char) ~ "an",
       # # 11, 11234 = an
