@@ -50,55 +50,64 @@ compare_values <- function(compare, reference,
   comp <- (compare * multiplier)
   ref <- (reference * multiplier)
 
-  calc <- as.numeric(comp - ref)
-  calc_p <- as.numeric(calc / ref  * 100)
+  delta <- as.numeric(comp - ref)
+  delta_p <- as.numeric(delta / ref  * 100)
 
-  sign_calc <- sign(calc)
-
-  phrase <-
-    recode(
-      as.character(sign_calc), # must be a character
-      "1" = trend_phrasing$more,
-      "-1" = trend_phrasing$less,
-      "0" = trend_phrasing$same
-    )
-
-
-  output <-
+  calc <-
     list(
-      delta = abs(calc),
-      trend = phrase,
-      delta_p = abs(calc_p),
-      article_delta = paste(get_article(abs(calc)), abs(calc)),
-      article_delta_p = paste(get_article(abs(calc_p)), abs(calc_p)),
-      article_trend = get_article(phrase),
-      comp_value = compare,
-      ref_value = reference,
-      raw_delta = calc,
-      raw_delta_p = calc_p,
-      article_raw_delta = paste(get_article(calc), calc),
-      article_raw_delta_p = paste(get_article(calc_p), calc_p),
-      sign = sign_calc,
-      orig_values = glue(
-        orig_values,
-        c = round(comp, n_decimal),
-        r = round(ref, n_decimal)
-      )
+      delta = delta,
+      delta_p = delta_p,
+      sign = sign(delta),
+      abs_delta = abs(delta),
+      abs_delta_p = abs(delta_p),
+      compare = comp,
+      reference = ref
     )
 
   if (round_all) {
     # give a warning if rounding causes a delta of 0 due to inputs having
     # decimals >= n_decimal parameter
     check_rounding(
-      x = output$comp_value,
-      y = output$ref_value,
+      x = calc$compare,
+      y = calc$reference,
       n_decimal = n_decimal
     )
 
-    output <-
-      output %>%
+    calc <-
+      calc %>%
       map_if(is.numeric, round, n_decimal)
   }
+
+
+  phrase <-
+    recode(
+      as.character(calc$sign), # must be a character
+      "1" = trend_phrasing$more,
+      "-1" = trend_phrasing$less,
+      "0" = trend_phrasing$same
+    )
+
+  output <-
+    list(
+      delta = calc$abs_delta,
+      trend = phrase,
+      delta_p = calc$abs_delta_p,
+      article_delta = paste(get_article(calc$abs_delta), calc$abs_delta),
+      article_delta_p = paste(get_article(calc$abs_delta_p), calc$abs_delta_p),
+      article_trend = get_article(phrase),
+      comp_value = calc$compare,
+      ref_value = calc$reference,
+      raw_delta = calc$delta,
+      raw_delta_p = calc$delta_p,
+      article_raw_delta = paste(get_article(calc$delta), calc$delta),
+      article_raw_delta_p = paste(get_article(calc$delta_p), calc$delta_p),
+      sign = calc$sign,
+      orig_values = glue(
+        orig_values,
+        c = calc$compare,
+        r = calc$ref
+      )
+    )
 
   # append plural phrases if provided
   if (!is.null(plural_phrases)) {
