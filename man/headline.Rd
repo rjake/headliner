@@ -15,7 +15,7 @@ headline(...)
   headline = "{trend} of {delta} ({orig_values})",
   ...,
   if_match = "There was no difference.",
-  trend_phrasing = headliner::trend_terms(),
+  trend_phrases = headliner::trend_terms(),
   plural_phrases = NULL,
   orig_values = "{c} vs. {r}",
   n_decimal = 1,
@@ -45,7 +45,7 @@ headline(...)
 \item{if_match}{string to display if numbers match, uses
 \code{\link[glue]{glue}} syntax}
 
-\item{trend_phrasing}{list of values to use for when y is more than x, y is the
+\item{trend_phrases}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
 
 \item{plural_phrases}{named list of values to use when difference (delta) is
@@ -91,7 +91,7 @@ headline(
   compare = 10,
   reference = 8,
   headline = "Group A was {trend} by {delta_p}\%.",
-  trend_phrasing = trend_terms(more = "higher", less = "lower")
+  trend_phrases = trend_terms(more = "higher", less = "lower")
  )
 
 # a phrase about the comparion can be edited by providing glue syntax
@@ -135,7 +135,7 @@ iris \%>\%
 headline(
   compare = 16,
   reference = 8,
-  headline = "there was {article_delta_p} {delta_p}\% {trend}, \\\\
+  headline = "there was {article_delta_p}\% {trend}, \\\\
   {article_trend} {trend} of {delta} ({orig_values})"
 )
 
@@ -150,7 +150,7 @@ headline(
      headline =
        "4-cylinder cars get an average of {delta} {trend} miles \\\\
        per gallon than 6-cylinder cars ({orig_values}).",
-     trend_phrasing = trend_terms("more", "less")
+     trend_phrases = trend_terms("more", "less")
    )
 }
 \seealso{

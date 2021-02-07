@@ -7,7 +7,7 @@
 compare_values(
   compare,
   reference,
-  trend_phrasing = headliner::trend_terms(),
+  trend_phrases = headliner::trend_terms(),
   orig_values = "{c} vs. {r}",
   plural_phrases = NULL,
   n_decimal = 1,
@@ -20,7 +20,7 @@ compare_values(
 
 \item{reference}{a numeric value to act as a control for the 'compare' value}
 
-\item{trend_phrasing}{list of values to use for when y is more than x, y is the
+\item{trend_phrases}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x.}
 
 \item{orig_values}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
@@ -48,7 +48,7 @@ Compare two values and get talking points
 compare_values(10, 8) \%>\% head(2)
 # percent difference (10-8)/8
 compare_values(10, 8)$delta_p
-compare_values(10, 8, trend_phrasing = trend_terms(more = "higher")) \%>\%
+compare_values(10, 8, trend_phrases = trend_terms(more = "higher")) \%>\%
   head(2)
 
 # a phrase about the comparion can be edited by providing glue syntax
