@@ -11,7 +11,7 @@ headline <- function(...) {
 #' @param ... arguments passed to \code{\link[glue]{glue_data}}
 #' @param if_match string to display if numbers match, uses
 #' \code{\link[glue]{glue}} syntax
-#' @param trend_phrasing list of values to use for when y is more than x, y is the
+#' @param trend_phrases list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
 #' @param plural_phrases named list of values to use when difference (delta) is
 #' singular (delta = 1) or plural (delta != 1)
@@ -50,7 +50,7 @@ headline <- function(...) {
 #'   compare = 10,
 #'   reference = 8,
 #'   headline = "Group A was {trend} by {delta_p}%.",
-#'   trend_phrasing = trend_terms(more = "higher", less = "lower")
+#'   trend_phrases = trend_terms(more = "higher", less = "lower")
 #'  )
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
@@ -109,14 +109,14 @@ headline <- function(...) {
 #'      headline =
 #'        "4-cylinder cars get an average of {delta} {trend} miles \\
 #'        per gallon than 6-cylinder cars ({orig_values}).",
-#'      trend_phrasing = trend_terms("more", "less")
+#'      trend_phrases = trend_terms("more", "less")
 #'    )
 headline.default <- function(compare,
                              reference,
                              headline = "{trend} of {delta} ({orig_values})",
                              ...,
                              if_match = "There was no difference.",
-                             trend_phrasing = headliner::trend_terms(),
+                             trend_phrases = headliner::trend_terms(),
                              plural_phrases = NULL,
                              orig_values = "{c} vs. {r}",
                              n_decimal = 1,
@@ -127,7 +127,7 @@ headline.default <- function(compare,
     compare_values(
       compare,
       reference,
-      trend_phrasing = trend_phrasing,
+      trend_phrases = trend_phrases,
       plural_phrases = plural_phrases,
       orig_values = orig_values,
       n_decimal = n_decimal,

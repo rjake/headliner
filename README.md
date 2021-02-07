@@ -219,7 +219,7 @@ headline(
   compare = 1, 
   reference = 2,
   headline = "There {are} {delta} {trend} {people}",
-  trend_phrasing = more_less,
+  trend_phrases = more_less,
   plural_phrases = are_people
 )
 #> There is 1 less person
@@ -228,7 +228,7 @@ headline(
   compare = 3, 
   reference = 1,
   headline = "There {are} {delta} {trend} {people}",
-  trend_phrasing = more_less,
+  trend_phrases = more_less,
   plural_phrases = are_people
 )
 #> There are 2 more people
@@ -339,7 +339,7 @@ demo_data() %>%
   ) %>% 
   headline(
     headline = "Group A ({comp_value}) is {delta} points {trend} Group C ({ref_value})",
-    trend_phrasing = trend_terms(more = "ahead",  less = "behind")
+    trend_phrases = trend_terms(more = "ahead",  less = "behind")
   )
 #> Group A (101.5) is 4 points behind Group C (105.5)
 ```

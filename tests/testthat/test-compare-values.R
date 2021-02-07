@@ -54,3 +54,17 @@ test_that("check rounding runs", {
   expect_warning(compare_values(0.123, 0.1234, n_decimal = 4), regexp = NA)
   expect_warning(compare_values(0.12, 0.123, multiplier = 100), regexp = NA)
 })
+
+
+test_that("compare_values accepts multiple trend terms", {
+  use_values <- c("increase", "higher")
+
+  x <-
+    compare_values(
+      5, 4,
+      trend_phrases = trend_terms(more = use_values)
+    )
+
+  expect_equal(x$trend, use_values)
+  expect_equal(x$article_trend, paste(c("an", "a"), use_values))
+})

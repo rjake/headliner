@@ -134,7 +134,7 @@
   headline <span class='op'>=</span> <span class='st'>"{trend} of {delta} ({orig_values})"</span>,
   <span class='va'>...</span>,
   if_match <span class='op'>=</span> <span class='st'>"There was no difference."</span>,
-  trend_phrasing <span class='op'>=</span> <span class='fu'>headliner</span><span class='fu'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='op'>)</span>,
+  trend_phrases <span class='op'>=</span> <span class='fu'>headliner</span><span class='fu'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='op'>)</span>,
   plural_phrases <span class='op'>=</span> <span class='cn'>NULL</span>,
   orig_values <span class='op'>=</span> <span class='st'>"{c} vs. {r}"</span>,
   n_decimal <span class='op'>=</span> <span class='fl'>1</span>,
@@ -178,7 +178,7 @@
 <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax</p></td>
     </tr>
     <tr>
-      <th>trend_phrasing</th>
+      <th>trend_phrases</th>
       <td><p>list of values to use for when y is more than x, y is the
 same as x, or y is less than x.</p></td>
     </tr>
@@ -242,7 +242,7 @@ phrase components used to compose the headline</p></td>
   compare <span class='op'>=</span> <span class='fl'>10</span>,
   reference <span class='op'>=</span> <span class='fl'>8</span>,
   headline <span class='op'>=</span> <span class='st'>"Group A was {trend} by {delta_p}%."</span>,
-  trend_phrasing <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span>more <span class='op'>=</span> <span class='st'>"higher"</span>, less <span class='op'>=</span> <span class='st'>"lower"</span><span class='op'>)</span>
+  trend_phrases <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span>more <span class='op'>=</span> <span class='st'>"higher"</span>, less <span class='op'>=</span> <span class='st'>"lower"</span><span class='op'>)</span>
  <span class='op'>)</span>
 </div><div class='output co'>#&gt; Group A was higher by 25%.</div><div class='input'>
 <span class='co'># a phrase about the comparion can be edited by providing glue syntax</span>
@@ -286,10 +286,10 @@ phrase components used to compose the headline</p></td>
 <span class='fu'>headline</span><span class='op'>(</span>
   compare <span class='op'>=</span> <span class='fl'>16</span>,
   reference <span class='op'>=</span> <span class='fl'>8</span>,
-  headline <span class='op'>=</span> <span class='st'>"there was {article_delta_p} {delta_p}% {trend}, \\
+  headline <span class='op'>=</span> <span class='st'>"there was {article_delta_p}% {trend}, \\
   {article_trend} {trend} of {delta} ({orig_values})"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; there was a 100 100% increase, an increase increase of 8 (16 vs. 8)</div><div class='input'>
+</div><div class='output co'>#&gt; there was a 100% increase, an increase increase of 8 (16 vs. 8)</div><div class='input'>
 <span class='co'># compare_conditions() produces a list that can be passed to headline()</span>
  <span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
    <span class='fu'><a href='compare_conditions.html'>compare_conditions</a></span><span class='op'>(</span>
@@ -301,7 +301,7 @@ phrase components used to compose the headline</p></td>
      headline <span class='op'>=</span>
        <span class='st'>"4-cylinder cars get an average of {delta} {trend} miles \\
        per gallon than 6-cylinder cars ({orig_values})."</span>,
-     trend_phrasing <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='st'>"more"</span>, <span class='st'>"less"</span><span class='op'>)</span>
+     trend_phrases <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='st'>"more"</span>, <span class='st'>"less"</span><span class='op'>)</span>
    <span class='op'>)</span>
 </div><div class='output co'>#&gt; 4-cylinder cars get an average of 6.9 more miles per gallon than 6-cylinder cars (26.7 vs. 19.7).</div></pre>
   </div>
