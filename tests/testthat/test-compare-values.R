@@ -9,7 +9,6 @@ keep_numeric <- function(x) {
 
 
 test_that("compare_values produces list", {
-  x <- compare_values(2, 3)
   x <- compare_values(2, 10)
 
   expect_true(is.list(x))
