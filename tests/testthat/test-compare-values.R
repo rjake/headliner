@@ -47,4 +47,5 @@ test_that("check rounding runs", {
   expect_warning(compare_values(21.1, 21.1))
   # no wawning
   expect_warning(compare_values(0.123, 0.1234, n_decimal = 4), regexp = NA)
+  expect_warning(compare_values(0.12, 0.123, multiplier = 100), regexp = NA)
 })
