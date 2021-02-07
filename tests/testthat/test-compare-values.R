@@ -29,12 +29,17 @@ test_that("compare_values produces list", {
 
 
 test_that("multiplier works", {
-  whole_numbers <- keep_numeric(compare_values(20, 30))
-  multiplierd <- keep_numeric(compare_values(0.2, 0.3, multiplier = 100))
-  decimal <- keep_numeric(compare_values(0.2, 0.3, n_decimal = 2))
+  select_vars <- function(x) {
+    view_list(x)[c("delta", "raw_delta", "comp_value", "ref_value"), 1] %>%
+      as.numeric()
+  }
 
-  expect_equal(whole_numbers[1:2], multiplierd[1:2])
-  expect_equal(multiplierd[1] / 100, decimal[1])
+  whole_numbers <- select_vars(compare_values(23.4, 34.5))
+  multiplied <- select_vars(compare_values(0.234, 0.345, multiplier = 100))
+  decimal <- select_vars(compare_values(0.234, 0.345, n_decimal = 2))
+
+  expect_equal(whole_numbers, multiplied)
+  expect_equal(round(multiplied / 100, 2), decimal)
 })
 
 test_that("check rounding runs", {
