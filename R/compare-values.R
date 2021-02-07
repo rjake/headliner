@@ -2,7 +2,7 @@
 #'
 #' @param compare a numeric value to compare to a reference value
 #' @param reference a numeric value to act as a control for the 'compare' value
-#' @param trend_phrasing list of values to use for when y is more than x, y is the
+#' @param trend_phrases list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x.
 #' @param plural_phrases named list of values to use when difference (delta) is
 #' singular (delta = 1) or plural (delta != 1)
@@ -27,7 +27,7 @@
 #' compare_values(10, 8) %>% head(2)
 #' # percent difference (10-8)/8
 #' compare_values(10, 8)$delta_p
-#' compare_values(10, 8, trend_phrasing = trend_terms(more = "higher")) %>%
+#' compare_values(10, 8, trend_phrases = trend_terms(more = "higher")) %>%
 #'   head(2)
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
@@ -40,7 +40,7 @@
 #' # or add a multiplier
 #' compare_values(0.1234, 0.4321, multiplier = 100)$orig_values
 compare_values <- function(compare, reference,
-                           trend_phrasing = headliner::trend_terms(),
+                           trend_phrases = headliner::trend_terms(),
                            orig_values = "{c} vs. {r}",
                            plural_phrases = NULL,
                            n_decimal = 1,
@@ -79,22 +79,25 @@ compare_values <- function(compare, reference,
   }
 
 
-  phrase <-
+  which_trend <-
     recode(
       as.character(calc$sign), # must be a character
-      "1" = trend_phrasing$more,
-      "-1" = trend_phrasing$less,
-      "0" = trend_phrasing$same
+      "1" = "more",
+      "-1" = "less",
+      "0" = "same"
     )
+
+  trend <- trend_phrases[[which_trend]]
+
 
   output <-
     list(
       delta = calc$abs_delta,
-      trend = phrase,
+      trend = trend,
       delta_p = calc$abs_delta_p,
       article_delta = paste(get_article(calc$abs_delta), calc$abs_delta),
       article_delta_p = paste(get_article(calc$abs_delta_p), calc$abs_delta_p),
-      article_trend = paste(get_article(phrase), phrase),
+      article_trend = paste(get_article(trend), trend),
       comp_value = calc$compare,
       ref_value = calc$reference,
       raw_delta = calc$delta,
