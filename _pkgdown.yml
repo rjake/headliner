@@ -1,0 +1,27 @@
+reference:
+
+- title: Phrases & Talking Points
+  desc: >
+    Along with `headline()`, these functions allow you to expand and
+    view talking points.
+  contents:
+  - headline
+  - plural_phrasing
+  - trend_terms
+  - compare_values
+  - view_list
+- title: Data Prep Helpers
+  desc: >
+    There are some helper functions to prepare data frames for use
+    with `headline()`
+  contents:
+  - compare_columns
+  - compare_conditions
+  - add_date_columns
+- title: Data
+  desc: >
+    `headliner` comes with two datasets that are used in examples
+    and vignettes
+  contents:
+  - demo_data
+  - flights_jfk
