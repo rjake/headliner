@@ -7,26 +7,10 @@
 
 <!-- badges: end -->
 
-The goal of `headliner` is to help analysts to translate facts to
-insights. In the comparison below
-([source](https://blog.prototypr.io/dashboard-design-5-things-every-ux-designer-should-know-a85c4558d75)),
-both dashboards have the same underlying data but how they present the
-information to the user is very different.
-
-<div style="text-align:center">
-
-<img src="man/figures/facts_vs_insights.png"  width=600/>
-
-</div>
-
-Right now, there isn’t anything out of the box to help users dynamically
-create phrasing like used in the “insights” version without a bit of
-coding gymnastics. The many ways you could approach it combined with the
-steps required to say “if positive, show it like this, if negative show
-it like that” increase the technical debt this kind of code could add to
-a project. For this reason, `headliner` is designed to deliver the
-building blocks required to create these phrases for plot titles, value
-boxes in `shiny` or section headers in a report.
+The goal of `headliner` is to translate facts into insights. Given two
+values, `headliner` generates building blocks for creating dynamic text.
+These talking points can be combined using using `glue` syntax to add
+informative titles to plots, section headers or other text in a report.
 
 ## Installation
 
@@ -37,309 +21,37 @@ You can install the dev version of `headliner` from
 devtools::install_github("rjake/headliner")
 ```
 
-## Usage
-
-For these examples, I will use a function called `demo_data()` to build
-a data set based on the current date (this was last run on 02/07/21).
+Let’s look at some of the talking points for the difference between 5
+and 7:
 
 ``` r
 library(headliner)
-library(tidyverse)
-demo_data()
+
+compare_values(5, 7) %>% # returns a list
+  view_list() %>% # show as a data frame
+  head()
 ```
 
-    #> # A tibble: 10 x 5
-    #>    group     x     y     z date      
-    #>    <chr> <dbl> <dbl> <dbl> <date>    
-    #>  1 a       101    10     1 2021-02-07
-    #>  2 a       102    20     0 2020-12-07
-    #>  3 b       103    30     1 2020-10-07
-    #>  4 b       104    40     0 2020-08-07
-    #>  5 c       105    50     1 2020-06-07
-    #>  6 c       106    60     0 2020-04-07
-    #>  7 d       107    70     1 2020-02-07
-    #>  8 d       108    80     0 2019-12-07
-    #>  9 e       109    90     1 2019-10-07
-    #> 10 e       110   100     0 2019-08-07
+    ##                     VALUES
+    ## delta                    2
+    ## trend             decrease
+    ## delta_p               28.6
+    ## article_delta          a 2
+    ## article_delta_p     a 28.6
+    ## article_trend   a decrease
 
-What we want is to say something like this:
-
-    #> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
-
-We can look at the data an see that about 12 months ago, x was 107 where
-as today it is 101. We can give these values to `headline()` and get a
-simple phrase
+We can string these together these talking points like this:
 
 ``` r
 headline(
-  compare = 101, 
-  reference = 107
+  compare = 5, 
+  reference = 7, 
+  headline = 
+    "There was {article_delta_p}% {trend} ({orig_values})"
 )
-#> decrease of 6 (101 vs. 107)
 ```
 
-To see how the sentence was constructed, we can look at the components
-used under the hood. This `return_data = TRUE` returns a named list. I
-will condense with `view_list()`
+    ## There was a 28.6% decrease (5 vs. 7)
 
-``` r
-headline(101, 107, return_data = TRUE) %>% 
-  view_list()
-#>                                          VALUES
-#> delta                                         6
-#> trend                                  decrease
-#> delta_p                                     5.6
-#> article_delta                               a 6
-#> article_delta_p                           a 5.6
-#> article_trend                        a decrease
-#> comp_value                                  101
-#> ref_value                                   107
-#> raw_delta                                    -6
-#> raw_delta_p                                -5.6
-#> article_raw_delta                          a -6
-#> article_raw_delta_p                      a -5.6
-#> sign                                         -1
-#> orig_values                         101 vs. 107
-#> headline            decrease of 6 (101 vs. 107)
-```
-
-We can compose it like this using `glue::glue()` syntax
-
-``` r
-headline(
-  compare = 101, 
-  reference = 107, 
-  headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
-)
-#> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
-```
-
-You might have noticed that there are multiple `article_*` components
-available. `article_delta` is for the difference between the two values
-(“**a** 6 person loss” vs “**an** 8 person loss”), `article_delta_p` is
-for the percentage difference for “**a** 5.6%” vs “**an** 8.6%”, and
-`article_trend` gives us “**an** increase” vs “**a** decrease”.
-
-But let’s see if we can make the calculations more dynamic…
-
-First, we can use a function called `add_date_columns()` to calculate
-distances from the current date (or the refence date specified) to the
-values in the `date` column . With these new fields we can see that
-12/07/20 was 62 days ago (or 8 weeks or 2 months, …) from the current
-date.
-
-``` r
-demo_data() %>%
-  add_date_columns(date_col = date)
-#> # A tibble: 10 x 11
-#>    group     x     y     z date         day  week month quarter calendar_year
-#>    <chr> <dbl> <dbl> <dbl> <date>     <dbl> <dbl> <dbl>   <dbl>         <dbl>
-#>  1 a       101    10     1 2021-02-07     0     0     0       0             0
-#>  2 a       102    20     0 2020-12-07   -62    -8    -2      -1            -1
-#>  3 b       103    30     1 2020-10-07  -123   -17    -4      -1            -1
-#>  4 b       104    40     0 2020-08-07  -184   -26    -6      -2            -1
-#>  5 c       105    50     1 2020-06-07  -245   -35    -8      -3            -1
-#>  6 c       106    60     0 2020-04-07  -306   -43   -10      -3            -1
-#>  7 d       107    70     1 2020-02-07  -366   -52   -12      -4            -1
-#>  8 d       108    80     0 2019-12-07  -428   -61   -14      -5            -2
-#>  9 e       109    90     1 2019-10-07  -489   -69   -16      -5            -2
-#> 10 e       110   100     0 2019-08-07  -550   -78   -18      -6            -2
-#> # ... with 1 more variable: fiscal_year <dbl>
-```
-
-We can then identify some conditions for our comparison (`compare`) and
-our reference group (`reference`). This step uses the kind of logic you
-would use in `dplyr::filter()` or `base::subset()`
-
-``` r
-yoy <- # year over year
-  demo_data() %>%
-  add_date_columns(date) %>% 
-  compare_conditions(
-    compare = (month == 0),     # this month
-    reference = (month == -12), # vs 12 months ago
-    cols = c(x),                # the column(s) to aggregate
-    calc = list(mean = mean)    # the list of functions passed to summarise(across(...))
-  )
-
-yoy
-#> $mean_x_comp
-#> [1] 101
-#> 
-#> $mean_x_ref
-#> [1] 107
-```
-
-It might look funny to see `list(mean = mean)`. The name (left side) is
-how it will name the values, the right side is the function to use. If I
-had used `calc = list(avg = mean)` The names would have been `avg_x_*`.
-Because `compare_conditions()` uses the mean as the default, I’ll omit
-it going forward. Now that I have my output as a list (or 1 row data
-frame), I can pipe it into `headline()` to see the underlying data.
-
-``` r
-yoy %>% 
-  headline(
-    headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
-  ) 
-#> We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).
-```
-
-You can add phrases to customize your sentences. `plural_phrases()`
-allows you to add new variables to the list of components available.
-Here I am adding `{people}` for use in my headline.
-
-``` r
-headline(
-  compare = 10, 
-  reference = 8,
-  headline =  
-    "There is {article_trend} of {delta} {people} enrolled, \\
-    {article_delta_p}% {trend} ({orig_values})",
-  plural_phrases = list(  
-    people = plural_phrasing(single = "person", multi = "people")
-  )
-)
-#> There is an increase of 2 people enrolled, a 25% increase (10 vs. 8)
-```
-
-Notice the difference in these two outputs
-
-``` r
-more_less <- # "more" & "less" instead of "increase" & "decrease" defaults
-  trend_terms(more = "more", less = "less")
-
-are_people <-
-  list(
-    are = plural_phrasing(single = "is", multi = "are"),
-    people = plural_phrasing(single = "person", multi = "people")
-  )
-
-headline(
-  compare = 1, 
-  reference = 2,
-  headline = "There {are} {delta} {trend} {people}",
-  trend_phrases = more_less,
-  plural_phrases = are_people
-)
-#> There is 1 less person
-
-headline(
-  compare = 3, 
-  reference = 1,
-  headline = "There {are} {delta} {trend} {people}",
-  trend_phrases = more_less,
-  plural_phrases = are_people
-)
-#> There are 2 more people
-```
-
-You can also adjust the text if the numbers are the same
-
-``` r
-headline(3, 3)
-#> There was no difference.
-
-headline(3, 3, if_match = "There were no additional applicants ({comp_value} total)")
-#> There were no additional applicants (3 total)
-```
-
-`headline()` can also be used in a `valueBox()` for `shiny`
-
-``` r
-box_color <- ifelse(yoy$sign == -1, "red", "blue")
-
-valueBox(
-  value = headline(yoy, headline = '{delta_p}% {trend}'),
-  subtitle = "vs. the same time last year",
-  color = box_color
-) 
-```
-
-<div style="text-align:center">
-
-<img src="man/figures/value_box.png"  width=300/>
-
-</div>
-
-If your list/data frame has more than 2 values, you can specify the
-values you need by calling their names
-
-``` r
-car_stats <-
-  mtcars %>% 
-  compare_conditions(
-    compare = cyl == 4,
-    reference = cyl > 4,
-    cols = starts_with("d"),
-    calc = list(avg = mean, min = min)
-  )
-
-view_list(car_stats)
-#>               VALUES
-#> avg_disp_comp 105.14
-#> avg_disp_ref  296.50
-#> avg_drat_comp   4.07
-#> avg_drat_ref    3.35
-#> min_disp_comp  71.10
-#> min_disp_ref  145.00
-#> min_drat_comp   3.69
-#> min_drat_ref    2.76
-
-headline(
-  car_stats,
-  avg_disp_comp,
-  avg_disp_ref,
-  "Difference in avg. displacement of {delta}cu.in. ({orig_values})"
-)
-#> Difference in avg. displacement of 191.4cu.in. (105.1 vs. 296.5)
-
-headline(
-  car_stats,
-  avg_drat_comp,
-  avg_drat_ref,
-  "Difference in avg. rear axle ratio of {delta} ({orig_values})"
-)
-#> Difference in avg. rear axle ratio of 0.7 (4.1 vs. 3.3)
-```
-
-You can also use `headliner()` with `mutate()`
-
-``` r
-library(tidyverse)
-
-flights_jfk %>% 
-  head(5) %>% 
-  select(arr_delay, dep_delay) %>% 
-  mutate(
-    text = 
-      headline(
-        compare = arr_delay, reference = dep_delay,
-        headline = "Difference of {raw_delta} minutes"
-    )
-  )
-#> # A tibble: 5 x 3
-#>   arr_delay dep_delay text                     
-#>       <dbl>     <dbl> <glue>                   
-#> 1         6        -4 Difference of 10 minutes 
-#> 2        10        21 Difference of -11 minutes
-#> 3         2        -4 Difference of 6 minutes  
-#> 4       -21        -4 Difference of -17 minutes
-#> 5        11        -4 Difference of 15 minutes
-```
-
-`compare_conditions()` can also be used to compare categorical criteria.
-
-``` r
-demo_data() %>%
-  compare_conditions(
-    compare = group == "a",
-    reference = group == "c",
-    cols = c(x)
-  ) %>% 
-  headline(
-    headline = "Group A ({comp_value}) is {delta} points {trend} Group C ({ref_value})",
-    trend_phrases = trend_terms(more = "ahead",  less = "behind")
-  )
-#> Group A (101.5) is 4 points behind Group C (105.5)
-```
+See [here](https://rjake.github.io/headliner/articles/intro.html) for a
+longer introduction.

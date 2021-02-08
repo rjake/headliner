@@ -11,7 +11,9 @@ Description: Write sentences to compare values by generating talking points and 
 License: MIT + file LICENSE
 BugReports: https://github.com/rjake/headliner/issues
 Suggests: 
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -25,3 +27,4 @@ Imports:
     tibble
 Depends: 
     R (>= 2.10)
+VignetteBuilder: knitr
