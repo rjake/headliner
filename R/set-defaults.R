@@ -99,3 +99,65 @@ update_default <- function(x, value) {
 
 
 
+
+
+# ARTICLES ----
+#' Adjust which words start with "a" vs "an"
+#'
+#' headliner uses crude logic to anticipate the articles used before phrases
+#' like "(an) increase", "(a) decrease", "(an) 83" and "(a) -5"
+#' You will likely not call the function [get_article()] directly but you
+#' can augment the logic it uses with this function.
+#' @param regex_for_a regular expression for words that get the article 'a'
+#' @param regex_for_an regular expression for words that get the article 'an'
+#' @export
+#' @seealso [show_headliner_defaults()], [set_headliner_defaults()]
+#' @examples
+#' # The crude logic for headliner would give all "h" words the article "a"
+#' # by default, the word "heirloom" returns "a"
+#' get_article("heirloom")
+#'
+#' # the patterns that are used can be updated
+#' augment_article_patterns(
+#'   regex_for_a = "Euro|uni",
+#'   regex_for_an = "hour|heir"
+#' )
+#'
+#' get_article("heirloom")
+#'
+#' # these patterns can be reset using 'NULL'
+#' augment_article_patterns(
+#'   regex_for_an = NULL
+#' )
+#'
+#' get_article("heirloom")
+augment_article_patterns <- function(regex_for_a, regex_for_an) {
+  old <- headliner_global$articles
+
+  if (!missing(regex_for_a)) {
+    a_patterns <- validate_augment_articles(regex_for_a)
+    headliner_global$articles$addl_a <- a_patterns
+  }
+
+  if (!missing(regex_for_an)) {
+    an_patterns <- validate_augment_articles(regex_for_an)
+    headliner_global$articles$addl_an <- an_patterns
+  }
+}
+
+
+validate_augment_articles <- function(x = NULL) {
+  if (length(x) > 1) {
+    stop(
+      "patterns should be a single regular expression",
+      call. = FALSE
+    )
+  }
+
+  if (is.null(x)) {
+    return("")
+  } else {
+    return(x)
+  }
+}
+
