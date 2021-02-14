@@ -66,10 +66,13 @@ get_article <- function(x) {
   a_patterns <- headliner_global$articles$addl_a
   an_patterns <- headliner_global$articles$addl_an
 
+  regex_a <- glue("^({a_patterns})")
+  regex_an <- glue("^({an_patterns})")
+
   if (is.character(x)) {
     case_when(
-      nchar(a_patterns) != 0 & grepl(a_patterns, x) ~ "a",
-      nchar(an_patterns) != 0 & grepl(an_patterns, x) ~ "an",
+      nchar(a_patterns) != 0 & grepl(regex_a, x) ~ "a",
+      nchar(an_patterns) != 0 & grepl(regex_an, x) ~ "an",
       grepl("^[aeiou]", tolower(x)) ~ "an",
       TRUE ~ "a"
     )

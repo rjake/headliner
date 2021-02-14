@@ -118,6 +118,8 @@ update_default <- function(x, value) {
 #' get_article("heirloom")
 #'
 #' # the patterns that are used can be updated
+#' These arguments assume that the words start with the patterns you provide.
+#' Passing "hour|heir" will be translated to "^(hour|heir)".
 #' augment_article_patterns(
 #'   regex_for_a = "Euro|uni",
 #'   regex_for_an = "hour|heir"
