@@ -12,3 +12,27 @@ default_orig_values <- "{c} vs. {r}"
 
 headliner_global$headline <- default_headline
 headliner_global$orig_values <- default_orig_values
+
+
+# VIEW ----
+#' List the defaults that headliner is using
+#'
+#' The default phrases used by glue might not be easy to remember. This
+#' function will show the values headliner uses as default.
+#' @export
+#' @seealso [augment_article_patterns()], [set_headliner_defaults()]
+#'
+#' @examples
+#' show_headliner_defaults()
+show_headliner_defaults <- function() {
+  message("Currently using:")
+
+  list(
+    headline = headliner_global$headline,
+    orig_values = headliner_global$orig_values
+  ) %>%
+    print()
+
+  message("Use set_headliner_defaults() to update or reset values.")
+}
+
