@@ -47,7 +47,8 @@
 
 
 <meta property="og:title" content="Compose phrases that describe differences in the data — headline" />
-<meta property="og:description" content="Compose phrases that describe differences in the data" />
+<meta property="og:description" content="Compose phrases that describe differences in the data
+Add column of headlines" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -135,6 +136,7 @@
 
     <div class="ref-description">
     <p>Compose phrases that describe differences in the data</p>
+<p>Add column of headlines</p>
     </div>
 
     <pre class="usage"><span class='fu'>headline</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
@@ -158,8 +160,7 @@
 <span class='co'># S3 method for list</span>
 <span class='fu'>headline</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>compare</span>, <span class='va'>reference</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>headline</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>compare</span>, <span class='va'>reference</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>add_headline_column</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>compare</span>, <span class='va'>reference</span>, <span class='va'>...</span>, .name <span class='op'>=</span> <span class='st'>"headline"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -230,6 +231,10 @@ phrase components used to compose the headline</p></td>
       <th>x</th>
       <td><p>data frame, must be a single row</p></td>
     </tr>
+    <tr>
+      <th>.name</th>
+      <td><p>string value for the name of the new column to create</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -278,22 +283,6 @@ phrase components used to compose the headline</p></td>
 </div><div class='output co'>#&gt; decrease of 0.309 (0.123 vs. 0.432)</div><div class='input'><span class='co'># or use a multiplier</span>
 <span class='fu'>headline</span><span class='op'>(</span><span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, multiplier <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; decrease of 30.9 (12.3 vs. 43.2)</div><div class='input'>
-<span class='co'># The values can come from a summarized data frame or a named list</span>
-<span class='co'># if the data frame is only 2 columns or the list has only 2 elements</span>
-<span class='co'># you don't need to specify the 'compare' or 'reference' arguments unless</span>
-<span class='co'># you need to change the order. If the # of columns is &gt; 3 you'll need to</span>
-<span class='co'># specify these arguments.</span>
-<span class='va'>iris</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_at</a></span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span>, <span class='va'>Petal.Length</span><span class='op'>)</span>, <span class='va'>mean</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>headline</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; increase of 2.1 (5.8 vs. 3.8)</div><div class='input'>
-<span class='va'>iris</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise_all.html'>summarise_at</a></span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span>, <span class='va'>Petal.Length</span><span class='op'>)</span>, <span class='va'>mean</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>headline</span><span class='op'>(</span>
-    compare <span class='op'>=</span> <span class='va'>Petal.Length</span>,
-    reference <span class='op'>=</span> <span class='va'>Sepal.Length</span>
-  <span class='op'>)</span>
-</div><div class='output co'>#&gt; decrease of 2.1 (3.8 vs. 5.8)</div><div class='input'>
 <span class='co'># there are many components you can assemble</span>
 <span class='fu'>headline</span><span class='op'>(</span>
   compare <span class='op'>=</span> <span class='fl'>16</span>,
@@ -315,7 +304,27 @@ phrase components used to compose the headline</p></td>
        per gallon than 6-cylinder cars ({orig_values})."</span>,
      trend_phrases <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='st'>"more"</span>, <span class='st'>"less"</span><span class='op'>)</span>
    <span class='op'>)</span>
-</div><div class='output co'>#&gt; 4-cylinder cars get an average of 6.9 more miles per gallon than 6-cylinder cars (26.7 vs. 19.7).</div></pre>
+</div><div class='output co'>#&gt; 4-cylinder cars get an average of 6.9 more miles per gallon than 6-cylinder cars (26.7 vs. 19.7).</div><div class='input'>
+
+<span class='co'># You can use 'add_headline_column()' instead of</span>
+<span class='co'># `mutate(headline = map2_chr(...))`</span>
+<span class='co'># here is an example comparing the # of gears and carburetors in the</span>
+<span class='co'># 'mtcars' data set</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fl'>8</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>cyl</span>, <span class='va'>gear</span>, <span class='va'>carb</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>add_headline_column</span><span class='op'>(</span>
+    compare <span class='op'>=</span> <span class='va'>gear</span>,
+    reference <span class='op'>=</span> <span class='va'>carb</span>
+  <span class='op'>)</span>
+</div><div class='output co'>#&gt;                    mpg cyl gear carb                 headline
+#&gt; Mazda RX4         21.0   6    4    4 There was no difference.
+#&gt; Mazda RX4 Wag     21.0   6    4    4 There was no difference.
+#&gt; Datsun 710        22.8   4    4    1  increase of 3 (4 vs. 1)
+#&gt; Hornet 4 Drive    21.4   6    3    1  increase of 2 (3 vs. 1)
+#&gt; Hornet Sportabout 18.7   8    3    2  increase of 1 (3 vs. 2)
+#&gt; Valiant           18.1   6    3    1  increase of 2 (3 vs. 1)
+#&gt; Duster 360        14.3   8    3    4  decrease of 1 (3 vs. 4)
+#&gt; Merc 240D         24.4   4    4    2  increase of 2 (4 vs. 2)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

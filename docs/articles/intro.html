@@ -111,7 +111,7 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <div id="installation-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation-1" class="anchor"></a>Installation</h3>
-<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 02/07/21).</p>
+<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 02/13/21).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">headliner</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
@@ -119,16 +119,16 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <span class="co">#&gt; # A tibble: 10 x 5</span>
 <span class="co">#&gt;    group     x     y     z date      </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span>
-<span class="co">#&gt;  1 a       101    10     1 2021-02-07</span>
-<span class="co">#&gt;  2 a       102    20     0 2020-12-07</span>
-<span class="co">#&gt;  3 b       103    30     1 2020-10-07</span>
-<span class="co">#&gt;  4 b       104    40     0 2020-08-07</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-06-07</span>
-<span class="co">#&gt;  6 c       106    60     0 2020-04-07</span>
-<span class="co">#&gt;  7 d       107    70     1 2020-02-07</span>
-<span class="co">#&gt;  8 d       108    80     0 2019-12-07</span>
-<span class="co">#&gt;  9 e       109    90     1 2019-10-07</span>
-<span class="co">#&gt; 10 e       110   100     0 2019-08-07</span></code></pre></div>
+<span class="co">#&gt;  1 a       101    10     1 2021-02-13</span>
+<span class="co">#&gt;  2 a       102    20     0 2020-12-13</span>
+<span class="co">#&gt;  3 b       103    30     1 2020-10-13</span>
+<span class="co">#&gt;  4 b       104    40     0 2020-08-13</span>
+<span class="co">#&gt;  5 c       105    50     1 2020-06-13</span>
+<span class="co">#&gt;  6 c       106    60     0 2020-04-13</span>
+<span class="co">#&gt;  7 d       107    70     1 2020-02-13</span>
+<span class="co">#&gt;  8 d       108    80     0 2019-12-13</span>
+<span class="co">#&gt;  9 e       109    90     1 2019-10-13</span>
+<span class="co">#&gt; 10 e       110   100     0 2019-08-13</span></code></pre></div>
 </div>
 <div id="a-simple-headline" class="section level3">
 <h3 class="hasAnchor">
@@ -180,23 +180,23 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <h3 class="hasAnchor">
 <a href="#helpers-for-dynamic-calculations" class="anchor"></a>Helpers for dynamic calculations</h3>
 <p>But let’s see if we can make the calculations more dynamic…</p>
-<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 12/07/20 was 62 days ago (or 8 weeks or 2 months, …) from the current date.</p>
+<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 12/13/20 was 62 days ago (or 9 weeks or 2 months, …) from the current date.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_date_columns.html">add_date_columns</a></span><span class="op">(</span>date_col <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 11</span>
 <span class="co">#&gt;    group     x     y     z date         day  week month quarter calendar_year</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 a       101    10     1 2021-02-07     0     0     0       0             0</span>
-<span class="co">#&gt;  2 a       102    20     0 2020-12-07   -62    -8    -2      -1            -1</span>
-<span class="co">#&gt;  3 b       103    30     1 2020-10-07  -123   -17    -4      -1            -1</span>
-<span class="co">#&gt;  4 b       104    40     0 2020-08-07  -184   -26    -6      -2            -1</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-06-07  -245   -35    -8      -3            -1</span>
-<span class="co">#&gt;  6 c       106    60     0 2020-04-07  -306   -43   -10      -3            -1</span>
-<span class="co">#&gt;  7 d       107    70     1 2020-02-07  -366   -52   -12      -4            -1</span>
-<span class="co">#&gt;  8 d       108    80     0 2019-12-07  -428   -61   -14      -5            -2</span>
-<span class="co">#&gt;  9 e       109    90     1 2019-10-07  -489   -69   -16      -5            -2</span>
-<span class="co">#&gt; 10 e       110   100     0 2019-08-07  -550   -78   -18      -6            -2</span>
+<span class="co">#&gt;  1 a       101    10     1 2021-02-13     0     0     0       0             0</span>
+<span class="co">#&gt;  2 a       102    20     0 2020-12-13   -62    -9    -2      -1            -1</span>
+<span class="co">#&gt;  3 b       103    30     1 2020-10-13  -123   -17    -4      -1            -1</span>
+<span class="co">#&gt;  4 b       104    40     0 2020-08-13  -184   -26    -6      -2            -1</span>
+<span class="co">#&gt;  5 c       105    50     1 2020-06-13  -245   -35    -8      -3            -1</span>
+<span class="co">#&gt;  6 c       106    60     0 2020-04-13  -306   -43   -10      -3            -1</span>
+<span class="co">#&gt;  7 d       107    70     1 2020-02-13  -366   -52   -12      -4            -1</span>
+<span class="co">#&gt;  8 d       108    80     0 2019-12-13  -428   -61   -14      -5            -2</span>
+<span class="co">#&gt;  9 e       109    90     1 2019-10-13  -489   -70   -16      -5            -2</span>
+<span class="co">#&gt; 10 e       110   100     0 2019-08-13  -550   -78   -18      -6            -2</span>
 <span class="co">#&gt; # ... with 1 more variable: fiscal_year &lt;dbl&gt;</span></code></pre></div>
 <p>We can then identify some conditions for our comparison (<code>compare</code>) and our reference group (<code>reference</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">

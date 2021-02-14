@@ -119,22 +119,6 @@ headline(0.1234, 0.4321, n_decimal = 3)
 # or use a multiplier
 headline(0.1234, 0.4321, multiplier = 100)
 
-# The values can come from a summarized data frame or a named list
-# if the data frame is only 2 columns or the list has only 2 elements
-# you don't need to specify the 'compare' or 'reference' arguments unless
-# you need to change the order. If the # of columns is > 3 you'll need to
-# specify these arguments.
-iris \%>\%
-  dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) \%>\%
-  headline()
-
-iris \%>\%
-  dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) \%>\%
-  headline(
-    compare = Petal.Length,
-    reference = Sepal.Length
-  )
-
 # there are many components you can assemble
 headline(
   compare = 16,
@@ -156,8 +140,14 @@ headline(
        per gallon than 6-cylinder cars ({orig_values}).",
      trend_phrases = trend_terms("more", "less")
    )
-# here is an example comparing the # of gears and carburators in 'mtcars'
+
+
+# You can use 'add_headline_column()' instead of
+# `mutate(headline = map2_chr(...))`
+# here is an example comparing the # of gears and carburetors in the
+# 'mtcars' data set
 head(mtcars, 8) \%>\%
+  dplyr::select(mpg, cyl, gear, carb) \%>\%
   add_headline_column(
     compare = gear,
     reference = carb
