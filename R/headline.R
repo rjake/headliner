@@ -74,22 +74,6 @@ headline <- function(...) {
 #' # or use a multiplier
 #' headline(0.1234, 0.4321, multiplier = 100)
 #'
-#' # The values can come from a summarized data frame or a named list
-#' # if the data frame is only 2 columns or the list has only 2 elements
-#' # you don't need to specify the 'compare' or 'reference' arguments unless
-#' # you need to change the order. If the # of columns is > 3 you'll need to
-#' # specify these arguments.
-#' iris %>%
-#'   dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) %>%
-#'   headline()
-#'
-#' iris %>%
-#'   dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) %>%
-#'   headline(
-#'     compare = Petal.Length,
-#'     reference = Sepal.Length
-#'   )
-#'
 #' # there are many components you can assemble
 #' headline(
 #'   compare = 16,
