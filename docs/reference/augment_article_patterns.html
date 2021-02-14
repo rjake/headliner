@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • headliner</title>
+<title>Adjust which words start with "a" vs "an" — augment_article_patterns • headliner</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,11 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Adjust which words start with "a" vs "an" — augment_article_patterns" />
+<meta property="og:description" content="headliner uses crude logic to anticipate the articles used before phrases
+like &quot;(an) increase&quot;, &quot;(a) decrease&quot;, &quot;(an) 83&quot; and &quot;(a) -5&quot;
+You will likely not call the function get_article() directly but you
+can augment the logic it uses with this function." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -66,7 +70,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -125,159 +129,64 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Adjust which words start with "a" vs "an"</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rjake/headliner/blob/master/R/set-defaults.R'><code>R/set-defaults.R</code></a></small>
+    <div class="hidden name"><code>augment_article_patterns.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>headliner uses crude logic to anticipate the articles used before phrases
+like "(an) increase", "(a) decrease", "(an) 83" and "(a) -5"
+You will likely not call the function <code><a href='get_article.html'>get_article()</a></code> directly but you
+can augment the logic it uses with this function.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>augment_article_patterns</span><span class='op'>(</span><span class='va'>regex_for_a</span>, <span class='va'>regex_for_an</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-phrases-talking-points" class="hasAnchor"><a href="#section-phrases-talking-points" class="anchor"></a>Phrases &amp; Talking Points</h2>
-          <p class="section-desc"><p>Along with <code><a href="../reference/headline.html">headline()</a></code>, these functions allow you to expand and view talking points.</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="headline.html">headline()</a></code> <code><a href="headline.html">add_headline_column()</a></code> </p>
-        </td>
-        <td><p>Compose phrases that describe differences in the data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plural_phrasing.html">plural_phrasing()</a></code> </p>
-        </td>
-        <td><p>List of values to use when change is plural (or singlular)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trend_terms.html">trend_terms()</a></code> </p>
-        </td>
-        <td><p>Phrases for direction of difference</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_article.html">get_article()</a></code> </p>
-        </td>
-        <td><p>Choose "a" or "an"</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="compare_values.html">compare_values()</a></code> </p>
-        </td>
-        <td><p>Compare two values and get talking points</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="view_list.html">view_list()</a></code> </p>
-        </td>
-        <td><p>Compact view of list values</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-prep-helpers" class="hasAnchor"><a href="#section-data-prep-helpers" class="anchor"></a>Data Prep Helpers</h2>
-          <p class="section-desc"><p>There are some helper functions to prepare data frames for use with <code><a href="../reference/headline.html">headline()</a></code></p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="compare_columns.html">compare_columns()</a></code> </p>
-        </td>
-        <td><p>Compare two columns within a data frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="compare_conditions.html">compare_conditions()</a></code> </p>
-        </td>
-        <td><p>Compare two conditions within a data frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_date_columns.html">add_date_columns()</a></code> </p>
-        </td>
-        <td><p>Add columns with date calculations based on refernce date</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-default-values" class="hasAnchor"><a href="#section-default-values" class="anchor"></a>Default Values</h2>
-          <p class="section-desc"><p>You can set the custom values for the way <code>headliner</code> builds phrases</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="augment_article_patterns.html">augment_article_patterns()</a></code> </p>
-        </td>
-        <td><p>Adjust which words start with "a" vs "an"</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="set_headliner_defaults.html">set_headliner_defaults()</a></code> </p>
-        </td>
-        <td><p>Set the default values used in making headlines</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="show_headliner_defaults.html">show_headliner_defaults()</a></code> </p>
-        </td>
-        <td><p>List the defaults that headliner is using</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
-          <p class="section-desc"><p><code>headliner</code> comes with two datasets that are used in examples and vignettes</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="demo_data.html">demo_data()</a></code> </p>
-        </td>
-        <td><p>Small dataset referencing the current date</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="flights_jfk.html">flights_jfk</a></code> </p>
-        </td>
-        <td><p>Flights from JFK Airport</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>regex_for_a</th>
+      <td><p>regular expression for words that get the article 'a'</p></td>
+    </tr>
+    <tr>
+      <th>regex_for_an</th>
+      <td><p>regular expression for words that get the article 'an'</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>These arguments assume that the words start with the patterns you provide.
+Passing "hour|heir" will be translated to "^(hour|heir)".</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='show_headliner_defaults.html'>show_headliner_defaults()</a></code>, <code><a href='set_headliner_defaults.html'>set_headliner_defaults()</a></code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># The crude logic for headliner would give all "h" words the article "a"</span>
+<span class='co'># by default, the word "heirloom" returns "a"</span>
+<span class='fu'><a href='get_article.html'>get_article</a></span><span class='op'>(</span><span class='st'>"heirloom"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "a"</div><div class='input'>
+<span class='co'># the patterns that are used can be updated</span>
+<span class='fu'>augment_article_patterns</span><span class='op'>(</span>
+  regex_for_a <span class='op'>=</span> <span class='st'>"Euro|uni"</span>,
+  regex_for_an <span class='op'>=</span> <span class='st'>"hour|heir"</span>
+<span class='op'>)</span>
+
+<span class='fu'><a href='get_article.html'>get_article</a></span><span class='op'>(</span><span class='st'>"heirloom"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "an"</div><div class='input'>
+<span class='co'># these patterns can be reset using 'NULL'</span>
+<span class='fu'>augment_article_patterns</span><span class='op'>(</span>
+  regex_for_an <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
+
+<span class='fu'><a href='get_article.html'>get_article</a></span><span class='op'>(</span><span class='st'>"heirloom"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "a"</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
