@@ -54,16 +54,25 @@ aggregate_group <- function(df, name, ..., calc, cond) {
 
 #' Choose "a" or "an"
 #' @param x a number or string
-#' @noRd
 #' @importFrom dplyr case_when
+#' @export
 #' @examples
 #' get_article("increase")
 #' get_article("decrease")
 #' get_article(5)
 #' get_article(8)
 get_article <- function(x) {
+
+  a_patterns <- headliner_global$articles$addl_a
+  an_patterns <- headliner_global$articles$addl_an
+
   if (is.character(x)) {
-    ifelse(grepl("^[aeiou]", tolower(x)), "an", "a")
+    case_when(
+      nchar(a_patterns) != 0 & grepl(a_patterns, x) ~ "a",
+      nchar(an_patterns) != 0 & grepl(an_patterns, x) ~ "an",
+      grepl("^[aeiou]", tolower(x)) ~ "an",
+      TRUE ~ "a"
+    )
   } else {
     x_new <- case_when(
       x >= 1e6 ~ x / 1e6,
