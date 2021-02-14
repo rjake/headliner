@@ -111,6 +111,7 @@ headline <- function(...) {
 #'        per gallon than 6-cylinder cars ({orig_values}).",
 #'      trend_phrases = trend_terms("more", "less")
 #'    )
+#'
 headline.default <- function(compare,
                              reference,
                              headline = "{trend} of {delta} ({orig_values})",
@@ -186,8 +187,13 @@ headline.list <- function(x, compare, reference, ...) {
 #' @importFrom rlang :=
 #' @importFrom purrr map2_chr
 #' @examples
-#' # here is an example comparing the # of gears and carburators in 'mtcars'
+#'
+#' # You can use 'add_headline_column()' instead of
+#' # `mutate(headline = map2_chr(...))`
+#' # here is an example comparing the # of gears and carburetors in the
+#' # 'mtcars' data set
 #' head(mtcars, 8) %>%
+#'   dplyr::select(mpg, cyl, gear, carb) %>%
 #'   add_headline_column(
 #'     compare = gear,
 #'     reference = carb
