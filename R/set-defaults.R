@@ -36,3 +36,23 @@ show_headliner_defaults <- function() {
   message("Use set_headliner_defaults() to update or reset values.")
 }
 
+
+#' Update the values headliner uses in the active session
+#' @noRd
+update_default <- function(x, value) {
+  old <- headliner_global[[x]]
+  default <- get(paste0("default_", x))
+  if (is.null(value)) {
+    headliner_global[[x]] <- default
+  } else if (length(x) > 1) {
+    stop(
+      "'", x, "' should be length of 1 not ", length(get(x)),
+      call. = FALSE
+    )
+  } else {
+    headliner_global[[x]] <- value
+  }
+}
+
+
+
