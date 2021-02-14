@@ -8,6 +8,7 @@ reference:
   - headline
   - plural_phrasing
   - trend_terms
+  - get_article
   - compare_values
   - view_list
 - title: Data Prep Helpers
@@ -18,6 +19,13 @@ reference:
   - compare_columns
   - compare_conditions
   - add_date_columns
+- title: Default Values
+  desc: >
+    You can set the custom values for the way `headliner` builds phrases
+  contents:
+  - augment_article_patterns
+  - set_headliner_defaults
+  - show_headliner_defaults
 - title: Data
   desc: >
     `headliner` comes with two datasets that are used in examples
