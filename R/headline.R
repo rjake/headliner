@@ -74,22 +74,6 @@ headline <- function(...) {
 #' # or use a multiplier
 #' headline(0.1234, 0.4321, multiplier = 100)
 #'
-#' # The values can come from a summarized data frame or a named list
-#' # if the data frame is only 2 columns or the list has only 2 elements
-#' # you don't need to specify the 'compare' or 'reference' arguments unless
-#' # you need to change the order. If the # of columns is > 3 you'll need to
-#' # specify these arguments.
-#' iris %>%
-#'   dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) %>%
-#'   headline()
-#'
-#' iris %>%
-#'   dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) %>%
-#'   headline(
-#'     compare = Petal.Length,
-#'     reference = Sepal.Length
-#'   )
-#'
 #' # there are many components you can assemble
 #' headline(
 #'   compare = 16,
@@ -111,6 +95,7 @@ headline <- function(...) {
 #'        per gallon than 6-cylinder cars ({orig_values}).",
 #'      trend_phrases = trend_terms("more", "less")
 #'    )
+#'
 headline.default <- function(compare,
                              reference,
                              headline = "{trend} of {delta} ({orig_values})",
@@ -173,36 +158,51 @@ headline.list <- function(x, compare, reference, ...) {
   headline(comp, ref, ...)
 }
 
+#' Add column of headlines
 #' @param x data frame, must be a single row
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
+#' @param .name string value for the name of the new column to create
 #' @inheritDotParams headline.default
 #' @rdname headline
 #' @export
 #' @importFrom glue glue
-headline.data.frame <- function(x, compare, reference, ...) {
-  if (nrow(x) > 1) {
+#' @importFrom dplyr mutate
+#' @importFrom rlang :=
+#' @importFrom purrr map2_chr
+#' @examples
+#'
+#' # You can use 'add_headline_column()' instead of
+#' # `mutate(headline = map2_chr(...))`
+#' # here is an example comparing the # of gears and carburetors in the
+#' # 'mtcars' data set
+#' head(mtcars, 8) %>%
+#'   dplyr::select(mpg, cyl, gear, carb) %>%
+#'   add_headline_column(
+#'     compare = gear,
+#'     reference = carb
+#'   )
+add_headline_column <- function(x, compare, reference, ..., .name = "headline") {
+  if (missing(compare) | missing(reference)) {
     stop(
-      glue("Data frame must be a single row. Consider using \\
-      compare_conditions() or compare_columns() before using headline()"),
+      "please specify columns using 'compare' and 'reference'",
       call. = FALSE
     )
   }
 
-  if (missing(compare) & missing(reference)) {
-    if (length(x) > 2) {
-      stop(paste(
-        "Not sure which columns to use, please pass data frame of two",
-        "columns or specify using 'compare' and 'reference'"
-      ), call. = FALSE)
-    }
-
-    comp <- x[[1]][1]
-    ref <- x[[2]][1]
-  } else {
-    comp <- pull(x, {{compare}})
-    ref <- pull(x, {{reference}})
+  if (.name %in% names(x)) {
+    warning(
+      glue(
+        "The column '{.name}' was replaced. Use the '.name' argument \\
+        to change the column name."
+      ),
+      call. = FALSE
+    )
   }
 
-  headline(comp, ref, ...)
+  x %>%
+    mutate(
+      {{.name}} := map2_chr({{compare}}, {{reference}}, headline, ...)
+    )
 }
+

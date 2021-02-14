@@ -4,7 +4,7 @@
 \alias{headline}
 \alias{headline.default}
 \alias{headline.list}
-\alias{headline.data.frame}
+\alias{add_headline_column}
 \title{Compose phrases that describe differences in the data}
 \usage{
 headline(...)
@@ -26,7 +26,7 @@ headline(...)
 
 \method{headline}{list}(x, compare, reference, ...)
 
-\method{headline}{data.frame}(x, compare, reference, ...)
+add_headline_column(x, compare, reference, ..., .name = "headline")
 }
 \arguments{
 \item{...}{
@@ -69,9 +69,13 @@ all values will be round to the length specified by 'n_decimal'.}
 phrase components used to compose the headline}
 
 \item{x}{data frame, must be a single row}
+
+\item{.name}{string value for the name of the new column to create}
 }
 \description{
 Compose phrases that describe differences in the data
+
+Add column of headlines
 }
 \examples{
 # values can be manually entered, some headlines are provided by default
@@ -115,22 +119,6 @@ headline(0.1234, 0.4321, n_decimal = 3)
 # or use a multiplier
 headline(0.1234, 0.4321, multiplier = 100)
 
-# The values can come from a summarized data frame or a named list
-# if the data frame is only 2 columns or the list has only 2 elements
-# you don't need to specify the 'compare' or 'reference' arguments unless
-# you need to change the order. If the # of columns is > 3 you'll need to
-# specify these arguments.
-iris \%>\%
-  dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) \%>\%
-  headline()
-
-iris \%>\%
-  dplyr::summarise_at(dplyr::vars(Sepal.Length, Petal.Length), mean) \%>\%
-  headline(
-    compare = Petal.Length,
-    reference = Sepal.Length
-  )
-
 # there are many components you can assemble
 headline(
   compare = 16,
@@ -152,6 +140,18 @@ headline(
        per gallon than 6-cylinder cars ({orig_values}).",
      trend_phrases = trend_terms("more", "less")
    )
+
+
+# You can use 'add_headline_column()' instead of
+# `mutate(headline = map2_chr(...))`
+# here is an example comparing the # of gears and carburetors in the
+# 'mtcars' data set
+head(mtcars, 8) \%>\%
+  dplyr::select(mpg, cyl, gear, carb) \%>\%
+  add_headline_column(
+    compare = gear,
+    reference = carb
+  )
 }
 \seealso{
 \code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}

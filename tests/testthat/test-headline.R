@@ -5,19 +5,16 @@ test_that("vector works correctly", {
 })
 
 
-test_that("data frame is passed correctly", {
-  named <-
-    head(iris, 1) %>%
-    headline(compare = Sepal.Length, reference = Sepal.Width)
+test_that("add headline column works", {
+  df <- add_headline_column(mtcars, gear, carb)
 
-  unnamed <-
-    iris[1, 1:2] %>%
-    headline()
+  df_new_col <- add_headline_column(mtcars, gear, carb, .name = "abc")
 
-  phrase <- glue::glue("increase of 1.6 (5.1 vs. 3.5)")
-
-  expect_equal(phrase, named)
-  expect_equal(phrase, unnamed)
+  expect_true("headline" %in% names(df))
+  expect_true("abc" %in% names(df_new_col))
+  expect_warning(
+    add_headline_column(mtcars, gear, carb, .name = "mpg")
+  )
 })
 
 
@@ -35,15 +32,6 @@ test_that("list is passed correctly", {
   expect_equal(phrase, named)
   expect_equal(phrase, unnamed)
 })
-
-
-
-test_that("stop if # elements > 2 & unnamed", {
-  expect_error(headline(iris[1, 1:3]), "Not sure")
-  expect_error(headline(list(10, 9, 8)), "Not sure")
-})
-
-
 
 test_that("phrases added", {
   phrases <- list(
@@ -65,16 +53,3 @@ test_that("list is returned", {
   expect_true(inherits(x, "list"))
 })
 
-
-
-test_that("stops if df has > 1 row", {
-  expect_error(
-    object = headline(mtcars),
-    regexp = "single row"
-  )
-
-  expect_error(
-    object = headline(mtcars[1,1:2]),
-    regexp = NA
-  )
-})

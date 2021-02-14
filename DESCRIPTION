@@ -24,6 +24,7 @@ Imports:
     lubridate,
     magrittr,
     purrr,
+    rlang,
     tibble
 Depends: 
     R (>= 2.10)
