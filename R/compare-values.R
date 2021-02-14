@@ -53,6 +53,10 @@ compare_values <- function(compare, reference,
   delta <- as.numeric(comp - ref)
   delta_p <- as.numeric(delta / ref  * 100)
 
+  if (missing(orig_values)) {
+    orig_values <- headliner_global$orig_values
+  }
+
   calc <-
     list(
       delta = delta,

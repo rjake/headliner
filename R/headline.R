@@ -108,6 +108,15 @@ headline.default <- function(compare,
                              round_all = TRUE,
                              multiplier = 1,
                              return_data = FALSE) {
+
+  if (missing(headline)) {
+    headline <- headliner_global$headline
+  }
+
+  if (missing(orig_values)) {
+    orig_values <- headliner_global$orig_values
+  }
+
   res <-
     compare_values(
       compare,
