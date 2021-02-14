@@ -108,6 +108,9 @@ update_default <- function(x, value) {
 #' like "(an) increase", "(a) decrease", "(an) 83" and "(a) -5"
 #' You will likely not call the function [get_article()] directly but you
 #' can augment the logic it uses with this function.
+#'
+#' These arguments assume that the words start with the patterns you provide.
+#' Passing "hour|heir" will be translated to "^(hour|heir)".
 #' @param regex_for_a regular expression for words that get the article 'a'
 #' @param regex_for_an regular expression for words that get the article 'an'
 #' @export
@@ -118,8 +121,6 @@ update_default <- function(x, value) {
 #' get_article("heirloom")
 #'
 #' # the patterns that are used can be updated
-#' These arguments assume that the words start with the patterns you provide.
-#' Passing "hour|heir" will be translated to "^(hour|heir)".
 #' augment_article_patterns(
 #'   regex_for_a = "Euro|uni",
 #'   regex_for_an = "hour|heir"
