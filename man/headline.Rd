@@ -4,7 +4,7 @@
 \alias{headline}
 \alias{headline.default}
 \alias{headline.list}
-\alias{headline.data.frame}
+\alias{add_headline_column}
 \title{Compose phrases that describe differences in the data}
 \usage{
 headline(...)
@@ -26,7 +26,7 @@ headline(...)
 
 \method{headline}{list}(x, compare, reference, ...)
 
-\method{headline}{data.frame}(x, compare, reference, ...)
+add_headline_column(x, compare, reference, ..., .name = "headline")
 }
 \arguments{
 \item{...}{
@@ -69,9 +69,13 @@ all values will be round to the length specified by 'n_decimal'.}
 phrase components used to compose the headline}
 
 \item{x}{data frame, must be a single row}
+
+\item{.name}{string value for the name of the new column to create}
 }
 \description{
 Compose phrases that describe differences in the data
+
+Add column of headlines
 }
 \examples{
 # values can be manually entered, some headlines are provided by default
@@ -152,6 +156,12 @@ headline(
        per gallon than 6-cylinder cars ({orig_values}).",
      trend_phrases = trend_terms("more", "less")
    )
+# here is an example comparing the # of gears and carburators in 'mtcars'
+head(mtcars, 8) \%>\%
+  add_headline_column(
+    compare = gear,
+    reference = carb
+  )
 }
 \seealso{
 \code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}

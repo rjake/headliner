@@ -173,36 +173,46 @@ headline.list <- function(x, compare, reference, ...) {
   headline(comp, ref, ...)
 }
 
+#' Add column of headlines
 #' @param x data frame, must be a single row
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
+#' @param .name string value for the name of the new column to create
 #' @inheritDotParams headline.default
 #' @rdname headline
 #' @export
 #' @importFrom glue glue
-headline.data.frame <- function(x, compare, reference, ...) {
-  if (nrow(x) > 1) {
+#' @importFrom dplyr mutate
+#' @importFrom rlang :=
+#' @importFrom purrr map2_chr
+#' @examples
+#' # here is an example comparing the # of gears and carburators in 'mtcars'
+#' head(mtcars, 8) %>%
+#'   add_headline_column(
+#'     compare = gear,
+#'     reference = carb
+#'   )
+add_headline_column <- function(x, compare, reference, ..., .name = "headline") {
+  if (missing(compare) | missing(reference)) {
     stop(
-      glue("Data frame must be a single row. Consider using \\
-      compare_conditions() or compare_columns() before using headline()"),
+      "please specify columns using 'compare' and 'reference'",
       call. = FALSE
     )
   }
 
-  if (missing(compare) & missing(reference)) {
-    if (length(x) > 2) {
-      stop(paste(
-        "Not sure which columns to use, please pass data frame of two",
-        "columns or specify using 'compare' and 'reference'"
-      ), call. = FALSE)
-    }
-
-    comp <- x[[1]][1]
-    ref <- x[[2]][1]
-  } else {
-    comp <- pull(x, {{compare}})
-    ref <- pull(x, {{reference}})
+  if (.name %in% names(x)) {
+    warning(
+      glue(
+        "The column '{.name}' was replaced. Use the '.name' argument \\
+        to change the column name."
+      ),
+      call. = FALSE
+    )
   }
 
-  headline(comp, ref, ...)
+  x %>%
+    mutate(
+      {{.name}} := map2_chr({{compare}}, {{reference}}, headline, ...)
+    )
 }
+
