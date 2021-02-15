@@ -21,7 +21,20 @@
 #'     compare = gear,
 #'     reference = carb
 #'   )
-add_headline_column <- function(x, compare, reference, ..., .name = "headline") {
+add_headline_column <- function(x,
+                                compare,
+                                reference,
+                                headline = "{trend} of {delta} ({orig_values})",
+                                ...,
+                                .name = "headline",
+                                if_match = "There was no difference.",
+                                trend_phrases = headliner::trend_terms(),
+                                plural_phrases = NULL,
+                                orig_values = "{c} vs. {r}",
+                                n_decimal = 1,
+                                round_all = TRUE,
+                                multiplier = 1,
+                                return_data = FALSE) {
   if (missing(compare) | missing(reference)) {
     stop(
       "please specify columns using 'compare' and 'reference'",
@@ -37,6 +50,25 @@ add_headline_column <- function(x, compare, reference, ..., .name = "headline") 
       ),
       call. = FALSE
     )
+  }
+
+  res <-
+    compare_values(
+      compare,
+      reference,
+      trend_phrases = trend_phrases,
+      plural_phrases = plural_phrases,
+      orig_values = orig_values,
+      n_decimal = n_decimal,
+      round_all = round_all,
+      multiplier = multiplier
+    )
+
+
+
+  if (return_data) {
+    res <- append(res, list(headline = glue_data(res, headline)))
+    return(res)
   }
 
   x %>%
