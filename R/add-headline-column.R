@@ -4,7 +4,6 @@
 #' @param reference numeric value that 'compare' value will be compared against
 #' @param .name string value for the name of the new column to create
 #' @inheritDotParams headline.default
-#' @rdname headline
 #' @export
 #' @importFrom glue glue
 #' @importFrom dplyr mutate
