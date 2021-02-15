@@ -1,5 +1,5 @@
 #' Add column of headlines
-#' @param x data frame, must be a single row
+#' @param df data frame, must be a single row
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
 #' @param .name string value for the name of the new column to create
@@ -21,7 +21,7 @@
 #'     compare = gear,
 #'     reference = carb
 #'   )
-add_headline_column <- function(x,
+add_headline_column <- function(df,
                                 compare,
                                 reference,
                                 headline = "{trend} of {delta} ({orig_values})",
@@ -42,7 +42,7 @@ add_headline_column <- function(x,
     )
   }
 
-  if (.name %in% names(x)) {
+  if (.name %in% names(df)) {
     warning(
       glue(
         "The column '{.name}' was replaced. Use the '.name' argument \\
@@ -71,7 +71,7 @@ add_headline_column <- function(x,
     return(res)
   }
 
-  x %>%
+  df %>%
     mutate(
       {{.name}} := map2_chr({{compare}}, {{reference}}, headline, ...)
     )
