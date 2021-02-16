@@ -36,3 +36,18 @@ test_that("add headline can access other columns", {
 
   expect_true(all(df$has_text))
 })
+
+
+test_that("add headline can pas '...", {
+  df <-
+    add_headline_column(
+      df = animal_sleep,
+      compare = hours_asleep,
+      reference = hours_awake,
+      headline = "{abc} {common_name} {trend}",
+      abc = "123"
+    )  %>%
+    mutate(has_text = purrr::map2_lgl("^123", headline, grepl))
+
+  expect_true(all(df$has_text))
+})

@@ -19,7 +19,6 @@
 #' # You can use 'add_headline_column()' instead of
 #' # `mutate(headline = map2_chr(...))`
 #' # here is an example comparing the sleeping habits of animals
-#'
 #' head(animal_sleep) %>%
 #'   dplyr::select(common_name, hours_asleep, hours_awake) %>%
 #'   add_headline_column(
@@ -29,31 +28,30 @@
 #'     trend_phrases = trend_terms(more = "asleep", less = "awake"),
 #'     plural_phrases = list(hours = plural_phrasing(single = "hour", multi = "hours"))
 #'   ) %>%
-#'   as.data.frame()
+#'   knitr::kable("pandoc")
 #'
 #'
 #' # you can also use 'return_cols' to return any and all "talking points".
 #' # You can use tidyselect helpers like 'starts_with("delta")' or
 #' # 'everything()'. In this example, I returned the delta & trend columns
 #' # and identified the rows at the extremes
-#'
 #' head(animal_sleep) %>%
 #'   dplyr::select(common_name, hours_asleep, hours_awake) %>%
 #'   add_headline_column(
 #'     compare = hours_asleep,
 #'     reference = hours_awake,
 #'     headline = "more time {trend} ({orig_values} hours)",
-#'     trend_phrases = trend_terms(more = "sleeping", less = "awake"),
+#'     trend_phrases = trend_terms(more = "alseep", less = "awake"),
 #'     return_cols = c("delta", "trend")
 #'   ) %>%
 #'   dplyr::filter(delta %in% range(delta)) %>%
-#'   as.data.frame()
+#'   knitr::kable("pandoc")
 #'
 add_headline_column <- function(df,
                                 compare,
                                 reference,
                                 headline = "{trend} of {delta} ({orig_values})",
-                                #...,
+                                ...,
                                 .name = "headline",
                                 if_match = "There was no difference.",
                                 trend_phrases = headliner::trend_terms(),
@@ -108,7 +106,7 @@ add_headline_column <- function(df,
   # create headline column
   headline_col <-
     full_data %>%
-    transmute({{.name}} := glue(headline))
+    transmute({{.name}} := glue(headline, ...))
 
 
   # return df + headline if no cols requested
