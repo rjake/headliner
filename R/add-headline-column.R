@@ -40,7 +40,6 @@
 #'     compare = hours_asleep,
 #'     reference = hours_awake,
 #'     headline = "more time {trend} ({orig_values} hours)",
-#'     trend_phrases = trend_terms(more = "sleeping", less = "awake"),
 #'     return_cols = c("delta", "trend")
 #'   ) %>%
 #'   dplyr::filter(delta %in% range(delta)) %>%
