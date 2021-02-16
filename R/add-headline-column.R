@@ -74,16 +74,28 @@ add_headline_column <- function(df,
       ) %>%
       unnest(comp_values)
 
+  # combine with original data
+  full_data <- bind_cols(df, new_cols)
 
+  # create headline column
+  headline_col <-
+    full_data %>%
+    transmute({{.name}} := glue(headline))
 
+  # return data ----
   if (return_data) {
     res <- append(res, list(headline = glue_data(res, headline)))
     return(res)
+    final_df <-
+      df %>%
+      select(-any_of(names(new_cols))) %>%
+      bind_cols(headline_col, new_cols)
+
+    return(final_df)
   }
 
+  # otherwise just append headline column to orig data
   df %>%
-    mutate(
-      {{.name}} := map2_chr({{compare}}, {{reference}}, headline, ...)
-    )
+    bind_cols(headline_col)
 }
 
