@@ -22,3 +22,19 @@ test_that("add headline column returns columns", {
   expect_true("headline" %in% names(df))
   expect_true(all(c("delta", "delta_p") %in% names(df)))
 })
+
+
+test_that("add headline can access other columns", {
+  df <-
+    add_headline_column(
+      df = animal_sleep,
+      compare = hours_asleep,
+      reference = hours_awake,
+      headline = "{common_name} ({orig_values})"
+    ) %>%
+    mutate(has_text = purrr::map2_lgl(common_name, headline, grepl))
+
+  expect_true("headline" %in% names(df))
+  expect_true(all(c("delta", "delta_p") %in% names(df)))
+  expect_true(all(df$has_text))
+})
