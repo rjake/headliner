@@ -2,8 +2,8 @@ library(tidyverse)
 
 animal_sleep <-
   msleep %>%
-  select(
-    common_name = name,
+  transmute(
+    common_name = str_to_title(name),
     order,
     hours_asleep = sleep_total,
     hours_awake = awake,
