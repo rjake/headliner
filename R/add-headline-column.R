@@ -84,8 +84,6 @@ add_headline_column <- function(df,
 
   # return data ----
   if (return_data) {
-    res <- append(res, list(headline = glue_data(res, headline)))
-    return(res)
     final_df <-
       df %>%
       select(-any_of(names(new_cols))) %>%
