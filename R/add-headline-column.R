@@ -8,8 +8,9 @@
 #' \code{\link[dplyr]{select}}, ex: c("a", "b"),
 #' \code{\link[dplyr]{starts_with}},etc.
 #' @inheritParams headline.default
+#' @@inheritParams headline.default
 #' @export
-#' @importFrom glue glue
+#' @importFrom glue glue glue_data
 #' @importFrom dplyr mutate transmute bind_cols any_of select
 #' @importFrom tidyr unnest
 #' @importFrom rlang := .data abort warn
@@ -53,7 +54,7 @@ add_headline_column <- function(df,
                                 compare,
                                 reference,
                                 headline = "{trend} of {delta} ({orig_values})",
-                                #...,
+                                ...,
                                 .name = "headline",
                                 if_match = "There was no difference.",
                                 trend_phrases = headliner::trend_terms(),
@@ -108,7 +109,7 @@ add_headline_column <- function(df,
   # create headline column
   headline_col <-
     full_data %>%
-    transmute({{.name}} := glue(headline))
+    transmute({{.name}} := glue_data(full_data, headline, ...))
 
 
   # return df + headline if no cols requested
