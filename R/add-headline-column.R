@@ -50,17 +50,29 @@ add_headline_column <- function(df,
     warn()
   }
 
-  res <-
-    compare_values(
-      compare,
-      reference,
-      trend_phrases = trend_phrases,
-      plural_phrases = plural_phrases,
-      orig_values = orig_values,
-      n_decimal = n_decimal,
-      round_all = round_all,
-      multiplier = multiplier
-    )
+  # pass values and unnest ----
+  new_cols <-
+    df %>%
+    transmute(
+      comp_values = # returns a list per row
+        map2(
+          .x = {{compare}},
+          .y = {{reference}},
+          .f =
+            ~compare_values(
+              .x,
+              .y,
+              trend_phrases = trend_phrases,
+              plural_phrases = plural_phrases,
+              orig_values = orig_values,
+              n_decimal = n_decimal,
+              round_all = round_all,
+              multiplier = multiplier
+            ) %>%
+            as.data.frame()
+          )
+      ) %>%
+      unnest(comp_values)
 
 
 
