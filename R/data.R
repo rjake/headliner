@@ -26,3 +26,18 @@
 #'   \item{visib}{visibility (miles)}
 #' }
 "flights_jfk"
+
+
+
+#' Animal Sleep
+#'
+#' A modified subset of  \code{\link[ggplot2]{msleep}}. The data originally comes from V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007.
+#'
+#' @format A tibble with 56 rows and 7 columns:
+#'    \item{name}{common name}
+#'    \item{order}{Taxonomic order (between 'Class' and 'Family')}
+#'    \item{hours_asleep}{total hours asleep in a 24-hour period}
+#'    \item{hours_awake}{total hours awake in a 24-hour period}
+#'    \item{brain_kg}{brain weight in kilograms}
+#'    \item{body_kg}{body weight in kilograms}
+"animal_sleep"
