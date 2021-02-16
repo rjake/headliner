@@ -8,6 +8,7 @@ reference:
   - headline
   - plural_phrasing
   - trend_terms
+  - add_headline_column
   - compare_values
   - view_list
 - title: Data Prep Helpers
@@ -25,3 +26,4 @@ reference:
   contents:
   - demo_data
   - flights_jfk
+  - animal_sleep
