@@ -34,7 +34,5 @@ test_that("add headline can access other columns", {
     ) %>%
     mutate(has_text = purrr::map2_lgl(common_name, headline, grepl))
 
-  expect_true("headline" %in% names(df))
-  expect_true(all(c("delta", "delta_p") %in% names(df)))
   expect_true(all(df$has_text))
 })
