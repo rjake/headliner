@@ -9,9 +9,10 @@
 #' @inheritParams headline.default
 #' @export
 #' @importFrom glue glue
-#' @importFrom dplyr mutate
-#' @importFrom purrr map2_chr
+#' @importFrom dplyr mutate transmute bind_cols any_of select
+#' @importFrom tidyr unnest
 #' @importFrom rlang := .data
+#' @importFrom purrr map2
 #' @examples
 #'
 #' # You can use 'add_headline_column()' instead of
