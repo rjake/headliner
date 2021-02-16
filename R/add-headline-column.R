@@ -11,7 +11,7 @@
 #' @importFrom glue glue
 #' @importFrom dplyr mutate transmute bind_cols any_of select
 #' @importFrom tidyr unnest
-#' @importFrom rlang := .data
+#' @importFrom rlang := .data rlang abort warn
 #' @importFrom purrr map2
 #' @examples
 #'
