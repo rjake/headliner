@@ -3,7 +3,7 @@ library(tidyverse)
 animal_sleep <-
   msleep %>%
   select(
-    name,
+    common_name = name,
     order,
     hours_asleep = sleep_total,
     hours_awake = awake,
@@ -11,7 +11,7 @@ animal_sleep <-
     body_kg = bodywt
   ) %>%
   drop_na() %>%
-  arrange(name) %>%
+  arrange(common_name) %>%
   #arrange(brainwt / bodywt) %>%
   # arrange(abs(sleep_total - awake_total)) %>%
   print()
