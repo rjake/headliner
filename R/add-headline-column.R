@@ -41,14 +41,13 @@ add_headline_column <- function(df,
     abort("please specify columns using 'compare' and 'reference'")
   }
 
+  # inform that headline can be renamed
   if (.name %in% names(df)) {
-    warning(
-      glue(
-        "The column '{.name}' was replaced. Use the '.name' argument \\
-        to change the column name."
-      ),
-      call. = FALSE
-    )
+    glue(
+      "The column '{.name}' was replaced. Use the '.name' argument \\
+      to change the column name."
+    ) %>%
+    warn()
   }
 
   res <-
