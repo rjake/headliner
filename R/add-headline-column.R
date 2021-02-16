@@ -9,7 +9,6 @@
 #' \code{\link[dplyr]{starts_with}},etc.
 #' @inheritParams headline.default
 #' @export
-#' @importFrom glue glue glue_data
 #' @importFrom dplyr mutate transmute bind_cols any_of select
 #' @importFrom tidyr unnest
 #' @importFrom rlang := .data abort warn
@@ -106,7 +105,6 @@ add_headline_column <- function(df,
   # create headline column
   headline_col <-
     full_data %>%
-    transmute({{.name}} := glue_data(full_data, headline, ...))
 
 
   # return df + headline if no cols requested
