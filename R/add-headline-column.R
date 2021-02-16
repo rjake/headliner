@@ -27,7 +27,7 @@
 #'     trend_phrases = trend_terms(more = "asleep", less = "awake"),
 #'     plural_phrases = list(hours = plural_phrasing(single = "hour", multi = "hours"))
 #'   ) %>%
-#'   as.data.frame()
+#'   knitr::kable("pandoc")
 #'
 #'
 #' # you can also use 'return_cols' to return any and all "talking points".
@@ -40,10 +40,11 @@
 #'     compare = hours_asleep,
 #'     reference = hours_awake,
 #'     headline = "more time {trend} ({orig_values} hours)",
+#'     trend_phrases = trend_terms(more = "alseep", less = "awake"),
 #'     return_cols = c("delta", "trend")
 #'   ) %>%
 #'   dplyr::filter(delta %in% range(delta)) %>%
-#'   as.data.frame()
+#'   knitr::kable("pandoc")
 #'
 add_headline_column <- function(df,
                                 compare,
