@@ -65,7 +65,7 @@ add_headline_column <- function(df,
             as.data.frame()
           )
       ) %>%
-      unnest(comp_values)
+      unnest(.data$comp_values)
 
   # combine with original data
   full_data <- bind_cols(df, new_cols)
