@@ -9,6 +9,7 @@ add_headline_column(
   compare,
   reference,
   headline = "{trend} of {delta} ({orig_values})",
+  ...,
   .name = "headline",
   if_match = "There was no difference.",
   trend_phrases = headliner::trend_terms(),
@@ -29,6 +30,8 @@ add_headline_column(
 
 \item{headline}{a string to format the final output. Uses
 \code{\link[glue]{glue}} syntax}
+
+\item{...}{arguments passed to \code{\link[glue]{glue_data}}}
 
 \item{.name}{string value for the name of the new column to create}
 
@@ -67,7 +70,6 @@ Add column of headlines
 # You can use 'add_headline_column()' instead of
 # `mutate(headline = map2_chr(...))`
 # here is an example comparing the sleeping habits of animals
-
 head(animal_sleep) \%>\%
   dplyr::select(common_name, hours_asleep, hours_awake) \%>\%
   add_headline_column(
@@ -77,24 +79,23 @@ head(animal_sleep) \%>\%
     trend_phrases = trend_terms(more = "asleep", less = "awake"),
     plural_phrases = list(hours = plural_phrasing(single = "hour", multi = "hours"))
   ) \%>\%
-  as.data.frame()
+  knitr::kable("pandoc")
 
 
 # you can also use 'return_cols' to return any and all "talking points".
 # You can use tidyselect helpers like 'starts_with("delta")' or
 # 'everything()'. In this example, I returned the delta & trend columns
 # and identified the rows at the extremes
-
 head(animal_sleep) \%>\%
   dplyr::select(common_name, hours_asleep, hours_awake) \%>\%
   add_headline_column(
     compare = hours_asleep,
     reference = hours_awake,
     headline = "more time {trend} ({orig_values} hours)",
-    trend_phrases = trend_terms(more = "sleeping", less = "awake"),
+    trend_phrases = trend_terms(more = "alseep", less = "awake"),
     return_cols = c("delta", "trend")
   ) \%>\%
   dplyr::filter(delta \%in\% range(delta)) \%>\%
-  as.data.frame()
+  knitr::kable("pandoc")
 
 }
