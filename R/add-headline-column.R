@@ -8,7 +8,6 @@
 #' \code{\link[dplyr]{select}}, ex: c("a", "b"),
 #' \code{\link[dplyr]{starts_with}},etc.
 #' @inheritParams headline.default
-#' @@inheritParams headline.default
 #' @export
 #' @importFrom glue glue glue_data
 #' @importFrom dplyr mutate transmute bind_cols any_of select
