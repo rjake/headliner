@@ -1,4 +1,5 @@
 #' Add column of headlines
+#'
 #' @param df data frame, must be a single row
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
@@ -17,7 +18,37 @@
 #'
 #' # You can use 'add_headline_column()' instead of
 #' # `mutate(headline = map2_chr(...))`
-#' # here is an example comparing the # of gears and carburetors in the
+#' # here is an example comparing the sleeping habits of animals
+#'
+#' head(animal_sleep) %>%
+#'   dplyr::select(common_name, hours_asleep, hours_awake) %>%
+#'   add_headline_column(
+#'     compare = hours_asleep,
+#'     reference = hours_awake,
+#'     headline = "The {common_name} spends {delta} more {hours} {trend} than not {trend}.",
+#'     trend_phrases = trend_terms(more = "asleep", less = "awake"),
+#'     plural_phrases = list(hours = plural_phrasing(single = "hour", multi = "hours"))
+#'   ) %>%
+#'   as.data.frame()
+#'
+#'
+#' # you can also use 'return_cols' to return any and all "talking points".
+#' # You can use tidyselect helpers like 'starts_with("delta")' or
+#' # 'everything()'. In this example, I returned the delta & trend columns
+#' # and identified the rows at the extremes
+#'
+#' head(animal_sleep) %>%
+#'   dplyr::select(common_name, hours_asleep, hours_awake) %>%
+#'   add_headline_column(
+#'     compare = hours_asleep,
+#'     reference = hours_awake,
+#'     headline = "more time {trend} ({orig_values} hours)",
+#'     trend_phrases = trend_terms(more = "sleeping", less = "awake"),
+#'     return_cols = c("delta", "trend")
+#'   ) %>%
+#'   dplyr::filter(delta %in% range(delta)) %>%
+#'   as.data.frame()
+#'
 add_headline_column <- function(df,
                                 compare,
                                 reference,
