@@ -31,7 +31,7 @@ add_headline_column <- function(df,
                                 n_decimal = 1,
                                 round_all = TRUE,
                                 multiplier = 1,
-                                return_data = FALSE) {
+                                return_cols = NULL) {
 
   # confirm args listed
   if (missing(compare) | missing(reference)) {
@@ -79,28 +79,18 @@ add_headline_column <- function(df,
     full_data %>%
     transmute({{.name}} := glue(headline))
 
-  # return data ----
-  if (return_data) {
-    # warn if names overlap
-    overlapping_names <- names(new_cols)[names(new_cols) %in% names(df)]
-    if (length(overlapping_names)) {
-      paste0(
-        "The following columns were replaced:\n",
-        paste(paste("-", overlapping_names), collapse = "\n")
-      ) %>%
-        warn()
-    }
 
-    final_df <-
-      df %>%
-      select(-any_of(names(new_cols))) %>%
-      bind_cols(headline_col, new_cols)
-
-    return(final_df)
+  # return df + headline if no cols requested
+  if (missing(return_cols)) {
+    return(df %>% bind_cols(headline_col))
   }
 
   # otherwise just append headline column to orig data
   df %>%
-    bind_cols(headline_col)
+    select(-any_of(names(new_cols))) %>% # will remove cols with same name
+    bind_cols(
+      headline_col,
+      select(new_cols, {{return_cols}} )
+    )
 }
 
