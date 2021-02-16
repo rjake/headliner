@@ -3,7 +3,10 @@
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
 #' @param .name string value for the name of the new column to create
-#' @inheritDotParams headline.default
+#' @param return_cols arguments that can be passed to
+#' \code{\link[dplyr]{select}}, ex: c("a", "b"),
+#' \code{\link[dplyr]{starts_with}},etc.
+#' @inheritParams headline.default
 #' @export
 #' @importFrom glue glue
 #' @importFrom dplyr mutate
