@@ -35,11 +35,10 @@ add_headline_column <- function(df,
                                 round_all = TRUE,
                                 multiplier = 1,
                                 return_data = FALSE) {
+
+  # confirm args listed
   if (missing(compare) | missing(reference)) {
-    stop(
-      "please specify columns using 'compare' and 'reference'",
-      call. = FALSE
-    )
+    abort("please specify columns using 'compare' and 'reference'")
   }
 
   if (.name %in% names(df)) {
