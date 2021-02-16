@@ -4,7 +4,6 @@
 \alias{headline}
 \alias{headline.default}
 \alias{headline.list}
-\alias{add_headline_column}
 \title{Compose phrases that describe differences in the data}
 \usage{
 headline(...)
@@ -25,12 +24,10 @@ headline(...)
 )
 
 \method{headline}{list}(x, compare, reference, ...)
-
-add_headline_column(x, compare, reference, ..., .name = "headline")
 }
 \arguments{
 \item{...}{
-  Arguments passed on to \code{\link[=headline.default]{headline.default}}, \code{\link[=headline.default]{headline.default}}
+  Arguments passed on to \code{\link[=headline.default]{headline.default}}
   \describe{
     \item{\code{}}{}
   }}
@@ -68,14 +65,10 @@ all values will be round to the length specified by 'n_decimal'.}
 \item{return_data}{logical to indicate whether function should return the
 phrase components used to compose the headline}
 
-\item{x}{data frame, must be a single row}
-
-\item{.name}{string value for the name of the new column to create}
+\item{x}{a list with values to compare, if named, can call by name}
 }
 \description{
 Compose phrases that describe differences in the data
-
-Add column of headlines
 }
 \examples{
 # values can be manually entered, some headlines are provided by default
@@ -141,17 +134,6 @@ headline(
      trend_phrases = trend_terms("more", "less")
    )
 
-
-# You can use 'add_headline_column()' instead of
-# `mutate(headline = map2_chr(...))`
-# here is an example comparing the # of gears and carburetors in the
-# 'mtcars' data set
-head(mtcars, 8) \%>\%
-  dplyr::select(mpg, cyl, gear, carb) \%>\%
-  add_headline_column(
-    compare = gear,
-    reference = carb
-  )
 }
 \seealso{
 \code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}
