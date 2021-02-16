@@ -10,8 +10,8 @@
 #' @export
 #' @importFrom glue glue
 #' @importFrom dplyr mutate
-#' @importFrom rlang :=
 #' @importFrom purrr map2_chr
+#' @importFrom rlang := .data
 #' @examples
 #'
 #' # You can use 'add_headline_column()' instead of
