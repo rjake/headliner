@@ -19,7 +19,6 @@
 #' # You can use 'add_headline_column()' instead of
 #' # `mutate(headline = map2_chr(...))`
 #' # here is an example comparing the sleeping habits of animals
-#'
 #' head(animal_sleep) %>%
 #'   dplyr::select(common_name, hours_asleep, hours_awake) %>%
 #'   add_headline_column(
@@ -36,7 +35,6 @@
 #' # You can use tidyselect helpers like 'starts_with("delta")' or
 #' # 'everything()'. In this example, I returned the delta & trend columns
 #' # and identified the rows at the extremes
-#'
 #' head(animal_sleep) %>%
 #'   dplyr::select(common_name, hours_asleep, hours_awake) %>%
 #'   add_headline_column(
