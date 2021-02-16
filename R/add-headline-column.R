@@ -84,6 +84,16 @@ add_headline_column <- function(df,
 
   # return data ----
   if (return_data) {
+    # warn if names overlap
+    overlapping_names <- names(new_cols)[names(new_cols) %in% names(df)]
+    if (length(overlapping_names)) {
+      paste0(
+        "The following columns were replaced:\n",
+        paste(paste("-", overlapping_names), collapse = "\n")
+      ) %>%
+        warn()
+    }
+
     final_df <-
       df %>%
       select(-any_of(names(new_cols))) %>%
