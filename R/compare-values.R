@@ -18,8 +18,7 @@
 #' @param multiplier number indicating the scaling factor. When multiplier = 1
 #' (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.
 #' @importFrom glue glue
-#' @importFrom purrr map_if map pluck
-#' @importFrom dplyr recode
+#' @importFrom purrr map_if
 #' @export
 #' @rdname compare_values
 #' @seealso [view_list()], [trend_terms()], and [plural_phrasing()]
