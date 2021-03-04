@@ -39,7 +39,9 @@ add_headline_column(
 \code{\link[glue]{glue}} syntax}
 
 \item{trend_phrases}{list of values to use for when y is more than x, y is the
-same as x, or y is less than x.}
+same as x, or y is less than x. You can pass it just
+\code{\link{trend_terms}} (the default) and call the result with
+\code{"...{trend}..."} or pass is a named list (see examples)}
 
 \item{plural_phrases}{named list of values to use when difference (delta) is
 singular (delta = 1) or plural (delta != 1)}

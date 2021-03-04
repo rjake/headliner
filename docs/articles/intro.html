@@ -111,7 +111,7 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <div id="installation-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation-1" class="anchor"></a>Installation</h3>
-<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 02/13/21).</p>
+<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 03/04/21).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">headliner</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
@@ -119,16 +119,16 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <span class="co">#&gt; # A tibble: 10 x 5</span>
 <span class="co">#&gt;    group     x     y     z date      </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span>
-<span class="co">#&gt;  1 a       101    10     1 2021-02-13</span>
-<span class="co">#&gt;  2 a       102    20     0 2020-12-13</span>
-<span class="co">#&gt;  3 b       103    30     1 2020-10-13</span>
-<span class="co">#&gt;  4 b       104    40     0 2020-08-13</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-06-13</span>
-<span class="co">#&gt;  6 c       106    60     0 2020-04-13</span>
-<span class="co">#&gt;  7 d       107    70     1 2020-02-13</span>
-<span class="co">#&gt;  8 d       108    80     0 2019-12-13</span>
-<span class="co">#&gt;  9 e       109    90     1 2019-10-13</span>
-<span class="co">#&gt; 10 e       110   100     0 2019-08-13</span></code></pre></div>
+<span class="co">#&gt;  1 a       101    10     1 2021-03-04</span>
+<span class="co">#&gt;  2 a       102    20     0 2021-01-04</span>
+<span class="co">#&gt;  3 b       103    30     1 2020-11-04</span>
+<span class="co">#&gt;  4 b       104    40     0 2020-09-04</span>
+<span class="co">#&gt;  5 c       105    50     1 2020-07-04</span>
+<span class="co">#&gt;  6 c       106    60     0 2020-05-04</span>
+<span class="co">#&gt;  7 d       107    70     1 2020-03-04</span>
+<span class="co">#&gt;  8 d       108    80     0 2020-01-04</span>
+<span class="co">#&gt;  9 e       109    90     1 2019-11-04</span>
+<span class="co">#&gt; 10 e       110   100     0 2019-09-04</span></code></pre></div>
 </div>
 <div id="a-simple-headline" class="section level3">
 <h3 class="hasAnchor">
@@ -148,11 +148,9 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
   <span class="fu"><a href="../reference/view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;                                          VALUES</span>
 <span class="co">#&gt; delta                                         6</span>
-<span class="co">#&gt; trend                                  decrease</span>
 <span class="co">#&gt; delta_p                                     5.6</span>
 <span class="co">#&gt; article_delta                               a 6</span>
 <span class="co">#&gt; article_delta_p                           a 5.6</span>
-<span class="co">#&gt; article_trend                        a decrease</span>
 <span class="co">#&gt; comp_value                                  101</span>
 <span class="co">#&gt; ref_value                                   107</span>
 <span class="co">#&gt; raw_delta                                    -6</span>
@@ -161,6 +159,7 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <span class="co">#&gt; article_raw_delta_p                      a -5.6</span>
 <span class="co">#&gt; sign                                         -1</span>
 <span class="co">#&gt; orig_values                         101 vs. 107</span>
+<span class="co">#&gt; trend                                  decrease</span>
 <span class="co">#&gt; headline            decrease of 6 (101 vs. 107)</span></code></pre></div>
 </div>
 <div id="a-custom-headline" class="section level3">
@@ -174,29 +173,29 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
   headline <span class="op">=</span> <span class="st">"We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."</span>
 <span class="op">)</span>
 <span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></code></pre></div>
-<p>You might have noticed that there are multiple <code>article_*</code> components available. <code>article_delta</code> is for the difference between the two values (“<strong>a</strong> 6 person loss” vs “<strong>an</strong> 8 person loss”), <code>article_delta_p</code> is for the percentage difference for “<strong>a</strong> 5.6%” vs “<strong>an</strong> 8.6%”, and <code>article_trend</code> gives us “<strong>an</strong> increase” vs “<strong>a</strong> decrease”.</p>
+<p>You might have noticed that there are multiple <code>article_*</code> components available. <code>article_delta</code> is for the difference between the two values (“<strong>a</strong> 6 person loss” vs “<strong>an</strong> 8 person loss”), <code>article_delta_p</code> is for the percentage difference for “<strong>a</strong> 5.6%” vs “<strong>an</strong> 8.6%”. You can also add articles to words using <code><a href="../reference/add_article.html">add_article()</a></code>. For example <code>add_artice("increase")</code> gives us “<strong>an</strong> increase” vs <code>add_artice("decrease")</code> “<strong>a</strong> decrease”.</p>
 </div>
 <div id="helpers-for-dynamic-calculations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#helpers-for-dynamic-calculations" class="anchor"></a>Helpers for dynamic calculations</h3>
 <p>But let’s see if we can make the calculations more dynamic…</p>
-<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 12/13/20 was 62 days ago (or 9 weeks or 2 months, …) from the current date.</p>
+<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 01/04/21 was 59 days ago (or 8 weeks or 2 months, …) from the current date.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_date_columns.html">add_date_columns</a></span><span class="op">(</span>date_col <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 11</span>
 <span class="co">#&gt;    group     x     y     z date         day  week month quarter calendar_year</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 a       101    10     1 2021-02-13     0     0     0       0             0</span>
-<span class="co">#&gt;  2 a       102    20     0 2020-12-13   -62    -9    -2      -1            -1</span>
-<span class="co">#&gt;  3 b       103    30     1 2020-10-13  -123   -17    -4      -1            -1</span>
-<span class="co">#&gt;  4 b       104    40     0 2020-08-13  -184   -26    -6      -2            -1</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-06-13  -245   -35    -8      -3            -1</span>
-<span class="co">#&gt;  6 c       106    60     0 2020-04-13  -306   -43   -10      -3            -1</span>
-<span class="co">#&gt;  7 d       107    70     1 2020-02-13  -366   -52   -12      -4            -1</span>
-<span class="co">#&gt;  8 d       108    80     0 2019-12-13  -428   -61   -14      -5            -2</span>
-<span class="co">#&gt;  9 e       109    90     1 2019-10-13  -489   -70   -16      -5            -2</span>
-<span class="co">#&gt; 10 e       110   100     0 2019-08-13  -550   -78   -18      -6            -2</span>
+<span class="co">#&gt;  1 a       101    10     1 2021-03-04     0     0     0       0             0</span>
+<span class="co">#&gt;  2 a       102    20     0 2021-01-04   -59    -8    -2       0             0</span>
+<span class="co">#&gt;  3 b       103    30     1 2020-11-04  -120   -17    -4      -1            -1</span>
+<span class="co">#&gt;  4 b       104    40     0 2020-09-04  -181   -26    -6      -2            -1</span>
+<span class="co">#&gt;  5 c       105    50     1 2020-07-04  -243   -35    -8      -2            -1</span>
+<span class="co">#&gt;  6 c       106    60     0 2020-05-04  -304   -43   -10      -3            -1</span>
+<span class="co">#&gt;  7 d       107    70     1 2020-03-04  -365   -52   -12      -4            -1</span>
+<span class="co">#&gt;  8 d       108    80     0 2020-01-04  -425   -61   -14      -4            -1</span>
+<span class="co">#&gt;  9 e       109    90     1 2019-11-04  -486   -69   -16      -5            -2</span>
+<span class="co">#&gt; 10 e       110   100     0 2019-09-04  -547   -78   -18      -6            -2</span>
 <span class="co">#&gt; # ... with 1 more variable: fiscal_year &lt;dbl&gt;</span></code></pre></div>
 <p>We can then identify some conditions for our comparison (<code>compare</code>) and our reference group (<code>reference</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -301,26 +300,28 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <span class="co">#&gt; 4       -21        -4 Difference of -17 minutes</span>
 <span class="co">#&gt; 5        11        -4 Difference of 15 minutes</span></code></pre></div>
 </div>
-<div id="adding-plural-phrasing" class="section level3">
+<div id="adding-plural-phrasing-multiple-trend-terms" class="section level3">
 <h3 class="hasAnchor">
-<a href="#adding-plural-phrasing" class="anchor"></a>Adding plural phrasing</h3>
+<a href="#adding-plural-phrasing-multiple-trend-terms" class="anchor"></a>Adding plural phrasing &amp; multiple trend terms</h3>
 <p>You can add phrases to customize your sentences. <code>plural_phrases()</code> allows you to add new variables to the list of components available. Here I am adding <code>{people}</code> for use in my headline.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
-  compare <span class="op">=</span> <span class="fl">10</span>, 
+  compare <span class="op">=</span> <span class="fl">10</span>,
   reference <span class="op">=</span> <span class="fl">8</span>,
-  headline <span class="op">=</span>  
-    <span class="st">"There is {article_trend} of {delta} {people} enrolled, \\
-    {article_delta_p}% {trend} ({orig_values})"</span>,
+  headline <span class="op">=</span> <span class="st">"{delta_p}% {trend} ({delta} {people})"</span>,
   plural_phrases <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>  
     people <span class="op">=</span> <span class="fu"><a href="../reference/plural_phrasing.html">plural_phrasing</a></span><span class="op">(</span>single <span class="op">=</span> <span class="st">"person"</span>, multi <span class="op">=</span> <span class="st">"people"</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; There is an increase of 2 people enrolled, a 25% increase (10 vs. 8)</span></code></pre></div>
-<p>Notice the difference in these two outputs</p>
+<span class="co">#&gt; 25% increase (2 people)</span></code></pre></div>
+<p>You can actually pass multiple <code><a href="../reference/trend_terms.html">trend_terms()</a></code> and <code><a href="../reference/plural_phrasing.html">plural_phrasing()</a></code> options.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">more_less</span> <span class="op">&lt;-</span> <span class="co"># "more" &amp; "less" instead of "increase" &amp; "decrease" defaults</span>
-  <span class="fu"><a href="../reference/trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"more"</span>, less <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># lists to use</span>
+<span class="va">more_less</span> <span class="op">&lt;-</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    an_increase <span class="op">=</span> <span class="fu"><a href="../reference/trend_terms.html">trend_terms</a></span><span class="op">(</span><span class="st">"an increase"</span>, <span class="st">"a decrease"</span><span class="op">)</span>, 
+    more <span class="op">=</span> <span class="fu"><a href="../reference/trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"more"</span>, less <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span>
+  <span class="op">)</span>
 
 <span class="va">are_people</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -328,23 +329,24 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
     people <span class="op">=</span> <span class="fu"><a href="../reference/plural_phrasing.html">plural_phrasing</a></span><span class="op">(</span>single <span class="op">=</span> <span class="st">"person"</span>, multi <span class="op">=</span> <span class="st">"people"</span><span class="op">)</span>
   <span class="op">)</span>
 
+<span class="co"># notice the difference in these two outputs</span>
 <span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
-  compare <span class="op">=</span> <span class="fl">1</span>, 
-  reference <span class="op">=</span> <span class="fl">2</span>,
-  headline <span class="op">=</span> <span class="st">"There {are} {delta} {trend} {people}"</span>,
+  compare <span class="op">=</span> <span class="fl">25</span>, 
+  reference <span class="op">=</span> <span class="fl">23</span>,
+  headline <span class="op">=</span> <span class="st">"There {are} {delta} {more} {people} ({an_increase} of {delta_p}%)"</span>,
   trend_phrases <span class="op">=</span> <span class="va">more_less</span>,
   plural_phrases <span class="op">=</span> <span class="va">are_people</span>
 <span class="op">)</span>
-<span class="co">#&gt; There is 1 less person</span>
+<span class="co">#&gt; There are 2 more people (an increase of 8.7%)</span>
 
 <span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
-  compare <span class="op">=</span> <span class="fl">3</span>, 
-  reference <span class="op">=</span> <span class="fl">1</span>,
-  headline <span class="op">=</span> <span class="st">"There {are} {delta} {trend} {people}"</span>,
+  compare <span class="op">=</span> <span class="fl">25</span>, 
+  reference <span class="op">=</span> <span class="fl">26</span>,
+  headline <span class="op">=</span> <span class="st">"There {are} {delta} {more} {people} ({an_increase} of {delta_p}%)"</span>,
   trend_phrases <span class="op">=</span> <span class="va">more_less</span>,
   plural_phrases <span class="op">=</span> <span class="va">are_people</span>
 <span class="op">)</span>
-<span class="co">#&gt; There are 2 more people</span></code></pre></div>
+<span class="co">#&gt; There is 1 less person (a decrease of 3.8%)</span></code></pre></div>
 </div>
 <div id="when-theres-no-change" class="section level3">
 <h3 class="hasAnchor">
