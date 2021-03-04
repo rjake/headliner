@@ -164,3 +164,35 @@ return_trend_phrases <- function(trend_phrases, sign = 1) {
 
   map(trend_list, pluck, which_trend)
 }
+
+
+#' identify plural phrases to use
+#' @noRd
+#' @importFrom purrr map pluck
+#' @examples
+#' return_plural_phrases(
+#'   plural_phrases = list(x = plural_phrasing("one", "many"))
+#' )
+#' return_plural_phrases(
+#'   list(
+#'     x = plural_phrasing("one", "many"),
+#'     y = plural_phrasing("one", "many")
+#'   )
+#' )
+return_plural_phrases <- function(plural_phrases, delta = 2) {
+  # stop if items in list aren't named
+  if (any(is.null(names(plural_phrases)))) {
+    stop(
+      "'plural_phrases' should be a named list. \nex. ",
+      'list(people = plural_phrasing("person", "people"))',
+      call. = FALSE
+    )
+  }
+
+  # identify which list element to choose if delta = 1 then single else multi
+  value <- ifelse(delta == 1, "single", "multi")
+
+  # select correct value
+  map(plural_phrases, pluck, value)
+}
+
