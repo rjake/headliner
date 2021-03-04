@@ -106,17 +106,11 @@ compare_values <- function(compare, reference,
 
   # append plural phrases if provided
   if (!is.null(plural_phrases)) {
-    # stop if items in list aren't named
-    if (any(is.null(names(plural_phrases)))) {
-      stop(paste0(
-        "'plural_phrases' should be a named list. \nex. ",
-        'list(people = plural_phrasing("person", "people"))'
-        ), call. = FALSE)
-    }
-    # identify which list element to choose if delta = 1 then single else multi
-    value <- ifelse(output$delta == 1, "single", "multi")
+    plural_phrases_list <-
+      return_plural_phrases(plural_phrases, delta = calc$abs_delta)
+
     # append to list
-    output <- append(output, map(plural_phrases, pluck, value))
+    output <- append(output, plural_phrases_list)
   }
 
   output
