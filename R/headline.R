@@ -31,7 +31,7 @@ headline <- function(...) {
 #' @importFrom purrr map_if
 #' @export
 #' @rdname headline
-#' @seealso [view_list()] and [trend_terms()]
+#' @seealso [compare_values()], [trend_terms()], and [add_article()]
 #' @examples
 #' # values can be manually entered, some headlines are provided by default
 #' headline(10, 8)
@@ -79,7 +79,7 @@ headline <- function(...) {
 #'   compare = 16,
 #'   reference = 8,
 #'   headline = "there was {article_delta_p}% {trend}, \\
-#'   {article_trend} {trend} of {delta} ({orig_values})"
+#'   {add_article(trend)} of {delta} ({orig_values})"
 #' )
 #'
 #' # compare_conditions() produces a list that can be passed to headline()

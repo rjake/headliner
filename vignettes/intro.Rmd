@@ -92,7 +92,7 @@ headline(
   headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
 )
 ```
-You might have noticed that there are multiple `article_*` components available. `article_delta` is for the difference between the two values ("**a** 6 person loss" vs "**an** 8 person loss"), `article_delta_p` is for the percentage difference for "**a** 5.6%" vs "**an** 8.6%", and `article_trend` gives us "**an** increase" vs "**a** decrease".
+You might have noticed that there are multiple `article_*` components available. `article_delta` is for the difference between the two values ("**a** 6 person loss" vs "**an** 8 person loss"), `article_delta_p` is for the percentage difference for "**a** 5.6%" vs "**an** 8.6%". You can also add articles to words using `add_article()`. For example `add_artice("increase")` gives us "**an** increase" vs `add_artice("decrease")` "**a** decrease".
 
 
 ### Helpers for dynamic calculations
