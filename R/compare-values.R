@@ -27,10 +27,23 @@
 #' compare_values(10, 8) %>% head(2)
 #' # percent difference (10-8)/8
 #' compare_values(10, 8)$delta_p
-#' compare_values(10, 8, trend_phrases = trend_terms(more = "higher")) %>%
-#'   head(2)
 #'
-#' # a phrase about the comparion can be edited by providing glue syntax
+#' # trend_phrases returns an object called trend if nothing is passed
+#' compare_values(10, 8)$trend
+#'
+#' # or if one argument is passed using trend_terms()
+#' compare_values(10, 8, trend_phrases = trend_terms(more = "higher"))$trend
+#'
+#' # if a named list is used, the objects are called by their names
+#' compare_values(
+#'   10, 8,
+#'   trend_phrases = list(
+#'     more = trend_terms(),
+#'     higher = trend_terms("higher", "lower")
+#'   )
+#' )$higher
+#'
+#' # a phrase about the comparison can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
 #' compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
 #'
