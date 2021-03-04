@@ -79,25 +79,14 @@ compare_values <- function(compare, reference,
   }
 
 
-  which_trend <-
-    recode(
-      as.character(calc$sign), # must be a character
-      "1" = "more",
-      "-1" = "less",
-      "0" = "same"
-    )
-
-  trend <- trend_phrases[[which_trend]]
-
+  trend_terms_list <- return_trend_phrases(trend_phrases, calc$sign)
 
   output <-
     list(
       delta = calc$abs_delta,
-      trend = trend,
       delta_p = calc$abs_delta_p,
       article_delta = paste(get_article(calc$abs_delta), calc$abs_delta),
       article_delta_p = paste(get_article(calc$abs_delta_p), calc$abs_delta_p),
-      article_trend = paste(get_article(trend), trend),
       comp_value = calc$compare,
       ref_value = calc$reference,
       raw_delta = calc$delta,
@@ -111,6 +100,9 @@ compare_values <- function(compare, reference,
         r = calc$ref
       )
     )
+
+  # apppend trend terms
+  output <- append(output, trend_terms_list)
 
   # append plural phrases if provided
   if (!is.null(plural_phrases)) {
