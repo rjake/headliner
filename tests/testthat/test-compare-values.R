@@ -57,14 +57,47 @@ test_that("check rounding runs", {
 
 
 test_that("compare_values accepts multiple trend terms", {
-  use_values <- c("increase", "higher")
+  trend_list <-
+    list(
+      when_more = trend_terms("more", "less"),
+      when_higher = trend_terms("higher", "lower")
+    )
 
   x <-
     compare_values(
       5, 4,
-      trend_phrases = trend_terms(more = use_values)
+      trend_phrases = trend_list
     )
 
-  expect_equal(x$trend, use_values)
-  expect_equal(x$article_trend, paste(c("an", "a"), use_values))
+  expect_equal(x$when_more, "more")
+  expect_equal(x$when_higher, "higher")
+})
+
+
+test_that("compare_values accepts multiple trend terms", {
+  plural_list <-
+    list(
+      n_people = plural_phrasing("person", "people"),
+      n_cats = plural_phrasing("cat", "cats")
+    )
+
+  x <-
+    compare_values(
+      5, 4,
+      plural_phrases = plural_list
+    )
+
+  expect_equal(x$n_people, "person")
+  expect_equal(x$n_cats, "cat")
+})
+
+
+test_that("return_trend_phrases() works", {
+  test_direct <- trend_terms()
+  test_list <- list(trend = trend_terms())
+
+  expect_equal(
+    return_trend_phrases(test_direct),
+    return_trend_phrases(test_list)
+  )
 })
