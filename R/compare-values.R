@@ -3,7 +3,9 @@
 #' @param compare a numeric value to compare to a reference value
 #' @param reference a numeric value to act as a control for the 'compare' value
 #' @param trend_phrases list of values to use for when y is more than x, y is the
-#' same as x, or y is less than x.
+#' same as x, or y is less than x. You can pass it just
+#' \code{\link{trend_terms}} (the default) and call the result with
+#' \code{"...{trend}..."} or pass is a named list (see examples)
 #' @param plural_phrases named list of values to use when difference (delta) is
 #' singular (delta = 1) or plural (delta != 1)
 #' @param orig_values a string using \code{\link[glue]{glue}} syntax. `{c}` =

@@ -11,8 +11,6 @@ headline <- function(...) {
 #' @param ... arguments passed to \code{\link[glue]{glue_data}}
 #' @param if_match string to display if numbers match, uses
 #' \code{\link[glue]{glue}} syntax
-#' @param trend_phrases list of values to use for when y is more than x, y is the
-#' same as x, or y is less than x.
 #' @param plural_phrases named list of values to use when difference (delta) is
 #' singular (delta = 1) or plural (delta != 1)
 #' @param orig_values a string to display the two original values. Uses
@@ -27,6 +25,7 @@ headline <- function(...) {
 #' (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.
 #' @param return_data logical to indicate whether function should return the
 #' phrase components used to compose the headline
+#' @inheritParams compare_values
 #' @importFrom glue glue_data
 #' @importFrom purrr map_if
 #' @export
