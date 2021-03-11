@@ -189,7 +189,9 @@
     <tr>
       <th>trend_phrases</th>
       <td><p>list of values to use for when y is more than x, y is the
-same as x, or y is less than x.</p></td>
+same as x, or y is less than x. You can pass it just
+<code><a href='trend_terms.html'>trend_terms</a></code> (the default) and call the result with
+<code>"...{trend}..."</code> or pass is a named list (see examples)</p></td>
     </tr>
     <tr>
       <th>plural_phrases</th>
@@ -231,7 +233,7 @@ phrase components used to compose the headline</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='view_list.html'>view_list()</a></code> and <code><a href='trend_terms.html'>trend_terms()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='compare_values.html'>compare_values()</a></code>, <code><a href='trend_terms.html'>trend_terms()</a></code>, and <code><a href='add_article.html'>add_article()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># values can be manually entered, some headlines are provided by default</span>
@@ -280,9 +282,9 @@ phrase components used to compose the headline</p></td>
   compare <span class='op'>=</span> <span class='fl'>16</span>,
   reference <span class='op'>=</span> <span class='fl'>8</span>,
   headline <span class='op'>=</span> <span class='st'>"there was {article_delta_p}% {trend}, \\
-  {article_trend} {trend} of {delta} ({orig_values})"</span>
+  {add_article(trend)} of {delta} ({orig_values})"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; there was a 100% increase, an increase increase of 8 (16 vs. 8)</div><div class='input'>
+</div><div class='output co'>#&gt; there was a 100% increase, an increase of 8 (16 vs. 8)</div><div class='input'>
 <span class='co'># compare_conditions() produces a list that can be passed to headline()</span>
  <span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
    <span class='fu'><a href='compare_conditions.html'>compare_conditions</a></span><span class='op'>(</span>

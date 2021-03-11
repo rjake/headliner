@@ -21,7 +21,9 @@ compare_values(
 \item{reference}{a numeric value to act as a control for the 'compare' value}
 
 \item{trend_phrases}{list of values to use for when y is more than x, y is the
-same as x, or y is less than x.}
+same as x, or y is less than x. You can pass it just
+\code{\link{trend_terms}} (the default) and call the result with
+\code{"...{trend}..."} or pass is a named list (see examples)}
 
 \item{orig_values}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
 the 'compare' value, and \code{{r}} = 'reference'}
@@ -48,10 +50,23 @@ Compare two values and get talking points
 compare_values(10, 8) \%>\% head(2)
 # percent difference (10-8)/8
 compare_values(10, 8)$delta_p
-compare_values(10, 8, trend_phrases = trend_terms(more = "higher")) \%>\%
-  head(2)
 
-# a phrase about the comparion can be edited by providing glue syntax
+# trend_phrases returns an object called trend if nothing is passed
+compare_values(10, 8)$trend
+
+# or if one argument is passed using trend_terms()
+compare_values(10, 8, trend_phrases = trend_terms(more = "higher"))$trend
+
+# if a named list is used, the objects are called by their names
+compare_values(
+  10, 8,
+  trend_phrases = list(
+    more = trend_terms(),
+    higher = trend_terms("higher", "lower")
+  )
+)$higher
+
+# a phrase about the comparison can be edited by providing glue syntax
 # 'c' = the 'compare' value, 'r' = 'reference'
 compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
 

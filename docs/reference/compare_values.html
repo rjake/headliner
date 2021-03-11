@@ -162,7 +162,9 @@
     <tr>
       <th>trend_phrases</th>
       <td><p>list of values to use for when y is more than x, y is the
-same as x, or y is less than x.</p></td>
+same as x, or y is less than x. You can pass it just
+<code><a href='trend_terms.html'>trend_terms</a></code> (the default) and call the result with
+<code>"...{trend}..."</code> or pass is a named list (see examples)</p></td>
     </tr>
     <tr>
       <th>orig_values</th>
@@ -203,19 +205,27 @@ all values will be round to the length specified by 'n_decimal'.</p></td>
 </div><div class='output co'>#&gt; $delta
 #&gt; [1] 2
 #&gt; 
-#&gt; $trend
-#&gt; [1] "increase"
+#&gt; $delta_p
+#&gt; [1] 25
 #&gt; </div><div class='input'><span class='co'># percent difference (10-8)/8</span>
 <span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>$</span><span class='va'>delta_p</span>
-</div><div class='output co'>#&gt; [1] 25</div><div class='input'><span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span>, trend_phrases <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span>more <span class='op'>=</span> <span class='st'>"higher"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $delta
-#&gt; [1] 2
-#&gt; 
-#&gt; $trend
-#&gt; [1] "higher"
-#&gt; </div><div class='input'>
-<span class='co'># a phrase about the comparion can be edited by providing glue syntax</span>
+</div><div class='output co'>#&gt; [1] 25</div><div class='input'>
+<span class='co'># trend_phrases returns an object called trend if nothing is passed</span>
+<span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>$</span><span class='va'>trend</span>
+</div><div class='output co'>#&gt; [1] "increase"</div><div class='input'>
+<span class='co'># or if one argument is passed using trend_terms()</span>
+<span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span>, trend_phrases <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span>more <span class='op'>=</span> <span class='st'>"higher"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>trend</span>
+</div><div class='output co'>#&gt; [1] "higher"</div><div class='input'>
+<span class='co'># if a named list is used, the objects are called by their names</span>
+<span class='fu'>compare_values</span><span class='op'>(</span>
+  <span class='fl'>10</span>, <span class='fl'>8</span>,
+  trend_phrases <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    more <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='op'>)</span>,
+    higher <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='st'>"higher"</span>, <span class='st'>"lower"</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>)</span><span class='op'>$</span><span class='va'>higher</span>
+</div><div class='output co'>#&gt; [1] "higher"</div><div class='input'>
+<span class='co'># a phrase about the comparison can be edited by providing glue syntax</span>
 <span class='co'># 'c' = the 'compare' value, 'r' = 'reference'</span>
 <span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span>, orig_values <span class='op'>=</span> <span class='st'>"{c} to {r} people"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>orig_values</span>
 </div><div class='output co'>#&gt; 10 to 8 people</div><div class='input'>

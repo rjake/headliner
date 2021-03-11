@@ -43,7 +43,9 @@ headline(...)
 \code{\link[glue]{glue}} syntax}
 
 \item{trend_phrases}{list of values to use for when y is more than x, y is the
-same as x, or y is less than x.}
+same as x, or y is less than x. You can pass it just
+\code{\link{trend_terms}} (the default) and call the result with
+\code{"...{trend}..."} or pass is a named list (see examples)}
 
 \item{plural_phrases}{named list of values to use when difference (delta) is
 singular (delta = 1) or plural (delta != 1)}
@@ -117,7 +119,7 @@ headline(
   compare = 16,
   reference = 8,
   headline = "there was {article_delta_p}\% {trend}, \\\\
-  {article_trend} {trend} of {delta} ({orig_values})"
+  {add_article(trend)} of {delta} ({orig_values})"
 )
 
 # compare_conditions() produces a list that can be passed to headline()
@@ -136,5 +138,5 @@ headline(
 
 }
 \seealso{
-\code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}
+\code{\link[=compare_values]{compare_values()}}, \code{\link[=trend_terms]{trend_terms()}}, and \code{\link[=add_article]{add_article()}}
 }

@@ -11,6 +11,11 @@ reference:
   - add_headline_column
   - compare_values
   - view_list
+- title: String Manipulation
+  desc: >
+    Helper functions to edit strings used within headlines
+  contents:
+  - add_article
 - title: Data Prep Helpers
   desc: >
     There are some helper functions to prepare data frames for use
