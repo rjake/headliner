@@ -1,5 +1,5 @@
 ---
-title: "Introduction to `headliner`"
+title: "Introduction to headliner"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to headliner}
@@ -170,22 +170,23 @@ demo_data() %>%
   )
 ```
 
-### Within `mutate()`
+### Within a data frame
 
-You can also use `headliner()` with `mutate()` and `purrr::map2_chr()`
+You can also use `add_headline_column()` to append a column to your data frame with headlines describing each row. You can reference existing columns in the headline and you can bring back specific talking points using `return_cols = `. You can use this to find the most interesting phrases.
 ```{r}
-flights_jfk %>% 
-  head(5) %>% 
-  select(arr_delay, dep_delay) %>% 
-  mutate(
-    text = 
-      purrr::map2_chr(
-        .x = arr_delay, 
-        .y = dep_delay,
-        .f = headline,
-        headline = "Difference of {raw_delta} minutes"
-    )
-  )
+tibble::tibble(
+  med = tail(LETTERS, 5),
+  lab = rep(c("HDL", "LDL"), length.out = 5),
+  pre = 70 + 1:5,
+  post = 70 + 6:2
+) %>% 
+  add_headline_column(
+    compare = post, 
+    reference = pre,
+    headline = "Using Brand {med}, {lab} {trend}d by {delta} mg/dL",
+    return_cols = c("delta")
+  ) %>% 
+  arrange(desc(delta))
 
 ```
 

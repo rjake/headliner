@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introduction to `headliner` • headliner</title>
+<title>Introduction to headliner • headliner</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to `headliner`">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to headliner">
 <meta property="og:description" content="headliner">
 <meta property="og:image" content="/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -61,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/intro.html">Introduction to `headliner`</a>
+      <a href="../articles/intro.html">Introduction to headliner</a>
     </li>
   </ul>
 </li>
@@ -69,7 +69,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/rjake/headliner/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -83,11 +83,10 @@
 
       
 
-      </header><div class="row">
+      </header><script src="intro_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Introduction to <code>headliner</code>
-</h1>
+      <h1 data-toc-skip>Introduction to headliner</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/rjake/headliner/blob/master/vignettes/intro.Rmd"><code>vignettes/intro.Rmd</code></a></small>
@@ -111,7 +110,7 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <div id="installation-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation-1" class="anchor"></a>Installation</h3>
-<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 03/04/21).</p>
+<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 05/07/21).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">headliner</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
@@ -119,16 +118,16 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <span class="co">#&gt; # A tibble: 10 x 5</span>
 <span class="co">#&gt;    group     x     y     z date      </span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span>
-<span class="co">#&gt;  1 a       101    10     1 2021-03-04</span>
-<span class="co">#&gt;  2 a       102    20     0 2021-01-04</span>
-<span class="co">#&gt;  3 b       103    30     1 2020-11-04</span>
-<span class="co">#&gt;  4 b       104    40     0 2020-09-04</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-07-04</span>
-<span class="co">#&gt;  6 c       106    60     0 2020-05-04</span>
-<span class="co">#&gt;  7 d       107    70     1 2020-03-04</span>
-<span class="co">#&gt;  8 d       108    80     0 2020-01-04</span>
-<span class="co">#&gt;  9 e       109    90     1 2019-11-04</span>
-<span class="co">#&gt; 10 e       110   100     0 2019-09-04</span></code></pre></div>
+<span class="co">#&gt;  1 a       101    10     1 2021-05-07</span>
+<span class="co">#&gt;  2 a       102    20     0 2021-03-07</span>
+<span class="co">#&gt;  3 b       103    30     1 2021-01-07</span>
+<span class="co">#&gt;  4 b       104    40     0 2020-11-07</span>
+<span class="co">#&gt;  5 c       105    50     1 2020-09-07</span>
+<span class="co">#&gt;  6 c       106    60     0 2020-07-07</span>
+<span class="co">#&gt;  7 d       107    70     1 2020-05-07</span>
+<span class="co">#&gt;  8 d       108    80     0 2020-03-07</span>
+<span class="co">#&gt;  9 e       109    90     1 2020-01-07</span>
+<span class="co">#&gt; 10 e       110   100     0 2019-11-07</span></code></pre></div>
 </div>
 <div id="a-simple-headline" class="section level3">
 <h3 class="hasAnchor">
@@ -179,23 +178,23 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <h3 class="hasAnchor">
 <a href="#helpers-for-dynamic-calculations" class="anchor"></a>Helpers for dynamic calculations</h3>
 <p>But let’s see if we can make the calculations more dynamic…</p>
-<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 01/04/21 was 59 days ago (or 8 weeks or 2 months, …) from the current date.</p>
+<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 03/07/21 was 61 days ago (or 9 weeks or 2 months, …) from the current date.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_date_columns.html">add_date_columns</a></span><span class="op">(</span>date_col <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 11</span>
 <span class="co">#&gt;    group     x     y     z date         day  week month quarter calendar_year</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 a       101    10     1 2021-03-04     0     0     0       0             0</span>
-<span class="co">#&gt;  2 a       102    20     0 2021-01-04   -59    -8    -2       0             0</span>
-<span class="co">#&gt;  3 b       103    30     1 2020-11-04  -120   -17    -4      -1            -1</span>
-<span class="co">#&gt;  4 b       104    40     0 2020-09-04  -181   -26    -6      -2            -1</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-07-04  -243   -35    -8      -2            -1</span>
-<span class="co">#&gt;  6 c       106    60     0 2020-05-04  -304   -43   -10      -3            -1</span>
-<span class="co">#&gt;  7 d       107    70     1 2020-03-04  -365   -52   -12      -4            -1</span>
-<span class="co">#&gt;  8 d       108    80     0 2020-01-04  -425   -61   -14      -4            -1</span>
-<span class="co">#&gt;  9 e       109    90     1 2019-11-04  -486   -69   -16      -5            -2</span>
-<span class="co">#&gt; 10 e       110   100     0 2019-09-04  -547   -78   -18      -6            -2</span>
+<span class="co">#&gt;  1 a       101    10     1 2021-05-07     0     0     0       0             0</span>
+<span class="co">#&gt;  2 a       102    20     0 2021-03-07   -61    -9    -2      -1             0</span>
+<span class="co">#&gt;  3 b       103    30     1 2021-01-07  -120   -17    -4      -1             0</span>
+<span class="co">#&gt;  4 b       104    40     0 2020-11-07  -181   -26    -6      -2            -1</span>
+<span class="co">#&gt;  5 c       105    50     1 2020-09-07  -242   -34    -8      -3            -1</span>
+<span class="co">#&gt;  6 c       106    60     0 2020-07-07  -304   -43   -10      -3            -1</span>
+<span class="co">#&gt;  7 d       107    70     1 2020-05-07  -365   -52   -12      -4            -1</span>
+<span class="co">#&gt;  8 d       108    80     0 2020-03-07  -426   -61   -14      -5            -1</span>
+<span class="co">#&gt;  9 e       109    90     1 2020-01-07  -486   -69   -16      -5            -1</span>
+<span class="co">#&gt; 10 e       110   100     0 2019-11-07  -547   -78   -18      -6            -2</span>
 <span class="co">#&gt; # ... with 1 more variable: fiscal_year &lt;dbl&gt;</span></code></pre></div>
 <p>We can then identify some conditions for our comparison (<code>compare</code>) and our reference group (<code>reference</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -273,32 +272,32 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
   <span class="op">)</span>
 <span class="co">#&gt; Group A (101.5) is 4 points behind Group C (105.5)</span></code></pre></div>
 </div>
-<div id="within-mutate" class="section level3">
+<div id="within-a-data-frame" class="section level3">
 <h3 class="hasAnchor">
-<a href="#within-mutate" class="anchor"></a>Within <code>mutate()</code>
-</h3>
-<p>You can also use <code>headliner()</code> with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> and <code><a href="https://purrr.tidyverse.org/reference/map2.html">purrr::map2_chr()</a></code></p>
+<a href="#within-a-data-frame" class="anchor"></a>Within a data frame</h3>
+<p>You can also use <code><a href="../reference/add_headline_column.html">add_headline_column()</a></code> to append a column to your data frame with headlines describing each row. You can reference existing columns in the headline and you can bring back specific talking points using <code>return_cols =</code>. You can use this to find the most interesting phrases.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_jfk</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">arr_delay</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    text <span class="op">=</span> 
-      <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2_chr</a></span><span class="op">(</span>
-        .x <span class="op">=</span> <span class="va">arr_delay</span>, 
-        .y <span class="op">=</span> <span class="va">dep_delay</span>,
-        .f <span class="op">=</span> <span class="va">headline</span>,
-        headline <span class="op">=</span> <span class="st">"Difference of {raw_delta} minutes"</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 3</span>
-<span class="co">#&gt;   arr_delay dep_delay text                     </span>
-<span class="co">#&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                    </span>
-<span class="co">#&gt; 1         6        -4 Difference of 10 minutes </span>
-<span class="co">#&gt; 2        10        21 Difference of -11 minutes</span>
-<span class="co">#&gt; 3         2        -4 Difference of 6 minutes  </span>
-<span class="co">#&gt; 4       -21        -4 Difference of -17 minutes</span>
-<span class="co">#&gt; 5        11        -4 Difference of 15 minutes</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  med <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">LETTERS</span>, <span class="fl">5</span><span class="op">)</span>,
+  lab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HDL"</span>, <span class="st">"LDL"</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,
+  pre <span class="op">=</span> <span class="fl">70</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,
+  post <span class="op">=</span> <span class="fl">70</span> <span class="op">+</span> <span class="fl">6</span><span class="op">:</span><span class="fl">2</span>
+<span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/add_headline_column.html">add_headline_column</a></span><span class="op">(</span>
+    compare <span class="op">=</span> <span class="va">post</span>, 
+    reference <span class="op">=</span> <span class="va">pre</span>,
+    headline <span class="op">=</span> <span class="st">"Using Brand {med}, {lab} {trend}d by {delta} mg/dL"</span>,
+    return_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"delta"</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">delta</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 5 x 6</span>
+<span class="co">#&gt;   med   lab     pre  post headline                                delta</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;glue&gt;                                  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 V     HDL      71    76 Using Brand V, HDL increased by 5 mg/dL     5</span>
+<span class="co">#&gt; 2 W     LDL      72    75 Using Brand W, LDL increased by 3 mg/dL     3</span>
+<span class="co">#&gt; 3 Z     HDL      75    72 Using Brand Z, HDL decreased by 3 mg/dL     3</span>
+<span class="co">#&gt; 4 X     HDL      73    74 Using Brand X, HDL increased by 1 mg/dL     1</span>
+<span class="co">#&gt; 5 Y     LDL      74    73 Using Brand Y, LDL decreased by 1 mg/dL     1</span></code></pre></div>
 </div>
 <div id="adding-plural-phrasing-multiple-trend-terms" class="section level3">
 <h3 class="hasAnchor">
