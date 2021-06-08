@@ -37,8 +37,8 @@ check_overlapping_names <- function(orig_df, new_df, drop = FALSE) {
 #' @importFrom dplyr filter summarise across ungroup
 #' @noRd
 #' @examples
-#' aggregate_group(mtcars, "", mpg, calc = list(mean = mean))
-aggregate_group <- function(df, name, ..., calc, cond) {
+#' aggregate_group(mtcars, name = "", cols = mpg, calc = list(mean = mean))
+aggregate_group <- function(df, name, cols, calc, cond) {
   #df <- mtcars; cond <- dplyr::quo(cyl > 4); var <- dplyr::quo(mean(mpg))
 
   if (!missing(cond)) {
@@ -46,7 +46,7 @@ aggregate_group <- function(df, name, ..., calc, cond) {
   }
 
   df %>%
-    summarise(across(..., calc, .names = "{.fn}_{.col}{name}")) %>%
+    summarise(across({{cols}}, calc, .names = "{.fn}_{.col}{name}")) %>%
     ungroup() %>%
     as.list()
 }

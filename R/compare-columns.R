@@ -20,6 +20,6 @@
 compare_columns <- function(df,
                             cols = everything(),
                             calc = list(mean = mean)) {
-  res <- aggregate_group(df, "", {{cols}}, calc = calc)
+  res <- aggregate_group(df, name = "", cols = {{cols}}, calc = calc)
   res[order(names(res))]
 }

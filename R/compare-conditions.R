@@ -35,8 +35,8 @@ compare_conditions <- function(df,
                                cols = everything(),
                                calc = list(mean = mean)
                                ) {
-  res_1 <- aggregate_group(df, "_comp", {{cols}}, calc = calc, cond = {{compare}})
-  res_2 <- aggregate_group(df, "_ref", {{cols}}, calc = calc, cond = {{reference}})
+  res_1 <- aggregate_group(df, name = "_comp", cols = {{cols}}, calc = calc, cond = {{compare}})
+  res_2 <- aggregate_group(df, name = "_ref",  cols = {{cols}}, calc = calc, cond = {{reference}})
   final <- append(res_1, res_2)
   final[order(names(final))]
 }
