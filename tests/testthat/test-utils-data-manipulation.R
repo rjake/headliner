@@ -17,7 +17,7 @@ test_that("aggregate_group() works", {
     aggregate_group(
       df = mtcars,
       name = "_comp",
-      .cols = c(mpg, hp),
+      cols = c(mpg, hp),
       calc = list(avg = mean)
     )
 
