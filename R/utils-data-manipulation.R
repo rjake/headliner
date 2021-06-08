@@ -38,7 +38,7 @@ check_overlapping_names <- function(orig_df, new_df, drop = FALSE) {
 #' @noRd
 #' @examples
 #' aggregate_group(mtcars, name = "", cols = mpg, calc = list(mean = mean))
-aggregate_group <- function(df, name, ..., calc, cond) {
+aggregate_group <- function(df, name, cols, calc, cond) {
   #df <- mtcars; cond <- dplyr::quo(cyl > 4); var <- dplyr::quo(mean(mpg))
 
   if (!missing(cond)) {
