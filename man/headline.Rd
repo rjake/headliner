@@ -2,13 +2,10 @@
 % Please edit documentation in R/headline.R
 \name{headline}
 \alias{headline}
-\alias{headline.default}
 \alias{headline.list}
 \title{Compose phrases that describe differences in the data}
 \usage{
-headline(...)
-
-\method{headline}{default}(
+headline(
   compare,
   reference,
   headline = "{trend} of {delta} ({orig_values})",
@@ -26,18 +23,18 @@ headline(...)
 \method{headline}{list}(x, compare, reference, ...)
 }
 \arguments{
-\item{...}{
-  Arguments passed on to \code{\link[=headline.default]{headline.default}}
-  \describe{
-    \item{\code{}}{}
-  }}
-
 \item{compare}{numeric value to compare against reference (base) value}
 
 \item{reference}{numeric value that 'compare' value will be compared against}
 
 \item{headline}{a string to format the final output. Uses
 \code{\link[glue]{glue}} syntax}
+
+\item{...}{
+  Arguments passed on to \code{\link[=headline]{headline}}
+  \describe{
+    \item{\code{}}{}
+  }}
 
 \item{if_match}{string to display if numbers match, uses
 \code{\link[glue]{glue}} syntax}
