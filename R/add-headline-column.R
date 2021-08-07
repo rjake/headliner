@@ -109,7 +109,7 @@ add_headline_column <- function(df,
     transmute(
       {{.name}} :=
         ifelse(
-          test = comp_value == ref_value,
+          test = .data$comp_value == .data$ref_value,
           yes = if_match,
           no = glue(headline, ...)
       )
