@@ -1,9 +1,4 @@
 #' Compose phrases that describe differences in the data
-#' @export
-headline <- function(...) {
-  UseMethod("headline")
-}
-
 #' @param compare a numeric value to compare to a reference value
 #' @param reference a numeric value to act as a control for the 'compare' value
 #' @param headline a string to format the final output. Uses
@@ -95,6 +90,22 @@ headline <- function(...) {
 #'      trend_phrases = trend_terms("more", "less")
 #'    )
 #'
+headline <- function(compare,
+                     reference,
+                     headline = "{trend} of {delta} ({orig_values})",
+                     ...,
+                     if_match = "There was no difference.",
+                     trend_phrases = headliner::trend_terms(),
+                     plural_phrases = NULL,
+                     orig_values = "{c} vs. {r}",
+                     n_decimal = 1,
+                     round_all = TRUE,
+                     multiplier = 1,
+                     return_data = FALSE) {
+  UseMethod("headline")
+}
+
+#' @export
 headline.default <- function(compare,
                              reference,
                              headline = "{trend} of {delta} ({orig_values})",
@@ -136,7 +147,7 @@ headline.default <- function(compare,
 #' @param x a list with values to compare, if named, can call by name
 #' @param compare numeric value to compare against reference (base) value
 #' @param reference numeric value that 'compare' value will be compared against
-#' @inheritDotParams headline.default
+#' @inheritDotParams headline
 #' @rdname headline
 #' @export
 headline.list <- function(x, compare, reference, ...) {
