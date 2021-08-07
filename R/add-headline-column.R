@@ -106,7 +106,14 @@ add_headline_column <- function(df,
   # create headline column
   headline_col <-
     full_data %>%
-    transmute({{.name}} := glue(headline, ...))
+    transmute(
+      {{.name}} :=
+        ifelse(
+          test = comp_value == ref_value,
+          yes = if_match,
+          no = glue(headline, ...)
+      )
+    )
 
 
   # return df + headline if no cols requested
