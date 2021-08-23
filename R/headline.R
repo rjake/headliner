@@ -102,22 +102,6 @@ headline <- function(compare,
                      round_all = TRUE,
                      multiplier = 1,
                      return_data = FALSE) {
-  UseMethod("headline")
-}
-
-#' @export
-headline.default <- function(compare,
-                             reference,
-                             headline = "{trend} of {delta} ({orig_values})",
-                             ...,
-                             if_match = "There was no difference.",
-                             trend_phrases = headliner::trend_terms(),
-                             plural_phrases = NULL,
-                             orig_values = "{c} vs. {r}",
-                             n_decimal = 1,
-                             round_all = TRUE,
-                             multiplier = 1,
-                             return_data = FALSE) {
   res <-
     compare_values(
       compare,
@@ -145,12 +129,9 @@ headline.default <- function(compare,
 
 
 #' @param x a list with values to compare, if named, can call by name
-#' @param compare numeric value to compare against reference (base) value
-#' @param reference numeric value that 'compare' value will be compared against
-#' @inheritDotParams headline
+#' @inheritParams headline
 #' @rdname headline
 #' @export
-headline.list <- function(x, compare, reference, ...) {
   if (missing(compare) & missing(reference)) {
     if (length(x) > 2) {
       stop(paste(
@@ -165,5 +146,17 @@ headline.list <- function(x, compare, reference, ...) {
     ref <- x[[deparse(match.call()[["reference"]])]]
   }
 
-  headline(comp, ref, ...)
+  headline(
+    compare = comp,
+    reference = ref,
+    headline = headline,
+    ...,
+    if_match = if_match,
+    trend_phrases = trend_phrases,
+    orig_values = orig_values,
+    n_decimal = n_decimal,
+    round_all = round_all,
+    multiplier = multiplier,
+    return_data = return_data
+  )
 }
