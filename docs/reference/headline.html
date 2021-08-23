@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -103,7 +103,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro.html">Introduction to `headliner`</a>
+      <a href="../articles/intro.html">Introduction to headliner</a>
     </li>
   </ul>
 </li>
@@ -111,7 +111,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rjake/headliner/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -137,10 +137,7 @@
     <p>Compose phrases that describe differences in the data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>headline</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>headline</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>headline</span><span class='op'>(</span>
   <span class='va'>compare</span>,
   <span class='va'>reference</span>,
   headline <span class='op'>=</span> <span class='st'>"{trend} of {delta} ({orig_values})"</span>,
@@ -155,31 +152,41 @@
   return_data <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
-<span class='co'># S3 method for list</span>
-<span class='fu'>headline</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>compare</span>, <span class='va'>reference</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>headline_list</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  headline <span class='op'>=</span> <span class='st'>"{trend} of {delta} ({orig_values})"</span>,
+  <span class='va'>compare</span>,
+  <span class='va'>reference</span>,
+  <span class='va'>...</span>,
+  if_match <span class='op'>=</span> <span class='st'>"There was no difference."</span>,
+  trend_phrases <span class='op'>=</span> <span class='fu'>headliner</span><span class='fu'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='op'>)</span>,
+  plural_phrases <span class='op'>=</span> <span class='cn'>NULL</span>,
+  orig_values <span class='op'>=</span> <span class='st'>"{c} vs. {r}"</span>,
+  n_decimal <span class='op'>=</span> <span class='fl'>1</span>,
+  round_all <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  multiplier <span class='op'>=</span> <span class='fl'>1</span>,
+  return_data <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Arguments passed on to <code>headline.default</code></p><dl>
-    <dt><code></code></dt><dd><p></p></dd>
-  
-</dl></td>
-    </tr>
-    <tr>
       <th>compare</th>
-      <td><p>numeric value to compare against reference (base) value</p></td>
+      <td><p>a numeric value to compare to a reference value</p></td>
     </tr>
     <tr>
       <th>reference</th>
-      <td><p>numeric value that 'compare' value will be compared against</p></td>
+      <td><p>a numeric value to act as a control for the 'compare' value</p></td>
     </tr>
     <tr>
       <th>headline</th>
       <td><p>a string to format the final output. Uses
 <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed to <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue_data</a></code></p></td>
     </tr>
     <tr>
       <th>if_match</th>
@@ -271,7 +278,7 @@ phrase components used to compose the headline</p></td>
   headline <span class='op'>=</span> <span class='st'>"there {were} {delta} {people}"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; there were 2 people</div><div class='input'>
-<span class='co'># you can also adjust the rounding, although the default is 1</span>
+<span class='co'># you can also adjust the rounding, the default is 1</span>
 <span class='fu'>headline</span><span class='op'>(</span><span class='fl'>0.1234</span>, <span class='fl'>0.4321</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; decrease of 0.3 (0.1 vs. 0.4)</div><div class='input'><span class='fu'>headline</span><span class='op'>(</span><span class='fl'>0.1234</span>, <span class='fl'>0.4321</span>, n_decimal <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; decrease of 0.309 (0.123 vs. 0.432)</div><div class='input'><span class='co'># or use a multiplier</span>
@@ -285,21 +292,28 @@ phrase components used to compose the headline</p></td>
   {add_article(trend)} of {delta} ({orig_values})"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; there was a 100% increase, an increase of 8 (16 vs. 8)</div><div class='input'>
-<span class='co'># compare_conditions() produces a list that can be passed to headline()</span>
- <span class='va'>mtcars</span> <span class='op'>%&gt;%</span>
-   <span class='fu'><a href='compare_conditions.html'>compare_conditions</a></span><span class='op'>(</span>
-     compare <span class='op'>=</span> <span class='va'>cyl</span> <span class='op'>==</span> <span class='fl'>4</span>,
-     reference <span class='op'>=</span> <span class='va'>cyl</span> <span class='op'>==</span> <span class='fl'>6</span>,
-     cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span>
-   <span class='op'>)</span> <span class='op'>%&gt;%</span>
-   <span class='fu'>headline</span><span class='op'>(</span>
-     headline <span class='op'>=</span>
-       <span class='st'>"4-cylinder cars get an average of {delta} {trend} miles \\
-       per gallon than 6-cylinder cars ({orig_values})."</span>,
-     trend_phrases <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='st'>"more"</span>, <span class='st'>"less"</span><span class='op'>)</span>
-   <span class='op'>)</span>
-</div><div class='output co'>#&gt; 4-cylinder cars get an average of 6.9 more miles per gallon than 6-cylinder cars (26.7 vs. 19.7).</div><div class='input'>
-</div></pre>
+
+<span class='co'># compare_conditions() and compare_columns() produce list that can be</span>
+<span class='co'># passed to headline_list()</span>
+<span class='va'>flights_jfk</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='compare_columns.html'>compare_conditions</a></span><span class='op'>(</span>
+    compare <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&gt;</span> <span class='fl'>12</span><span class='op'>)</span>,
+    reference <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&lt;=</span> <span class='fl'>12</span><span class='op'>)</span>,
+    <span class='va'>dep_delay</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>headline_list</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; increase of 11.5 (14 vs. 2.6)</div><div class='input'>
+<span class='co'># if you have more than 2 list items, you can specify them by name</span>
+<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fl'>1</span>,
+  y <span class='op'>=</span> <span class='fl'>2</span>,
+  z <span class='op'>=</span> <span class='fl'>3</span>
+ <span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>headline_list</span><span class='op'>(</span>
+    compare <span class='op'>=</span> <span class='va'>x</span>,
+    reference <span class='op'>=</span> <span class='va'>z</span>
+  <span class='op'>)</span>
+</div><div class='output co'>#&gt; decrease of 2 (1 vs. 3)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

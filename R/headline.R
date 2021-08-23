@@ -1,9 +1,4 @@
 #' Compose phrases that describe differences in the data
-#' @export
-headline <- function(...) {
-  UseMethod("headline")
-}
-
 #' @param compare a numeric value to compare to a reference value
 #' @param reference a numeric value to act as a control for the 'compare' value
 #' @param headline a string to format the final output. Uses
@@ -67,7 +62,7 @@ headline <- function(...) {
 #'   headline = "there {were} {delta} {people}"
 #' )
 #'
-#' # you can also adjust the rounding, although the default is 1
+#' # you can also adjust the rounding, the default is 1
 #' headline(0.1234, 0.4321)
 #' headline(0.1234, 0.4321, n_decimal = 3)
 #' # or use a multiplier
@@ -81,32 +76,18 @@ headline <- function(...) {
 #'   {add_article(trend)} of {delta} ({orig_values})"
 #' )
 #'
-#' # compare_conditions() produces a list that can be passed to headline()
-#'  mtcars %>%
-#'    compare_conditions(
-#'      compare = cyl == 4,
-#'      reference = cyl == 6,
-#'      cols = c(mpg)
-#'    ) %>%
-#'    headline(
-#'      headline =
-#'        "4-cylinder cars get an average of {delta} {trend} miles \\
-#'        per gallon than 6-cylinder cars ({orig_values}).",
-#'      trend_phrases = trend_terms("more", "less")
-#'    )
-#'
-headline.default <- function(compare,
-                             reference,
-                             headline = "{trend} of {delta} ({orig_values})",
-                             ...,
-                             if_match = "There was no difference.",
-                             trend_phrases = headliner::trend_terms(),
-                             plural_phrases = NULL,
-                             orig_values = "{c} vs. {r}",
-                             n_decimal = 1,
-                             round_all = TRUE,
-                             multiplier = 1,
-                             return_data = FALSE) {
+headline <- function(compare,
+                     reference,
+                     headline = "{trend} of {delta} ({orig_values})",
+                     ...,
+                     if_match = "There was no difference.",
+                     trend_phrases = headliner::trend_terms(),
+                     plural_phrases = NULL,
+                     orig_values = "{c} vs. {r}",
+                     n_decimal = 1,
+                     round_all = TRUE,
+                     multiplier = 1,
+                     return_data = FALSE) {
   res <-
     compare_values(
       compare,
@@ -134,12 +115,44 @@ headline.default <- function(compare,
 
 
 #' @param x a list with values to compare, if named, can call by name
-#' @param compare numeric value to compare against reference (base) value
-#' @param reference numeric value that 'compare' value will be compared against
-#' @inheritDotParams headline.default
+#' @inheritParams headline
 #' @rdname headline
 #' @export
-headline.list <- function(x, compare, reference, ...) {
+#' @examples
+#'
+#' # compare_conditions() and compare_columns() produce list that can be
+#' # passed to headline_list()
+#' flights_jfk %>%
+#'   compare_conditions(
+#'     compare = (hour > 12),
+#'     reference = (hour <= 12),
+#'     dep_delay
+#'   ) %>%
+#'   headline_list()
+#'
+#' # if you have more than 2 list items, you can specify them by name
+#' list(
+#'   x = 1,
+#'   y = 2,
+#'   z = 3
+#'  ) %>%
+#'   headline_list(
+#'     compare = x,
+#'     reference = z
+#'   )
+headline_list <- function(x,
+                          headline = "{trend} of {delta} ({orig_values})",
+                          compare,
+                          reference,
+                          ...,
+                          if_match = "There was no difference.",
+                          trend_phrases = headliner::trend_terms(),
+                          plural_phrases = NULL,
+                          orig_values = "{c} vs. {r}",
+                          n_decimal = 1,
+                          round_all = TRUE,
+                          multiplier = 1,
+                          return_data = FALSE) {
   if (missing(compare) & missing(reference)) {
     if (length(x) > 2) {
       stop(paste(
@@ -154,5 +167,17 @@ headline.list <- function(x, compare, reference, ...) {
     ref <- x[[deparse(match.call()[["reference"]])]]
   }
 
-  headline(comp, ref, ...)
+  headline(
+    compare = comp,
+    reference = ref,
+    headline = headline,
+    ...,
+    if_match = if_match,
+    trend_phrases = trend_phrases,
+    orig_values = orig_values,
+    n_decimal = n_decimal,
+    round_all = round_all,
+    multiplier = multiplier,
+    return_data = return_data
+  )
 }

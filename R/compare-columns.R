@@ -9,6 +9,7 @@
 #' @importFrom dplyr everything
 #' @importFrom glue glue
 #' @export
+#' @rdname compare_conditions
 #'
 #' @examples
 #' # by default the function will compute the means

@@ -62,7 +62,7 @@ demo_data() %>%
     reference = month == -12,
     cols = x
   ) %>% 
-  headline(
+  headline_list(
     headline = 
     "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
   )
@@ -119,16 +119,16 @@ yoy <- # year over year
 yoy
 ```
 
-It might look funny to see `list(mean = mean)`. The name (left side) is how it will name the values, the right side is the function to use. If I had used `calc = list(avg = mean)` The names would have been `avg_x_*`. Because `compare_conditions()` uses the mean as the default, I'll omit it going forward. Now that I have my output as a list (or 1 row data frame), I can pipe it into `headline()` to see the underlying data. 
+It might look funny to see `list(mean = mean)`. The name (left side) is how it will name the values, the right side is the function to use. If I had used `calc = list(avg = mean)` The names would have been `avg_x_*`. Because `compare_conditions()` uses the mean as the default, I'll omit it going forward. Now that I have my output as a list, I can use `headline_list()` to generate headlines. 
 
 ```{r}
 yoy %>% 
-  headline(
+  headline_list(
     headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
   ) 
 ```
 
-If your list/data frame has more than 2 values, you can specify the values you need by calling their names
+If your list has more than 2 values, you can specify the values you need by calling their names
 ```{r}
 car_stats <-
   mtcars %>% 
@@ -141,18 +141,18 @@ car_stats <-
 
 view_list(car_stats)
 
-headline(
-  car_stats,
-  avg_disp_comp,
-  avg_disp_ref,
-  "Difference in avg. displacement of {delta}cu.in. ({orig_values})"
+headline_list(
+  x = car_stats,
+  compare = avg_disp_comp,
+  reference = avg_disp_ref,
+  headline = "Difference in avg. displacement of {delta}cu.in. ({orig_values})"
 )
 
-headline(
-  car_stats,
-  avg_drat_comp,
-  avg_drat_ref,
-  "Difference in avg. rear axle ratio of {delta} ({orig_values})"
+headline_list(
+  x = car_stats,
+  compare = avg_drat_comp,
+  reference = avg_drat_ref,
+  headline = "Difference in avg. rear axle ratio of {delta} ({orig_values})"
 )
 ```
 
@@ -164,7 +164,7 @@ demo_data() %>%
     reference = group == "c",
     cols = c(x)
   ) %>% 
-  headline(
+  headline_list(
     headline = "Group A ({comp_value}) is {delta} points {trend} Group C ({ref_value})",
     trend_phrases = trend_terms(more = "ahead",  less = "behind")
   )

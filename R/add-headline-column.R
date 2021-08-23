@@ -7,7 +7,7 @@
 #' @param return_cols arguments that can be passed to
 #' \code{\link[dplyr]{select}}, ex: c("a", "b"),
 #' \code{\link[dplyr]{starts_with}},etc.
-#' @inheritParams headline.default
+#' @inheritParams headline
 #' @export
 #' @importFrom glue glue
 #' @importFrom dplyr mutate transmute bind_cols any_of select

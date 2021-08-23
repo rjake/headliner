@@ -2,13 +2,10 @@
 % Please edit documentation in R/headline.R
 \name{headline}
 \alias{headline}
-\alias{headline.default}
-\alias{headline.list}
+\alias{headline_list}
 \title{Compose phrases that describe differences in the data}
 \usage{
-headline(...)
-
-\method{headline}{default}(
+headline(
   compare,
   reference,
   headline = "{trend} of {delta} ({orig_values})",
@@ -23,21 +20,31 @@ headline(...)
   return_data = FALSE
 )
 
-\method{headline}{list}(x, compare, reference, ...)
+headline_list(
+  x,
+  headline = "{trend} of {delta} ({orig_values})",
+  compare,
+  reference,
+  ...,
+  if_match = "There was no difference.",
+  trend_phrases = headliner::trend_terms(),
+  plural_phrases = NULL,
+  orig_values = "{c} vs. {r}",
+  n_decimal = 1,
+  round_all = TRUE,
+  multiplier = 1,
+  return_data = FALSE
+)
 }
 \arguments{
-\item{...}{
-  Arguments passed on to \code{\link[=headline.default]{headline.default}}
-  \describe{
-    \item{\code{}}{}
-  }}
+\item{compare}{a numeric value to compare to a reference value}
 
-\item{compare}{numeric value to compare against reference (base) value}
-
-\item{reference}{numeric value that 'compare' value will be compared against}
+\item{reference}{a numeric value to act as a control for the 'compare' value}
 
 \item{headline}{a string to format the final output. Uses
 \code{\link[glue]{glue}} syntax}
+
+\item{...}{arguments passed to \code{\link[glue]{glue_data}}}
 
 \item{if_match}{string to display if numbers match, uses
 \code{\link[glue]{glue}} syntax}
@@ -108,7 +115,7 @@ headline(
   headline = "there {were} {delta} {people}"
 )
 
-# you can also adjust the rounding, although the default is 1
+# you can also adjust the rounding, the default is 1
 headline(0.1234, 0.4321)
 headline(0.1234, 0.4321, n_decimal = 3)
 # or use a multiplier
@@ -122,20 +129,27 @@ headline(
   {add_article(trend)} of {delta} ({orig_values})"
 )
 
-# compare_conditions() produces a list that can be passed to headline()
- mtcars \%>\%
-   compare_conditions(
-     compare = cyl == 4,
-     reference = cyl == 6,
-     cols = c(mpg)
-   ) \%>\%
-   headline(
-     headline =
-       "4-cylinder cars get an average of {delta} {trend} miles \\\\
-       per gallon than 6-cylinder cars ({orig_values}).",
-     trend_phrases = trend_terms("more", "less")
-   )
 
+# compare_conditions() and compare_columns() produce list that can be
+# passed to headline_list()
+flights_jfk \%>\%
+  compare_conditions(
+    compare = (hour > 12),
+    reference = (hour <= 12),
+    dep_delay
+  ) \%>\%
+  headline_list()
+
+# if you have more than 2 list items, you can specify them by name
+list(
+  x = 1,
+  y = 2,
+  z = 3
+ ) \%>\%
+  headline_list(
+    compare = x,
+    reference = z
+  )
 }
 \seealso{
 \code{\link[=compare_values]{compare_values()}}, \code{\link[=trend_terms]{trend_terms()}}, and \code{\link[=add_article]{add_article()}}
