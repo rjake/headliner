@@ -1,19 +1,19 @@
 test_that("vector works correctly", {
- res <- "decrease of 2 (1 vs. 3)"
- expect_equal(headline(1, 3), res)
- expect_equal(headline(as.list(range(1, 3))), res)
+  expect_equal(
+    headline(1, 3),
+    "decrease of 2 (1 vs. 3)"
+  )
 })
-
 
 
 test_that("list is passed correctly", {
   named <-
     list(a = 8, b = 9, c = 10) %>%
-    headline(c, a)
+    headline_list(compare = c, reference = a)
 
   unnamed <-
     list(10, 8) %>%
-    headline()
+    headline_list()
 
   phrase <- glue::glue("increase of 2 (10 vs. 8)")
 
