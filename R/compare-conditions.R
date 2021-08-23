@@ -12,21 +12,33 @@
 #' @export
 #'
 #' @examples
+#' # compare_conditions() produces a list that can be passed to headline_list()
 #' flights_jfk %>%
 #'   compare_conditions(
-#'     compare = (carrier == "AA"),
-#'     reference = complete.cases(.),
-#'     c(dep_delay, arr_delay),
+#'     compare = (hour > 12),
+#'     reference = (hour <= 12),
+#'     dep_delay
+#'   )
+#'
+#' .Last.value %>% headline_list()
+#'
+#'  # you can return multiple objects to compare
+#'  # 'view_List()' is a helper to see list objects in a compact way
+#' flights_jfk %>%
+#'   compare_conditions(
+#'     compare = (hour > 12),
+#'     reference = (hour <= 12),
+#'     cols = c(dep_delay, arr_delay),
 #'     calc = list(mean = mean, sd = sd)
 #'   ) %>%
 #'   view_list()
 #'
-#' mtcars %>%
+#' # if you want to compare to the average use 'complete.cases(.)'
+#' flights_jfk %>%
 #'   compare_conditions(
-#'     compare = (hp > 100 | gear == 4),
-#'     reference = (mpg > 24),
-#'     dplyr::starts_with("d"),
-#'     calc = list(mean = mean, max = max)
+#'     compare = (hour > 12),
+#'     reference = complete.cases(.),
+#'     dep_delay
 #'   ) %>%
 #'   view_list()
 compare_conditions <- function(df,
