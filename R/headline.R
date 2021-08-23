@@ -62,7 +62,7 @@
 #'   headline = "there {were} {delta} {people}"
 #' )
 #'
-#' # you can also adjust the rounding, although the default is 1
+#' # you can also adjust the rounding, the default is 1
 #' headline(0.1234, 0.4321)
 #' headline(0.1234, 0.4321, n_decimal = 3)
 #' # or use a multiplier
@@ -75,20 +75,6 @@
 #'   headline = "there was {article_delta_p}% {trend}, \\
 #'   {add_article(trend)} of {delta} ({orig_values})"
 #' )
-#'
-#' # compare_conditions() produces a list that can be passed to headline()
-#'  mtcars %>%
-#'    compare_conditions(
-#'      compare = cyl == 4,
-#'      reference = cyl == 6,
-#'      cols = c(mpg)
-#'    ) %>%
-#'    headline(
-#'      headline =
-#'        "4-cylinder cars get an average of {delta} {trend} miles \\
-#'        per gallon than 6-cylinder cars ({orig_values}).",
-#'      trend_phrases = trend_terms("more", "less")
-#'    )
 #'
 headline <- function(compare,
                      reference,
@@ -132,6 +118,41 @@ headline <- function(compare,
 #' @inheritParams headline
 #' @rdname headline
 #' @export
+#' @examples
+#'
+#' # compare_conditions() and compare_columns() produce list that can be
+#' # passed to headline_list()
+#' flights_jfk %>%
+#'   compare_conditions(
+#'     compare = (hour > 12),
+#'     reference = (hour <= 12),
+#'     dep_delay
+#'   ) %>%
+#'   headline_list()
+#'
+#' # if you have more than 2 list items, you can specify them by name
+#' list(
+#'   x = 1,
+#'   y = 2,
+#'   z = 3
+#'  ) %>%
+#'   headline_list(
+#'     compare = x,
+#'     reference = z
+#'   )
+headline_list <- function(x,
+                          headline = "{trend} of {delta} ({orig_values})",
+                          compare,
+                          reference,
+                          ...,
+                          if_match = "There was no difference.",
+                          trend_phrases = headliner::trend_terms(),
+                          plural_phrases = NULL,
+                          orig_values = "{c} vs. {r}",
+                          n_decimal = 1,
+                          round_all = TRUE,
+                          multiplier = 1,
+                          return_data = FALSE) {
   if (missing(compare) & missing(reference)) {
     if (length(x) > 2) {
       stop(paste(
