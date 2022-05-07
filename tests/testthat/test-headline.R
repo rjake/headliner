@@ -41,3 +41,26 @@ test_that("list is returned", {
   expect_true(inherits(x, "list"))
 })
 
+
+test_that("glue_data() allows extra expressions", {
+  as_headline <-
+    headline(
+      3, 2,
+      "{trend} on {date}",
+      date = "1/1/2022"
+    )
+
+  as_list <-
+    headline(
+      3, 2,
+      "{trend} on {date}",
+      date = "1/1/2022",
+      return_data = TRUE
+    )
+
+  expect_true(
+    all(
+      c(as_headline, as_list$headline) == "increase on 1/1/2022"
+    )
+  )
+})

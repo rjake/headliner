@@ -100,14 +100,14 @@ headline <- function(compare,
       multiplier = multiplier
     )
 
+  final_output <- glue_data(res, headline, ...)
 
   if (return_data) {
-    res <- append(res, list(headline = glue_data(res, headline)))
+    res <- append(res, list(headline = final_output))
     return(res)
   }
 
   # determine which headline phrasing to use
-  final_output <- glue_data(res, headline, ...)
   final_output[res$sign == 0] <- glue_data(res, if_match, ...)
 
   final_output
@@ -120,7 +120,7 @@ headline <- function(compare,
 #' @export
 #' @examples
 #'
-#' # compare_conditions() and compare_columns() produce list that can be
+#' # compare_conditions() and compare_columns() produce lists that can be
 #' # passed to headline_list()
 #' flights_jfk %>%
 #'   compare_conditions(
