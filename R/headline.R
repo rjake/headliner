@@ -1,6 +1,4 @@
 #' Compose phrases that describe differences in the data
-#' @param compare a numeric value to compare to a reference value
-#' @param reference a numeric value to act as a control for the 'compare' value
 #' @param headline a string to format the final output. Uses
 #' \code{\link[glue]{glue}} syntax
 #' @param ... arguments passed to \code{\link[glue]{glue_data}}
@@ -8,9 +6,6 @@
 #' \code{\link[glue]{glue}} syntax
 #' @param plural_phrases named list of values to use when difference (delta) is
 #' singular (delta = 1) or plural (delta != 1)
-#' @param orig_values a string to display the two original values. Uses
-#'  \code{\link[glue]{glue}} syntax. `{c}` = the 'compare' value, and
-#'  `{r}` = 'reference'
 #' @param n_decimal numeric value to limit the number of decimal places in
 #' the returned values.
 #' @param round_all logical value to indicate if all values should be rounded.
@@ -34,27 +29,27 @@
 #'
 #' # most likely you'll edit the headline by hand
 #' headline(
-#'   compare = 10,
-#'   reference = 8,
+#'   x = 10,
+#'   y = 8,
 #'   headline = "There was a ${delta} {trend} vs last year"
 #' )
 #'
 #' # you can also adjust the phrasing of higher/lower values
 #' headline(
-#'   compare = 10,
-#'   reference = 8,
+#'   x = 10,
+#'   y = 8,
 #'   headline = "Group A was {trend} by {delta_p}%.",
 #'   trend_phrases = trend_terms(more = "higher", less = "lower")
 #'  )
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
-#' headline(10, 8, orig_values = "{c} to {r} people")
+#' headline(10, 8, orig_values = "{x} to {y} people")
 #'
 #' # you can also add phrases for when the difference = 1 or not
 #' headline(
-#'   compare = 10,
-#'   reference = 8,
+#'   x = 10,
+#'   y = 8,
 #'   plural_phrases = list(
 #'     were = plural_phrasing(single = "was", multi = "were"),
 #'     people = plural_phrasing(single = "person", multi = "people")
@@ -70,28 +65,28 @@
 #'
 #' # there are many components you can assemble
 #' headline(
-#'   compare = 16,
-#'   reference = 8,
+#'   x = 16,
+#'   y = 8,
 #'   headline = "there was {article_delta_p}% {trend}, \\
 #'   {add_article(trend)} of {delta} ({orig_values})"
 #' )
 #'
-headline <- function(compare,
-                     reference,
+headline <- function(x,
+                     y,
                      headline = "{trend} of {delta} ({orig_values})",
                      ...,
                      if_match = "There was no difference.",
                      trend_phrases = headliner::trend_terms(),
                      plural_phrases = NULL,
-                     orig_values = "{c} vs. {r}",
+                     orig_values = "{x} vs. {y}",
                      n_decimal = 1,
                      round_all = TRUE,
                      multiplier = 1,
                      return_data = FALSE) {
   res <-
     compare_values(
-      compare,
-      reference,
+      x,
+      y,
       trend_phrases = trend_phrases,
       plural_phrases = plural_phrases,
       orig_values = orig_values,
@@ -114,7 +109,7 @@ headline <- function(compare,
 }
 
 
-#' @param x a list with values to compare, if named, can call by name
+#' @param l a list with values to compare, if named, can call by name
 #' @inheritParams headline
 #' @rdname headline
 #' @export
@@ -124,8 +119,8 @@ headline <- function(compare,
 #' # passed to headline_list()
 #' flights_jfk %>%
 #'   compare_conditions(
-#'     compare = (hour > 12),
-#'     reference = (hour <= 12),
+#'     x = (hour > 12),
+#'     y = (hour <= 12),
 #'     dep_delay
 #'   ) %>%
 #'   headline_list()
@@ -137,39 +132,39 @@ headline <- function(compare,
 #'   z = 3
 #'  ) %>%
 #'   headline_list(
-#'     compare = x,
-#'     reference = z
+#'     x = x,
+#'     y = z
 #'   )
-headline_list <- function(x,
+headline_list <- function(l,
                           headline = "{trend} of {delta} ({orig_values})",
-                          compare,
-                          reference,
+                          x,
+                          y,
                           ...,
                           if_match = "There was no difference.",
                           trend_phrases = headliner::trend_terms(),
                           plural_phrases = NULL,
-                          orig_values = "{c} vs. {r}",
+                          orig_values = "{x} vs. {y}",
                           n_decimal = 1,
                           round_all = TRUE,
                           multiplier = 1,
                           return_data = FALSE) {
-  if (missing(compare) & missing(reference)) {
-    if (length(x) > 2) {
+  if (missing(x) & missing(y)) {
+    if (length(l) > 2) {
       stop(paste(
         "Not sure which columns to use, please pass list of two",
-        "elements long or specify using 'compare' and 'reference'"
+        "elements long or specify using 'x' and 'y'"
       ), call. = FALSE)
     }
-    comp <- x[[1]][1]
-    ref <- x[[2]][1]
+    comp <- l[[1]][1]
+    ref <- l[[2]][1]
   } else {
-    comp <- x[[deparse(match.call()[["compare"]])]]
-    ref <- x[[deparse(match.call()[["reference"]])]]
+    comp <- l[[deparse(match.call()[["x"]])]]
+    ref <- l[[deparse(match.call()[["y"]])]]
   }
 
   headline(
-    compare = comp,
-    reference = ref,
+    x = comp,
+    y = ref,
     headline = headline,
     ...,
     if_match = if_match,

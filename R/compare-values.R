@@ -1,15 +1,15 @@
 #' Compare two values and get talking points
 #'
-#' @param compare a numeric value to compare to a reference value
-#' @param reference a numeric value to act as a control for the 'compare' value
+#' @param x a numeric value to compare to the reference value of 'y'
+#' @param y a numeric value to act as a control for the 'x' value
 #' @param trend_phrases list of values to use for when y is more than x, y is the
 #' same as x, or y is less than x. You can pass it just
 #' \code{\link{trend_terms}} (the default) and call the result with
 #' \code{"...{trend}..."} or pass is a named list (see examples)
 #' @param plural_phrases named list of values to use when difference (delta) is
 #' singular (delta = 1) or plural (delta != 1)
-#' @param orig_values a string using \code{\link[glue]{glue}} syntax. `{c}` =
-#' the 'compare' value, and `{r}` = 'reference'
+#' @param orig_values a string using \code{\link[glue]{glue}} syntax.
+#' example: `({x} vs {y})`
 #' @param n_decimal numeric value to limit the number of decimal places in
 #' the returned values.
 #' @param round_all logical value to indicate if all values should be rounded.
@@ -46,23 +46,24 @@
 #'
 #' # a phrase about the comparison can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
-#' compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
+#' compare_values(10, 8, orig_values = "{x} to {y} people")$orig_values
 #'
 #' # you can also adjust the rounding, although the default is 1
 #' compare_values(0.1234, 0.4321)$orig_values
 #' compare_values(0.1234, 0.4321, n_decimal = 3)$orig_values
 #' # or add a multiplier
 #' compare_values(0.1234, 0.4321, multiplier = 100)$orig_values
-compare_values <- function(compare, reference,
+compare_values <- function(x,
+                           y,
                            trend_phrases = headliner::trend_terms(),
-                           orig_values = "{c} vs. {r}",
+                           orig_values = "{x} vs. {y}",
                            plural_phrases = NULL,
                            n_decimal = 1,
                            round_all = TRUE,
                            multiplier = 1) {
   # calcs
-  comp <- (compare * multiplier)
-  ref <- (reference * multiplier)
+  comp <- (x * multiplier)
+  ref <- (y * multiplier)
 
   delta <- as.numeric(comp - ref)
   delta_p <- as.numeric(delta / ref  * 100)
@@ -74,16 +75,16 @@ compare_values <- function(compare, reference,
       sign = sign(delta),
       abs_delta = abs(delta),
       abs_delta_p = abs(delta_p),
-      compare = comp,
-      reference = ref
+      x = comp,
+      y = ref
     )
 
   if (round_all) {
     # give a warning if rounding causes a delta of 0 due to inputs having
     # decimals >= n_decimal parameter
     check_rounding(
-      x = calc$compare,
-      y = calc$reference,
+      x = calc$x,
+      y = calc$y,
       n_decimal = n_decimal
     )
 
@@ -97,12 +98,12 @@ compare_values <- function(compare, reference,
 
   output <-
     list(
+      x = calc$x,
+      y = calc$y,
       delta = calc$abs_delta,
       delta_p = calc$abs_delta_p,
       article_delta = paste(get_article(calc$abs_delta), calc$abs_delta),
       article_delta_p = paste(get_article(calc$abs_delta_p), calc$abs_delta_p),
-      comp_value = calc$compare,
-      ref_value = calc$reference,
       raw_delta = calc$delta,
       raw_delta_p = calc$delta_p,
       article_raw_delta = paste(get_article(calc$delta), calc$delta),
@@ -110,8 +111,8 @@ compare_values <- function(compare, reference,
       sign = calc$sign,
       orig_values = glue(
         orig_values,
-        c = calc$compare,
-        r = calc$ref
+        x = calc$x,
+        y = calc$y
       )
     )
 
