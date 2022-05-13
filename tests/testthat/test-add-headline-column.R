@@ -14,8 +14,8 @@ test_that("add headline column returns columns", {
   df <-
     add_headline_column(
       df = mtcars,
-      compare = gear,
-      reference = carb,
+      x = gear,
+      y = carb,
       return_cols = dplyr::starts_with("delta")
     )
 
@@ -28,8 +28,8 @@ test_that("add headline can access other columns", {
   df <-
     add_headline_column(
       df = animal_sleep,
-      compare = hours_asleep,
-      reference = hours_awake,
+      x = hours_asleep,
+      y = hours_awake,
       headline = "{common_name} ({orig_values})"
     ) %>%
     mutate(has_text = purrr::map2_lgl(common_name, headline, grepl))
@@ -42,8 +42,8 @@ test_that("add headline can pas '...", {
   df <-
     add_headline_column(
       df = animal_sleep,
-      compare = hours_asleep,
-      reference = hours_awake,
+      x = hours_asleep,
+      y = hours_awake,
       headline = "{abc} {common_name} {trend}",
       abc = "123"
     )  %>%
