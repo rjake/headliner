@@ -5,10 +5,10 @@
 \title{Compare two values and get talking points}
 \usage{
 compare_values(
-  compare,
-  reference,
+  x,
+  y,
   trend_phrases = headliner::trend_terms(),
-  orig_values = "{c} vs. {r}",
+  orig_values = "{x} vs. {y}",
   plural_phrases = NULL,
   n_decimal = 1,
   round_all = TRUE,
@@ -16,17 +16,17 @@ compare_values(
 )
 }
 \arguments{
-\item{compare}{a numeric value to compare to a reference value}
+\item{x}{a numeric value to compare to the reference value of 'y'}
 
-\item{reference}{a numeric value to act as a control for the 'compare' value}
+\item{y}{a numeric value to act as a control for the 'x' value}
 
 \item{trend_phrases}{list of values to use for when y is more than x, y is the
 same as x, or y is less than x. You can pass it just
 \code{\link{trend_terms}} (the default) and call the result with
 \code{"...{trend}..."} or pass is a named list (see examples)}
 
-\item{orig_values}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
-the 'compare' value, and \code{{r}} = 'reference'}
+\item{orig_values}{a string using \code{\link[glue]{glue}} syntax.
+example: \verb{(\{x\} vs \{y\})}}
 
 \item{plural_phrases}{named list of values to use when difference (delta) is
 singular (delta = 1) or plural (delta != 1)}
@@ -68,7 +68,7 @@ compare_values(
 
 # a phrase about the comparison can be edited by providing glue syntax
 # 'c' = the 'compare' value, 'r' = 'reference'
-compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
+compare_values(10, 8, orig_values = "{x} to {y} people")$orig_values
 
 # you can also adjust the rounding, although the default is 1
 compare_values(0.1234, 0.4321)$orig_values

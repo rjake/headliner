@@ -6,14 +6,14 @@
 \title{Compose phrases that describe differences in the data}
 \usage{
 headline(
-  compare,
-  reference,
+  x,
+  y,
   headline = "{trend} of {delta} ({orig_values})",
   ...,
   if_match = "There was no difference.",
   trend_phrases = headliner::trend_terms(),
   plural_phrases = NULL,
-  orig_values = "{c} vs. {r}",
+  orig_values = "{x} vs. {y}",
   n_decimal = 1,
   round_all = TRUE,
   multiplier = 1,
@@ -21,15 +21,15 @@ headline(
 )
 
 headline_list(
-  x,
+  l,
   headline = "{trend} of {delta} ({orig_values})",
-  compare,
-  reference,
+  x,
+  y,
   ...,
   if_match = "There was no difference.",
   trend_phrases = headliner::trend_terms(),
   plural_phrases = NULL,
-  orig_values = "{c} vs. {r}",
+  orig_values = "{x} vs. {y}",
   n_decimal = 1,
   round_all = TRUE,
   multiplier = 1,
@@ -37,9 +37,9 @@ headline_list(
 )
 }
 \arguments{
-\item{compare}{a numeric value to compare to a reference value}
+\item{x}{a numeric value to compare to the reference value of 'y'}
 
-\item{reference}{a numeric value to act as a control for the 'compare' value}
+\item{y}{a numeric value to act as a control for the 'x' value}
 
 \item{headline}{a string to format the final output. Uses
 \code{\link[glue]{glue}} syntax}
@@ -57,9 +57,8 @@ same as x, or y is less than x. You can pass it just
 \item{plural_phrases}{named list of values to use when difference (delta) is
 singular (delta = 1) or plural (delta != 1)}
 
-\item{orig_values}{a string to display the two original values. Uses
-\code{\link[glue]{glue}} syntax. \code{{c}} = the 'compare' value, and
-\code{{r}} = 'reference'}
+\item{orig_values}{a string using \code{\link[glue]{glue}} syntax.
+example: \verb{(\{x\} vs \{y\})}}
 
 \item{n_decimal}{numeric value to limit the number of decimal places in
 the returned values.}
@@ -74,7 +73,7 @@ all values will be round to the length specified by 'n_decimal'.}
 \item{return_data}{logical to indicate whether function should return the
 phrase components used to compose the headline}
 
-\item{x}{a list with values to compare, if named, can call by name}
+\item{l}{a list with values to compare, if named, can call by name}
 }
 \description{
 Compose phrases that describe differences in the data
@@ -87,27 +86,27 @@ headline(10, 10)
 
 # most likely you'll edit the headline by hand
 headline(
-  compare = 10,
-  reference = 8,
+  x = 10,
+  y = 8,
   headline = "There was a ${delta} {trend} vs last year"
 )
 
 # you can also adjust the phrasing of higher/lower values
 headline(
-  compare = 10,
-  reference = 8,
+  x = 10,
+  y = 8,
   headline = "Group A was {trend} by {delta_p}\%.",
   trend_phrases = trend_terms(more = "higher", less = "lower")
  )
 
 # a phrase about the comparion can be edited by providing glue syntax
 # 'c' = the 'compare' value, 'r' = 'reference'
-headline(10, 8, orig_values = "{c} to {r} people")
+headline(10, 8, orig_values = "{x} to {y} people")
 
 # you can also add phrases for when the difference = 1 or not
 headline(
-  compare = 10,
-  reference = 8,
+  x = 10,
+  y = 8,
   plural_phrases = list(
     were = plural_phrasing(single = "was", multi = "were"),
     people = plural_phrasing(single = "person", multi = "people")
@@ -123,8 +122,8 @@ headline(0.1234, 0.4321, multiplier = 100)
 
 # there are many components you can assemble
 headline(
-  compare = 16,
-  reference = 8,
+  x = 16,
+  y = 8,
   headline = "there was {article_delta_p}\% {trend}, \\\\
   {add_article(trend)} of {delta} ({orig_values})"
 )
@@ -134,8 +133,8 @@ headline(
 # passed to headline_list()
 flights_jfk \%>\%
   compare_conditions(
-    compare = (hour > 12),
-    reference = (hour <= 12),
+    x = (hour > 12),
+    y = (hour <= 12),
     dep_delay
   ) \%>\%
   headline_list()
@@ -147,8 +146,8 @@ list(
   z = 3
  ) \%>\%
   headline_list(
-    compare = x,
-    reference = z
+    x = x,
+    y = z
   )
 }
 \seealso{

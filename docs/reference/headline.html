@@ -138,14 +138,14 @@
     </div>
 
     <pre class="usage"><span class='fu'>headline</span><span class='op'>(</span>
-  <span class='va'>compare</span>,
-  <span class='va'>reference</span>,
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
   headline <span class='op'>=</span> <span class='st'>"{trend} of {delta} ({orig_values})"</span>,
   <span class='va'>...</span>,
   if_match <span class='op'>=</span> <span class='st'>"There was no difference."</span>,
   trend_phrases <span class='op'>=</span> <span class='fu'>headliner</span><span class='fu'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='op'>)</span>,
   plural_phrases <span class='op'>=</span> <span class='cn'>NULL</span>,
-  orig_values <span class='op'>=</span> <span class='st'>"{c} vs. {r}"</span>,
+  orig_values <span class='op'>=</span> <span class='st'>"{x} vs. {y}"</span>,
   n_decimal <span class='op'>=</span> <span class='fl'>1</span>,
   round_all <span class='op'>=</span> <span class='cn'>TRUE</span>,
   multiplier <span class='op'>=</span> <span class='fl'>1</span>,
@@ -153,15 +153,15 @@
 <span class='op'>)</span>
 
 <span class='fu'>headline_list</span><span class='op'>(</span>
-  <span class='va'>x</span>,
+  <span class='va'>l</span>,
   headline <span class='op'>=</span> <span class='st'>"{trend} of {delta} ({orig_values})"</span>,
-  <span class='va'>compare</span>,
-  <span class='va'>reference</span>,
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
   <span class='va'>...</span>,
   if_match <span class='op'>=</span> <span class='st'>"There was no difference."</span>,
   trend_phrases <span class='op'>=</span> <span class='fu'>headliner</span><span class='fu'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='op'>)</span>,
   plural_phrases <span class='op'>=</span> <span class='cn'>NULL</span>,
-  orig_values <span class='op'>=</span> <span class='st'>"{c} vs. {r}"</span>,
+  orig_values <span class='op'>=</span> <span class='st'>"{x} vs. {y}"</span>,
   n_decimal <span class='op'>=</span> <span class='fl'>1</span>,
   round_all <span class='op'>=</span> <span class='cn'>TRUE</span>,
   multiplier <span class='op'>=</span> <span class='fl'>1</span>,
@@ -172,12 +172,12 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>compare</th>
-      <td><p>a numeric value to compare to a reference value</p></td>
+      <th>x</th>
+      <td><p>a numeric value to compare to the reference value of 'y'</p></td>
     </tr>
     <tr>
-      <th>reference</th>
-      <td><p>a numeric value to act as a control for the 'compare' value</p></td>
+      <th>y</th>
+      <td><p>a numeric value to act as a control for the 'x' value</p></td>
     </tr>
     <tr>
       <th>headline</th>
@@ -207,9 +207,8 @@ singular (delta = 1) or plural (delta != 1)</p></td>
     </tr>
     <tr>
       <th>orig_values</th>
-      <td><p>a string to display the two original values. Uses
-<code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax. <code>{c}</code> = the 'compare' value, and
-<code>{r}</code> = 'reference'</p></td>
+      <td><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax.
+example: <code>({x} vs {y})</code></p></td>
     </tr>
     <tr>
       <th>n_decimal</th>
@@ -233,7 +232,7 @@ all values will be round to the length specified by 'n_decimal'.</p></td>
 phrase components used to compose the headline</p></td>
     </tr>
     <tr>
-      <th>x</th>
+      <th>l</th>
       <td><p>a list with values to compare, if named, can call by name</p></td>
     </tr>
     </table>
@@ -250,27 +249,27 @@ phrase components used to compose the headline</p></td>
 </div><div class='output co'>#&gt; There was no difference.</div><div class='input'>
 <span class='co'># most likely you'll edit the headline by hand</span>
 <span class='fu'>headline</span><span class='op'>(</span>
-  compare <span class='op'>=</span> <span class='fl'>10</span>,
-  reference <span class='op'>=</span> <span class='fl'>8</span>,
+  x <span class='op'>=</span> <span class='fl'>10</span>,
+  y <span class='op'>=</span> <span class='fl'>8</span>,
   headline <span class='op'>=</span> <span class='st'>"There was a ${delta} {trend} vs last year"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; There was a $2 increase vs last year</div><div class='input'>
 <span class='co'># you can also adjust the phrasing of higher/lower values</span>
 <span class='fu'>headline</span><span class='op'>(</span>
-  compare <span class='op'>=</span> <span class='fl'>10</span>,
-  reference <span class='op'>=</span> <span class='fl'>8</span>,
+  x <span class='op'>=</span> <span class='fl'>10</span>,
+  y <span class='op'>=</span> <span class='fl'>8</span>,
   headline <span class='op'>=</span> <span class='st'>"Group A was {trend} by {delta_p}%."</span>,
   trend_phrases <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span>more <span class='op'>=</span> <span class='st'>"higher"</span>, less <span class='op'>=</span> <span class='st'>"lower"</span><span class='op'>)</span>
  <span class='op'>)</span>
 </div><div class='output co'>#&gt; Group A was higher by 25%.</div><div class='input'>
 <span class='co'># a phrase about the comparion can be edited by providing glue syntax</span>
 <span class='co'># 'c' = the 'compare' value, 'r' = 'reference'</span>
-<span class='fu'>headline</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span>, orig_values <span class='op'>=</span> <span class='st'>"{c} to {r} people"</span><span class='op'>)</span>
+<span class='fu'>headline</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span>, orig_values <span class='op'>=</span> <span class='st'>"{x} to {y} people"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; increase of 2 (10 to 8 people)</div><div class='input'>
 <span class='co'># you can also add phrases for when the difference = 1 or not</span>
 <span class='fu'>headline</span><span class='op'>(</span>
-  compare <span class='op'>=</span> <span class='fl'>10</span>,
-  reference <span class='op'>=</span> <span class='fl'>8</span>,
+  x <span class='op'>=</span> <span class='fl'>10</span>,
+  y <span class='op'>=</span> <span class='fl'>8</span>,
   plural_phrases <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
     were <span class='op'>=</span> <span class='fu'><a href='plural_phrasing.html'>plural_phrasing</a></span><span class='op'>(</span>single <span class='op'>=</span> <span class='st'>"was"</span>, multi <span class='op'>=</span> <span class='st'>"were"</span><span class='op'>)</span>,
     people <span class='op'>=</span> <span class='fu'><a href='plural_phrasing.html'>plural_phrasing</a></span><span class='op'>(</span>single <span class='op'>=</span> <span class='st'>"person"</span>, multi <span class='op'>=</span> <span class='st'>"people"</span><span class='op'>)</span>
@@ -286,8 +285,8 @@ phrase components used to compose the headline</p></td>
 </div><div class='output co'>#&gt; decrease of 30.9 (12.3 vs. 43.2)</div><div class='input'>
 <span class='co'># there are many components you can assemble</span>
 <span class='fu'>headline</span><span class='op'>(</span>
-  compare <span class='op'>=</span> <span class='fl'>16</span>,
-  reference <span class='op'>=</span> <span class='fl'>8</span>,
+  x <span class='op'>=</span> <span class='fl'>16</span>,
+  y <span class='op'>=</span> <span class='fl'>8</span>,
   headline <span class='op'>=</span> <span class='st'>"there was {article_delta_p}% {trend}, \\
   {add_article(trend)} of {delta} ({orig_values})"</span>
 <span class='op'>)</span>
@@ -297,8 +296,8 @@ phrase components used to compose the headline</p></td>
 <span class='co'># passed to headline_list()</span>
 <span class='va'>flights_jfk</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='compare_columns.html'>compare_conditions</a></span><span class='op'>(</span>
-    compare <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&gt;</span> <span class='fl'>12</span><span class='op'>)</span>,
-    reference <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&lt;=</span> <span class='fl'>12</span><span class='op'>)</span>,
+    x <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&gt;</span> <span class='fl'>12</span><span class='op'>)</span>,
+    y <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&lt;=</span> <span class='fl'>12</span><span class='op'>)</span>,
     <span class='va'>dep_delay</span>
   <span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>headline_list</span><span class='op'>(</span><span class='op'>)</span>
@@ -310,8 +309,8 @@ phrase components used to compose the headline</p></td>
   z <span class='op'>=</span> <span class='fl'>3</span>
  <span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>headline_list</span><span class='op'>(</span>
-    compare <span class='op'>=</span> <span class='va'>x</span>,
-    reference <span class='op'>=</span> <span class='va'>z</span>
+    x <span class='op'>=</span> <span class='va'>x</span>,
+    y <span class='op'>=</span> <span class='va'>z</span>
   <span class='op'>)</span>
 </div><div class='output co'>#&gt; decrease of 2 (1 vs. 3)</div></pre>
   </div>

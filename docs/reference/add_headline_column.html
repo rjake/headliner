@@ -139,15 +139,15 @@
 
     <pre class="usage"><span class='fu'>add_headline_column</span><span class='op'>(</span>
   <span class='va'>df</span>,
-  <span class='va'>compare</span>,
-  <span class='va'>reference</span>,
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
   headline <span class='op'>=</span> <span class='st'>"{trend} of {delta} ({orig_values})"</span>,
   <span class='va'>...</span>,
   .name <span class='op'>=</span> <span class='st'>"headline"</span>,
   if_match <span class='op'>=</span> <span class='st'>"There was no difference."</span>,
   trend_phrases <span class='op'>=</span> <span class='fu'>headliner</span><span class='fu'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='op'>)</span>,
   plural_phrases <span class='op'>=</span> <span class='cn'>NULL</span>,
-  orig_values <span class='op'>=</span> <span class='st'>"{c} vs. {r}"</span>,
+  orig_values <span class='op'>=</span> <span class='st'>"{x} vs. {y}"</span>,
   n_decimal <span class='op'>=</span> <span class='fl'>1</span>,
   round_all <span class='op'>=</span> <span class='cn'>TRUE</span>,
   multiplier <span class='op'>=</span> <span class='fl'>1</span>,
@@ -162,12 +162,12 @@
       <td><p>data frame, must be a single row</p></td>
     </tr>
     <tr>
-      <th>compare</th>
-      <td><p>numeric value to compare against reference (base) value</p></td>
+      <th>x</th>
+      <td><p>a numeric value to compare to the reference value of 'y'</p></td>
     </tr>
     <tr>
-      <th>reference</th>
-      <td><p>numeric value that 'compare' value will be compared against</p></td>
+      <th>y</th>
+      <td><p>a numeric value to act as a control for the 'x' value</p></td>
     </tr>
     <tr>
       <th>headline</th>
@@ -201,9 +201,8 @@ singular (delta = 1) or plural (delta != 1)</p></td>
     </tr>
     <tr>
       <th>orig_values</th>
-      <td><p>a string to display the two original values. Uses
-<code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax. <code>{c}</code> = the 'compare' value, and
-<code>{r}</code> = 'reference'</p></td>
+      <td><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax.
+example: <code>({x} vs {y})</code></p></td>
     </tr>
     <tr>
       <th>n_decimal</th>
@@ -238,8 +237,8 @@ all values will be round to the length specified by 'n_decimal'.</p></td>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>animal_sleep</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>common_name</span>, <span class='va'>hours_asleep</span>, <span class='va'>hours_awake</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>add_headline_column</span><span class='op'>(</span>
-    compare <span class='op'>=</span> <span class='va'>hours_asleep</span>,
-    reference <span class='op'>=</span> <span class='va'>hours_awake</span>,
+    x <span class='op'>=</span> <span class='va'>hours_asleep</span>,
+    y <span class='op'>=</span> <span class='va'>hours_awake</span>,
     headline <span class='op'>=</span> <span class='st'>"The {common_name} spends {delta} more {hours} {trend} than not {trend}."</span>,
     trend_phrases <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span>more <span class='op'>=</span> <span class='st'>"asleep"</span>, less <span class='op'>=</span> <span class='st'>"awake"</span><span class='op'>)</span>,
     plural_phrases <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>hours <span class='op'>=</span> <span class='fu'><a href='plural_phrasing.html'>plural_phrasing</a></span><span class='op'>(</span>single <span class='op'>=</span> <span class='st'>"hour"</span>, multi <span class='op'>=</span> <span class='st'>"hours"</span><span class='op'>)</span><span class='op'>)</span>
@@ -263,8 +262,8 @@ all values will be round to the length specified by 'n_decimal'.</p></td>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>animal_sleep</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>common_name</span>, <span class='va'>hours_asleep</span>, <span class='va'>hours_awake</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>add_headline_column</span><span class='op'>(</span>
-    compare <span class='op'>=</span> <span class='va'>hours_asleep</span>,
-    reference <span class='op'>=</span> <span class='va'>hours_awake</span>,
+    x <span class='op'>=</span> <span class='va'>hours_asleep</span>,
+    y <span class='op'>=</span> <span class='va'>hours_awake</span>,
     headline <span class='op'>=</span> <span class='st'>"more time {trend} ({orig_values} hours)"</span>,
     trend_phrases <span class='op'>=</span> <span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span>more <span class='op'>=</span> <span class='st'>"alseep"</span>, less <span class='op'>=</span> <span class='st'>"awake"</span><span class='op'>)</span>,
     return_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"delta"</span>, <span class='st'>"trend"</span><span class='op'>)</span>
