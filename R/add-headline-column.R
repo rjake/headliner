@@ -67,6 +67,16 @@ add_headline_column <- function(df,
     abort("please specify columns using 'compare' and 'reference'")
   }
 
+  if (any(c("x", "y") %in% names(df))) {
+    abort(
+      glue(
+        "a data frame with column names 'x' or 'y' will \\
+        cause unexpected output and not currently supported"
+      )
+    )
+  }
+
+
   # inform that headline can be renamed
   if (.name %in% names(df)) {
     glue(

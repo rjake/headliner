@@ -60,7 +60,7 @@ demo_data() %>%
   compare_conditions(
     compare = month == 0,
     reference = month == -12,
-    cols = x
+    cols = sales
   ) %>% 
   headline_list(
     headline = 
@@ -112,7 +112,7 @@ yoy <- # year over year
   compare_conditions(
     compare = (month == 0),     # this month
     reference = (month == -12), # vs 12 months ago
-    cols = c(x),                # the column(s) to aggregate
+    cols = c(sales),   # the column(s) to aggregate
     calc = list(mean = mean)    # the list of functions passed to summarise(across(...))
   )
 
@@ -162,7 +162,8 @@ demo_data() %>%
   compare_conditions(
     compare = group == "a",
     reference = group == "c",
-    cols = c(x)
+    cols = c(sales),
+    calc = sum
   ) %>% 
   headline_list(
     headline = "Group A ({comp_value}) is {delta} points {trend} Group C ({ref_value})",

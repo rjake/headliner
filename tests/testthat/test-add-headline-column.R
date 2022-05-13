@@ -55,13 +55,22 @@ test_that("add headline can pas '...", {
 test_that("if_match works", {
   df <-
     data.frame(
-      x = 1:3,
-      y = 3:1
+      a = 1:3,
+      b = 3:1
     ) %>%
-    add_headline_column(x, y)
+    add_headline_column(a, b)
 
   expect_equal(
     df$headline[2],
     formals(add_headline_column)[["if_match"]]
   )
+})
+
+test_that("error if x or y in column names", {
+  data.frame(
+    x = 1:3,
+    y = 3:1
+  ) %>%
+  add_headline_column(x, y) |>
+  expect_error()
 })
