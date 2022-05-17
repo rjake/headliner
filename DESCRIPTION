@@ -11,9 +11,11 @@ Description: Write sentences to compare values by generating talking points and 
 License: MIT + file LICENSE
 BugReports: https://github.com/rjake/headliner/issues
 Suggests: 
-    testthat,
+    ggplot2,
     knitr,
-    rmarkdown
+    nycflights13,
+    rmarkdown,
+    testthat
 Encoding: UTF-8
 Language: en-US
 LazyData: true
