@@ -5,8 +5,8 @@ Authors@R:
     person(given = "Jake",
            family = "Riley",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "rjake@sas.upenn.edu"
+           )
 Description: Write sentences to compare values by generating talking points and stringing them together.
 License: MIT + file LICENSE
 BugReports: https://github.com/rjake/headliner/issues
