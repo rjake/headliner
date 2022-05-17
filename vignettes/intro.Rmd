@@ -98,7 +98,7 @@ You might have noticed that there are multiple `article_*` components available.
 ### Helpers for dynamic calculations
 But let's see if we can make the calculations more dynamic...
 
-First, we can use a function called `add_date_columns()` to calculate distances from the current date (or the refence date specified) to the values in the `date` column . With these new fields we can see that `r format(demo_data()$date[2], "%D")` was `r dates$day` days ago (or `r dates$week` weeks or `r dates$month` months, ...) from the current date.
+First, we can use a function called `add_date_columns()` to calculate distances from the current date (or the reference date specified) to the values in the `date` column . With these new fields we can see that `r format(demo_data()$date[2], "%D")` was `r dates$day` days ago (or `r dates$week` weeks or `r dates$month` months, ...) from the current date.
 ```{r}
 demo_data() %>%
   add_date_columns(date_col = date)

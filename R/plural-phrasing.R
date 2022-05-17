@@ -1,4 +1,4 @@
-#' List of values to use when change is plural (or singlular)
+#' List of values to use when change is plural (or singular)
 #'
 #' @param single string to use when delta = 1
 #' @param multi string to use when delta > 1

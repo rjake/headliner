@@ -21,7 +21,7 @@
 #'   \item{humid}{relative humidity}
 #'   \item{wind_dir}{wind direction (degrees)}
 #'   \item{wind_speed}{wind speed (mph)}
-#'   \item{precip}{precipitaton (inches)}
+#'   \item{precip}{precipitation (inches)}
 #'   \item{pressure}{sea level pressure (millibars)}
 #'   \item{visib}{visibility (miles)}
 #' }
