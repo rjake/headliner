@@ -138,10 +138,10 @@
     </div>
 
     <pre class="usage"><span class='fu'>compare_values</span><span class='op'>(</span>
-  <span class='va'>compare</span>,
-  <span class='va'>reference</span>,
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
   trend_phrases <span class='op'>=</span> <span class='fu'>headliner</span><span class='fu'>::</span><span class='fu'><a href='trend_terms.html'>trend_terms</a></span><span class='op'>(</span><span class='op'>)</span>,
-  orig_values <span class='op'>=</span> <span class='st'>"{c} vs. {r}"</span>,
+  orig_values <span class='op'>=</span> <span class='st'>"{x} vs. {y}"</span>,
   plural_phrases <span class='op'>=</span> <span class='cn'>NULL</span>,
   n_decimal <span class='op'>=</span> <span class='fl'>1</span>,
   round_all <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -152,12 +152,12 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>compare</th>
-      <td><p>a numeric value to compare to a reference value</p></td>
+      <th>x</th>
+      <td><p>a numeric value to compare to the reference value of 'y'</p></td>
     </tr>
     <tr>
-      <th>reference</th>
-      <td><p>a numeric value to act as a control for the 'compare' value</p></td>
+      <th>y</th>
+      <td><p>a numeric value to act as a control for the 'x' value</p></td>
     </tr>
     <tr>
       <th>trend_phrases</th>
@@ -168,8 +168,8 @@ same as x, or y is less than x. You can pass it just
     </tr>
     <tr>
       <th>orig_values</th>
-      <td><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax. <code>{c}</code> =
-the 'compare' value, and <code>{r}</code> = 'reference'</p></td>
+      <td><p>a string using <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></code> syntax.
+example: <code>({x} vs {y})</code></p></td>
     </tr>
     <tr>
       <th>plural_phrases</th>
@@ -202,11 +202,11 @@ all values will be round to the length specified by 'n_decimal'.</p></td>
     <pre class="examples"><div class='input'><span class='co'># the values can be manually entered</span>
 
 <span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $delta
-#&gt; [1] 2
+</div><div class='output co'>#&gt; $x
+#&gt; [1] 10
 #&gt; 
-#&gt; $delta_p
-#&gt; [1] 25
+#&gt; $y
+#&gt; [1] 8
 #&gt; </div><div class='input'><span class='co'># percent difference (10-8)/8</span>
 <span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>$</span><span class='va'>delta_p</span>
 </div><div class='output co'>#&gt; [1] 25</div><div class='input'>
@@ -227,7 +227,7 @@ all values will be round to the length specified by 'n_decimal'.</p></td>
 </div><div class='output co'>#&gt; [1] "higher"</div><div class='input'>
 <span class='co'># a phrase about the comparison can be edited by providing glue syntax</span>
 <span class='co'># 'c' = the 'compare' value, 'r' = 'reference'</span>
-<span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span>, orig_values <span class='op'>=</span> <span class='st'>"{c} to {r} people"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>orig_values</span>
+<span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>8</span>, orig_values <span class='op'>=</span> <span class='st'>"{x} to {y} people"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>orig_values</span>
 </div><div class='output co'>#&gt; 10 to 8 people</div><div class='input'>
 <span class='co'># you can also adjust the rounding, although the default is 1</span>
 <span class='fu'>compare_values</span><span class='op'>(</span><span class='fl'>0.1234</span>, <span class='fl'>0.4321</span><span class='op'>)</span><span class='op'>$</span><span class='va'>orig_values</span>

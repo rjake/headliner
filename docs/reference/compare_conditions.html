@@ -141,13 +141,7 @@ Compare two conditions within a data frame" />
 
     <pre class="usage"><span class='fu'>compare_columns</span><span class='op'>(</span><span class='va'>df</span>, cols <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span>, calc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>compare_conditions</span><span class='op'>(</span>
-  <span class='va'>df</span>,
-  <span class='va'>compare</span>,
-  <span class='va'>reference</span>,
-  cols <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span>,
-  calc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='va'>mean</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+<span class='fu'>compare_conditions</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>x</span>, <span class='va'>y</span>, cols <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span>, calc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,13 +161,14 @@ list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
 list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
     </tr>
     <tr>
-      <th>compare</th>
+      <th>x</th>
       <td><p>condition for comparison, same criteria you would use in
-'dplyr::filter'</p></td>
+'dplyr::filter', used in contrast to the reference group 'y'</p></td>
     </tr>
     <tr>
-      <th>reference</th>
-      <td><p>same as compare</p></td>
+      <th>y</th>
+      <td><p>condition for comparison, same criteria you would use in
+'dplyr::filter', used in contrast to the reference group 'x'</p></td>
     </tr>
     </table>
 
@@ -198,48 +193,48 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></td>
 #&gt; </div><div class='input'><span class='co'># compare_conditions() produces a list that can be passed to headline_list()</span>
 <span class='va'>flights_jfk</span> <span class='op'>%&gt;%</span>
   <span class='fu'>compare_conditions</span><span class='op'>(</span>
-    compare <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&gt;</span> <span class='fl'>12</span><span class='op'>)</span>,
-    reference <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&lt;=</span> <span class='fl'>12</span><span class='op'>)</span>,
+    x <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&gt;</span> <span class='fl'>12</span><span class='op'>)</span>,
+    y <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&lt;=</span> <span class='fl'>12</span><span class='op'>)</span>,
     <span class='va'>dep_delay</span>
   <span class='op'>)</span>
-</div><div class='output co'>#&gt; $mean_dep_delay_comp
+</div><div class='output co'>#&gt; $mean_dep_delay_x
 #&gt; [1] 14.03664
 #&gt; 
-#&gt; $mean_dep_delay_ref
+#&gt; $mean_dep_delay_y
 #&gt; [1] 2.556334
 #&gt; </div><div class='input'>
 <span class='va'>.Last.value</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='headline.html'>headline_list</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in x[[2]]: subscript out of bounds</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in l[[2]]: subscript out of bounds</span></div><div class='input'>
  <span class='co'># you can return multiple objects to compare</span>
  <span class='co'># 'view_List()' is a helper to see list objects in a compact way</span>
 <span class='va'>flights_jfk</span> <span class='op'>%&gt;%</span>
   <span class='fu'>compare_conditions</span><span class='op'>(</span>
-    compare <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&gt;</span> <span class='fl'>12</span><span class='op'>)</span>,
-    reference <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&lt;=</span> <span class='fl'>12</span><span class='op'>)</span>,
+    x <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&gt;</span> <span class='fl'>12</span><span class='op'>)</span>,
+    y <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&lt;=</span> <span class='fl'>12</span><span class='op'>)</span>,
     cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>dep_delay</span>, <span class='va'>arr_delay</span><span class='op'>)</span>,
     calc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='va'>mean</span>, sd <span class='op'>=</span> <span class='va'>sd</span><span class='op'>)</span>
   <span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='view_list.html'>view_list</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                        VALUES
-#&gt; mean_arr_delay_comp  2.621043
-#&gt; mean_arr_delay_ref  -5.216871
-#&gt; mean_dep_delay_comp 14.036643
-#&gt; mean_dep_delay_ref   2.556334
-#&gt; sd_arr_delay_comp   49.396265
-#&gt; sd_arr_delay_ref    28.515699
-#&gt; sd_dep_delay_comp   42.733077
-#&gt; sd_dep_delay_ref    21.753064</div><div class='input'>
+</div><div class='output co'>#&gt;                     VALUES
+#&gt; mean_arr_delay_x  2.621043
+#&gt; mean_arr_delay_y -5.216871
+#&gt; mean_dep_delay_x 14.036643
+#&gt; mean_dep_delay_y  2.556334
+#&gt; sd_arr_delay_x   49.396265
+#&gt; sd_arr_delay_y   28.515699
+#&gt; sd_dep_delay_x   42.733077
+#&gt; sd_dep_delay_y   21.753064</div><div class='input'>
 <span class='co'># if you want to compare to the average use 'complete.cases(.)'</span>
 <span class='va'>flights_jfk</span> <span class='op'>%&gt;%</span>
   <span class='fu'>compare_conditions</span><span class='op'>(</span>
-    compare <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&gt;</span> <span class='fl'>12</span><span class='op'>)</span>,
-    reference <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/complete.cases.html'>complete.cases</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>,
+    x <span class='op'>=</span> <span class='op'>(</span><span class='va'>hour</span> <span class='op'>&gt;</span> <span class='fl'>12</span><span class='op'>)</span>,
+    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/complete.cases.html'>complete.cases</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>,
     <span class='va'>dep_delay</span>
   <span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='view_list.html'>view_list</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                       VALUES
-#&gt; mean_dep_delay_comp 14.03664
-#&gt; mean_dep_delay_ref  10.41128</div></pre>
+</div><div class='output co'>#&gt;                    VALUES
+#&gt; mean_dep_delay_x 14.03664
+#&gt; mean_dep_delay_y 10.41128</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

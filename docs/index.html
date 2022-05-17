@@ -103,22 +103,27 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">headliner</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/compare_values.html">compare_values</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># returns a list</span>
-  <span class="fu"><a href="reference/view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># show as a data frame</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##                     VALUES</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## delta                    2</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## trend             decrease</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="do">## delta_p               28.6</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">## article_delta          a 2</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## article_delta_p     a 28.6</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">## article_trend   a decrease</span></span></code></pre></div>
+  <span class="fu"><a href="reference/view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show as a data frame</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##                       VALUES</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## x                          5</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## y                          7</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="do">## delta                      2</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">## delta_p                 28.6</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## article_delta            a 2</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">## article_delta_p       a 28.6</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## raw_delta                 -2</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## raw_delta_p            -28.6</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="do">## article_raw_delta       a -2</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="do">## article_raw_delta_p  a -28.6</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="do">## sign                      -1</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## orig_values          5 vs. 7</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="do">## trend               decrease</span></span></code></pre></div>
 <p>We can string these together these talking points like this:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/headline.html">headline</a></span><span class="op">(</span>
-  compare <span class="op">=</span> <span class="fl">5</span>, 
-  reference <span class="op">=</span> <span class="fl">7</span>, 
-  headline <span class="op">=</span> 
-    <span class="st">"There was {article_delta_p}% {trend} ({orig_values})"</span>
+  x <span class="op">=</span> <span class="fl">5</span>, 
+  y <span class="op">=</span> <span class="fl">7</span>, 
+  headline <span class="op">=</span> <span class="st">"There was {article_delta_p}% {trend} ({orig_values})"</span>
 <span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## There was a 28.6% decrease (5 vs. 7)</span></span></code></pre></div>
 <p>See <a href="https://rjake.github.io/headliner/articles/intro.html">here</a> for a longer introduction.</p>

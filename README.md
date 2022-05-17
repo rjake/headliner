@@ -4,7 +4,6 @@
 # headliner <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of `headliner` is to translate facts into insights. Given two
@@ -28,26 +27,31 @@ and 7:
 library(headliner)
 
 compare_values(5, 7) %>% # returns a list
-  view_list() %>% # show as a data frame
-  head()
+  view_list() # show as a data frame
 ```
 
-    ##                     VALUES
-    ## delta                    2
-    ## trend             decrease
-    ## delta_p               28.6
-    ## article_delta          a 2
-    ## article_delta_p     a 28.6
-    ## article_trend   a decrease
+    ##                       VALUES
+    ## x                          5
+    ## y                          7
+    ## delta                      2
+    ## delta_p                 28.6
+    ## article_delta            a 2
+    ## article_delta_p       a 28.6
+    ## raw_delta                 -2
+    ## raw_delta_p            -28.6
+    ## article_raw_delta       a -2
+    ## article_raw_delta_p  a -28.6
+    ## sign                      -1
+    ## orig_values          5 vs. 7
+    ## trend               decrease
 
 We can string these together these talking points like this:
 
 ``` r
 headline(
-  compare = 5, 
-  reference = 7, 
-  headline = 
-    "There was {article_delta_p}% {trend} ({orig_values})"
+  x = 5, 
+  y = 7, 
+  headline = "There was {article_delta_p}% {trend} ({orig_values})"
 )
 ```
 

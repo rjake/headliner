@@ -6,15 +6,15 @@
 \usage{
 add_headline_column(
   df,
-  compare,
-  reference,
+  x,
+  y,
   headline = "{trend} of {delta} ({orig_values})",
   ...,
   .name = "headline",
   if_match = "There was no difference.",
   trend_phrases = headliner::trend_terms(),
   plural_phrases = NULL,
-  orig_values = "{c} vs. {r}",
+  orig_values = "{x} vs. {y}",
   n_decimal = 1,
   round_all = TRUE,
   multiplier = 1,
@@ -24,9 +24,9 @@ add_headline_column(
 \arguments{
 \item{df}{data frame, must be a single row}
 
-\item{compare}{numeric value to compare against reference (base) value}
+\item{x}{a numeric value to compare to the reference value of 'y'}
 
-\item{reference}{numeric value that 'compare' value will be compared against}
+\item{y}{a numeric value to act as a control for the 'x' value}
 
 \item{headline}{a string to format the final output. Uses
 \code{\link[glue]{glue}} syntax}
@@ -46,9 +46,8 @@ same as x, or y is less than x. You can pass it just
 \item{plural_phrases}{named list of values to use when difference (delta) is
 singular (delta = 1) or plural (delta != 1)}
 
-\item{orig_values}{a string to display the two original values. Uses
-\code{\link[glue]{glue}} syntax. \code{{c}} = the 'compare' value, and
-\code{{r}} = 'reference'}
+\item{orig_values}{a string using \code{\link[glue]{glue}} syntax.
+example: \verb{(\{x\} vs \{y\})}}
 
 \item{n_decimal}{numeric value to limit the number of decimal places in
 the returned values.}
@@ -75,8 +74,8 @@ Add column of headlines
 head(animal_sleep) \%>\%
   dplyr::select(common_name, hours_asleep, hours_awake) \%>\%
   add_headline_column(
-    compare = hours_asleep,
-    reference = hours_awake,
+    x = hours_asleep,
+    y = hours_awake,
     headline = "The {common_name} spends {delta} more {hours} {trend} than not {trend}.",
     trend_phrases = trend_terms(more = "asleep", less = "awake"),
     plural_phrases = list(hours = plural_phrasing(single = "hour", multi = "hours"))
@@ -91,8 +90,8 @@ head(animal_sleep) \%>\%
 head(animal_sleep) \%>\%
   dplyr::select(common_name, hours_asleep, hours_awake) \%>\%
   add_headline_column(
-    compare = hours_asleep,
-    reference = hours_awake,
+    x = hours_asleep,
+    y = hours_awake,
     headline = "more time {trend} ({orig_values} hours)",
     trend_phrases = trend_terms(more = "alseep", less = "awake"),
     return_cols = c("delta", "trend")

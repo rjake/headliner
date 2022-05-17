@@ -14,8 +14,8 @@ test_that("add headline column returns columns", {
   df <-
     add_headline_column(
       df = mtcars,
-      compare = gear,
-      reference = carb,
+      x = gear,
+      y = carb,
       return_cols = dplyr::starts_with("delta")
     )
 
@@ -28,8 +28,8 @@ test_that("add headline can access other columns", {
   df <-
     add_headline_column(
       df = animal_sleep,
-      compare = hours_asleep,
-      reference = hours_awake,
+      x = hours_asleep,
+      y = hours_awake,
       headline = "{common_name} ({orig_values})"
     ) %>%
     mutate(has_text = purrr::map2_lgl(common_name, headline, grepl))
@@ -42,8 +42,8 @@ test_that("add headline can pas '...", {
   df <-
     add_headline_column(
       df = animal_sleep,
-      compare = hours_asleep,
-      reference = hours_awake,
+      x = hours_asleep,
+      y = hours_awake,
       headline = "{abc} {common_name} {trend}",
       abc = "123"
     )  %>%
@@ -55,13 +55,22 @@ test_that("add headline can pas '...", {
 test_that("if_match works", {
   df <-
     data.frame(
-      x = 1:3,
-      y = 3:1
+      a = 1:3,
+      b = 3:1
     ) %>%
-    add_headline_column(x, y)
+    add_headline_column(a, b)
 
   expect_equal(
     df$headline[2],
     formals(add_headline_column)[["if_match"]]
   )
+})
+
+test_that("error if x or y in column names", {
+  data.frame(
+    x = 1:3,
+    y = 3:1
+  ) %>%
+  add_headline_column(x, y) |>
+  expect_error()
 })

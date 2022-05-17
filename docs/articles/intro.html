@@ -83,7 +83,7 @@
 
       
 
-      </header><script src="intro_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><script src="intro_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to headliner</h1>
@@ -106,39 +106,39 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the dev version of <code>headliner</code> from <a href="https://github.com/rjake/headliner">github</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"rjake/headliner"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"rjake/headliner"</span><span class="op">)</span></code></pre></div>
 <div id="installation-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation-1" class="anchor"></a>Installation</h3>
-<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 08/22/21).</p>
+<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 05/13/22).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">headliner</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 5</span>
-<span class="co">#&gt;    group     x     y     z date      </span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span>
-<span class="co">#&gt;  1 a       101    10     1 2021-08-22</span>
-<span class="co">#&gt;  2 a       102    20     0 2021-06-22</span>
-<span class="co">#&gt;  3 b       103    30     1 2021-04-22</span>
-<span class="co">#&gt;  4 b       104    40     0 2021-02-22</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-12-22</span>
-<span class="co">#&gt;  6 c       106    60     0 2020-10-22</span>
-<span class="co">#&gt;  7 d       107    70     1 2020-08-22</span>
-<span class="co">#&gt;  8 d       108    80     0 2020-06-22</span>
-<span class="co">#&gt;  9 e       109    90     1 2020-04-22</span>
-<span class="co">#&gt; 10 e       110   100     0 2020-02-22</span></code></pre></div>
+<span class="co">#&gt;    group sales count on_sale date      </span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;    </span>
+<span class="co">#&gt;  1 a       101    35       1 2022-05-13</span>
+<span class="co">#&gt;  2 a       102    34       0 2022-03-13</span>
+<span class="co">#&gt;  3 b       103    33       1 2022-01-13</span>
+<span class="co">#&gt;  4 b       104    32       0 2021-11-13</span>
+<span class="co">#&gt;  5 c       105    31       1 2021-09-13</span>
+<span class="co">#&gt;  6 c       106    30       0 2021-07-13</span>
+<span class="co">#&gt;  7 d       107    29       1 2021-05-13</span>
+<span class="co">#&gt;  8 d       108    28       0 2021-03-13</span>
+<span class="co">#&gt;  9 e       109    27       1 2021-01-13</span>
+<span class="co">#&gt; 10 e       110    26       0 2020-11-13</span></code></pre></div>
 </div>
 <div id="a-simple-headline" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a-simple-headline" class="anchor"></a>A simple headline</h3>
 <p>What we want is to say something like this:</p>
 <pre><code>#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</code></pre>
-<p>We can look at the data an see that about 12 months ago, x was 107 where as today it is 101. We can give these values to <code><a href="../reference/headline.html">headline()</a></code> and get a simple phrase</p>
+<p>We can look at the data an see that about 12 months ago, <code>sales</code> was 107 where as today it is 101. We can give these values to <code><a href="../reference/headline.html">headline()</a></code> and get a simple phrase</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
-  compare <span class="op">=</span> <span class="fl">101</span>, 
-  reference <span class="op">=</span> <span class="fl">107</span>
+  x <span class="op">=</span> <span class="fl">101</span>, 
+  y <span class="op">=</span> <span class="fl">107</span>
 <span class="op">)</span>
 <span class="co">#&gt; decrease of 6 (101 vs. 107)</span></code></pre></div>
 <p>To see how the sentence was constructed, we can look at the components used under the hood. This <code>return_data = TRUE</code> returns a named list. I will condense with <code><a href="../reference/view_list.html">view_list()</a></code></p>
@@ -146,12 +146,12 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <code class="sourceCode R"><span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span><span class="fl">101</span>, <span class="fl">107</span>, return_data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;                                          VALUES</span>
+<span class="co">#&gt; x                                           101</span>
+<span class="co">#&gt; y                                           107</span>
 <span class="co">#&gt; delta                                         6</span>
 <span class="co">#&gt; delta_p                                     5.6</span>
 <span class="co">#&gt; article_delta                               a 6</span>
 <span class="co">#&gt; article_delta_p                           a 5.6</span>
-<span class="co">#&gt; comp_value                                  101</span>
-<span class="co">#&gt; ref_value                                   107</span>
 <span class="co">#&gt; raw_delta                                    -6</span>
 <span class="co">#&gt; raw_delta_p                                -5.6</span>
 <span class="co">#&gt; article_raw_delta                          a -6</span>
@@ -167,8 +167,8 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <p>We can compose it like this using <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue()</a></code> syntax</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
-  compare <span class="op">=</span> <span class="fl">101</span>, 
-  reference <span class="op">=</span> <span class="fl">107</span>, 
+  x <span class="op">=</span> <span class="fl">101</span>, 
+  y <span class="op">=</span> <span class="fl">107</span>, 
   headline <span class="op">=</span> <span class="st">"We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."</span>
 <span class="op">)</span>
 <span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></code></pre></div>
@@ -178,41 +178,41 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <h3 class="hasAnchor">
 <a href="#helpers-for-dynamic-calculations" class="anchor"></a>Helpers for dynamic calculations</h3>
 <p>But let’s see if we can make the calculations more dynamic…</p>
-<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 06/22/21 was 61 days ago (or 8 weeks or 2 months, …) from the current date.</p>
+<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the refence date specified) to the values in the <code>date</code> column . With these new fields we can see that 03/13/22 was 61 days ago (or 9 weeks or 2 months, …) from the current date.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_date_columns.html">add_date_columns</a></span><span class="op">(</span>date_col <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 11</span>
-<span class="co">#&gt;    group     x     y     z date         day  week month quarter calendar_year</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 a       101    10     1 2021-08-22     0     0     0       0             0</span>
-<span class="co">#&gt;  2 a       102    20     0 2021-06-22   -61    -8    -2      -1             0</span>
-<span class="co">#&gt;  3 b       103    30     1 2021-04-22  -122   -17    -4      -1             0</span>
-<span class="co">#&gt;  4 b       104    40     0 2021-02-22  -181   -25    -6      -2             0</span>
-<span class="co">#&gt;  5 c       105    50     1 2020-12-22  -243   -34    -8      -3            -1</span>
-<span class="co">#&gt;  6 c       106    60     0 2020-10-22  -304   -43   -10      -3            -1</span>
-<span class="co">#&gt;  7 d       107    70     1 2020-08-22  -365   -52   -12      -4            -1</span>
-<span class="co">#&gt;  8 d       108    80     0 2020-06-22  -426   -60   -14      -5            -1</span>
-<span class="co">#&gt;  9 e       109    90     1 2020-04-22  -487   -69   -16      -5            -1</span>
-<span class="co">#&gt; 10 e       110   100     0 2020-02-22  -547   -78   -18      -6            -1</span>
+<span class="co">#&gt;    group sales count on_sale date         day  week month quarter calendar_year</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 a       101    35       1 2022-05-13     0     0     0       0             0</span>
+<span class="co">#&gt;  2 a       102    34       0 2022-03-13   -61    -9    -2      -1             0</span>
+<span class="co">#&gt;  3 b       103    33       1 2022-01-13  -120   -17    -4      -1             0</span>
+<span class="co">#&gt;  4 b       104    32       0 2021-11-13  -181   -26    -6      -2            -1</span>
+<span class="co">#&gt;  5 c       105    31       1 2021-09-13  -242   -34    -8      -3            -1</span>
+<span class="co">#&gt;  6 c       106    30       0 2021-07-13  -304   -43   -10      -3            -1</span>
+<span class="co">#&gt;  7 d       107    29       1 2021-05-13  -365   -52   -12      -4            -1</span>
+<span class="co">#&gt;  8 d       108    28       0 2021-03-13  -426   -61   -14      -5            -1</span>
+<span class="co">#&gt;  9 e       109    27       1 2021-01-13  -485   -69   -16      -5            -1</span>
+<span class="co">#&gt; 10 e       110    26       0 2020-11-13  -546   -78   -18      -6            -2</span>
 <span class="co">#&gt; # ... with 1 more variable: fiscal_year &lt;dbl&gt;</span></code></pre></div>
-<p>We can then identify some conditions for our comparison (<code>compare</code>) and our reference group (<code>reference</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code></p>
+<p>We can then identify some conditions for our group of interest (<code>x</code>) and our reference group (<code>y</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">yoy</span> <span class="op">&lt;-</span> <span class="co"># year over year</span>
   <span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_date_columns.html">add_date_columns</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/compare_columns.html">compare_conditions</a></span><span class="op">(</span>
-    compare <span class="op">=</span> <span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>,     <span class="co"># this month</span>
-    reference <span class="op">=</span> <span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="op">-</span><span class="fl">12</span><span class="op">)</span>, <span class="co"># vs 12 months ago</span>
-    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,                <span class="co"># the column(s) to aggregate</span>
+    x <span class="op">=</span> <span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>,   <span class="co"># this month</span>
+    y <span class="op">=</span> <span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="op">-</span><span class="fl">12</span><span class="op">)</span>, <span class="co"># vs 12 months ago</span>
+    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">sales</span><span class="op">)</span>,   <span class="co"># the column(s) to aggregate</span>
     calc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>    <span class="co"># the list of functions passed to summarise(across(...))</span>
   <span class="op">)</span>
 
 <span class="va">yoy</span>
-<span class="co">#&gt; $mean_x_comp</span>
+<span class="co">#&gt; $mean_sales_x</span>
 <span class="co">#&gt; [1] 101</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $mean_x_ref</span>
+<span class="co">#&gt; $mean_sales_y</span>
 <span class="co">#&gt; [1] 107</span></code></pre></div>
 <p>It might look funny to see <code><a href="https://rdrr.io/r/base/list.html">list(mean = mean)</a></code>. The name (left side) is how it will name the values, the right side is the function to use. If I had used <code>calc = list(avg = mean)</code> The names would have been <code>avg_x_*</code>. Because <code><a href="../reference/compare_columns.html">compare_conditions()</a></code> uses the mean as the default, I’ll omit it going forward. Now that I have my output as a list, I can use <code><a href="../reference/headline.html">headline_list()</a></code> to generate headlines.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -226,51 +226,52 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <code class="sourceCode R"><span class="va">car_stats</span> <span class="op">&lt;-</span>
   <span class="va">mtcars</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/compare_columns.html">compare_conditions</a></span><span class="op">(</span>
-    compare <span class="op">=</span> <span class="va">cyl</span> <span class="op">==</span> <span class="fl">4</span>,
-    reference <span class="op">=</span> <span class="va">cyl</span> <span class="op">&gt;</span> <span class="fl">4</span>,
+    x <span class="op">=</span> <span class="va">cyl</span> <span class="op">==</span> <span class="fl">4</span>,
+    y <span class="op">=</span> <span class="va">cyl</span> <span class="op">&gt;</span> <span class="fl">4</span>,
     cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"d"</span><span class="op">)</span>,
     calc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>avg <span class="op">=</span> <span class="va">mean</span>, min <span class="op">=</span> <span class="va">min</span><span class="op">)</span>
   <span class="op">)</span>
 
 <span class="fu"><a href="../reference/view_list.html">view_list</a></span><span class="op">(</span><span class="va">car_stats</span><span class="op">)</span>
-<span class="co">#&gt;                   VALUES</span>
-<span class="co">#&gt; avg_disp_comp 105.136364</span>
-<span class="co">#&gt; avg_disp_ref  296.504762</span>
-<span class="co">#&gt; avg_drat_comp   4.070909</span>
-<span class="co">#&gt; avg_drat_ref    3.348095</span>
-<span class="co">#&gt; min_disp_comp  71.100000</span>
-<span class="co">#&gt; min_disp_ref  145.000000</span>
-<span class="co">#&gt; min_drat_comp   3.690000</span>
-<span class="co">#&gt; min_drat_ref    2.760000</span>
+<span class="co">#&gt;                VALUES</span>
+<span class="co">#&gt; avg_disp_x 105.136364</span>
+<span class="co">#&gt; avg_disp_y 296.504762</span>
+<span class="co">#&gt; avg_drat_x   4.070909</span>
+<span class="co">#&gt; avg_drat_y   3.348095</span>
+<span class="co">#&gt; min_disp_x  71.100000</span>
+<span class="co">#&gt; min_disp_y 145.000000</span>
+<span class="co">#&gt; min_drat_x   3.690000</span>
+<span class="co">#&gt; min_drat_y   2.760000</span>
 
-<span class="fu"><a href="../reference/headline.html">headline_list</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="va">car_stats</span>,
-  compare <span class="op">=</span> <span class="va">avg_disp_comp</span>,
-  reference <span class="op">=</span> <span class="va">avg_disp_ref</span>,
-  headline <span class="op">=</span> <span class="st">"Difference in avg. displacement of {delta}cu.in. ({orig_values})"</span>
-<span class="op">)</span>
+<span class="va">car_stats</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/headline.html">headline_list</a></span><span class="op">(</span>
+    x <span class="op">=</span> <span class="va">avg_disp_x</span>,
+    y <span class="op">=</span> <span class="va">avg_disp_y</span>,
+    headline <span class="op">=</span> <span class="st">"Difference in avg. displacement of {delta}cu.in. ({orig_values})"</span>
+  <span class="op">)</span>
 <span class="co">#&gt; Difference in avg. displacement of 191.4cu.in. (105.1 vs. 296.5)</span>
 
-<span class="fu"><a href="../reference/headline.html">headline_list</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="va">car_stats</span>,
-  compare <span class="op">=</span> <span class="va">avg_drat_comp</span>,
-  reference <span class="op">=</span> <span class="va">avg_drat_ref</span>,
-  headline <span class="op">=</span> <span class="st">"Difference in avg. rear axle ratio of {delta} ({orig_values})"</span>
-<span class="op">)</span>
+<span class="va">car_stats</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/headline.html">headline_list</a></span><span class="op">(</span>
+    x <span class="op">=</span> <span class="va">avg_drat_x</span>,
+    y <span class="op">=</span> <span class="va">avg_drat_y</span>,
+    headline <span class="op">=</span> <span class="st">"Difference in avg. rear axle ratio of {delta} ({orig_values})"</span>
+  <span class="op">)</span>
 <span class="co">#&gt; Difference in avg. rear axle ratio of 0.7 (4.1 vs. 3.3)</span></code></pre></div>
 <p><code><a href="../reference/compare_columns.html">compare_conditions()</a></code> can also be used to compare categorical criteria.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/compare_columns.html">compare_conditions</a></span><span class="op">(</span>
-    compare <span class="op">=</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"a"</span>,
-    reference <span class="op">=</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"c"</span>,
-    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    x <span class="op">=</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"a"</span>,
+    y <span class="op">=</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"c"</span>,
+    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">sales</span><span class="op">)</span>,
+    calc <span class="op">=</span> <span class="va">sum</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/headline.html">headline_list</a></span><span class="op">(</span>
-    headline <span class="op">=</span> <span class="st">"Group A ({comp_value}) is {delta} points {trend} Group C ({ref_value})"</span>,
+    headline <span class="op">=</span> <span class="st">"Group A is ${delta} {trend} Group C (${x} vs ${y})"</span>,
     trend_phrases <span class="op">=</span> <span class="fu"><a href="../reference/trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"ahead"</span>,  less <span class="op">=</span> <span class="st">"behind"</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="co">#&gt; Group A (101.5) is 4 points behind Group C (105.5)</span></code></pre></div>
+<span class="co">#&gt; Group A is $8 behind Group C ($203 vs $211)</span></code></pre></div>
 </div>
 <div id="within-a-data-frame" class="section level3">
 <h3 class="hasAnchor">
@@ -284,8 +285,8 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
   post <span class="op">=</span> <span class="fl">70</span> <span class="op">+</span> <span class="fl">6</span><span class="op">:</span><span class="fl">2</span>
 <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/add_headline_column.html">add_headline_column</a></span><span class="op">(</span>
-    compare <span class="op">=</span> <span class="va">post</span>, 
-    reference <span class="op">=</span> <span class="va">pre</span>,
+    x <span class="op">=</span> <span class="va">post</span>, 
+    y <span class="op">=</span> <span class="va">pre</span>,
     headline <span class="op">=</span> <span class="st">"Using Brand {med}, {lab} {trend}d by {delta} mg/dL"</span>,
     return_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"delta"</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -305,14 +306,14 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <p>You can add phrases to customize your sentences. <code>plural_phrases()</code> allows you to add new variables to the list of components available. Here I am adding <code>{people}</code> for use in my headline.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
-  compare <span class="op">=</span> <span class="fl">10</span>,
-  reference <span class="op">=</span> <span class="fl">8</span>,
+  x <span class="op">=</span> <span class="fl">9</span>,
+  y <span class="op">=</span> <span class="fl">10</span>,
   headline <span class="op">=</span> <span class="st">"{delta_p}% {trend} ({delta} {people})"</span>,
   plural_phrases <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>  
     people <span class="op">=</span> <span class="fu"><a href="../reference/plural_phrasing.html">plural_phrasing</a></span><span class="op">(</span>single <span class="op">=</span> <span class="st">"person"</span>, multi <span class="op">=</span> <span class="st">"people"</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; 25% increase (2 people)</span></code></pre></div>
+<span class="co">#&gt; 10% decrease (1 person)</span></code></pre></div>
 <p>You can actually pass multiple <code><a href="../reference/trend_terms.html">trend_terms()</a></code> and <code><a href="../reference/plural_phrasing.html">plural_phrasing()</a></code> options.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># lists to use</span>
@@ -330,8 +331,8 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 
 <span class="co"># notice the difference in these two outputs</span>
 <span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
-  compare <span class="op">=</span> <span class="fl">25</span>, 
-  reference <span class="op">=</span> <span class="fl">23</span>,
+  x <span class="op">=</span> <span class="fl">25</span>, 
+  y <span class="op">=</span> <span class="fl">23</span>,
   headline <span class="op">=</span> <span class="st">"There {are} {delta} {more} {people} ({an_increase} of {delta_p}%)"</span>,
   trend_phrases <span class="op">=</span> <span class="va">more_less</span>,
   plural_phrases <span class="op">=</span> <span class="va">are_people</span>
@@ -339,8 +340,8 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <span class="co">#&gt; There are 2 more people (an increase of 8.7%)</span>
 
 <span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
-  compare <span class="op">=</span> <span class="fl">25</span>, 
-  reference <span class="op">=</span> <span class="fl">26</span>,
+  x <span class="op">=</span> <span class="fl">25</span>, 
+  y <span class="op">=</span> <span class="fl">26</span>,
   headline <span class="op">=</span> <span class="st">"There {are} {delta} {more} {people} ({an_increase} of {delta_p}%)"</span>,
   trend_phrases <span class="op">=</span> <span class="va">more_less</span>,
   plural_phrases <span class="op">=</span> <span class="va">are_people</span>
@@ -355,7 +356,7 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <code class="sourceCode R"><span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; There was no difference.</span>
 
-<span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, if_match <span class="op">=</span> <span class="st">"There were no additional applicants ({comp_value} total)"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, if_match <span class="op">=</span> <span class="st">"There were no additional applicants ({x} total)"</span><span class="op">)</span>
 <span class="co">#&gt; There were no additional applicants (3 total)</span></code></pre></div>
 </div>
 <div id="an-example-with-valuebox" class="section level3">
@@ -364,13 +365,19 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 </h3>
 <p>Here’s an example that uses <code>headliner</code> to create a <code>valueBox()</code> in <code>shiny</code> with dynamic colors and text.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">box_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">yoy</span><span class="op">$</span><span class="va">sign</span> <span class="op">==</span> <span class="op">-</span><span class="fl">1</span>, <span class="st">"red"</span>, <span class="st">"blue"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">show</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_values.html">compare_values</a></span><span class="op">(</span><span class="fl">101</span>, <span class="fl">107</span><span class="op">)</span>
+<span class="va">box_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">show</span><span class="op">$</span><span class="va">sign</span> <span class="op">==</span> <span class="op">-</span><span class="fl">1</span>, <span class="st">"red"</span>, <span class="st">"blue"</span><span class="op">)</span>
 
 <span class="fu">valueBox</span><span class="op">(</span>
-  value <span class="op">=</span> <span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span><span class="va">yoy</span>, headline <span class="op">=</span> <span class="st">'{delta_p}% {trend}'</span><span class="op">)</span>,
+  value <span class="op">=</span> 
+    <span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
+      <span class="va">show</span><span class="op">$</span><span class="va">x</span>, 
+      <span class="va">show</span><span class="op">$</span><span class="va">y</span>, 
+      headline <span class="op">=</span> <span class="st">'{delta_p}% {trend}'</span>
+    <span class="op">)</span>,
   subtitle <span class="op">=</span> <span class="st">"vs. the same time last year"</span>,
   color <span class="op">=</span> <span class="va">box_color</span>
-<span class="op">)</span> </code></pre></div>
+<span class="op">)</span></code></pre></div>
 <div style="text-align:center">
 <p><img src="figures/value_box.png" width="300/"></p>
 </div>

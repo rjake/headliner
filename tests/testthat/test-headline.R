@@ -9,7 +9,7 @@ test_that("vector works correctly", {
 test_that("list is passed correctly", {
   named <-
     list(a = 8, b = 9, c = 10) %>%
-    headline_list(compare = c, reference = a)
+    headline_list(x = c, y = a)
 
   unnamed <-
     list(10, 8) %>%

@@ -22,18 +22,16 @@ Let's look at some of the talking points for the difference between 5 and 7:
 library(headliner)
 
 compare_values(5, 7) %>% # returns a list
-  view_list() %>% # show as a data frame
-  head()
+  view_list() # show as a data frame
 ```
 
 We can string these together these talking points like this:
 
 ```{r}
 headline(
-  compare = 5, 
-  reference = 7, 
-  headline = 
-    "There was {article_delta_p}% {trend} ({orig_values})"
+  x = 5, 
+  y = 7, 
+  headline = "There was {article_delta_p}% {trend} ({orig_values})"
 )
 ```
 

@@ -1,12 +1,11 @@
 #' Add column of headlines
 #'
 #' @param df data frame, must be a single row
-#' @param compare numeric value to compare against reference (base) value
-#' @param reference numeric value that 'compare' value will be compared against
 #' @param .name string value for the name of the new column to create
 #' @param return_cols arguments that can be passed to
 #' \code{\link[dplyr]{select}}, ex: c("a", "b"),
 #' \code{\link[dplyr]{starts_with}},etc.
+#' @inheritParams compare_values
 #' @inheritParams headline
 #' @export
 #' @importFrom glue glue
@@ -22,8 +21,8 @@
 #' head(animal_sleep) %>%
 #'   dplyr::select(common_name, hours_asleep, hours_awake) %>%
 #'   add_headline_column(
-#'     compare = hours_asleep,
-#'     reference = hours_awake,
+#'     x = hours_asleep,
+#'     y = hours_awake,
 #'     headline = "The {common_name} spends {delta} more {hours} {trend} than not {trend}.",
 #'     trend_phrases = trend_terms(more = "asleep", less = "awake"),
 #'     plural_phrases = list(hours = plural_phrasing(single = "hour", multi = "hours"))
@@ -38,8 +37,8 @@
 #' head(animal_sleep) %>%
 #'   dplyr::select(common_name, hours_asleep, hours_awake) %>%
 #'   add_headline_column(
-#'     compare = hours_asleep,
-#'     reference = hours_awake,
+#'     x = hours_asleep,
+#'     y = hours_awake,
 #'     headline = "more time {trend} ({orig_values} hours)",
 #'     trend_phrases = trend_terms(more = "alseep", less = "awake"),
 #'     return_cols = c("delta", "trend")
@@ -48,24 +47,35 @@
 #'   knitr::kable("pandoc")
 #'
 add_headline_column <- function(df,
-                                compare,
-                                reference,
+                                x,
+                                y,
                                 headline = "{trend} of {delta} ({orig_values})",
                                 ...,
                                 .name = "headline",
                                 if_match = "There was no difference.",
                                 trend_phrases = headliner::trend_terms(),
                                 plural_phrases = NULL,
-                                orig_values = "{c} vs. {r}",
+                                orig_values = "{x} vs. {y}",
                                 n_decimal = 1,
                                 round_all = TRUE,
                                 multiplier = 1,
                                 return_cols = NULL) {
+  # df <- mtcars; x = as.symbol("gear"); y = as.symbol("carb")
 
   # confirm args listed
-  if (missing(compare) | missing(reference)) {
-    abort("please specify columns using 'compare' and 'reference'")
+  if (missing(x) | missing(y)) {
+    abort("please specify columns using 'x' and 'y'")
   }
+
+  if (any(c("x", "y") %in% names(df))) {
+    abort(
+      glue(
+        "a data frame with column names 'x' or 'y' will \\
+        cause unexpected output and not currently supported"
+      )
+    )
+  }
+
 
   # inform that headline can be renamed
   if (.name %in% names(df)) {
@@ -82,8 +92,8 @@ add_headline_column <- function(df,
     transmute(
       comp_values = # returns a list per row
         map2(
-          .x = {{compare}},
-          .y = {{reference}},
+          .x = {{x}},
+          .y = {{y}},
           .f =
             ~compare_values(
               .x,
@@ -109,7 +119,7 @@ add_headline_column <- function(df,
     transmute(
       {{.name}} :=
         ifelse(
-          test = .data$comp_value == .data$ref_value,
+          test = .data$x == .data$y,
           yes = if_match,
           no = glue(headline, ...)
       )
@@ -123,7 +133,6 @@ add_headline_column <- function(df,
 
   # otherwise just append headline column to orig data
   df %>%
-    select(-any_of(names(new_cols))) %>% # will remove cols with same name
     bind_cols(
       headline_col,
       select(new_cols, {{return_cols}} )

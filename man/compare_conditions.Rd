@@ -7,13 +7,7 @@
 \usage{
 compare_columns(df, cols = everything(), calc = list(mean = mean))
 
-compare_conditions(
-  df,
-  compare,
-  reference,
-  cols = everything(),
-  calc = list(mean = mean)
-)
+compare_conditions(df, x, y, cols = everything(), calc = list(mean = mean))
 }
 \arguments{
 \item{df}{data frame}
@@ -24,10 +18,11 @@ compare_conditions(
 list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
 list(mean = ~mean(.x, na.rm = TRUE), sd = sd)}
 
-\item{compare}{condition for comparison, same criteria you would use in
-'dplyr::filter'}
+\item{x}{condition for comparison, same criteria you would use in
+'dplyr::filter', used in contrast to the reference group 'y'}
 
-\item{reference}{same as compare}
+\item{y}{condition for comparison, same criteria you would use in
+'dplyr::filter', used in contrast to the reference group 'x'}
 }
 \description{
 Compare two columns within a data frame
@@ -44,8 +39,8 @@ compare_columns(flights_jfk, ends_with("delay"), list(avg = mean))
 # compare_conditions() produces a list that can be passed to headline_list()
 flights_jfk \%>\%
   compare_conditions(
-    compare = (hour > 12),
-    reference = (hour <= 12),
+    x = (hour > 12),
+    y = (hour <= 12),
     dep_delay
   )
 
@@ -55,8 +50,8 @@ flights_jfk \%>\%
  # 'view_List()' is a helper to see list objects in a compact way
 flights_jfk \%>\%
   compare_conditions(
-    compare = (hour > 12),
-    reference = (hour <= 12),
+    x = (hour > 12),
+    y = (hour <= 12),
     cols = c(dep_delay, arr_delay),
     calc = list(mean = mean, sd = sd)
   ) \%>\%
@@ -65,8 +60,8 @@ flights_jfk \%>\%
 # if you want to compare to the average use 'complete.cases(.)'
 flights_jfk \%>\%
   compare_conditions(
-    compare = (hour > 12),
-    reference = complete.cases(.),
+    x = (hour > 12),
+    y = complete.cases(.),
     dep_delay
   ) \%>\%
   view_list()

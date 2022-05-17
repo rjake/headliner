@@ -58,9 +58,9 @@ What we want is to say something like this:
 demo_data() %>%
   add_date_columns(date) %>% 
   compare_conditions(
-    compare = month == 0,
-    reference = month == -12,
-    cols = x
+    x = month == 0,
+    y = month == -12,
+    cols = sales
   ) %>% 
   headline_list(
     headline = 
@@ -68,11 +68,11 @@ demo_data() %>%
   )
 ```
 
-We can look at the data an see that about 12 months ago, x was 107 where as today it is 101. We can give these values to `headline()` and get a simple phrase
+We can look at the data an see that about 12 months ago, `sales` was 107 where as today it is 101. We can give these values to `headline()` and get a simple phrase
 ```{r}
 headline(
-  compare = 101, 
-  reference = 107
+  x = 101, 
+  y = 107
 )
 ```
 
@@ -87,8 +87,8 @@ headline(101, 107, return_data = TRUE) %>%
 We can compose it like this using `glue::glue()` syntax
 ```{r}
 headline(
-  compare = 101, 
-  reference = 107, 
+  x = 101, 
+  y = 107, 
   headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
 )
 ```
@@ -104,15 +104,15 @@ demo_data() %>%
   add_date_columns(date_col = date)
 ```
 
-We can then identify some conditions for our comparison (`compare`) and our reference group (`reference`). This step uses the kind of logic you would use in `dplyr::filter()` or `base::subset()`
+We can then identify some conditions for our group of interest (`x`) and our reference group (`y`). This step uses the kind of logic you would use in `dplyr::filter()` or `base::subset()`
 ```{r}
 yoy <- # year over year
   demo_data() %>%
   add_date_columns(date) %>% 
   compare_conditions(
-    compare = (month == 0),     # this month
-    reference = (month == -12), # vs 12 months ago
-    cols = c(x),                # the column(s) to aggregate
+    x = (month == 0),   # this month
+    y = (month == -12), # vs 12 months ago
+    cols = c(sales),   # the column(s) to aggregate
     calc = list(mean = mean)    # the list of functions passed to summarise(across(...))
   )
 
@@ -133,39 +133,40 @@ If your list has more than 2 values, you can specify the values you need by call
 car_stats <-
   mtcars %>% 
   compare_conditions(
-    compare = cyl == 4,
-    reference = cyl > 4,
+    x = cyl == 4,
+    y = cyl > 4,
     cols = starts_with("d"),
     calc = list(avg = mean, min = min)
   )
 
 view_list(car_stats)
 
-headline_list(
-  x = car_stats,
-  compare = avg_disp_comp,
-  reference = avg_disp_ref,
-  headline = "Difference in avg. displacement of {delta}cu.in. ({orig_values})"
-)
+car_stats %>%
+  headline_list(
+    x = avg_disp_x,
+    y = avg_disp_y,
+    headline = "Difference in avg. displacement of {delta}cu.in. ({orig_values})"
+  )
 
-headline_list(
-  x = car_stats,
-  compare = avg_drat_comp,
-  reference = avg_drat_ref,
-  headline = "Difference in avg. rear axle ratio of {delta} ({orig_values})"
-)
+car_stats %>%
+  headline_list(
+    x = avg_drat_x,
+    y = avg_drat_y,
+    headline = "Difference in avg. rear axle ratio of {delta} ({orig_values})"
+  )
 ```
 
 `compare_conditions()` can also be used to compare categorical criteria.
 ```{r}
 demo_data() %>%
   compare_conditions(
-    compare = group == "a",
-    reference = group == "c",
-    cols = c(x)
+    x = group == "a",
+    y = group == "c",
+    cols = c(sales),
+    calc = sum
   ) %>% 
   headline_list(
-    headline = "Group A ({comp_value}) is {delta} points {trend} Group C ({ref_value})",
+    headline = "Group A is ${delta} {trend} Group C (${x} vs ${y})",
     trend_phrases = trend_terms(more = "ahead",  less = "behind")
   )
 ```
@@ -181,8 +182,8 @@ tibble::tibble(
   post = 70 + 6:2
 ) %>% 
   add_headline_column(
-    compare = post, 
-    reference = pre,
+    x = post, 
+    y = pre,
     headline = "Using Brand {med}, {lab} {trend}d by {delta} mg/dL",
     return_cols = c("delta")
   ) %>% 
@@ -197,8 +198,8 @@ tibble::tibble(
 You can add phrases to customize your sentences. `plural_phrases()` allows you to add new variables to the list of components available. Here I am adding `{people}` for use in my headline.
 ```{r}
 headline(
-  compare = 10,
-  reference = 8,
+  x = 9,
+  y = 10,
   headline = "{delta_p}% {trend} ({delta} {people})",
   plural_phrases = list(  
     people = plural_phrasing(single = "person", multi = "people")
@@ -223,16 +224,16 @@ are_people <-
 
 # notice the difference in these two outputs
 headline(
-  compare = 25, 
-  reference = 23,
+  x = 25, 
+  y = 23,
   headline = "There {are} {delta} {more} {people} ({an_increase} of {delta_p}%)",
   trend_phrases = more_less,
   plural_phrases = are_people
 )
 
 headline(
-  compare = 25, 
-  reference = 26,
+  x = 25, 
+  y = 26,
   headline = "There {are} {delta} {more} {people} ({an_increase} of {delta_p}%)",
   trend_phrases = more_less,
   plural_phrases = are_people
@@ -245,7 +246,7 @@ You can also adjust the text if the numbers are the same
 ```{r}
 headline(3, 3)
 
-headline(3, 3, if_match = "There were no additional applicants ({comp_value} total)")
+headline(3, 3, if_match = "There were no additional applicants ({x} total)")
 ```
 
 ### An example with `valueBox()`
@@ -253,13 +254,19 @@ headline(3, 3, if_match = "There were no additional applicants ({comp_value} tot
 Here's an example that uses `headliner` to create a `valueBox()` in `shiny` with dynamic colors and text.
 
 ```{r eval=FALSE}
-box_color <- ifelse(yoy$sign == -1, "red", "blue")
+show <- compare_values(101, 107)
+box_color <- ifelse(show$sign == -1, "red", "blue")
 
 valueBox(
-  value = headline(yoy, headline = '{delta_p}% {trend}'),
+  value = 
+    headline(
+      show$x, 
+      show$y, 
+      headline = '{delta_p}% {trend}'
+    ),
   subtitle = "vs. the same time last year",
   color = box_color
-) 
+)
 ```
 
 <div style="text-align:center">
@@ -268,7 +275,11 @@ valueBox(
 
 
 ```{r echo=FALSE, eval=FALSE}
+library(shiny)
 library(shinydashboard)
+
+show <- compare_values(101, 107)
+box_color <- ifelse(show$sign == -1, "red", "blue")
 
 shinyApp(
   ui = dashboardPage(
@@ -276,10 +287,15 @@ shinyApp(
     dashboardSidebar(),
     dashboardBody(
       fluidRow(
-        valueBox("5.6% decrease", "vs. the same time last year", color = "red")
+        valueBox(
+          value =  headline(show$x, show$y, headline = '{delta_p}% {trend}'),
+          subtitle = "vs. the same time last year",
+          color = box_color,
+          width = 5
+        )
       )
-      )
-   ),
+    )
+  ),
   server = function(input, output) {}
 )
 ```
