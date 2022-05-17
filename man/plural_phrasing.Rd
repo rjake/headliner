@@ -2,7 +2,7 @@
 % Please edit documentation in R/plural-phrasing.R
 \name{plural_phrasing}
 \alias{plural_phrasing}
-\title{List of values to use when change is plural (or singlular)}
+\title{List of values to use when change is plural (or singular)}
 \usage{
 plural_phrasing(single, multi)
 }
@@ -12,7 +12,7 @@ plural_phrasing(single, multi)
 \item{multi}{string to use when delta > 1}
 }
 \description{
-List of values to use when change is plural (or singlular)
+List of values to use when change is plural (or singular)
 }
 \examples{
 plural_phrasing("person", "people")
