@@ -71,6 +71,6 @@ test_that("error if x or y in column names", {
     x = 1:3,
     y = 3:1
   ) %>%
-  add_headline_column(x, y) |>
+  add_headline_column(x, y) %>%
   expect_error()
 })
