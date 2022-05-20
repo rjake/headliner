@@ -17,7 +17,7 @@
 #' phrase components used to compose the headline
 #' @inheritParams compare_values
 #' @importFrom glue glue_data
-#' @importFrom purrr map_if
+#' @importFrom purrr  map2_chr map_dbl map2
 #' @export
 #' @rdname headline
 #' @seealso [compare_values()], [trend_terms()], and [add_article()]
