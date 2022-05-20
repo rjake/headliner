@@ -101,14 +101,20 @@ headline <- function(x,
     )
 
   final_output <- glue_data(res, headline, ...)
+  # determine which headline phrasing to use & pass to glue
+  headlines <-
+    map2_chr(
+      .x = res,
+      .y = ifelse(map_dbl(res, pluck, "sign") == 0, if_match, headline),
+      .f = glue_data,
+      ...
+    )
 
   if (return_data) {
     res <- append(res, list(headline = final_output))
     return(res)
   }
 
-  # determine which headline phrasing to use
-  final_output[res$sign == 0] <- glue_data(res, if_match, ...)
 
   final_output
 }
