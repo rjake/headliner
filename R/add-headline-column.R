@@ -71,10 +71,10 @@ add_headline_column <- function(df,
     warn()
   }
 
-  # pass values and unnest ----
-  new_cols <-
-    df %>%
-    transmute(
+  headline_pattern <- headline
+
+  df %>%
+    mutate(
       comp_values = # returns a list per row
         map2(
           .x = {{x}},
@@ -89,38 +89,21 @@ add_headline_column <- function(df,
               n_decimal = n_decimal,
               round_all = round_all,
               multiplier = multiplier
-            ) %>%
-            as.data.frame()
-          )
+            )
+        ) %>%
+        map_dfr(flatten) %>%
+        mutate(
+          {{.name}} :=
+            ifelse(
+              test = .data$x == .data$y,
+              yes = if_match,
+              no = glue(headline_pattern, ...)
+            )
+        ) %>%
+        select({{.name}}, {{return_cols}})
       ) %>%
-      unnest(.data$comp_values)
-
-  # combine with original data
-  full_data <- bind_cols(df, new_cols)
-
-  # create headline column
-  headline_col <-
-    full_data %>%
-    transmute(
-      {{.name}} :=
-        ifelse(
-          test = .data$x == .data$y,
-          yes = if_match,
-          no = glue(headline, ...)
+      unnest_wider(
+        .data$comp_values,
+        names_repair = "unique"
       )
-    )
-
-
-  # return df + headline if no cols requested
-  if (missing(return_cols)) {
-    return(df %>% bind_cols(headline_col))
-  }
-
-  # otherwise just append headline column to orig data
-  df %>%
-    bind_cols(
-      headline_col,
-      select(new_cols, {{return_cols}} )
-    )
 }
-
