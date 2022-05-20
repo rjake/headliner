@@ -111,8 +111,8 @@ headline <- function(x,
     )
 
   if (return_data) {
-    res <- append(res, list(headline = final_output))
-    return(res)
+    full_list <- map2(res, headlines, ~append(list(headline = .y), .x))
+    return(full_list)
   }
 
 
