@@ -4,15 +4,15 @@
 #' @param .name string value for the name of the new column to create
 #' @param return_cols arguments that can be passed to
 #' \code{\link[dplyr]{select}}, ex: c("a", "b"),
-#' \code{\link[dplyr]{starts_with}},etc.
+#' \code{\link[dplyr]{starts_with}}, etc.
 #' @inheritParams compare_values
 #' @inheritParams headline
 #' @export
 #' @importFrom glue glue
-#' @importFrom dplyr mutate transmute bind_cols any_of select
-#' @importFrom tidyr unnest
+#' @importFrom dplyr mutate transmute select
+#' @importFrom tidyr unnest_wider
 #' @importFrom rlang := .data abort warn
-#' @importFrom purrr map2
+#' @importFrom purrr map2 map_dfr flatten
 #' @examples
 #'
 #' # You can use 'add_headline_column()' instead of
