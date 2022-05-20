@@ -62,21 +62,6 @@ add_headline_column <- function(df,
                                 return_cols = .name) {
   # df <- mtcars; x = as.symbol("gear"); y = as.symbol("carb")
 
-  # confirm args listed
-  if (missing(x) | missing(y)) {
-    abort("please specify columns using 'x' and 'y'")
-  }
-
-  if (any(c("x", "y") %in% names(df))) {
-    abort(
-      glue(
-        "a data frame with column names 'x' or 'y' will \\
-        cause unexpected output and not currently supported"
-      )
-    )
-  }
-
-
   # inform that headline can be renamed
   if (.name %in% names(df)) {
     glue(
