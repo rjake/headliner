@@ -100,7 +100,6 @@ headline <- function(x,
         )
     )
 
-  final_output <- glue_data(res, headline, ...)
   # determine which headline phrasing to use & pass to glue
   headlines <-
     map2_chr(
@@ -115,8 +114,7 @@ headline <- function(x,
     return(full_list)
   }
 
-
-  final_output
+  headlines
 }
 
 
