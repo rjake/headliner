@@ -66,7 +66,7 @@ add_headline_column <- function(df,
   if (.name %in% names(df)) {
     glue(
       "The column '{.name}' was replaced. Use the '.name' argument \\
-      to change the column name."
+      to change the new column name."
     ) %>%
     warn()
   }
