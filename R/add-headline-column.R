@@ -59,7 +59,7 @@ add_headline_column <- function(df,
                                 n_decimal = 1,
                                 round_all = TRUE,
                                 multiplier = 1,
-                                return_cols = NULL) {
+                                return_cols = .name) {
   # df <- mtcars; x = as.symbol("gear"); y = as.symbol("carb")
 
   # confirm args listed
