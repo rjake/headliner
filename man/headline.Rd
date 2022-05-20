@@ -82,7 +82,7 @@ Compose phrases that describe differences in the data
 # values can be manually entered, some headlines are provided by default
 headline(10, 8)
 headline(8, 10)
-headline(10, 10)
+headline(1:3, 3:1)
 
 # most likely you'll edit the headline by hand
 headline(

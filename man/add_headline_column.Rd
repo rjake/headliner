@@ -18,7 +18,7 @@ add_headline_column(
   n_decimal = 1,
   round_all = TRUE,
   multiplier = 1,
-  return_cols = NULL
+  return_cols = .name
 )
 }
 \arguments{
@@ -61,7 +61,7 @@ all values will be round to the length specified by 'n_decimal'.}
 
 \item{return_cols}{arguments that can be passed to
 \code{\link[dplyr]{select}}, ex: c("a", "b"),
-\code{\link[dplyr]{starts_with}},etc.}
+\code{\link[dplyr]{starts_with}}, etc.}
 }
 \description{
 Add column of headlines

@@ -38,7 +38,7 @@ test_that("add headline can access other columns", {
 })
 
 
-test_that("add headline can pas '...", {
+test_that("add headline can pass '...", {
   df <-
     add_headline_column(
       df = animal_sleep,
@@ -66,11 +66,11 @@ test_that("if_match works", {
   )
 })
 
-test_that("error if x or y in column names", {
+test_that("warning if columns renamed", {
   data.frame(
     x = 1:3,
     y = 3:1
   ) %>%
-  add_headline_column(x, y) %>%
-  expect_error()
+  add_headline_column(y, x, return_cols = everything()) %>%
+  expect_message("New names")
 })
