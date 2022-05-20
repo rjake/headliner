@@ -84,15 +84,20 @@ headline <- function(x,
                      multiplier = 1,
                      return_data = FALSE) {
   res <-
-    compare_values(
-      x,
-      y,
-      trend_phrases = trend_phrases,
-      plural_phrases = plural_phrases,
-      orig_values = orig_values,
-      n_decimal = n_decimal,
-      round_all = round_all,
-      multiplier = multiplier
+    map2(
+      .x = x,
+      .y = y,
+      .f =
+        ~compare_values(
+          .x,
+          .y,
+          trend_phrases = trend_phrases,
+          plural_phrases = plural_phrases,
+          orig_values = orig_values,
+          n_decimal = n_decimal,
+          round_all = round_all,
+          multiplier = multiplier
+        )
     )
 
   final_output <- glue_data(res, headline, ...)
