@@ -4,15 +4,15 @@
 #' @param .name string value for the name of the new column to create
 #' @param return_cols arguments that can be passed to
 #' \code{\link[dplyr]{select}}, ex: c("a", "b"),
-#' \code{\link[dplyr]{starts_with}}, etc.
+#' \code{\link[dplyr]{starts_with}},etc.
 #' @inheritParams compare_values
 #' @inheritParams headline
 #' @export
 #' @importFrom glue glue
-#' @importFrom dplyr mutate transmute select
-#' @importFrom tidyr unnest_wider
+#' @importFrom dplyr mutate transmute bind_cols any_of select
+#' @importFrom tidyr unnest
 #' @importFrom rlang := .data abort warn
-#' @importFrom purrr map2 map_dfr flatten
+#' @importFrom purrr map2
 #' @examples
 #'
 #' # You can use 'add_headline_column()' instead of
@@ -59,22 +59,37 @@ add_headline_column <- function(df,
                                 n_decimal = 1,
                                 round_all = TRUE,
                                 multiplier = 1,
-                                return_cols = .name) {
+                                return_cols = NULL) {
   # df <- mtcars; x = as.symbol("gear"); y = as.symbol("carb")
+
+  # confirm args listed
+  if (missing(x) | missing(y)) {
+    abort("please specify columns using 'x' and 'y'")
+  }
+
+  if (any(c("x", "y") %in% names(df))) {
+    abort(
+      glue(
+        "a data frame with column names 'x' or 'y' will \\
+        cause unexpected output and not currently supported"
+      )
+    )
+  }
+
 
   # inform that headline can be renamed
   if (.name %in% names(df)) {
     glue(
       "The column '{.name}' was replaced. Use the '.name' argument \\
-      to change the new column name."
+      to change the column name."
     ) %>%
     warn()
   }
 
-  headline_pattern <- headline
-
-  df %>%
-    mutate(
+  # pass values and unnest ----
+  new_cols <-
+    df %>%
+    transmute(
       comp_values = # returns a list per row
         map2(
           .x = {{x}},
@@ -89,21 +104,38 @@ add_headline_column <- function(df,
               n_decimal = n_decimal,
               round_all = round_all,
               multiplier = multiplier
-            )
-        ) %>%
-        map_dfr(flatten) %>%
-        mutate(
-          {{.name}} :=
-            ifelse(
-              test = .data$x == .data$y,
-              yes = if_match,
-              no = glue(headline_pattern, ...)
-            )
-        ) %>%
-        select({{.name}}, {{return_cols}})
+            ) %>%
+            as.data.frame()
+          )
       ) %>%
-      unnest_wider(
-        .data$comp_values,
-        names_repair = "unique"
+      unnest(.data$comp_values)
+
+  # combine with original data
+  full_data <- bind_cols(df, new_cols)
+
+  # create headline column
+  headline_col <-
+    full_data %>%
+    transmute(
+      {{.name}} :=
+        ifelse(
+          test = .data$x == .data$y,
+          yes = if_match,
+          no = glue(headline, ...)
       )
+    )
+
+
+  # return df + headline if no cols requested
+  if (missing(return_cols)) {
+    return(df %>% bind_cols(headline_col))
+  }
+
+  # otherwise just append headline column to orig data
+  df %>%
+    bind_cols(
+      headline_col,
+      select(new_cols, {{return_cols}} )
+    )
 }
+
