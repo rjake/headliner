@@ -18,22 +18,26 @@
 
 dummy_input <- # for shinyobject debugging
   list(
-    comp = "40.123",
-    ref = "50.456",
-    orig_values = "{c} vs. {r}",
+    x = "40.123",
+    y = "50.456",
+    orig_values = "{x} vs. {y}",
     phrase = "{trend} of {delta} ({orig_values})",
     component = "{delta_p}",
     n_decimal = 2,
-    scale = "1"
+    multiplier = "1"
   )
+
+options(shiny.suppressMissingContextError = TRUE)
+
 
 library(shiny)
 library(shinyWidgets)
 library(headliner)
+library(tidyverse)
 library(glue)
 library(miniUI)
 
-create_headline <- function(new = 40.123, old = 50.456) {
+create_headline <- function(x = 11, y = 19) {
   # shinyjs::useShinyjs()
 
   resource_path <- "inst/gadgets/create-headline"
@@ -67,29 +71,29 @@ create_headline <- function(new = 40.123, old = 50.456) {
             dropdownButton(
               tags$h4("Advanced Options"),
               tags$b("# of Decimal Places"),
-              tags$p("value to limit the number of decimal places in the returned values"),
+              tags$p("Adjust value to limit the number of decimal places in the returned values"),
               shinyWidgets::sliderTextInput(
                 inputId = "n_decimal",
                 label = NULL,
                 choices = 0:5, selected = 1
               ),
-              tags$b("Scale"),
-              tags$p("How should a 75% difference be represented?"),
+              tags$b("Multiplier"),
+              tags$p("Do input values require a multiplier? (ex: 0.75 x 100 = 75)"),
               radioGroupButtons(
-                inputId = "scale",
+                inputId = "multiplier",
                 label = NULL,
-                choices = setNames(c(100, 1), c("75%", "0.75"))
+                choices = c(1, 100)
               ),
-              icon = icon("gear"),
+              icon = icon("gear", verify_fa = FALSE),
               tooltip =
                 tooltipOptions(title = "Click to see advanced options!", placement = "bottom")
             ),
-            textInput("comp", "New", new),
-            textInput("ref", "Old", old),
+            textInput("x", "X", x),
+            textInput("y", "Y", y),
             textInput(
               inputId = "orig_values",
-              label = '{orig_values} default: "{c} vs. {r}"',
-              value = "{c} vs. {r}"
+              label = '{orig_values} default: "{x} vs. {y}"',
+              value = "{x} vs. {y}"
             )
           ),
           fillRow(
@@ -121,24 +125,25 @@ create_headline <- function(new = 40.123, old = 50.456) {
   # server ----
   server <- function(input, output, session) {
     #print(selected_text)
-    #reactive(print(input$comp))
+    #reactive(print(input$x))
 
     get_call <- reactive({
       substitute_headline <- function(){
-        comp <- as.numeric(input$comp)
-        ref <- as.numeric(input$ref)
+        x <- as.numeric(input$x)
+        y <- as.numeric(input$y)
         phrase <- input$phrase
-        scale <- as.integer(input$scale)
+        multiplier <- as.integer(input$multiplier)
         n_decimal <- input$n_decimal
         orig_values <- input$orig_values
 
         use_call <-
           substitute(
             headline(
-              x = c(comp, ref),
+              x = x,
+              y = y,
               headline = phrase,
               orig_values = orig_values,
-              scale = scale,
+              multiplier = multiplier,
               n_decimal = n_decimal
             )
           )
@@ -149,16 +154,24 @@ create_headline <- function(new = 40.123, old = 50.456) {
 
     })
 
+    call_as_string <- function(expr) {
+      rlang::expr_text(expr) %>%
+        str_replace_all("^w+\\(|, ", ",\n") %>%
+        str_replace_all("(.)\\)$", "\\1\n\\)") %>%
+        styler::style_text()
+    }
+
     output$components <- renderUI({
       # print(input$n_decimal)
-      # print(input$scale)
+      # print(input$multiplier)
 
       res <-
         compare_values(
-          x = as.numeric(c(input$comp, input$ref)),
+          x = as.numeric(input$x),
+          y = as.numeric(input$y),
           orig_values = input$orig_values,
           n_decimal = input$n_decimal,
-          scale = as.integer(input$scale)
+          multiplier = as.integer(input$multiplier)
         )
 
       # print(res$comp_value)
@@ -169,9 +182,11 @@ create_headline <- function(new = 40.123, old = 50.456) {
 
       choices <-
         res[c(
-          "article_delta", "delta", "raw_delta", "comp_value",
-          "article_delta_p", "delta_p", "raw_delta_p", "ref_value",
-          "article_trend", "trend", "sign", "orig_values"
+          "article_delta",       "delta",       "x",
+          "article_delta_p",     "delta_p",     "y",
+          "article_raw_delta",   "raw_delta",
+          "article_raw_delta_p", "raw_delta_p",
+          "trend",               "sign",        "orig_values"
         )]
 
       button_options <- local({
@@ -186,7 +201,7 @@ create_headline <- function(new = 40.123, old = 50.456) {
 
         delta_p <- which(str_detect(button_values, "^.(raw_)?delta_p"))
 
-        if (input$scale == "100") {
+        if (input$multiplier == "100") {
           button_names[delta_p] <-
             str_replace(button_names[delta_p], "(\\d)(\\<)", "\\1 (%)\\2")
         }
@@ -213,8 +228,8 @@ create_headline <- function(new = 40.123, old = 50.456) {
     })
 
     output$view_code <- renderPrint({
-      rlang::expr_text(get_call()) %>%
-        styler::style_text()
+      call_as_string(get_call()) %>%
+      styler:::print.vertical(colored = FALSE) # turn off warning
     })
 
     observeEvent(input$copy_phrase, {
@@ -224,8 +239,7 @@ create_headline <- function(new = 40.123, old = 50.456) {
 
 
     observeEvent(input$copy_code, {
-      rlang::expr_text(get_call()) %>%
-        styler::style_text() %>%
+      call_as_string(get_call()) %>%
         clipr::write_clip()
     })
 
@@ -255,7 +269,7 @@ create_headline <- function(new = 40.123, old = 50.456) {
       selected_component <- input$component
 
       if (str_detect(selected_component, "^.(raw_)?delta_p") &
-          input$scale == 100
+          input$multiplier == 100
           ) {
         selected_component <- paste0(input$component, "%")
       }

@@ -1,13 +1,13 @@
 .btn-group-container-sw {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 coolumns*/
   }
 
 .radiobtn {
     width: 100%;
 }
 
-textarea.form-control {
+.form-control {
     height: 75%;
     font-family: monospace;
 }
