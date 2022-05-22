@@ -2,7 +2,7 @@
 % Please edit documentation in R/add-date-columns.R
 \name{add_date_columns}
 \alias{add_date_columns}
-\title{Add columns with date calculations based on refernce date}
+\title{Add columns with date calculations based on reference date}
 \usage{
 add_date_columns(
   df,
@@ -31,7 +31,7 @@ of the same name. Otherwise, columns with the same name will be appended with
 a '1'}
 }
 \description{
-Add columns with date calculations based on refernce date
+Add columns with date calculations based on reference date
 }
 \examples{
 demo_data() \%>\%

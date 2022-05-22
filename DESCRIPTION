@@ -1,23 +1,26 @@
 Package: headliner
 Title: Compose Sentences to Describe Comparisons
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person(given = "Jake",
            family = "Riley",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "rjake@sas.upenn.edu"
+           )
 Description: Write sentences to compare values by generating talking points and stringing them together.
 License: MIT + file LICENSE
 BugReports: https://github.com/rjake/headliner/issues
 Suggests: 
-    testthat,
+    ggplot2,
     knitr,
-    rmarkdown
+    nycflights13,
+    rmarkdown,
+    testthat
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Imports: 
     dplyr,
     glue,
@@ -30,3 +33,4 @@ Imports:
 Depends: 
     R (>= 2.10)
 VignetteBuilder: knitr
+URL: https://github.com/rjake/headliner

@@ -4,12 +4,16 @@
 # headliner <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
-<!-- badges: end -->
 
-The goal of `headliner` is to translate facts into insights. Given two
-values, `headliner` generates building blocks for creating dynamic text.
-These talking points can be combined using using `glue` syntax to add
-informative titles to plots, section headers or other text in a report.
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/headliner)](https://cran.r-project.org/package=headliner)
+\[!\[CRAN
+<!-- Downloads](https://cranlogs.r-pkg.org/badges/grand-total/headliner)](https://cran.r-project.org/package=headliner) -->
+[![R-CMD-check](https://github.com/rjake/headliner/workflows/R-CMD-check/badge.svg)](https://github.com/rjake/headliner/actions)
+<!-- badges: end --> The goal of `headliner` is to translate facts into
+insights. Given two values, `headliner` generates building blocks for
+creating dynamic text. These talking points can be combined using using
+`glue` syntax to add informative titles to plots, section headers or
+other text in a report.
 
 ## Installation
 
