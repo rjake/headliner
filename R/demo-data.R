@@ -8,7 +8,7 @@
 #' demo_data()
 demo_data <- function(n = 10, by = "-2 month") {
   tibble(
-    group = letters[2:(n + 1) %/% 2],
+    group = rep_len(rep(letters, each = 2), length.out = n),
     sales = 1:n + 100,
     count = n:1 + 25,
     on_sale = 1:n %% 2,
