@@ -7,10 +7,10 @@ output: github_document
 
 <!-- badges: start -->
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/headliner)](https://cran.r-project.org/package=headliner)
-[![CRAN
-<!-- Downloads](https://cranlogs.r-pkg.org/badges/grand-total/headliner)](https://cran.r-project.org/package=headliner) -->
 [![R-CMD-check](https://github.com/rjake/headliner/workflows/R-CMD-check/badge.svg)](https://github.com/rjake/headliner/actions)
+<!-- [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/headliner)](https://cran.r-project.org/package=headliner) -->
 <!-- badges: end -->
+
 The goal of `headliner` is to translate facts into insights. Given two values, `headliner` generates building blocks for creating dynamic text. These talking points can be combined using using `glue` syntax to add informative titles to plots, section headers or other text in a report.
 
 ## Installation
