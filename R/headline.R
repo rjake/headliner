@@ -17,7 +17,7 @@
 #' phrase components used to compose the headline
 #' @inheritParams compare_values
 #' @importFrom glue glue_data
-#' @importFrom purrr  map2_chr map_dbl map2
+#' @importFrom purrr map_if
 #' @export
 #' @rdname headline
 #' @seealso [compare_values()], [trend_terms()], and [add_article()]
@@ -25,7 +25,7 @@
 #' # values can be manually entered, some headlines are provided by default
 #' headline(10, 8)
 #' headline(8, 10)
-#' headline(1:3, 3:1)
+#' headline(10, 10)
 #'
 #' # most likely you'll edit the headline by hand
 #' headline(
@@ -84,37 +84,28 @@ headline <- function(x,
                      multiplier = 1,
                      return_data = FALSE) {
   res <-
-    map2(
-      .x = x,
-      .y = y,
-      .f =
-        ~compare_values(
-          .x,
-          .y,
-          trend_phrases = trend_phrases,
-          plural_phrases = plural_phrases,
-          orig_values = orig_values,
-          n_decimal = n_decimal,
-          round_all = round_all,
-          multiplier = multiplier
-        )
+    compare_values(
+      x,
+      y,
+      trend_phrases = trend_phrases,
+      plural_phrases = plural_phrases,
+      orig_values = orig_values,
+      n_decimal = n_decimal,
+      round_all = round_all,
+      multiplier = multiplier
     )
 
-  # determine which headline phrasing to use & pass to glue
-  headlines <-
-    map2_chr(
-      .x = res,
-      .y = ifelse(map_dbl(res, pluck, "sign") == 0, if_match, headline),
-      .f = glue_data,
-      ...
-    )
+  final_output <- glue_data(res, headline, ...)
 
   if (return_data) {
-    full_list <- map2(res, headlines, ~append(list(headline = .y), .x))
-    return(full_list)
+    res <- append(res, list(headline = final_output))
+    return(res)
   }
 
-  headlines
+  # determine which headline phrasing to use
+  final_output[res$sign == 0] <- glue_data(res, if_match, ...)
+
+  final_output
 }
 
 

@@ -145,12 +145,11 @@ phrase components used to compose the headline</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># values can be manually entered, some headlines are provided by default</span></span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span><span class="fl">10</span>, <span class="fl">8</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "increase of 2 (10 vs. 8)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> increase of 2 (10 vs. 8)</span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span><span class="fl">8</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "decrease of 2 (8 vs. 10)"</span>
-<span class="r-in"><span class="fu">headline</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "decrease of 2 (1 vs. 3)"  "There was no difference."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "increase of 2 (3 vs. 1)" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> decrease of 2 (8 vs. 10)</span>
+<span class="r-in"><span class="fu">headline</span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> There was no difference.</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># most likely you'll edit the headline by hand</span></span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span></span>
@@ -158,7 +157,7 @@ phrase components used to compose the headline</p></dd>
 <span class="r-in">  y <span class="op">=</span> <span class="fl">8</span>,</span>
 <span class="r-in">  headline <span class="op">=</span> <span class="st">"There was a ${delta} {trend} vs last year"</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "There was a $2 increase vs last year"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> There was a $2 increase vs last year</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># you can also adjust the phrasing of higher/lower values</span></span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span></span>
@@ -167,12 +166,12 @@ phrase components used to compose the headline</p></dd>
 <span class="r-in">  headline <span class="op">=</span> <span class="st">"Group A was {trend} by {delta_p}%."</span>,</span>
 <span class="r-in">  trend_phrases <span class="op">=</span> <span class="fu"><a href="trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"higher"</span>, less <span class="op">=</span> <span class="st">"lower"</span><span class="op">)</span></span>
 <span class="r-in"> <span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Group A was higher by 25%."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Group A was higher by 25%.</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># a phrase about the comparion can be edited by providing glue syntax</span></span>
 <span class="r-in"><span class="co"># 'c' = the 'compare' value, 'r' = 'reference'</span></span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span><span class="fl">10</span>, <span class="fl">8</span>, orig_values <span class="op">=</span> <span class="st">"{x} to {y} people"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "increase of 2 (10 to 8 people)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> increase of 2 (10 to 8 people)</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># you can also add phrases for when the difference = 1 or not</span></span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span></span>
@@ -184,16 +183,16 @@ phrase components used to compose the headline</p></dd>
 <span class="r-in">  <span class="op">)</span>,</span>
 <span class="r-in">  headline <span class="op">=</span> <span class="st">"there {were} {delta} {people}"</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "there were 2 people"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> there were 2 people</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># you can also adjust the rounding, the default is 1</span></span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span><span class="fl">0.1234</span>, <span class="fl">0.4321</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "decrease of 0.3 (0.1 vs. 0.4)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> decrease of 0.3 (0.1 vs. 0.4)</span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span><span class="fl">0.1234</span>, <span class="fl">0.4321</span>, n_decimal <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "decrease of 0.309 (0.123 vs. 0.432)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> decrease of 0.309 (0.123 vs. 0.432)</span>
 <span class="r-in"><span class="co"># or use a multiplier</span></span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span><span class="fl">0.1234</span>, <span class="fl">0.4321</span>, multiplier <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "decrease of 30.9 (12.3 vs. 43.2)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> decrease of 30.9 (12.3 vs. 43.2)</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># there are many components you can assemble</span></span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span></span>
@@ -202,7 +201,7 @@ phrase components used to compose the headline</p></dd>
 <span class="r-in">  headline <span class="op">=</span> <span class="st">"there was {article_delta_p}% {trend}, \\</span>
 <span class="r-in">  {add_article(trend)} of {delta} ({orig_values})"</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "there was a 100% increase, an increase of 8 (16 vs. 8)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> there was a 100% increase, an increase of 8 (16 vs. 8)</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># compare_conditions() and compare_columns() produce lists that can be</span></span>
@@ -214,7 +213,7 @@ phrase components used to compose the headline</p></dd>
 <span class="r-in">    <span class="va">dep_delay</span></span>
 <span class="r-in">  <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">headline_list</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "increase of 11.5 (14 vs. 2.6)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> increase of 11.5 (14 vs. 2.6)</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># if you have more than 2 list items, you can specify them by name</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -226,7 +225,7 @@ phrase components used to compose the headline</p></dd>
 <span class="r-in">    x <span class="op">=</span> <span class="va">x</span>,</span>
 <span class="r-in">    y <span class="op">=</span> <span class="va">z</span></span>
 <span class="r-in">  <span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "decrease of 2 (1 vs. 3)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> decrease of 2 (1 vs. 3)</span>
 </code></pre></div>
     </div>
   </div>

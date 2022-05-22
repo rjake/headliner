@@ -64,14 +64,3 @@ test_that("glue_data() allows extra expressions", {
     )
   )
 })
-
-
-test_that("is vectorized", {
-  expect_equal(
-    object =
-      headline(1:3, 3:1) |>
-      unique() |>
-      length(),
-    expected = 3
-  )
-})
