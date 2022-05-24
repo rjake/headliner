@@ -68,21 +68,25 @@ get_article <- function(x) {
     x_new <- case_when(
       x >= 1e6 ~ x / 1e6,
       x >= 1e3 ~ x / 1e3,
+      x >= 1e2 ~ x / 1e2,
       TRUE ~ x
-    )
-    x_int <- as.integer(x_new)
-    x_char <- as.character(x_int)
+    ) |>
+      floor()
+
+    x_char <- as.character(x_new)
     n_char <- nchar(x_char)
 
     case_when(
-      # -8, -6, -0.1 = a
-      grepl("^-", x_char) ~ "a",
+      # -8, -6, -0.1, 0.123 = a
+      grepl("^[-0]", x_char) ~ "a",
+      # 100, 123, 123000 = a
+      grepl("^1..$", x_char) ~ "a",
       # 80 = an
-      grepl("^8", x_char) ~ "an",
-      # # 11, 11234 = an
-      (grepl("^11", x_char) & n_char %% 2 == 0) ~ "an",
-      # 1, 10, 100 = a
-      (grepl("^1", x_char) & nchar(x_char) <= 3) ~ "a",
+      grepl("^8", x_char)  ~ "an",
+      # # 11, 18, 11000, 18000 = an
+      (grepl("^1[18]", x_char) & n_char %% 2 == 0) ~ "an",
+      # 1, 10, 12, 13, ... = a
+      (grepl("^1", x_char) & nchar(x_char) < 3) ~ "a",
       # else
       TRUE ~ "a"
     )
