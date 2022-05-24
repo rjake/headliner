@@ -182,11 +182,9 @@ create_headline <- function(x = 11, y = 19) {
 
       choices <-
         res[c(
-          "article_delta",       "delta",       "x",
-          "article_delta_p",     "delta_p",     "y",
-          "article_raw_delta",   "raw_delta",
-          "article_raw_delta_p", "raw_delta_p",
-          "trend",               "sign",        "orig_values"
+          "x",               "y",       "trend",               "orig_values",
+          "article_delta",   "delta",   "article_raw_delta",   "raw_delta",
+          "article_delta_p", "delta_p", "article_raw_delta_p", "raw_delta_p"
         )]
 
       button_options <- local({
