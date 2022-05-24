@@ -24,8 +24,6 @@
 #'
 #' add_article("decrease")
 #'
-#' add_article(c(1:9))
-#'
 #' add_article(c(8, 11, 18))
 #'
 #' add_article(18123)
@@ -34,6 +32,7 @@
 #'   add_article(1.8 * 10^(1:7)),
 #'   prettyNum(1.8 * 10^(1:7), big.mark = ",")
 #' )
+#'
 add_article <- function(x) {
   paste(get_article(x), x)
 }
