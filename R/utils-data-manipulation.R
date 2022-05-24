@@ -53,6 +53,7 @@ aggregate_group <- function(df, name, cols, calc, cond) {
 
 
 #' Choose "a" or "an"
+#' Definition listed under [add_article()]
 #' @param x a number or string
 #' @noRd
 #' @importFrom dplyr case_when
@@ -61,6 +62,12 @@ aggregate_group <- function(df, name, cols, calc, cond) {
 #' get_article("decrease")
 #' get_article(5)
 #' get_article(8)
+#' get_article(18123)
+#' stats::setNames(
+#'   get_article(1.8 * 10^(1:7)),
+#'   prettyNum(1.8 * 10^(1:7), big.mark = ",")
+#' )
+#'
 get_article <- function(x) {
   if (is.character(x)) {
     ifelse(grepl("^[aeiou]", tolower(x)), "an", "a")
