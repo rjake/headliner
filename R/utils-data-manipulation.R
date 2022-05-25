@@ -143,12 +143,11 @@ check_rounding <- function(x, y, n_decimal) {
     }
 
   # else
-    warning(
+    message(
       glue(
         "With the rounding applied ('n_decimal = {n_decimal}'), \\
         result may show no change {addl_info}
         Consider increasing the 'n_decimal' parameter"
-      ),
-      call. = FALSE
+      )
     )
 }
