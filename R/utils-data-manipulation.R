@@ -77,7 +77,7 @@ get_article <- function(x) {
       x >= 1e3 ~ x / 1e3,
       x >= 1e2 ~ x / 1e2,
       TRUE ~ x
-    ) |>
+    ) %>%
       floor()
 
     x_char <- as.character(x_new)
