@@ -9,7 +9,7 @@
 #' @inheritParams headline
 #' @export
 #' @importFrom glue glue
-#' @importFrom dplyr mutate transmute select
+#' @importFrom dplyr pull mutate transmute select
 #' @importFrom tidyr unnest_wider
 #' @importFrom rlang := .data abort warn
 #' @importFrom purrr map2 map_dfr flatten
@@ -73,6 +73,13 @@ add_headline_column <- function(df,
 
   headline_pattern <- headline
 
+  # check rounding
+  check_rounding(
+    pull(df, {{x}}),
+    pull(df, {{y}}),
+    n_decimal
+  )
+
   df %>%
     mutate(
       comp_values = # returns a list per row
@@ -88,7 +95,8 @@ add_headline_column <- function(df,
               orig_values = orig_values,
               n_decimal = n_decimal,
               round_all = round_all,
-              multiplier = multiplier
+              multiplier = multiplier,
+              check_rounding = FALSE
             )
         ) %>%
         map_dfr(flatten) %>%
