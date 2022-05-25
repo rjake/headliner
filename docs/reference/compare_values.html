@@ -71,7 +71,8 @@
   plural_phrases <span class="op">=</span> <span class="cn">NULL</span>,
   n_decimal <span class="op">=</span> <span class="fl">1</span>,
   round_all <span class="op">=</span> <span class="cn">TRUE</span>,
-  multiplier <span class="op">=</span> <span class="fl">1</span>
+  multiplier <span class="op">=</span> <span class="fl">1</span>,
+  check_rounding <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -102,6 +103,11 @@ all values will be round to the length specified by 'n_decimal'.</p></dd>
 <dt>multiplier</dt>
 <dd><p>number indicating the scaling factor. When multiplier = 1
 (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.</p></dd>
+<dt>check_rounding</dt>
+<dd><p>when TRUE (default) inputs will be checked to confirm if
+a difference of zero may be due to rounding. Ex: 0.16 and 0.24 with
+'n_decimal = 1' will both return 0.2. Because this will show no difference,
+a message will be displayed</p></dd>
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
