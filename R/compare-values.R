@@ -60,7 +60,8 @@ compare_values <- function(x,
                            plural_phrases = NULL,
                            n_decimal = 1,
                            round_all = TRUE,
-                           multiplier = 1) {
+                           multiplier = 1,
+                           check_rounding = TRUE) {
   # calcs
   comp <- (x * multiplier)
   ref <- (y * multiplier)
@@ -82,11 +83,13 @@ compare_values <- function(x,
   if (round_all) {
     # give a warning if rounding causes a delta of 0 due to inputs having
     # decimals >= n_decimal parameter
-    check_rounding(
-      x = calc$x,
-      y = calc$y,
-      n_decimal = n_decimal
-    )
+    if (check_rounding){
+      check_rounding(
+        x = calc$x,
+        y = calc$y,
+        n_decimal = n_decimal
+      )
+    }
 
     calc <-
       calc %>%
