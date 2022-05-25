@@ -96,9 +96,13 @@ headline <- function(x,
           orig_values = orig_values,
           n_decimal = n_decimal,
           round_all = round_all,
-          multiplier = multiplier
+          multiplier = multiplier,
+          check_rounding = FALSE
         )
     )
+
+  # check rounding
+  check_rounding(x, y, n_decimal)
 
   # determine which headline phrasing to use & pass to glue
   headlines <-
@@ -108,6 +112,7 @@ headline <- function(x,
       .f = glue_data,
       ...
     )
+
 
   if (return_data) {
     full_list <- map2(res, headlines, ~append(list(headline = .y), .x))

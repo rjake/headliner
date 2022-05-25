@@ -27,12 +27,15 @@ test_that("aggregate_group() works", {
 })
 
 
-test_that("check rounding throws warnings", {
-  expect_warning(check_rounding(0.2, 0.24, n_decimal = 1))
+test_that("check rounding throws a message", {
   expect_null(check_rounding(0.2, 0.24, n_decimal = 2))
-  expect_null(check_rounding(21, 21, n_decimal = 1))
+  expect_null(check_rounding(0.21, 0.21, n_decimal = 1))
+  expect_message(check_rounding(0.2, 0.24, n_decimal = 1))
+  expect_message(
+    data.frame(x = 18:22/100, y = 0.2) %>%
+      add_headline_column(x, y)
+  )
 })
-
 
 
 test_that("get_article() works for characters", {

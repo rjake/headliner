@@ -12,7 +12,8 @@ compare_values(
   plural_phrases = NULL,
   n_decimal = 1,
   round_all = TRUE,
-  multiplier = 1
+  multiplier = 1,
+  check_rounding = TRUE
 )
 }
 \arguments{
@@ -40,6 +41,11 @@ all values will be round to the length specified by 'n_decimal'.}
 
 \item{multiplier}{number indicating the scaling factor. When multiplier = 1
 (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.}
+
+\item{check_rounding}{when TRUE (default) inputs will be checked to confirm if
+a difference of zero may be due to rounding. Ex: 0.16 and 0.24 with
+'n_decimal = 1' will both return 0.2. Because this will show no difference,
+a message will be displayed}
 }
 \description{
 Compare two values and get talking points
