@@ -96,7 +96,8 @@ headline <- function(x,
           orig_values = orig_values,
           n_decimal = n_decimal,
           round_all = round_all,
-          multiplier = multiplier
+          multiplier = multiplier,
+          check_rounding = FALSE
         )
     )
 
