@@ -95,9 +95,9 @@
 
     
     
-The goal of <code>headliner</code> is to help analysts to translate facts to insights. In the comparison below (<a href="https://blog.prototypr.io/dashboard-design-5-things-every-ux-designer-should-know-a85c4558d75" class="external-link">source</a>), both dashboards have the same underlying data but how they present the information to the user is very different.
+<p>The goal of <code>headliner</code> is to help analysts to translate facts to insights. In the comparison below (<a href="https://blog.prototypr.io/dashboard-design-5-things-every-ux-designer-should-know-a85c4558d75" class="external-link">source</a>), both dashboards have the same underlying data but how they present the information to the user is very different.</p>
 <div style="text-align:center">
-<p><img src="../../../github/headliner/articles/figures/facts_vs_insights.png" width="600/"></p>
+<p><img src="../reference/figures/facts_vs_insights.png" width="600/"></p>
 </div>
 <p>Right now, there isn’t anything out of the box to help users dynamically create phrasing like used in the “insights” version without a bit of coding gymnastics. The many ways you could approach it combined with the steps required to say “if positive, show it like this, if negative show it like that” increase the technical debt this kind of code could add to a project. For this reason, <code>headliner</code> is designed to deliver the building blocks required to create these phrases for plot titles, value boxes in <code>shiny</code> or section headers in a report.</p>
 <div class="section level2">
@@ -109,7 +109,7 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <div class="section level3">
 <h3 id="installation-1">Installation<a class="anchor" aria-label="anchor" href="#installation-1"></a>
 </h3>
-<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 05/20/22).</p>
+<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 05/24/22).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rjake/headliner" class="external-link">headliner</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
@@ -117,16 +117,18 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 5</span></span>
 <span class="co">#&gt;    group sales count on_sale date      </span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-05-20</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-03-20</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-01-20</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-11-20</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-09-20</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-07-20</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-05-20</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-03-20</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-01-20</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-11-20</span></code></pre></div>
+
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-05-24</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-03-24</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-01-24</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-11-24</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-09-24</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-07-24</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-05-24</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-03-24</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-01-24</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-11-24</span></code></pre></div>
+
 </div>
 <div class="section level3">
 <h3 id="a-simple-headline">A simple headline<a class="anchor" aria-label="anchor" href="#a-simple-headline"></a>
@@ -177,23 +179,23 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
 <h3 id="helpers-for-dynamic-calculations">Helpers for dynamic calculations<a class="anchor" aria-label="anchor" href="#helpers-for-dynamic-calculations"></a>
 </h3>
 <p>But let’s see if we can make the calculations more dynamic…</p>
-<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the reference date specified) to the values in the <code>date</code> column . With these new fields we can see that 03/20/22 was 61 days ago (or 9 weeks or 2 months, …) from the current date.</p>
+<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the reference date specified) to the values in the <code>date</code> column . With these new fields we can see that 03/24/22 was 61 days ago (or 9 weeks or 2 months, …) from the current date.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/add_date_columns.html">add_date_columns</a></span><span class="op">(</span>date_col <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 11</span></span>
 <span class="co">#&gt;    group sales count on_sale date         day  week month quarter calendar_year</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-05-20     0     0     0       0             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-03-20   -<span style="color: #BB0000;">61</span>    -<span style="color: #BB0000;">9</span>    -<span style="color: #BB0000;">2</span>      -<span style="color: #BB0000;">1</span>             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-01-20  -<span style="color: #BB0000;">120</span>   -<span style="color: #BB0000;">17</span>    -<span style="color: #BB0000;">4</span>      -<span style="color: #BB0000;">1</span>             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-11-20  -<span style="color: #BB0000;">181</span>   -<span style="color: #BB0000;">26</span>    -<span style="color: #BB0000;">6</span>      -<span style="color: #BB0000;">2</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-09-20  -<span style="color: #BB0000;">242</span>   -<span style="color: #BB0000;">34</span>    -<span style="color: #BB0000;">8</span>      -<span style="color: #BB0000;">3</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-07-20  -<span style="color: #BB0000;">304</span>   -<span style="color: #BB0000;">43</span>   -<span style="color: #BB0000;">10</span>      -<span style="color: #BB0000;">3</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-05-20  -<span style="color: #BB0000;">365</span>   -<span style="color: #BB0000;">52</span>   -<span style="color: #BB0000;">12</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-03-20  -<span style="color: #BB0000;">426</span>   -<span style="color: #BB0000;">61</span>   -<span style="color: #BB0000;">14</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-01-20  -<span style="color: #BB0000;">485</span>   -<span style="color: #BB0000;">69</span>   -<span style="color: #BB0000;">16</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-11-20  -<span style="color: #BB0000;">546</span>   -<span style="color: #BB0000;">78</span>   -<span style="color: #BB0000;">18</span>      -<span style="color: #BB0000;">6</span>            -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-05-24     0     0     0       0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-03-24   -<span style="color: #BB0000;">61</span>    -<span style="color: #BB0000;">9</span>    -<span style="color: #BB0000;">2</span>      -<span style="color: #BB0000;">1</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-01-24  -<span style="color: #BB0000;">120</span>   -<span style="color: #BB0000;">17</span>    -<span style="color: #BB0000;">4</span>      -<span style="color: #BB0000;">1</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-11-24  -<span style="color: #BB0000;">181</span>   -<span style="color: #BB0000;">26</span>    -<span style="color: #BB0000;">6</span>      -<span style="color: #BB0000;">2</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-09-24  -<span style="color: #BB0000;">242</span>   -<span style="color: #BB0000;">35</span>    -<span style="color: #BB0000;">8</span>      -<span style="color: #BB0000;">3</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-07-24  -<span style="color: #BB0000;">304</span>   -<span style="color: #BB0000;">44</span>   -<span style="color: #BB0000;">10</span>      -<span style="color: #BB0000;">3</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-05-24  -<span style="color: #BB0000;">365</span>   -<span style="color: #BB0000;">52</span>   -<span style="color: #BB0000;">12</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-03-24  -<span style="color: #BB0000;">426</span>   -<span style="color: #BB0000;">61</span>   -<span style="color: #BB0000;">14</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-01-24  -<span style="color: #BB0000;">485</span>   -<span style="color: #BB0000;">70</span>   -<span style="color: #BB0000;">16</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-11-24  -<span style="color: #BB0000;">546</span>   -<span style="color: #BB0000;">78</span>   -<span style="color: #BB0000;">18</span>      -<span style="color: #BB0000;">6</span>            -<span style="color: #BB0000;">2</span></span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: fiscal_year &lt;dbl&gt;</span></span></code></pre></div>
 <p>We can then identify some conditions for our group of interest (<code>x</code>) and our reference group (<code>y</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">base::subset()</a></code></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -371,13 +373,13 @@ The goal of <code>headliner</code> is to help analysts to translate facts to ins
     <span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
       <span class="va">show</span><span class="op">$</span><span class="va">x</span>, 
       <span class="va">show</span><span class="op">$</span><span class="va">y</span>, 
-      headline <span class="op">=</span> <span class="st">'{delta_p}% {trend}'</span>
+      headline <span class="op">=</span> <span class="st">"{delta_p}% {trend}"</span>
     <span class="op">)</span>,
   subtitle <span class="op">=</span> <span class="st">"vs. the same time last year"</span>,
   color <span class="op">=</span> <span class="va">box_color</span>
 <span class="op">)</span></code></pre></div>
 <div style="text-align:center">
-<p><img src="../../../github/headliner/articles/figures/value_box.png" width="300/"></p>
+<p><img src="../reference/figures/value_box.png" width="300/"></p>
 </div>
 </div>
 </div>
