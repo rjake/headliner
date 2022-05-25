@@ -53,6 +53,7 @@ aggregate_group <- function(df, name, cols, calc, cond) {
 
 
 #' Choose "a" or "an"
+#' Definition listed under [add_article()]
 #' @param x a number or string
 #' @noRd
 #' @importFrom dplyr case_when
@@ -61,6 +62,12 @@ aggregate_group <- function(df, name, cols, calc, cond) {
 #' get_article("decrease")
 #' get_article(5)
 #' get_article(8)
+#' get_article(18123)
+#' stats::setNames(
+#'   get_article(1.8 * 10^(1:7)),
+#'   prettyNum(1.8 * 10^(1:7), big.mark = ",")
+#' )
+#'
 get_article <- function(x) {
   if (is.character(x)) {
     ifelse(grepl("^[aeiou]", tolower(x)), "an", "a")
@@ -68,21 +75,25 @@ get_article <- function(x) {
     x_new <- case_when(
       x >= 1e6 ~ x / 1e6,
       x >= 1e3 ~ x / 1e3,
+      x >= 1e2 ~ x / 1e2,
       TRUE ~ x
-    )
-    x_int <- as.integer(x_new)
-    x_char <- as.character(x_int)
+    ) %>%
+      floor()
+
+    x_char <- as.character(x_new)
     n_char <- nchar(x_char)
 
     case_when(
-      # -8, -6, -0.1 = a
-      grepl("^-", x_char) ~ "a",
+      # -8, -6, -0.1, 0.123 = a
+      grepl("^[-0]", x_char) ~ "a",
+      # 100, 123, 123000 = a
+      grepl("^1..$", x_char) ~ "a",
       # 80 = an
-      grepl("^8", x_char) ~ "an",
-      # # 11, 11234 = an
-      (grepl("^11", x_char) & n_char %% 2 == 0) ~ "an",
-      # 1, 10, 100 = a
-      (grepl("^1", x_char) & nchar(x_char) <= 3) ~ "a",
+      grepl("^8", x_char)  ~ "an",
+      # # 11, 18, 11000, 18000 = an
+      (grepl("^1[18]", x_char) & n_char %% 2 == 0) ~ "an",
+      # 1, 10, 12, 13, ... = a
+      (grepl("^1", x_char) & nchar(x_char) < 3) ~ "a",
       # else
       TRUE ~ "a"
     )

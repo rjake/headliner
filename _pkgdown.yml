@@ -21,7 +21,6 @@ reference:
     There are some helper functions to prepare data frames for use
     with `headline()`
   contents:
-  - compare_columns
   - compare_conditions
   - add_date_columns
 - title: Data

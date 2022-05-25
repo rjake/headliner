@@ -129,7 +129,7 @@ headline(
 )
 
 
-# compare_conditions() and compare_columns() produce lists that can be
+# compare_conditions() produces a list that can be
 # passed to headline_list()
 flights_jfk \%>\%
   compare_conditions(

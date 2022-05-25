@@ -13,15 +13,15 @@ knitr::opts_chunk$set(
   warning = FALSE,
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
   out.width = "100%"
 )
 ```
 
 
 The goal of `headliner` is to help analysts to translate facts to insights. In the comparison below ([source](https://blog.prototypr.io/dashboard-design-5-things-every-ux-designer-should-know-a85c4558d75)), both dashboards have the same underlying data but how they present the information to the user is very different.
+
 <div style="text-align:center">
-  <img src="figures/facts_vs_insights.png"  width=600/>
+  <img src="../man/figures/facts_vs_insights.png"  width=600/>
 </div>
 
 Right now, there isn't anything out of the box to help users dynamically create phrasing like used in the "insights" version without a bit of coding gymnastics. The many ways you could approach it combined with the steps required to say "if positive, show it like this, if negative show it like that" increase the technical debt this kind of code could add to a project. For this reason, `headliner` is designed to deliver the building blocks required to create these phrases for plot titles, value boxes in `shiny` or section headers in a report.
@@ -262,7 +262,7 @@ valueBox(
     headline(
       show$x, 
       show$y, 
-      headline = '{delta_p}% {trend}'
+      headline = "{delta_p}% {trend}"
     ),
   subtitle = "vs. the same time last year",
   color = box_color
@@ -270,7 +270,7 @@ valueBox(
 ```
 
 <div style="text-align:center">
-  <img src="figures/value_box.png"  width=300/>
+  <img src="../man/figures/value_box.png"  width=300/>
 </div>
 
 

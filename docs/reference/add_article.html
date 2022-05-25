@@ -71,13 +71,44 @@
     <dl><dt>x</dt>
 <dd><p>string or numeric value</p></dd>
 </dl></div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>This function uses crude logic to append 'a' or 'an' to numbers and phrases.</p><ul><li><p>words that start with aeiou</p></li>
+<li><p>negative numbers always start with 'a', ex: 'a -3' or 'a -8'</p></li>
+<li><p>decimals always start with 'a' ex: 0.4 is usually pronounced
+'a zero point four' or 'a point four'</p></li>
+<li><p>numbers starting with 8 are always 'an'</p></li>
+<li><p>if the integer that comes after thousand or million is 11 or 18 then 'an'</p><ul><li><p>18,000 becomes 18 and that becomes 'an 18'</p></li>
+</ul></li>
+<li><p>if the integer that comes after thousand or million is in
+1, 10, 12, 13, 14, 15, 16, 17, 19 then 'a'</p><ul><li><p>15,500 becomes 15 and that becomes 'a 15'</p></li>
+</ul></li>
+<li><p>otherwise 'a'</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">add_article</span><span class="op">(</span><span class="st">"increase"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "an increase"</span>
+<span class="r-in"></span>
 <span class="r-in"><span class="fu">add_article</span><span class="op">(</span><span class="st">"decrease"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a decrease"</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">add_article</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">11</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "an 8"  "an 11" "an 18"</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">add_article</span><span class="op">(</span><span class="fl">18123</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "an 18123"</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="fu">add_article</span><span class="op">(</span><span class="fl">1.8</span> <span class="op">*</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span>,</span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/formatc.html" class="external-link">prettyNum</a></span><span class="op">(</span><span class="fl">1.8</span> <span class="op">*</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           18          180        1,800       18,000      180,000    1,800,000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      "an 18"      "a 180"     "a 1800"   "an 18000"   "a 180000"  "a 1800000" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1.8e+07 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "an 1.8e+07" </span>
+<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>
