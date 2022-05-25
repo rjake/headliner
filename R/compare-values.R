@@ -17,6 +17,10 @@
 #' all values will be round to the length specified by 'n_decimal'.
 #' @param multiplier number indicating the scaling factor. When multiplier = 1
 #' (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.
+#' @param check_rounding when TRUE (default) inputs will be checked to confirm if
+#' a difference of zero may be due to rounding. Ex: 0.16 and 0.24 with
+#' 'n_decimal = 1' will both return 0.2. Because this will show no difference,
+#' a message will be displayed
 #' @importFrom glue glue
 #' @importFrom purrr map_if
 #' @export
