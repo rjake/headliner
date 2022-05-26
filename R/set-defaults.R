@@ -112,11 +112,11 @@ update_default <- function(x, value) {
   default <- get(paste0("default_", x))
   if (is.null(value)) {
     headliner_global[[x]] <- default
-  } else if (length(x) > 1) {
-    stop(
-      "'", x, "' should be length of 1 not ", length(get(x)),
-      call. = FALSE
-    )
+  # } else if (length(x) > 1) {
+  #   stop(
+  #     "'", x, "' should be length of 1 not ", length(get(x)),
+  #     call. = FALSE
+  #   )
   } else {
     headliner_global[[x]] <- value
   }
