@@ -21,6 +21,14 @@ test_that("list is passed correctly", {
   expect_equal(phrase, unnamed)
 })
 
+test_that("check that list with multiple elements shows message", {
+  expect_message(
+    data.frame(a = 2, b = 3, c = 4) |>
+      headline_list(),
+    regexp = "two elements"
+  )
+})
+
 test_that("phrases added", {
   phrases <- list(
     person = plural_phrasing("person", "people"),

@@ -132,11 +132,11 @@ check_rounding <- function(x, y, n_decimal) {
       ""
     } else if (n_match == 1) {
       # only one pair matches
-      paste("record", rounding_match)
+      paste0("(see input #", rounding_match, ")")
     } else {
       # demo list of examples
-      paste(
-        "(ex: records",
+      paste0(
+        "(ex: input #",
         glue_collapse(rounding_match, ", ", last = " and "),
         ")"
       )
