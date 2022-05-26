@@ -7,9 +7,10 @@
 #' 'dplyr::filter', used in contrast to the reference group 'x'
 #' @param cols columns to use in comparison
 #' @param calc named list of the functions to use, ex:
-#' list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
-#' list(mean = ~mean(.x, na.rm = TRUE), sd = sd)
-#' @importFrom dplyr everything
+#' list(avg = mean, sd = sd) 'purrr' style phrases are also supported like
+#' list(mean = ~mean(.x, na.rm = TRUE), sd = sd) and dplyr::lst(mean, sd) will
+#' create a list(mean = mean, sd = sd)
+#' @importFrom dplyr everything lst
 #' @export
 #'
 #' @examples
@@ -46,7 +47,7 @@ compare_conditions <- function(df,
                                x,
                                y,
                                cols = everything(),
-                               calc = list(mean = mean)
+                               calc = lst(mean)
                                ) {
   res_1 <- aggregate_group(df, name = "_x", cols = {{cols}}, calc = calc, cond = {{x}})
   res_2 <- aggregate_group(df, name = "_y",  cols = {{cols}}, calc = calc, cond = {{y}})
