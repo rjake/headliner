@@ -8,4 +8,5 @@
 ^docs$
 ^pkgdown$
 ^_pkgdown\.yml$
+^codevov.yml$
 man/figures/logo.svg
