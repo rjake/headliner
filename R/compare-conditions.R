@@ -35,12 +35,14 @@
 #'   ) |>
 #'   view_list()
 #'
-#' # if you want to compare to the average use 'complete.cases(.)'
+#' # if you want to compare x to the overall average, use y = TRUE or if there
+#' # may be NA values, you can pass anything that will return TRUE such as
+#' # !is.na(dep_delay)
 #' flights_jfk |>
 #'   compare_conditions(
 #'     x = (hour > 12),
-#'     y = complete.cases(.),
-#'     dep_delay
+#'     y = TRUE,
+#'     cols = dep_delay
 #'   ) |>
 #'   view_list()
 compare_conditions <- function(df,
@@ -58,6 +60,7 @@ compare_conditions <- function(df,
 
   res_1 <- aggregate_group(df, name = "_x", cols = {{cols}}, calc = calc, cond = {{x}})
   res_2 <- aggregate_group(df, name = "_y",  cols = {{cols}}, calc = calc, cond = {{y}})
+
   final <- append(res_1, res_2)
   final[order(names(final))]
 }

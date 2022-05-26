@@ -3,7 +3,7 @@ test_that("mean (default) works", {
     flights_jfk |>
     compare_conditions(
       x = (carrier == "DL"),
-      y = complete.cases(.),
+      y = TRUE,
       dep_delay
     )
 
@@ -25,7 +25,7 @@ test_that("max works", {
     flights_jfk |>
     compare_conditions(
       x = (carrier == "DL"),
-      y = complete.cases(.),
+      y = TRUE,
       cols = dep_delay,
       calc = list(max = max)
     )
