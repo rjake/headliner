@@ -32,9 +32,21 @@ test_that("check rounding throws a message", {
   expect_null(check_rounding(0.21, 0.21, n_decimal = 1))
   expect_message(check_rounding(0.2, 0.24, n_decimal = 1))
   expect_message(
-    data.frame(x = 18:22/100, y = 0.2) |>
-      add_headline_column(x, y)
+    check_rounding(x = c(1.9, 2.01), y = 2, n_decimal = 1),
+    regexp = "input #2)"
   )
+  expect_message(
+    check_rounding(x = c(2.01, 2.02, 2.1), y = 2, n_decimal = 1),
+    regexp = "input #1 and 2)"
+  )
+  # expect_message(
+  #   data.frame(new = 18:22/100, old = 0.2) |>
+  #     add_headline_column(
+  #       new, old,
+  #       return_cols = c(x, y)
+  #     ),
+  #   regexp = "input #1 and 2)"
+  # )
 })
 
 
