@@ -42,5 +42,5 @@ augment_article_patterns(
 get_article("heirloom")
 }
 \seealso{
-\code{\link[=show_headliner_defaults]{show_headliner_defaults()}}, \code{\link[=set_headliner_defaults]{set_headliner_defaults()}}
+\code{\link[=get_headliner_defaults]{get_headliner_defaults()}}, \code{\link[=set_headliner_defaults]{set_headliner_defaults()}}
 }

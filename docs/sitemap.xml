@@ -43,6 +43,9 @@
     <loc>/reference/animal_sleep.html</loc>
   </url>
   <url>
+    <loc>/reference/augment_article_patterns.html</loc>
+  </url>
+  <url>
     <loc>/reference/compare_conditions.html</loc>
   </url>
   <url>
@@ -55,6 +58,12 @@
     <loc>/reference/flights_jfk.html</loc>
   </url>
   <url>
+    <loc>/reference/get_article.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_headliner_defaults.html</loc>
+  </url>
+  <url>
     <loc>/reference/headline.html</loc>
   </url>
   <url>
@@ -65,6 +74,12 @@
   </url>
   <url>
     <loc>/reference/plural_phrasing.html</loc>
+  </url>
+  <url>
+    <loc>/reference/set_headliner_defaults.html</loc>
+  </url>
+  <url>
+    <loc>/reference/show_headliner_defaults.html</loc>
   </url>
   <url>
     <loc>/reference/trend_terms.html</loc>

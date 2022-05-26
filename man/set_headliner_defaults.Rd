@@ -18,20 +18,19 @@ Set the default values used in making headlines
 headline(3, 4)
 
 # the values headliner uses under the hood
-show_headliner_defaults()
+get_headliner_defaults()
 
-# you can use compare_values(2, 3) \%>\% view_list() to see all talking
+# you can use compare_values(2, 3) |> view_list() to see all talking
 # points but we can use this as a short cut to see some of them:
-names(compare_values(2, 3)) \%>\% head()
-
+names(compare_values(2, 3)) |> head()
 # update headline
 set_headliner_defaults(
   headline = "{article_delta_p}\% {trend} ({orig_values})",
-  orig_values = "from {r} to {c}"
+  orig_values = "from {y} to {x}"
 )
 
 # view changes
-show_headliner_defaults()
+get_headliner_defaults()
 
 # and in action
 headline(3, 4)
@@ -41,5 +40,5 @@ set_headliner_defaults(headline = NULL, orig_values = NULL)
 headline(3, 4)
 }
 \seealso{
-\code{\link[=augment_article_patterns]{augment_article_patterns()}}, \code{\link[=show_headliner_defaults]{show_headliner_defaults()}}
+\code{\link[=augment_article_patterns]{augment_article_patterns()}}, \code{\link[=get_headliner_defaults]{get_headliner_defaults()}}
 }
