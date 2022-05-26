@@ -117,7 +117,7 @@ check_rounding <- function(x, y, n_decimal) {
       x != y &
         round(x, n_decimal) == round(y, n_decimal)
     ) |>
-    head(3)
+    head(3) # only want to show a few examples in message
 
   n_match <- length(rounding_match)
 
