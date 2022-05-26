@@ -83,6 +83,8 @@ headline <- function(x,
                      round_all = TRUE,
                      multiplier = 1,
                      return_data = FALSE) {
+  # use headliner_global environment when missing
+  if (missing(headline)) {
     headline <- headliner_global$headline
   }
 
