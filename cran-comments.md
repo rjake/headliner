@@ -1,9 +1,11 @@
 ## Test environments
-
-* GitHub Actions (ubuntu-16.04): 3.3, 3.4, 3.5, oldrel, release, devel
-* GitHub Actions (windows): release
-* Github Actions (macOS): release, devel
-* win-builder: devel
+* local
+    * Windows 11, R 4.2.0
+    * R devel via devtools::check_win_devel()
+* github-actions
+    * macOS (release)
+    * ubuntu (release, dev)
+    * windows (release)
 
 ## R CMD check results
 

@@ -2,58 +2,63 @@
 % Please edit documentation in R/headline.R
 \name{headline}
 \alias{headline}
-\alias{headline.default}
-\alias{headline.list}
-\alias{add_headline_column}
+\alias{headline_list}
 \title{Compose phrases that describe differences in the data}
 \usage{
-headline(...)
-
-\method{headline}{default}(
-  compare,
-  reference,
+headline(
+  x,
+  y,
   headline = "{trend} of {delta} ({orig_values})",
   ...,
   if_match = "There was no difference.",
   trend_phrases = headliner::trend_terms(),
   plural_phrases = NULL,
-  orig_values = "{c} vs. {r}",
+  orig_values = "{x} vs. {y}",
   n_decimal = 1,
   round_all = TRUE,
   multiplier = 1,
   return_data = FALSE
 )
 
-\method{headline}{list}(x, compare, reference, ...)
-
-add_headline_column(x, compare, reference, ..., .name = "headline")
+headline_list(
+  l,
+  headline = "{trend} of {delta} ({orig_values})",
+  x,
+  y,
+  ...,
+  if_match = "There was no difference.",
+  trend_phrases = headliner::trend_terms(),
+  plural_phrases = NULL,
+  orig_values = "{x} vs. {y}",
+  n_decimal = 1,
+  round_all = TRUE,
+  multiplier = 1,
+  return_data = FALSE
+)
 }
 \arguments{
-\item{...}{
-  Arguments passed on to \code{\link[=headline.default]{headline.default}}, \code{\link[=headline.default]{headline.default}}
-  \describe{
-    \item{\code{}}{}
-  }}
+\item{x}{a numeric value to compare to the reference value of 'y'}
 
-\item{compare}{numeric value to compare against reference (base) value}
-
-\item{reference}{numeric value that 'compare' value will be compared against}
+\item{y}{a numeric value to act as a control for the 'x' value}
 
 \item{headline}{a string to format the final output. Uses
 \code{\link[glue]{glue}} syntax}
+
+\item{...}{arguments passed to \code{\link[glue]{glue_data}}}
 
 \item{if_match}{string to display if numbers match, uses
 \code{\link[glue]{glue}} syntax}
 
 \item{trend_phrases}{list of values to use for when y is more than x, y is the
-same as x, or y is less than x.}
+same as x, or y is less than x. You can pass it just
+\code{\link{trend_terms}} (the default) and call the result with
+\code{"...{trend}..."} or pass is a named list (see examples)}
 
 \item{plural_phrases}{named list of values to use when difference (delta) is
 singular (delta = 1) or plural (delta != 1)}
 
-\item{orig_values}{a string to display the two original values. Uses
-\code{\link[glue]{glue}} syntax. \code{{c}} = the 'compare' value, and
-\code{{r}} = 'reference'}
+\item{orig_values}{a string using \code{\link[glue]{glue}} syntax.
+example: \verb{(\{x\} vs \{y\})}}
 
 \item{n_decimal}{numeric value to limit the number of decimal places in
 the returned values.}
@@ -68,44 +73,40 @@ all values will be round to the length specified by 'n_decimal'.}
 \item{return_data}{logical to indicate whether function should return the
 phrase components used to compose the headline}
 
-\item{x}{data frame, must be a single row}
-
-\item{.name}{string value for the name of the new column to create}
+\item{l}{a list with values to compare, if named, can call by name}
 }
 \description{
 Compose phrases that describe differences in the data
-
-Add column of headlines
 }
 \examples{
 # values can be manually entered, some headlines are provided by default
 headline(10, 8)
 headline(8, 10)
-headline(10, 10)
+headline(1:3, 3:1)
 
 # most likely you'll edit the headline by hand
 headline(
-  compare = 10,
-  reference = 8,
+  x = 10,
+  y = 8,
   headline = "There was a ${delta} {trend} vs last year"
 )
 
 # you can also adjust the phrasing of higher/lower values
 headline(
-  compare = 10,
-  reference = 8,
+  x = 10,
+  y = 8,
   headline = "Group A was {trend} by {delta_p}\%.",
   trend_phrases = trend_terms(more = "higher", less = "lower")
  )
 
 # a phrase about the comparion can be edited by providing glue syntax
 # 'c' = the 'compare' value, 'r' = 'reference'
-headline(10, 8, orig_values = "{c} to {r} people")
+headline(10, 8, orig_values = "{x} to {y} people")
 
 # you can also add phrases for when the difference = 1 or not
 headline(
-  compare = 10,
-  reference = 8,
+  x = 10,
+  y = 8,
   plural_phrases = list(
     were = plural_phrasing(single = "was", multi = "were"),
     people = plural_phrasing(single = "person", multi = "people")
@@ -113,7 +114,7 @@ headline(
   headline = "there {were} {delta} {people}"
 )
 
-# you can also adjust the rounding, although the default is 1
+# you can also adjust the rounding, the default is 1
 headline(0.1234, 0.4321)
 headline(0.1234, 0.4321, n_decimal = 3)
 # or use a multiplier
@@ -121,38 +122,34 @@ headline(0.1234, 0.4321, multiplier = 100)
 
 # there are many components you can assemble
 headline(
-  compare = 16,
-  reference = 8,
+  x = 16,
+  y = 8,
   headline = "there was {article_delta_p}\% {trend}, \\\\
-  {article_trend} {trend} of {delta} ({orig_values})"
+  {add_article(trend)} of {delta} ({orig_values})"
 )
 
-# compare_conditions() produces a list that can be passed to headline()
- mtcars \%>\%
-   compare_conditions(
-     compare = cyl == 4,
-     reference = cyl == 6,
-     cols = c(mpg)
-   ) \%>\%
-   headline(
-     headline =
-       "4-cylinder cars get an average of {delta} {trend} miles \\\\
-       per gallon than 6-cylinder cars ({orig_values}).",
-     trend_phrases = trend_terms("more", "less")
-   )
 
+# compare_conditions() produces a list that can be
+# passed to headline_list()
+flights_jfk |>
+  compare_conditions(
+    x = (hour > 12),
+    y = (hour <= 12),
+    dep_delay
+  ) |>
+  headline_list()
 
-# You can use 'add_headline_column()' instead of
-# `mutate(headline = map2_chr(...))`
-# here is an example comparing the # of gears and carburetors in the
-# 'mtcars' data set
-head(mtcars, 8) \%>\%
-  dplyr::select(mpg, cyl, gear, carb) \%>\%
-  add_headline_column(
-    compare = gear,
-    reference = carb
+# if you have more than 2 list items, you can specify them by name
+list(
+  x = 1,
+  y = 2,
+  z = 3
+ ) |>
+  headline_list(
+    x = x,
+    y = z
   )
 }
 \seealso{
-\code{\link[=view_list]{view_list()}} and \code{\link[=trend_terms]{trend_terms()}}
+\code{\link[=compare_values]{compare_values()}}, \code{\link[=trend_terms]{trend_terms()}}, and \code{\link[=add_article]{add_article()}}
 }

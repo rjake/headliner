@@ -16,23 +16,26 @@ test_that("aggregate_group() works", {
   x <-
     aggregate_group(
       df = mtcars,
-      name = "_comp",
-      .cols = c(mpg, hp),
+      name = "_x",
+      cols = c(mpg, hp),
       calc = list(avg = mean)
     )
 
-  expect_equal(names(x), c("avg_mpg_comp", "avg_hp_comp"))
-  expect_equal(x$avg_mpg_comp, mean(mtcars$mpg))
-  expect_equal(x$avg_hp_comp, mean(mtcars$hp))
+  expect_equal(names(x), c("avg_mpg_x", "avg_hp_x"))
+  expect_equal(x$avg_mpg_x, mean(mtcars$mpg))
+  expect_equal(x$avg_hp_x, mean(mtcars$hp))
 })
 
 
-test_that("check rounding throws warnings", {
-  expect_warning(check_rounding(0.2, 0.24, n_decimal = 1))
+test_that("check rounding throws a message", {
   expect_null(check_rounding(0.2, 0.24, n_decimal = 2))
-  expect_null(check_rounding(21, 21, n_decimal = 1))
+  expect_null(check_rounding(0.21, 0.21, n_decimal = 1))
+  expect_message(check_rounding(0.2, 0.24, n_decimal = 1))
+  expect_message(
+    data.frame(x = 18:22/100, y = 0.2) |>
+      add_headline_column(x, y)
+  )
 })
-
 
 
 test_that("get_article() works for characters", {
@@ -45,13 +48,13 @@ test_that("get_article() works for characters", {
 test_that("get_article() works for numbers", {
   is_a <-
     purrr::map_chr(
-      c(-8, -6, -0.2, 0:7, 9, 10, 12:20, 199, 1234, 1000111, 12000111),
+      c(-8, -6, -0.2, 0.123, 0:7, 9, 10, 12:17, 19:20, 199, 1234, 1000111, 12000111),
       get_article
     )
 
   is_an <-
     purrr::map_chr(
-      c(8, 80, 11, 11000, 11000111),
+      c(8, 80, 11, 18, 11800, 11000, 11000111),
       get_article
     )
 

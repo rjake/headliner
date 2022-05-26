@@ -5,7 +5,7 @@ test_that("add_date_columns works", {
   df <-
     tibble::tibble(
       date = x %m+% months(-7:9)
-    ) %>%
+    ) |>
     add_date_columns(date, ref_date = ymd(20210101))
 
   expect_equal(dim(df), c(17, 7))
@@ -17,7 +17,7 @@ test_that("add_date_columns works", {
   expect_equal(range(df$fiscal_year), c(-1, 1))
 
   df_positive <-
-    df %>%
+    df |>
     dplyr::mutate_if(is.numeric, ~(.x > 0))
 
   expect_equal(sum(df_positive$day), 9)
@@ -30,7 +30,7 @@ test_that("add_date_columns works", {
 
 test_that("overlapping columns dropped or renamed", {
   df <-
-    demo_data() %>%
+    demo_data() |>
     dplyr::mutate(day = weekdays(date))
 
   expect_warning(add_date_columns(df, date), "duplicate names")

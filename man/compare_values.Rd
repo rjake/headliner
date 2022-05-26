@@ -5,26 +5,29 @@
 \title{Compare two values and get talking points}
 \usage{
 compare_values(
-  compare,
-  reference,
+  x,
+  y,
   trend_phrases = headliner::trend_terms(),
-  orig_values = "{c} vs. {r}",
+  orig_values = "{x} vs. {y}",
   plural_phrases = NULL,
   n_decimal = 1,
   round_all = TRUE,
-  multiplier = 1
+  multiplier = 1,
+  check_rounding = TRUE
 )
 }
 \arguments{
-\item{compare}{a numeric value to compare to a reference value}
+\item{x}{a numeric value to compare to the reference value of 'y'}
 
-\item{reference}{a numeric value to act as a control for the 'compare' value}
+\item{y}{a numeric value to act as a control for the 'x' value}
 
 \item{trend_phrases}{list of values to use for when y is more than x, y is the
-same as x, or y is less than x.}
+same as x, or y is less than x. You can pass it just
+\code{\link{trend_terms}} (the default) and call the result with
+\code{"...{trend}..."} or pass is a named list (see examples)}
 
-\item{orig_values}{a string using \code{\link[glue]{glue}} syntax. \code{{c}} =
-the 'compare' value, and \code{{r}} = 'reference'}
+\item{orig_values}{a string using \code{\link[glue]{glue}} syntax.
+example: \verb{(\{x\} vs \{y\})}}
 
 \item{plural_phrases}{named list of values to use when difference (delta) is
 singular (delta = 1) or plural (delta != 1)}
@@ -38,6 +41,11 @@ all values will be round to the length specified by 'n_decimal'.}
 
 \item{multiplier}{number indicating the scaling factor. When multiplier = 1
 (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.}
+
+\item{check_rounding}{when TRUE (default) inputs will be checked to confirm if
+a difference of zero may be due to rounding. Ex: 0.16 and 0.24 with
+'n_decimal = 1' will both return 0.2. Because this will show no difference,
+a message will be displayed}
 }
 \description{
 Compare two values and get talking points
@@ -45,15 +53,28 @@ Compare two values and get talking points
 \examples{
 # the values can be manually entered
 
-compare_values(10, 8) \%>\% head(2)
+compare_values(10, 8) |> head(2)
 # percent difference (10-8)/8
 compare_values(10, 8)$delta_p
-compare_values(10, 8, trend_phrases = trend_terms(more = "higher")) \%>\%
-  head(2)
 
-# a phrase about the comparion can be edited by providing glue syntax
+# trend_phrases returns an object called trend if nothing is passed
+compare_values(10, 8)$trend
+
+# or if one argument is passed using trend_terms()
+compare_values(10, 8, trend_phrases = trend_terms(more = "higher"))$trend
+
+# if a named list is used, the objects are called by their names
+compare_values(
+  10, 8,
+  trend_phrases = list(
+    more = trend_terms(),
+    higher = trend_terms("higher", "lower")
+  )
+)$higher
+
+# a phrase about the comparison can be edited by providing glue syntax
 # 'c' = the 'compare' value, 'r' = 'reference'
-compare_values(10, 8, orig_values = "{c} to {r} people")$orig_values
+compare_values(10, 8, orig_values = "{x} to {y} people")$orig_values
 
 # you can also adjust the rounding, although the default is 1
 compare_values(0.1234, 0.4321)$orig_values

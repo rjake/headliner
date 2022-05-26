@@ -8,7 +8,7 @@ reference:
   - headline
   - plural_phrasing
   - trend_terms
-  - get_article
+  - add_headline_column
   - compare_values
   - view_list
 - title: Data Prep Helpers
@@ -16,16 +16,13 @@ reference:
     There are some helper functions to prepare data frames for use
     with `headline()`
   contents:
-  - compare_columns
   - compare_conditions
   - add_date_columns
-- title: Default Values
+- title: String Manipulation
   desc: >
-    You can set the custom values for the way `headliner` builds phrases
+    Helper functions to edit strings used within headlines
   contents:
-  - augment_article_patterns
-  - set_headliner_defaults
-  - show_headliner_defaults
+  - add_article
 - title: Data
   desc: >
     `headliner` comes with two datasets that are used in examples
@@ -33,3 +30,4 @@ reference:
   contents:
   - demo_data
   - flights_jfk
+  - animal_sleep

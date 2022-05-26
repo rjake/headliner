@@ -1,4 +1,4 @@
-#' Add columns with date calculations based on refernce date
+#' Add columns with date calculations based on reference date
 #'
 #' @param df data frame
 #' @param date_col column with class of 'date'
@@ -16,7 +16,7 @@
 #' @export
 #'
 #' @examples
-#' demo_data() %>%
+#' demo_data() |>
 #'   add_date_columns(date_col = date)
 add_date_columns <- function(df,
                              date_col,

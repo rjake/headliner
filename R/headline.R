@@ -1,23 +1,11 @@
 #' Compose phrases that describe differences in the data
-#' @export
-headline <- function(...) {
-  UseMethod("headline")
-}
-
-#' @param compare a numeric value to compare to a reference value
-#' @param reference a numeric value to act as a control for the 'compare' value
 #' @param headline a string to format the final output. Uses
 #' \code{\link[glue]{glue}} syntax
 #' @param ... arguments passed to \code{\link[glue]{glue_data}}
 #' @param if_match string to display if numbers match, uses
 #' \code{\link[glue]{glue}} syntax
-#' @param trend_phrases list of values to use for when y is more than x, y is the
-#' same as x, or y is less than x.
 #' @param plural_phrases named list of values to use when difference (delta) is
 #' singular (delta = 1) or plural (delta != 1)
-#' @param orig_values a string to display the two original values. Uses
-#'  \code{\link[glue]{glue}} syntax. `{c}` = the 'compare' value, and
-#'  `{r}` = 'reference'
 #' @param n_decimal numeric value to limit the number of decimal places in
 #' the returned values.
 #' @param round_all logical value to indicate if all values should be rounded.
@@ -27,40 +15,41 @@ headline <- function(...) {
 #' (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.
 #' @param return_data logical to indicate whether function should return the
 #' phrase components used to compose the headline
+#' @inheritParams compare_values
 #' @importFrom glue glue_data
-#' @importFrom purrr map_if
+#' @importFrom purrr  map2_chr map_dbl map2
 #' @export
 #' @rdname headline
-#' @seealso [view_list()] and [trend_terms()]
+#' @seealso [compare_values()], [trend_terms()], and [add_article()]
 #' @examples
 #' # values can be manually entered, some headlines are provided by default
 #' headline(10, 8)
 #' headline(8, 10)
-#' headline(10, 10)
+#' headline(1:3, 3:1)
 #'
 #' # most likely you'll edit the headline by hand
 #' headline(
-#'   compare = 10,
-#'   reference = 8,
+#'   x = 10,
+#'   y = 8,
 #'   headline = "There was a ${delta} {trend} vs last year"
 #' )
 #'
 #' # you can also adjust the phrasing of higher/lower values
 #' headline(
-#'   compare = 10,
-#'   reference = 8,
+#'   x = 10,
+#'   y = 8,
 #'   headline = "Group A was {trend} by {delta_p}%.",
 #'   trend_phrases = trend_terms(more = "higher", less = "lower")
 #'  )
 #'
 #' # a phrase about the comparion can be edited by providing glue syntax
 #' # 'c' = the 'compare' value, 'r' = 'reference'
-#' headline(10, 8, orig_values = "{c} to {r} people")
+#' headline(10, 8, orig_values = "{x} to {y} people")
 #'
 #' # you can also add phrases for when the difference = 1 or not
 #' headline(
-#'   compare = 10,
-#'   reference = 8,
+#'   x = 10,
+#'   y = 8,
 #'   plural_phrases = list(
 #'     were = plural_phrasing(single = "was", multi = "were"),
 #'     people = plural_phrasing(single = "person", multi = "people")
@@ -68,7 +57,7 @@ headline <- function(...) {
 #'   headline = "there {were} {delta} {people}"
 #' )
 #'
-#' # you can also adjust the rounding, although the default is 1
+#' # you can also adjust the rounding, the default is 1
 #' headline(0.1234, 0.4321)
 #' headline(0.1234, 0.4321, n_decimal = 3)
 #' # or use a multiplier
@@ -76,40 +65,24 @@ headline <- function(...) {
 #'
 #' # there are many components you can assemble
 #' headline(
-#'   compare = 16,
-#'   reference = 8,
+#'   x = 16,
+#'   y = 8,
 #'   headline = "there was {article_delta_p}% {trend}, \\
-#'   {article_trend} {trend} of {delta} ({orig_values})"
+#'   {add_article(trend)} of {delta} ({orig_values})"
 #' )
 #'
-#' # compare_conditions() produces a list that can be passed to headline()
-#'  mtcars %>%
-#'    compare_conditions(
-#'      compare = cyl == 4,
-#'      reference = cyl == 6,
-#'      cols = c(mpg)
-#'    ) %>%
-#'    headline(
-#'      headline =
-#'        "4-cylinder cars get an average of {delta} {trend} miles \\
-#'        per gallon than 6-cylinder cars ({orig_values}).",
-#'      trend_phrases = trend_terms("more", "less")
-#'    )
-#'
-headline.default <- function(compare,
-                             reference,
-                             headline = "{trend} of {delta} ({orig_values})",
-                             ...,
-                             if_match = "There was no difference.",
-                             trend_phrases = headliner::trend_terms(),
-                             plural_phrases = NULL,
-                             orig_values = "{c} vs. {r}",
-                             n_decimal = 1,
-                             round_all = TRUE,
-                             multiplier = 1,
-                             return_data = FALSE) {
-
-  if (missing(headline)) {
+headline <- function(x,
+                     y,
+                     headline = "{trend} of {delta} ({orig_values})",
+                     ...,
+                     if_match = "There was no difference.",
+                     trend_phrases = headliner::trend_terms(),
+                     plural_phrases = NULL,
+                     orig_values = "{x} vs. {y}",
+                     n_decimal = 1,
+                     round_all = TRUE,
+                     multiplier = 1,
+                     return_data = FALSE) {
     headline <- headliner_global$headline
   }
 
@@ -118,100 +91,109 @@ headline.default <- function(compare,
   }
 
   res <-
-    compare_values(
-      compare,
-      reference,
-      trend_phrases = trend_phrases,
-      plural_phrases = plural_phrases,
-      orig_values = orig_values,
-      n_decimal = n_decimal,
-      round_all = round_all,
-      multiplier = multiplier
+    map2(
+      .x = x,
+      .y = y,
+      .f =
+        ~compare_values(
+          .x,
+          .y,
+          trend_phrases = trend_phrases,
+          plural_phrases = plural_phrases,
+          orig_values = orig_values,
+          n_decimal = n_decimal,
+          round_all = round_all,
+          multiplier = multiplier,
+          check_rounding = FALSE # will do separately to limit # of warnings
+        )
+    )
+
+  # check rounding
+  check_rounding(x, y, n_decimal)
+
+  # determine which headline phrasing to use & pass to glue
+  headlines <-
+    map2_chr(
+      .x = res,
+      .y = ifelse(map_dbl(res, pluck, "sign") == 0, if_match, headline),
+      .f = glue_data,
+      ...
     )
 
 
   if (return_data) {
-    res <- append(res, list(headline = glue_data(res, headline)))
-    return(res)
+    full_list <- map2(res, headlines, ~append(list(headline = .y), .x))
+    return(full_list)
   }
 
-  # determine which headline phrasing to use
-  final_output <- glue_data(res, headline, ...)
-  final_output[res$sign == 0] <- glue_data(res, if_match, ...)
-
-  final_output
+  headlines
 }
 
 
-#' @param x a list with values to compare, if named, can call by name
-#' @param compare numeric value to compare against reference (base) value
-#' @param reference numeric value that 'compare' value will be compared against
-#' @inheritDotParams headline.default
+#' @param l a list with values to compare, if named, can call by name
+#' @inheritParams headline
 #' @rdname headline
 #' @export
-headline.list <- function(x, compare, reference, ...) {
-  if (missing(compare) & missing(reference)) {
-    if (length(x) > 2) {
-      stop(paste(
-        "Not sure which columns to use, please pass list of two",
-        "elements long or specify using 'compare' and 'reference'"
-      ), call. = FALSE)
-    }
-    comp <- x[[1]][1]
-    ref <- x[[2]][1]
-  } else {
-    comp <- x[[deparse(match.call()[["compare"]])]]
-    ref <- x[[deparse(match.call()[["reference"]])]]
-  }
-
-  headline(comp, ref, ...)
-}
-
-#' Add column of headlines
-#' @param x data frame, must be a single row
-#' @param compare numeric value to compare against reference (base) value
-#' @param reference numeric value that 'compare' value will be compared against
-#' @param .name string value for the name of the new column to create
-#' @inheritDotParams headline.default
-#' @rdname headline
-#' @export
-#' @importFrom glue glue
-#' @importFrom dplyr mutate
-#' @importFrom rlang :=
-#' @importFrom purrr map2_chr
 #' @examples
 #'
-#' # You can use 'add_headline_column()' instead of
-#' # `mutate(headline = map2_chr(...))`
-#' # here is an example comparing the # of gears and carburetors in the
-#' # 'mtcars' data set
-#' head(mtcars, 8) %>%
-#'   dplyr::select(mpg, cyl, gear, carb) %>%
-#'   add_headline_column(
-#'     compare = gear,
-#'     reference = carb
+#' # compare_conditions() produces a list that can be
+#' # passed to headline_list()
+#' flights_jfk |>
+#'   compare_conditions(
+#'     x = (hour > 12),
+#'     y = (hour <= 12),
+#'     dep_delay
+#'   ) |>
+#'   headline_list()
+#'
+#' # if you have more than 2 list items, you can specify them by name
+#' list(
+#'   x = 1,
+#'   y = 2,
+#'   z = 3
+#'  ) |>
+#'   headline_list(
+#'     x = x,
+#'     y = z
 #'   )
-add_headline_column <- function(x, compare, reference, ..., .name = "headline") {
-  if (missing(compare) | missing(reference)) {
-    stop(
-      "please specify columns using 'compare' and 'reference'",
-      call. = FALSE
-    )
+headline_list <- function(l,
+                          headline = "{trend} of {delta} ({orig_values})",
+                          x,
+                          y,
+                          ...,
+                          if_match = "There was no difference.",
+                          trend_phrases = headliner::trend_terms(),
+                          plural_phrases = NULL,
+                          orig_values = "{x} vs. {y}",
+                          n_decimal = 1,
+                          round_all = TRUE,
+                          multiplier = 1,
+                          return_data = FALSE) {
+  if (missing(x) & missing(y)) {
+    if (length(l) > 2) {
+      stop(paste(
+        "Not sure which columns to use, please pass list of two",
+        "elements long or specify using 'x' and 'y'"
+      ), call. = FALSE)
+    }
+    comp <- l[[1]][1]
+    ref <- l[[2]][1]
+  } else {
+    comp <- l[[deparse(match.call()[["x"]])]]
+    ref <- l[[deparse(match.call()[["y"]])]]
   }
 
-  if (.name %in% names(x)) {
-    warning(
-      glue(
-        "The column '{.name}' was replaced. Use the '.name' argument \\
-        to change the column name."
-      ),
-      call. = FALSE
-    )
-  }
-
-  x %>%
-    mutate(
-      {{.name}} := map2_chr({{compare}}, {{reference}}, headline, ...)
-    )
+  headline(
+    x = comp,
+    y = ref,
+    headline = headline,
+    ...,
+    if_match = if_match,
+    trend_phrases = trend_phrases,
+    orig_values = orig_values,
+    n_decimal = n_decimal,
+    round_all = round_all,
+    multiplier = multiplier,
+    return_data = return_data
+  )
 }
-
