@@ -164,10 +164,11 @@ headline_list <- function(l,
                           return_data = FALSE) {
   if (missing(x) & missing(y)) {
     if (length(l) > 2) {
-      stop(paste(
-        "Not sure which columns to use, please pass list of two",
-        "elements long or specify using 'x' and 'y'"
-      ), call. = FALSE)
+      message(
+        "Only the first two elements were used. ",
+        "To specify values, pass a list of only two elements long or ",
+        "specify using 'x' and 'y'"
+      )
     }
     comp <- l[[1]][1]
     ref <- l[[2]][1]
