@@ -84,13 +84,15 @@ headline <- function(x,
                      multiplier = 1,
                      return_data = FALSE) {
   # use headliner_global environment when missing
-  if (missing(headline)) {
-    headline <- headliner_global$headline
-  }
-
-  if (missing(orig_values)) {
-    orig_values <- headliner_global$orig_values
-  }
+  if (missing(headline)) headline <- headliner_global$headline
+  if (missing(orig_values)) orig_values <- headliner_global$orig_values
+  if (missing(if_match)) if_match <- headliner_global$if_match
+  if (missing(trend_phrases)) trend_phrases <- headliner_global$trend_phrases
+  if (missing(plural_phrases)) plural_phrases <- headliner_global$plural_phrases
+  if (missing(orig_values)) orig_values <- headliner_global$orig_values
+  if (missing(n_decimal)) n_decimal <- headliner_global$n_decimal
+  if (missing(round_all)) round_all <- headliner_global$round_all
+  if (missing(multiplier)) multiplier <- headliner_global$multiplier
 
   res <-
     map2(
