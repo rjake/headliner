@@ -96,7 +96,7 @@ add_headline_column <- function(df,
               n_decimal = n_decimal,
               round_all = round_all,
               multiplier = multiplier,
-              check_rounding = FALSE
+              check_rounding = FALSE # will do separately to limit # of warnings
             )
         ) |>
         map_dfr(flatten) |>

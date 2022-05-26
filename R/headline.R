@@ -97,7 +97,7 @@ headline <- function(x,
           n_decimal = n_decimal,
           round_all = round_all,
           multiplier = multiplier,
-          check_rounding = FALSE
+          check_rounding = FALSE # will do separately to limit # of warnings
         )
     )
 
