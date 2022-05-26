@@ -4,7 +4,7 @@
 headliner_global <- new.env(parent = emptyenv())
 
 # Initial default values
-# The list of articles to be used for 'get_articles()'
+# The list of articles to be used for 'add_article()'
 headliner_global$articles <- list(addl_a = "", addl_an = "")
 
 default_headline <- "{trend} of {delta} ({orig_values})"
@@ -106,8 +106,6 @@ update_default <- function(x, value) {
 #'
 #' headliner uses crude logic to anticipate the articles used before phrases
 #' like "(an) increase", "(a) decrease", "(an) 83" and "(a) -5"
-#' You will likely not call the function [get_article()] directly but you
-#' can augment the logic it uses with this function.
 #'
 #' These arguments assume that the words start with the patterns you provide.
 #' Passing "hour|heir" will be translated to "^(hour|heir)".
@@ -118,7 +116,7 @@ update_default <- function(x, value) {
 #' @examples
 #' # The crude logic for headliner would give all "h" words the article "a"
 #' # by default, the word "heirloom" returns "a"
-#' get_article("heirloom")
+#' add_article("heirloom")
 #'
 #' # the patterns that are used can be updated
 #' augment_article_patterns(
@@ -126,14 +124,14 @@ update_default <- function(x, value) {
 #'   regex_for_an = "hour|heir"
 #' )
 #'
-#' get_article("heirloom")
+#' add_article("heirloom")
 #'
 #' # these patterns can be reset using 'NULL'
 #' augment_article_patterns(
 #'   regex_for_an = NULL
 #' )
 #'
-#' get_article("heirloom")
+#' add_article("heirloom")
 augment_article_patterns <- function(regex_for_a, regex_for_an) {
   old <- headliner_global$articles
 
