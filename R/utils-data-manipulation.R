@@ -55,8 +55,8 @@ aggregate_group <- function(df, name, cols, calc, cond) {
 #' Choose "a" or "an"
 #' Definition listed under [add_article()]
 #' @param x a number or string
+#' @noRd
 #' @importFrom dplyr case_when
-#' @export
 #' @examples
 #' get_article("increase")
 #' get_article("decrease")
