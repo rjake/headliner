@@ -27,13 +27,14 @@ headliner_global$orig_values <- default_orig_values
 show_headliner_defaults <- function() {
   message("Currently using:")
 
+  message(
+    "Use set_headliner_defaults() to update or reset values.\n",
+    "Currently using:"
+  )
   list(
     headline = headliner_global$headline,
     orig_values = headliner_global$orig_values
-  ) |>
-    print()
-
-  message("Use set_headliner_defaults() to update or reset values.")
+  )
 }
 
 
