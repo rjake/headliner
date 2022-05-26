@@ -16,7 +16,7 @@
 #' @export
 #'
 #' @examples
-#' demo_data() %>%
+#' demo_data() |>
 #'   add_date_columns(date_col = date)
 add_date_columns <- function(df,
                              date_col,

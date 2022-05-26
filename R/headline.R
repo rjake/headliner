@@ -131,12 +131,12 @@ headline <- function(x,
 #'
 #' # compare_conditions() produces a list that can be
 #' # passed to headline_list()
-#' flights_jfk %>%
+#' flights_jfk |>
 #'   compare_conditions(
 #'     x = (hour > 12),
 #'     y = (hour <= 12),
 #'     dep_delay
-#'   ) %>%
+#'   ) |>
 #'   headline_list()
 #'
 #' # if you have more than 2 list items, you can specify them by name
@@ -144,7 +144,7 @@ headline <- function(x,
 #'   x = 1,
 #'   y = 2,
 #'   z = 3
-#'  ) %>%
+#'  ) |>
 #'   headline_list(
 #'     x = x,
 #'     y = z

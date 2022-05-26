@@ -71,15 +71,15 @@ Add column of headlines
 # You can use 'add_headline_column()' instead of
 # `mutate(headline = map2_chr(...))`
 # here is an example comparing the sleeping habits of animals
-head(animal_sleep) \%>\%
-  dplyr::select(common_name, hours_asleep, hours_awake) \%>\%
+head(animal_sleep) |>
+  dplyr::select(common_name, hours_asleep, hours_awake) |>
   add_headline_column(
     x = hours_asleep,
     y = hours_awake,
     headline = "The {common_name} spends {delta} more {hours} {trend} than not {trend}.",
     trend_phrases = trend_terms(more = "asleep", less = "awake"),
     plural_phrases = list(hours = plural_phrasing(single = "hour", multi = "hours"))
-  ) \%>\%
+  ) |>
   knitr::kable("pandoc")
 
 
@@ -87,16 +87,16 @@ head(animal_sleep) \%>\%
 # You can use tidyselect helpers like 'starts_with("delta")' or
 # 'everything()'. In this example, I returned the delta & trend columns
 # and identified the rows at the extremes
-head(animal_sleep) \%>\%
-  dplyr::select(common_name, hours_asleep, hours_awake) \%>\%
+head(animal_sleep) |>
+  dplyr::select(common_name, hours_asleep, hours_awake) |>
   add_headline_column(
     x = hours_asleep,
     y = hours_awake,
     headline = "more time {trend} ({orig_values} hours)",
     trend_phrases = trend_terms(more = "alseep", less = "awake"),
     return_cols = c("delta", "trend")
-  ) \%>\%
-  dplyr::filter(delta \%in\% range(delta)) \%>\%
+  ) |>
+  dplyr::filter(delta \%in\% range(delta)) |>
   knitr::kable("pandoc")
 
 }

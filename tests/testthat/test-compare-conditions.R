@@ -1,6 +1,6 @@
 test_that("mean (default) works", {
   x <-
-    flights_jfk %>%
+    flights_jfk |>
     compare_conditions(
       x = (carrier == "DL"),
       y = complete.cases(.),
@@ -22,7 +22,7 @@ test_that("mean (default) works", {
 
 test_that("max works", {
   x <-
-    flights_jfk %>%
+    flights_jfk |>
     compare_conditions(
       x = (carrier == "DL"),
       y = complete.cases(.),

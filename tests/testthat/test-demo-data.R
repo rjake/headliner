@@ -18,11 +18,11 @@ test_that("demo_data accepts params", {
 
 
 test_that("large n works", {
-  (demo_data(n = 6)$group == rep(letters[1:3], each = 2)) %>%
-    all() %>%
+  (demo_data(n = 6)$group == rep(letters[1:3], each = 2)) |>
+    all() |>
     expect_true()
 
-  (unique(demo_data(n = 200)$group) == letters) %>%
-    all() %>%
+  (unique(demo_data(n = 200)$group) == letters) |>
+    all() |>
     expect_true()
 })

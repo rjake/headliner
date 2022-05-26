@@ -30,7 +30,7 @@ and 7:
 ``` r
 library(headliner)
 
-compare_values(5, 7) %>% # returns a list
+compare_values(5, 7) |> # returns a list
   view_list() # show as a data frame
 ```
 

@@ -45,9 +45,9 @@ demo_data()
 
 ```{r echo=FALSE}
 dates <- 
-  demo_data() %>%
-  add_date_columns(date) %>% 
-  slice(2) %>% 
+  demo_data() |>
+  add_date_columns(date) |> 
+  slice(2) |> 
   mutate(dplyr::across(day:month, abs))
 ```
 
@@ -55,13 +55,13 @@ dates <-
 
 What we want is to say something like this:
 ```{r, echo=FALSE}
-demo_data() %>%
-  add_date_columns(date) %>% 
+demo_data() |>
+  add_date_columns(date) |> 
   compare_conditions(
     x = month == 0,
     y = month == -12,
     cols = sales
-  ) %>% 
+  ) |> 
   headline_list(
     headline = 
     "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
@@ -79,7 +79,7 @@ headline(
 To see how the sentence was constructed, we can look at the components used under the hood. This `return_data = TRUE` returns a named list.  I will condense with `view_list()`
 
 ```{r}
-headline(101, 107, return_data = TRUE) %>% 
+headline(101, 107, return_data = TRUE) |> 
   view_list()
 ```
 
@@ -100,15 +100,15 @@ But let's see if we can make the calculations more dynamic...
 
 First, we can use a function called `add_date_columns()` to calculate distances from the current date (or the reference date specified) to the values in the `date` column . With these new fields we can see that `r format(demo_data()$date[2], "%D")` was `r dates$day` days ago (or `r dates$week` weeks or `r dates$month` months, ...) from the current date.
 ```{r}
-demo_data() %>%
+demo_data() |>
   add_date_columns(date_col = date)
 ```
 
 We can then identify some conditions for our group of interest (`x`) and our reference group (`y`). This step uses the kind of logic you would use in `dplyr::filter()` or `base::subset()`
 ```{r}
 yoy <- # year over year
-  demo_data() %>%
-  add_date_columns(date) %>% 
+  demo_data() |>
+  add_date_columns(date) |> 
   compare_conditions(
     x = (month == 0),   # this month
     y = (month == -12), # vs 12 months ago
@@ -122,7 +122,7 @@ yoy
 It might look funny to see `list(mean = mean)`. The name (left side) is how it will name the values, the right side is the function to use. If I had used `calc = list(avg = mean)` The names would have been `avg_x_*`. Because `compare_conditions()` uses the mean as the default, I'll omit it going forward. Now that I have my output as a list, I can use `headline_list()` to generate headlines. 
 
 ```{r}
-yoy %>% 
+yoy |> 
   headline_list(
     headline = "We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."
   ) 
@@ -131,7 +131,7 @@ yoy %>%
 If your list has more than 2 values, you can specify the values you need by calling their names
 ```{r}
 car_stats <-
-  mtcars %>% 
+  mtcars |> 
   compare_conditions(
     x = cyl == 4,
     y = cyl > 4,
@@ -141,14 +141,14 @@ car_stats <-
 
 view_list(car_stats)
 
-car_stats %>%
+car_stats |>
   headline_list(
     x = avg_disp_x,
     y = avg_disp_y,
     headline = "Difference in avg. displacement of {delta}cu.in. ({orig_values})"
   )
 
-car_stats %>%
+car_stats |>
   headline_list(
     x = avg_drat_x,
     y = avg_drat_y,
@@ -158,13 +158,13 @@ car_stats %>%
 
 `compare_conditions()` can also be used to compare categorical criteria.
 ```{r}
-demo_data() %>%
+demo_data() |>
   compare_conditions(
     x = group == "a",
     y = group == "c",
     cols = c(sales),
     calc = sum
-  ) %>% 
+  ) |> 
   headline_list(
     headline = "Group A is ${delta} {trend} Group C (${x} vs ${y})",
     trend_phrases = trend_terms(more = "ahead",  less = "behind")
@@ -180,13 +180,13 @@ tibble::tibble(
   lab = rep(c("HDL", "LDL"), length.out = 5),
   pre = 70 + 1:5,
   post = 70 + 6:2
-) %>% 
+) |> 
   add_headline_column(
     x = post, 
     y = pre,
     headline = "Using Brand {med}, {lab} {trend}d by {delta} mg/dL",
     return_cols = c("delta")
-  ) %>% 
+  ) |> 
   arrange(desc(delta))
 
 ```

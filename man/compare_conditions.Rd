@@ -26,32 +26,32 @@ Compare two conditions within a data frame
 }
 \examples{
 # compare_conditions() produces a list that can be passed to headline_list()
-flights_jfk \%>\%
+flights_jfk |>
   compare_conditions(
     x = (hour > 12),
     y = (hour <= 12),
     dep_delay
   )
 
-.Last.value \%>\% headline_list()
+.Last.value |> headline_list()
 
  # you can return multiple objects to compare
  # 'view_List()' is a helper to see list objects in a compact way
-flights_jfk \%>\%
+flights_jfk |>
   compare_conditions(
     x = (hour > 12),
     y = (hour <= 12),
     cols = c(dep_delay, arr_delay),
     calc = list(mean = mean, sd = sd)
-  ) \%>\%
+  ) |>
   view_list()
 
 # if you want to compare to the average use 'complete.cases(.)'
-flights_jfk \%>\%
+flights_jfk |>
   compare_conditions(
     x = (hour > 12),
     y = complete.cases(.),
     dep_delay
-  ) \%>\%
+  ) |>
   view_list()
 }
