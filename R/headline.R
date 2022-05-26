@@ -78,7 +78,7 @@ headline <- function(x,
                      if_match = "There was no difference.",
                      trend_phrases = headliner::trend_terms(),
                      plural_phrases = NULL,
-                     orig_values = "{x} vs. {y}",
+                     orig_values = "{x} vs. {y}", # should this get used instead? headliner::headliner_global$orig_values
                      n_decimal = 1,
                      round_all = TRUE,
                      multiplier = 1,
