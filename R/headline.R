@@ -83,6 +83,13 @@ headline <- function(x,
                      round_all = TRUE,
                      multiplier = 1,
                      return_data = FALSE) {
+    headline <- headliner_global$headline
+  }
+
+  if (missing(orig_values)) {
+    orig_values <- headliner_global$orig_values
+  }
+
   res <-
     map2(
       .x = x,
