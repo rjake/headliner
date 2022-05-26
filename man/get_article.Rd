@@ -2,7 +2,8 @@
 % Please edit documentation in R/utils-data-manipulation.R
 \name{get_article}
 \alias{get_article}
-\title{Choose "a" or "an"}
+\title{Choose "a" or "an"
+Definition listed under \code{\link[=add_article]{add_article()}}}
 \usage{
 get_article(x)
 }
@@ -11,10 +12,17 @@ get_article(x)
 }
 \description{
 Choose "a" or "an"
+Definition listed under \code{\link[=add_article]{add_article()}}
 }
 \examples{
 get_article("increase")
 get_article("decrease")
 get_article(5)
 get_article(8)
+get_article(18123)
+stats::setNames(
+  get_article(1.8 * 10^(1:7)),
+  prettyNum(1.8 * 10^(1:7), big.mark = ",")
+)
+
 }
