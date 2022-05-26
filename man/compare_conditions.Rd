@@ -4,7 +4,7 @@
 \alias{compare_conditions}
 \title{Compare two conditions within a data frame}
 \usage{
-compare_conditions(df, x, y, cols = everything(), calc = list(mean = mean))
+compare_conditions(df, x, y, cols = everything(), calc = lst(mean))
 }
 \arguments{
 \item{df}{data frame}
@@ -18,8 +18,9 @@ compare_conditions(df, x, y, cols = everything(), calc = list(mean = mean))
 \item{cols}{columns to use in comparison}
 
 \item{calc}{named list of the functions to use, ex:
-list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
-list(mean = ~mean(.x, na.rm = TRUE), sd = sd)}
+list(avg = mean, sd = sd) 'purrr' style phrases are also supported like
+list(mean = ~mean(.x, na.rm = TRUE), sd = sd) and dplyr::lst(mean, sd) will
+create a list(mean = mean, sd = sd)}
 }
 \description{
 Compare two conditions within a data frame
@@ -46,12 +47,14 @@ flights_jfk |>
   ) |>
   view_list()
 
-# if you want to compare to the average use 'complete.cases(.)'
+# if you want to compare x to the overall average, use y = TRUE or if there
+# may be NA values, you can pass anything that will return TRUE such as
+# !is.na(dep_delay)
 flights_jfk |>
   compare_conditions(
     x = (hour > 12),
-    y = complete.cases(.),
-    dep_delay
+    y = TRUE,
+    cols = dep_delay
   ) |>
   view_list()
 }
