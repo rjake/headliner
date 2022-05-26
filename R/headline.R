@@ -1,21 +1,12 @@
 #' Compose phrases that describe differences in the data
 #' @param headline a string to format the final output. Uses
 #' \code{\link[glue]{glue}} syntax
-#' @param ... arguments passed to \code{\link[glue]{glue_data}}
 #' @param if_match string to display if numbers match, uses
 #' \code{\link[glue]{glue}} syntax
-#' @param plural_phrases named list of values to use when difference (delta) is
-#' singular (delta = 1) or plural (delta != 1)
-#' @param n_decimal numeric value to limit the number of decimal places in
-#' the returned values.
-#' @param round_all logical value to indicate if all values should be rounded.
-#' When FALSE, the values will return with no modification. When TRUE (default)
-#' all values will be round to the length specified by 'n_decimal'.
-#' @param multiplier number indicating the scaling factor. When multiplier = 1
-#' (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.
 #' @param return_data logical to indicate whether function should return the
 #' phrase components used to compose the headline
 #' @inheritParams compare_values
+#' @inheritDotParams glue::glue_data -.x
 #' @importFrom glue glue_data
 #' @importFrom purrr  map2_chr map_dbl map2
 #' @export
