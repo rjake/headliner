@@ -7,6 +7,7 @@
 #' \code{\link[dplyr]{starts_with}}, etc.
 #' @inheritParams compare_values
 #' @inheritParams headline
+#' @inheritDotParams glue::glue_data -.x
 #' @export
 #' @importFrom glue glue
 #' @importFrom dplyr pull mutate transmute select
