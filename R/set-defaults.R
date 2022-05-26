@@ -23,10 +23,8 @@ headliner_global$orig_values <- default_orig_values
 #' @seealso [augment_article_patterns()], [set_headliner_defaults()]
 #'
 #' @examples
-#' show_headliner_defaults()
-show_headliner_defaults <- function() {
-  message("Currently using:")
-
+#' get_headliner_defaults()
+get_headliner_defaults <- function() {
   message(
     "Use set_headliner_defaults() to update or reset values.\n",
     "Currently using:"
@@ -42,13 +40,13 @@ show_headliner_defaults <- function() {
 #' @param default string using component names from [compare_values()].
 #' The default is \code{"{trend} of {delta} ({orig_values})"}
 #' @export
-#' @seealso [augment_article_patterns()], [show_headliner_defaults()]
+#' @seealso [augment_article_patterns()], [get_headliner_defaults()]
 #' @examples
 #' # the way headliner writes out-of-the-box
 #' headline(3, 4)
 #'
 #' # the values headliner uses under the hood
-#' show_headliner_defaults()
+#' get_headliner_defaults()
 #'
 #' # you can use compare_values(2, 3) |> view_list() to see all talking
 #' # points but we can use this as a short cut to see some of them:
@@ -61,7 +59,7 @@ show_headliner_defaults <- function() {
 #' )
 #'
 #' # view changes
-#' show_headliner_defaults()
+#' get_headliner_defaults()
 #'
 #' # and in action
 #' headline(3, 4)
@@ -70,7 +68,8 @@ show_headliner_defaults <- function() {
 #' set_headliner_defaults(headline = NULL, orig_values = NULL)
 #' headline(3, 4)
 set_headliner_defaults <- function(headline = NULL,
-                                   orig_values = NULL) {
+                                   orig_values = NULL
+                                   ) {
   if (!missing(headline)) {
     update_default(x = "headline", value = headline)
   }
@@ -115,7 +114,7 @@ update_default <- function(x, value) {
 #' @param regex_for_a regular expression for words that get the article 'a'
 #' @param regex_for_an regular expression for words that get the article 'an'
 #' @export
-#' @seealso [show_headliner_defaults()], [set_headliner_defaults()]
+#' @seealso [get_headliner_defaults()], [set_headliner_defaults()]
 #' @examples
 #' # The crude logic for headliner would give all "h" words the article "a"
 #' # by default, the word "heirloom" returns "a"
