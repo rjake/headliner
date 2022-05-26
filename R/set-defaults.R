@@ -8,7 +8,7 @@ headliner_global <- new.env(parent = emptyenv())
 headliner_global$articles <- list(addl_a = "", addl_an = "")
 
 default_headline <- "{trend} of {delta} ({orig_values})"
-default_orig_values <- "{c} vs. {r}"
+default_orig_values <- "{x} vs. {y}"
 
 headliner_global$headline <- default_headline
 headliner_global$orig_values <- default_orig_values
