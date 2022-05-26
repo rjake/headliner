@@ -23,6 +23,13 @@ reference:
     Helper functions to edit strings used within headlines
   contents:
   - add_article
+  - augment_article_patterns
+- title: Set Defaults
+  desc: >
+    Defaults can be set to control # of decimals, headline phrasing and more
+  contents:
+  - set_headliner_defaults
+  - get_headliner_defaults
 - title: Data
   desc: >
     `headliner` comes with two datasets that are used in examples
