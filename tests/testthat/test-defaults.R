@@ -3,7 +3,7 @@ test_that("headline uses new defaults", {
 
   # set custom headline
   pct_phrase <- "{delta_p}% {trend} ({orig_values})"
-  orig_phrase <- "was {r} now {c}"
+  orig_phrase <- "was {y} now {x}"
   set_headliner_defaults(
     headline = pct_phrase,
     orig_values = orig_phrase
