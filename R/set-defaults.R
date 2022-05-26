@@ -30,7 +30,7 @@ show_headliner_defaults <- function() {
   list(
     headline = headliner_global$headline,
     orig_values = headliner_global$orig_values
-  ) %>%
+  ) |>
     print()
 
   message("Use set_headliner_defaults() to update or reset values.")
@@ -49,9 +49,9 @@ show_headliner_defaults <- function() {
 #' # the values headliner uses under the hood
 #' show_headliner_defaults()
 #'
-#' # you can use compare_values(2, 3) %>% view_list() to see all talking
+#' # you can use compare_values(2, 3) |> view_list() to see all talking
 #' # points but we can use this as a short cut to see some of them:
-#' names(compare_values(2, 3)) %>% head()
+#' names(compare_values(2, 3)) |> head()
 #
 #' # update headline
 #' set_headliner_defaults(
