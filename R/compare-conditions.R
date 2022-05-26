@@ -49,6 +49,13 @@ compare_conditions <- function(df,
                                cols = everything(),
                                calc = lst(mean)
                                ) {
+  # sample inputs for debugging
+    # df <- flights_jfk
+    # x <- rlang::new_quosure(rlang::expr(hour > 12))
+    # y <- rlang::new_quosure(rlang::expr(TRUE))
+    # cols <- as.symbol("dep_delay")
+    # calc <- dplyr::lst(mean)
+
   res_1 <- aggregate_group(df, name = "_x", cols = {{cols}}, calc = calc, cond = {{x}})
   res_2 <- aggregate_group(df, name = "_y",  cols = {{cols}}, calc = calc, cond = {{y}})
   final <- append(res_1, res_2)
