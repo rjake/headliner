@@ -1,9 +1,9 @@
 library(purrr)
 
 keep_numeric <- function(x) {
-  x %>%
-    map(keep, is.numeric) %>%
-    compact() %>%
+  x |>
+    map(keep, is.numeric) |>
+    compact() |>
     as.numeric()
 }
 
@@ -35,7 +35,7 @@ test_that("compare_values produces list", {
 
 test_that("multiplier works", {
   select_vars <- function(x) {
-    view_list(x)[c("delta", "raw_delta", "comp_value", "ref_value"), 1] %>%
+    view_list(x)[c("delta", "raw_delta", "comp_value", "ref_value"), 1] |>
       as.numeric()
   }
 

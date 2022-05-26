@@ -13,7 +13,7 @@ view_list(x)
 Compact view of list values
 }
 \examples{
-compare_values(10, 8) \%>\%
+compare_values(10, 8) |>
   view_list()
 }
 \seealso{

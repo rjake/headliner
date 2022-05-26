@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">headliner</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
@@ -63,7 +63,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">compare_conditions</span><span class="op">(</span><span class="va">df</span>, <span class="va">x</span>, <span class="va">y</span>, cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, calc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">compare_conditions</span><span class="op">(</span><span class="va">df</span>, <span class="va">x</span>, <span class="va">y</span>, cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, calc <span class="op">=</span> <span class="fu">lst</span><span class="op">(</span><span class="va">mean</span><span class="op">)</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,14 +80,15 @@
 <dd><p>columns to use in comparison</p></dd>
 <dt>calc</dt>
 <dd><p>named list of the functions to use, ex:
-list(mean = mean, sd = sd) 'purrr' style phrases are also supported like
-list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></dd>
+list(avg = mean, sd = sd) 'purrr' style phrases are also supported like
+list(mean = ~mean(.x, na.rm = TRUE), sd = sd) and dplyr::lst(mean, sd) will
+create a list(mean = mean, sd = sd)</p></dd>
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># compare_conditions() produces a list that can be passed to headline_list()</span></span>
-<span class="r-in"><span class="va">flights_jfk</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
 <span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&lt;=</span> <span class="fl">12</span><span class="op">)</span>,</span>
@@ -100,18 +101,18 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.556334</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">.Last.value</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="headline.html">headline_list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">.Last.value</span> |&gt; <span class="fu"><a href="headline.html">headline_list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in l[[2]]:</span> subscript out of bounds</span>
 <span class="r-in"></span>
 <span class="r-in"> <span class="co"># you can return multiple objects to compare</span></span>
 <span class="r-in"> <span class="co"># 'view_List()' is a helper to see list objects in a compact way</span></span>
-<span class="r-in"><span class="va">flights_jfk</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
 <span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&lt;=</span> <span class="fl">12</span><span class="op">)</span>,</span>
 <span class="r-in">    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dep_delay</span>, <span class="va">arr_delay</span><span class="op">)</span>,</span>
 <span class="r-in">    calc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>, sd <span class="op">=</span> <span class="va">sd</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu"><a href="view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     VALUES</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean_arr_delay_x  2.621043</span>
@@ -123,13 +124,15 @@ list(mean = ~mean(.x, na.rm = TRUE), sd = sd)</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sd_dep_delay_x   42.733077</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sd_dep_delay_y   21.753064</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># if you want to compare to the average use 'complete.cases(.)'</span></span>
-<span class="r-in"><span class="va">flights_jfk</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="co"># if you want to compare x to the overall average, use y = TRUE or if there</span></span>
+<span class="r-in"><span class="co"># may be NA values, you can pass anything that will return TRUE such as</span></span>
+<span class="r-in"><span class="co"># !is.na(dep_delay)</span></span>
+<span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span class="r-in">    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/complete.cases.html" class="external-link">complete.cases</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>,</span>
-<span class="r-in">    <span class="va">dep_delay</span></span>
-<span class="r-in">  <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">    y <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span class="r-in">    cols <span class="op">=</span> <span class="va">dep_delay</span></span>
+<span class="r-in">  <span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu"><a href="view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    VALUES</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean_dep_delay_x 14.03664</span>

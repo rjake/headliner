@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">headliner</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
@@ -132,15 +132,15 @@ all values will be round to the length specified by 'n_decimal'.</p></dd>
 <span class="r-in"><span class="co"># You can use 'add_headline_column()' instead of</span></span>
 <span class="r-in"><span class="co"># `mutate(headline = map2_chr(...))`</span></span>
 <span class="r-in"><span class="co"># here is an example comparing the sleeping habits of animals</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">animal_sleep</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">common_name</span>, <span class="va">hours_asleep</span>, <span class="va">hours_awake</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">animal_sleep</span><span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">common_name</span>, <span class="va">hours_asleep</span>, <span class="va">hours_awake</span><span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu">add_headline_column</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="va">hours_asleep</span>,</span>
 <span class="r-in">    y <span class="op">=</span> <span class="va">hours_awake</span>,</span>
 <span class="r-in">    headline <span class="op">=</span> <span class="st">"The {common_name} spends {delta} more {hours} {trend} than not {trend}."</span>,</span>
 <span class="r-in">    trend_phrases <span class="op">=</span> <span class="fu"><a href="trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"asleep"</span>, less <span class="op">=</span> <span class="st">"awake"</span><span class="op">)</span>,</span>
 <span class="r-in">    plural_phrases <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>hours <span class="op">=</span> <span class="fu"><a href="plural_phrasing.html">plural_phrasing</a></span><span class="op">(</span>single <span class="op">=</span> <span class="st">"hour"</span>, multi <span class="op">=</span> <span class="st">"hours"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="st">"pandoc"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -158,16 +158,16 @@ all values will be round to the length specified by 'n_decimal'.</p></dd>
 <span class="r-in"><span class="co"># You can use tidyselect helpers like 'starts_with("delta")' or</span></span>
 <span class="r-in"><span class="co"># 'everything()'. In this example, I returned the delta &amp; trend columns</span></span>
 <span class="r-in"><span class="co"># and identified the rows at the extremes</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">animal_sleep</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">common_name</span>, <span class="va">hours_asleep</span>, <span class="va">hours_awake</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">animal_sleep</span><span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">common_name</span>, <span class="va">hours_asleep</span>, <span class="va">hours_awake</span><span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu">add_headline_column</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="va">hours_asleep</span>,</span>
 <span class="r-in">    y <span class="op">=</span> <span class="va">hours_awake</span>,</span>
 <span class="r-in">    headline <span class="op">=</span> <span class="st">"more time {trend} ({orig_values} hours)"</span>,</span>
 <span class="r-in">    trend_phrases <span class="op">=</span> <span class="fu"><a href="trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"alseep"</span>, less <span class="op">=</span> <span class="st">"awake"</span><span class="op">)</span>,</span>
 <span class="r-in">    return_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"delta"</span>, <span class="st">"trend"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">delta</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">delta</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">delta</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">delta</span><span class="op">)</span><span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="st">"pandoc"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

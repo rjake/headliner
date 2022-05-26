@@ -53,7 +53,7 @@ Compare two values and get talking points
 \examples{
 # the values can be manually entered
 
-compare_values(10, 8) \%>\% head(2)
+compare_values(10, 8) |> head(2)
 # percent difference (10-8)/8
 compare_values(10, 8)$delta_p
 

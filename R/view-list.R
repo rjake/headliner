@@ -4,7 +4,7 @@
 #' @export
 #' @seealso [compare_values()]
 #' @examples
-#' compare_values(10, 8) %>%
+#' compare_values(10, 8) |>
 #'   view_list()
 view_list <- function(x) {
   data.frame(

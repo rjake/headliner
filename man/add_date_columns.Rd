@@ -34,6 +34,6 @@ a '1'}
 Add columns with date calculations based on reference date
 }
 \examples{
-demo_data() \%>\%
+demo_data() |>
   add_date_columns(date_col = date)
 }

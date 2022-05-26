@@ -45,9 +45,9 @@ aggregate_group <- function(df, name, cols, calc, cond) {
     df <- filter(df, {{cond}})
   }
 
-  df %>%
-    summarise(across({{cols}}, calc, .names = "{.fn}_{.col}{name}")) %>%
-    ungroup() %>%
+  df |>
+    summarise(across({{cols}}, calc, .names = "{.fn}_{.col}{name}")) |>
+    ungroup() |>
     as.list()
 }
 
@@ -77,7 +77,7 @@ get_article <- function(x) {
       x >= 1e3 ~ x / 1e3,
       x >= 1e2 ~ x / 1e2,
       TRUE ~ x
-    ) %>%
+    ) |>
       floor()
 
     x_char <- as.character(x_new)
