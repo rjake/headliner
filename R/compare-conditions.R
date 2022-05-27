@@ -10,19 +10,30 @@
 #' list(avg = mean, sd = sd) 'purrr' style phrases are also supported like
 #' list(mean = ~mean(.x, na.rm = TRUE), sd = sd) and dplyr::lst(mean, sd) will
 #' create a list(mean = mean, sd = sd)
-#' @importFrom dplyr everything lst
+#' @importFrom dplyr everything lst group_vars group_data
+#' select left_join bind_cols relocate
 #' @export
 #'
 #' @examples
-#' # compare_conditions() produces a list that can be passed to headline_list()
+#'
+#' # compare_conditions works similar to dplyr::across()
 #' flights_jfk |>
 #'   compare_conditions(
 #'     x = (hour > 12),
 #'     y = (hour <= 12),
-#'     dep_delay
+#'     .cols = dep_delay
 #'   )
 #'
-#' .Last.value |> headline_list()
+#'
+#' # because data frames are just fancy lists, you pass the result to headline_list()
+#' flights_jfk |>
+#'   compare_conditions(
+#'     x = (hour > 12),
+#'     y = (hour <= 12),
+#'     .cols = dep_delay
+#'   ) |>
+#'   headline_list("a difference of {delta} minutes")
+#'
 #'
 #'  # you can return multiple objects to compare
 #'  # 'view_List()' is a helper to see list objects in a compact way
@@ -30,21 +41,18 @@
 #'   compare_conditions(
 #'     x = (hour > 12),
 #'     y = (hour <= 12),
-#'     cols = c(dep_delay, arr_delay),
-#'     calc = list(mean = mean, sd = sd)
+#'     .cols = c(wind_dir, visib),
+#'     .fns = dplyr::lst(mean, sd)
 #'   ) |>
 #'   view_list()
 #'
-#' # if you want to compare x to the overall average, use y = TRUE or if there
-#' # may be NA values, you can pass anything that will return TRUE such as
-#' # !is.na(dep_delay)
+#' # if you want to compare x to the overall average, use y = TRUE
 #' flights_jfk |>
 #'   compare_conditions(
 #'     x = (hour > 12),
 #'     y = TRUE,
-#'     cols = dep_delay
-#'   ) |>
-#'   view_list()
+#'     .cols = dep_delay
+#'   )
 compare_conditions <- function(df,
                                x,
                                y,
