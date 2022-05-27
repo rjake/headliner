@@ -109,7 +109,7 @@
 <div class="section level3">
 <h3 id="installation-1">Installation<a class="anchor" aria-label="anchor" href="#installation-1"></a>
 </h3>
-<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 05/25/22).</p>
+<p>For these examples, I will use a function called <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date (this was last run on 05/27/22).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rjake/headliner" class="external-link">headliner</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
@@ -117,16 +117,16 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 5</span></span>
 <span class="co">#&gt;    group sales count on_sale date      </span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-05-25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-03-25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-01-25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-11-25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-09-25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-07-25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-05-25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-03-25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-01-25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-11-25</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-05-27</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-03-27</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-01-27</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-11-27</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-09-27</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-07-27</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-05-27</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-03-27</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-01-27</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-11-27</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="a-simple-headline">A simple headline<a class="anchor" aria-label="anchor" href="#a-simple-headline"></a>
@@ -177,25 +177,25 @@
 <h3 id="helpers-for-dynamic-calculations">Helpers for dynamic calculations<a class="anchor" aria-label="anchor" href="#helpers-for-dynamic-calculations"></a>
 </h3>
 <p>But let’s see if we can make the calculations more dynamic…</p>
-<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the reference date specified) to the values in the <code>date</code> column . With these new fields we can see that 03/25/22 was 61 days ago (or 9 weeks or 2 months, …) from the current date.</p>
+<p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code> to calculate distances from the current date (or the reference date specified) to the values in the <code>date</code> column . With these new fields we can see that 03/27/22 was 61 days ago (or 9 weeks or 2 months, …) from the current date.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> |&gt;
   <span class="fu"><a href="../reference/add_date_columns.html">add_date_columns</a></span><span class="op">(</span>date_col <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 11</span></span>
 <span class="co">#&gt;    group sales count on_sale date         day  week month quarter calendar_year</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-05-25     0     0     0       0             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-03-25   -<span style="color: #BB0000;">61</span>    -<span style="color: #BB0000;">9</span>    -<span style="color: #BB0000;">2</span>      -<span style="color: #BB0000;">1</span>             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-01-25  -<span style="color: #BB0000;">120</span>   -<span style="color: #BB0000;">17</span>    -<span style="color: #BB0000;">4</span>      -<span style="color: #BB0000;">1</span>             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-11-25  -<span style="color: #BB0000;">181</span>   -<span style="color: #BB0000;">26</span>    -<span style="color: #BB0000;">6</span>      -<span style="color: #BB0000;">2</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-09-25  -<span style="color: #BB0000;">242</span>   -<span style="color: #BB0000;">35</span>    -<span style="color: #BB0000;">8</span>      -<span style="color: #BB0000;">3</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-07-25  -<span style="color: #BB0000;">304</span>   -<span style="color: #BB0000;">44</span>   -<span style="color: #BB0000;">10</span>      -<span style="color: #BB0000;">3</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-05-25  -<span style="color: #BB0000;">365</span>   -<span style="color: #BB0000;">52</span>   -<span style="color: #BB0000;">12</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-03-25  -<span style="color: #BB0000;">426</span>   -<span style="color: #BB0000;">61</span>   -<span style="color: #BB0000;">14</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-01-25  -<span style="color: #BB0000;">485</span>   -<span style="color: #BB0000;">69</span>   -<span style="color: #BB0000;">16</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-11-25  -<span style="color: #BB0000;">546</span>   -<span style="color: #BB0000;">78</span>   -<span style="color: #BB0000;">18</span>      -<span style="color: #BB0000;">6</span>            -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-05-27     0     0     0       0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-03-27   -<span style="color: #BB0000;">61</span>    -<span style="color: #BB0000;">9</span>    -<span style="color: #BB0000;">2</span>      -<span style="color: #BB0000;">1</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-01-27  -<span style="color: #BB0000;">120</span>   -<span style="color: #BB0000;">17</span>    -<span style="color: #BB0000;">4</span>      -<span style="color: #BB0000;">1</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-11-27  -<span style="color: #BB0000;">181</span>   -<span style="color: #BB0000;">26</span>    -<span style="color: #BB0000;">6</span>      -<span style="color: #BB0000;">2</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-09-27  -<span style="color: #BB0000;">242</span>   -<span style="color: #BB0000;">34</span>    -<span style="color: #BB0000;">8</span>      -<span style="color: #BB0000;">3</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-07-27  -<span style="color: #BB0000;">304</span>   -<span style="color: #BB0000;">43</span>   -<span style="color: #BB0000;">10</span>      -<span style="color: #BB0000;">3</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-05-27  -<span style="color: #BB0000;">365</span>   -<span style="color: #BB0000;">52</span>   -<span style="color: #BB0000;">12</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-03-27  -<span style="color: #BB0000;">426</span>   -<span style="color: #BB0000;">61</span>   -<span style="color: #BB0000;">14</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-01-27  -<span style="color: #BB0000;">485</span>   -<span style="color: #BB0000;">69</span>   -<span style="color: #BB0000;">16</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-11-27  -<span style="color: #BB0000;">546</span>   -<span style="color: #BB0000;">78</span>   -<span style="color: #BB0000;">18</span>      -<span style="color: #BB0000;">6</span>            -<span style="color: #BB0000;">2</span></span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: fiscal_year &lt;dbl&gt;</span></span></code></pre></div>
-<p>We can then identify some conditions for our group of interest (<code>x</code>) and our reference group (<code>y</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">base::subset()</a></code></p>
+<p>We can then identify some conditions for our group of interest (<code>x</code>) and our reference group (<code>y</code>). This step uses the kind of logic you would use in <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter()</a></code> or <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">base::subset()</a></code> + the logic used by <code><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">dplyr::across()</a></code></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">yoy</span> <span class="op">&lt;-</span> <span class="co"># year over year</span>
   <span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> |&gt;
@@ -203,32 +203,32 @@
   <span class="fu"><a href="../reference/compare_conditions.html">compare_conditions</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>,   <span class="co"># this month</span>
     y <span class="op">=</span> <span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="op">-</span><span class="fl">12</span><span class="op">)</span>, <span class="co"># vs 12 months ago</span>
-    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sales</span><span class="op">)</span>,   <span class="co"># the column(s) to aggregate</span>
-    calc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>    <span class="co"># the list of functions passed to summarise(across(...))</span>
+    .cols <span class="op">=</span> <span class="va">sales</span>,   <span class="co"># the column(s) to aggregate</span>
+    .fns <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/lst.html" class="external-link">lst</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span>    <span class="co"># the list of functions passed to summarise(across(...))</span>
   <span class="op">)</span>
 
 <span class="va">yoy</span>
-<span class="co">#&gt; $mean_sales_x</span>
-<span class="co">#&gt; [1] 101</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $mean_sales_y</span>
-<span class="co">#&gt; [1] 107</span></code></pre></div>
-<p>It might look funny to see <code>list(mean = mean)</code>. The name (left side) is how it will name the values, the right side is the function to use. If I had used <code>calc = list(avg = mean)</code> The names would have been <code>avg_x_*</code>. Because <code><a href="../reference/compare_conditions.html">compare_conditions()</a></code> uses the mean as the default, I’ll omit it going forward. Now that I have my output as a list, I can use <code><a href="../reference/headline.html">headline_list()</a></code> to generate headlines.</p>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="co">#&gt;   mean_sales_x mean_sales_y</span>
+<span class="co">#&gt;          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>          101          107</span></code></pre></div>
+<p>The argument <code>lst(mean)</code> is equivalent to writing <code>list(mean = mean)</code>. The name (left side) is how it will name the column, the right side is the function to use. If I had used <code>.fns = list(avg = mean)</code> The names would have been <code>avg_sales_x</code> and <code>avg_sales_y</code> and used <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code> as the calculation. Because <code><a href="../reference/compare_conditions.html">compare_conditions()</a></code> uses the mean as the default, I’ll omit it going forward.</p>
+<p>You may want to do other steps with the data frame but if you want to go right into a headline, you can use <code><a href="../reference/headline.html">headline_list()</a></code>. Another good option for adding headlines to data frames is <code><a href="../reference/add_headline_column.html">add_headline_column()</a></code> (see next section)</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">yoy</span> |&gt; 
   <span class="fu"><a href="../reference/headline.html">headline_list</a></span><span class="op">(</span>
     headline <span class="op">=</span> <span class="st">"We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."</span>
   <span class="op">)</span> 
 <span class="co">#&gt; [1] "We have seen a 5.6% decrease compared to the same time last year (101 vs. 107)."</span></code></pre></div>
-<p>If your list has more than 2 values, you can specify the values you need by calling their names</p>
+<p>If your result has more than 2 values, you can specify the values you need by calling their names</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">car_stats</span> <span class="op">&lt;-</span>
   <span class="va">mtcars</span> |&gt; 
   <span class="fu"><a href="../reference/compare_conditions.html">compare_conditions</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="va">cyl</span> <span class="op">==</span> <span class="fl">4</span>,
     y <span class="op">=</span> <span class="va">cyl</span> <span class="op">&gt;</span> <span class="fl">4</span>,
-    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"d"</span><span class="op">)</span>,
-    calc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>avg <span class="op">=</span> <span class="va">mean</span>, min <span class="op">=</span> <span class="va">min</span><span class="op">)</span>
+    .cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"d"</span><span class="op">)</span>,
+    .fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>avg <span class="op">=</span> <span class="va">mean</span>, min <span class="op">=</span> <span class="va">min</span><span class="op">)</span>
   <span class="op">)</span>
 
 <span class="fu"><a href="../reference/view_list.html">view_list</a></span><span class="op">(</span><span class="va">car_stats</span><span class="op">)</span>
@@ -263,8 +263,8 @@
   <span class="fu"><a href="../reference/compare_conditions.html">compare_conditions</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"a"</span>,
     y <span class="op">=</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"c"</span>,
-    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sales</span><span class="op">)</span>,
-    calc <span class="op">=</span> <span class="va">sum</span>
+    .cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sales</span><span class="op">)</span>,
+    .fns <span class="op">=</span> <span class="va">sum</span>
   <span class="op">)</span> |&gt; 
   <span class="fu"><a href="../reference/headline.html">headline_list</a></span><span class="op">(</span>
     headline <span class="op">=</span> <span class="st">"Group A is ${delta} {trend} Group C (${x} vs ${y})"</span>,
