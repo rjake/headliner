@@ -57,8 +57,7 @@ compare_conditions <- function(df,
                                x,
                                y,
                                .cols = everything(),
-                               .fns = lst(mean),
-                               ...
+                               .fns = lst(mean)
                                ) {
   # sample inputs for debugging
     # df <- flights_jfk; .cols <- as.symbol("dep_delay"); .fns <- lst(mean, sd)
