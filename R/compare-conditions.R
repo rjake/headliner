@@ -46,12 +46,33 @@
 #'   ) |>
 #'   view_list()
 #'
+#'
 #' # if you want to compare x to the overall average, use y = TRUE
 #' flights_jfk |>
 #'   compare_conditions(
 #'     x = (hour > 12),
 #'     y = TRUE,
 #'     .cols = dep_delay
+#'   )
+#'
+#'
+#' # to get the # of observations use length() instead of n()
+#' flights_jfk |>
+#'   compare_conditions(
+#'     x = (hour > 12),
+#'     y = (hour <= 12),
+#'     .cols = 1, # can put anything here really
+#'     .fns = list(n = length)
+#'   )
+#'
+#'
+#' # you can also look at categorical data with functions like dplyr::n_distinct()
+#' flights_jfk |>
+#'   compare_conditions(
+#'     x = (hour > 12),
+#'     y = (hour <= 12),
+#'     .cols = tailnum,
+#'     .fns = list(distinct = dplyr::n_distinct)
 #'   )
 compare_conditions <- function(df,
                                x,

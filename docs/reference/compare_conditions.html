@@ -132,6 +132,7 @@ create a list(mean = mean, sd = sd)</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sd_wind_dir_x    91.027026</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sd_wind_dir_y   102.533374</span>
 <span class="r-in"></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># if you want to compare x to the overall average, use y = TRUE</span></span>
 <span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
@@ -143,6 +144,34 @@ create a list(mean = mean, sd = sd)</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   mean_dep_delay_x mean_dep_delay_y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>             14.0             10.4</span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># to get the # of observations use length() instead of n()</span></span>
+<span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
+<span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
+<span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
+<span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&lt;=</span> <span class="fl">12</span><span class="op">)</span>,</span>
+<span class="r-in">    .cols <span class="op">=</span> <span class="fl">1</span>, <span class="co"># can put anything here really</span></span>
+<span class="r-in">    .fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">length</span><span class="op">)</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   n_year_x n_year_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     <span style="text-decoration: underline;">7</span>423     <span style="text-decoration: underline;">3</span>426</span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># you can also look at categorical data with functions like dplyr::n_distinct()</span></span>
+<span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
+<span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
+<span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
+<span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&lt;=</span> <span class="fl">12</span><span class="op">)</span>,</span>
+<span class="r-in">    .cols <span class="op">=</span> <span class="va">tailnum</span>,</span>
+<span class="r-in">    .fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>distinct <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="va"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html" class="external-link">n_distinct</a></span><span class="op">)</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   distinct_tailnum_x distinct_tailnum_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>                548                311</span>
 </code></pre></div>
     </div>
   </div>
