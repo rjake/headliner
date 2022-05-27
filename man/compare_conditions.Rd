@@ -4,7 +4,7 @@
 \alias{compare_conditions}
 \title{Compare two conditions within a data frame}
 \usage{
-compare_conditions(df, x, y, .cols = everything(), .fns = lst(mean), ...)
+compare_conditions(df, x, y, .cols = everything(), .fns = lst(mean))
 }
 \arguments{
 \item{df}{data frame}
