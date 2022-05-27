@@ -10,7 +10,7 @@
 #' list(avg = mean, sd = sd) 'purrr' style phrases are also supported like
 #' list(mean = ~mean(.x, na.rm = TRUE), sd = sd) and dplyr::lst(mean, sd) will
 #' create a list(mean = mean, sd = sd)
-#' @importFrom dplyr everything lst group_vars group_data
+#' @importFrom dplyr everything lst group_vars group_keys
 #' select left_join bind_cols relocate
 #' @export
 #'
@@ -81,8 +81,7 @@ compare_conditions <- function(df,
 
   if (length(any_groups)) { # has groups
     final <-
-      group_data(df) |>
-      select(-.rows) |>
+      group_keys(df) |>
       left_join(res_1) |>
       left_join(res_2) |>
       suppressMessages() # join msg
