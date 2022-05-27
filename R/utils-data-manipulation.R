@@ -30,25 +30,22 @@ check_overlapping_names <- function(orig_df, new_df, drop = FALSE) {
 
 #' Rollup data using summarise(across(...))
 #'
-#' @param df data frame
 #' @param name prefix for
-#' @param calc list of functions to be applied to variables
-#' @param cond when given, data will be filtered prior to aggregation
-#' @importFrom dplyr filter summarise across ungroup
+#' @param cond the x or y condition used in compare_conditions()
+#' @importFrom dplyr filter summarise across
+#' @inheritParams dplyr across
 #' @noRd
 #' @examples
-#' aggregate_group(mtcars, name = "", cols = mpg, calc = list(mean = mean))
-aggregate_group <- function(df, name, cols, calc, cond) {
-  #df <- mtcars; cond <- dplyr::quo(cyl > 4); var <- dplyr::quo(mean(mpg))
-
-  if (!missing(cond)) {
-    df <- filter(df, {{cond}})
-  }
+#' aggregate_group(mtcars, name = "_x", .cols = mpg, .fns = lst(mean, sd))
+aggregate_group <- function(df, name, .cols, .fns, cond) {
+  # df <- mtcars; name = "_x";  .cols <- as.symbol("mpg"); .fns = mean
+  # cond <- dplyr::quo(cyl > 4);
 
   df |>
-    summarise(across({{cols}}, calc, .names = "{.fn}_{.col}{name}")) |>
-    ungroup() |>
-    as.list()
+    filter({{cond}}) |>
+    summarise(
+      across({{.cols}}, .fns, .names = "{.fn}_{.col}{name}")
+    )
 }
 
 

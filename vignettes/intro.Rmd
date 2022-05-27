@@ -60,7 +60,7 @@ demo_data() |>
   compare_conditions(
     x = month == 0,
     y = month == -12,
-    cols = sales
+    .cols = sales
   ) |> 
   headline_list(
     headline = 
@@ -104,7 +104,7 @@ demo_data() |>
   add_date_columns(date_col = date)
 ```
 
-We can then identify some conditions for our group of interest (`x`) and our reference group (`y`). This step uses the kind of logic you would use in `dplyr::filter()` or `base::subset()`
+We can then identify some conditions for our group of interest (`x`) and our reference group (`y`). This step uses the kind of logic you would use in `dplyr::filter()` or `base::subset()` + the logic used by `dplyr::across()`
 ```{r}
 yoy <- # year over year
   demo_data() |>
@@ -112,14 +112,16 @@ yoy <- # year over year
   compare_conditions(
     x = (month == 0),   # this month
     y = (month == -12), # vs 12 months ago
-    cols = c(sales),   # the column(s) to aggregate
-    calc = list(mean = mean)    # the list of functions passed to summarise(across(...))
+    .cols = sales,   # the column(s) to aggregate
+    .fns = lst(mean)    # the list of functions passed to summarise(across(...))
   )
 
 yoy
 ```
 
-It might look funny to see `list(mean = mean)`. The name (left side) is how it will name the values, the right side is the function to use. If I had used `calc = list(avg = mean)` The names would have been `avg_x_*`. Because `compare_conditions()` uses the mean as the default, I'll omit it going forward. Now that I have my output as a list, I can use `headline_list()` to generate headlines. 
+The argument `lst(mean)` is equivalent to writing `list(mean = mean)`. The name (left side) is how it will name the column, the right side is the function to use. If I had used `.fns = list(avg = mean)` The names would have been `avg_sales_x` and `avg_sales_y` and used `mean()` as the calculation. Because `compare_conditions()` uses the mean as the default, I'll omit it going forward. 
+
+You may want to do other steps with the data frame but if you want to go right into a headline, you can use `headline_list()`. Another good option for adding headlines to data frames is `add_headline_column()` (see next section)
 
 ```{r}
 yoy |> 
@@ -128,15 +130,15 @@ yoy |>
   ) 
 ```
 
-If your list has more than 2 values, you can specify the values you need by calling their names
+If your result  has more than 2 values, you can specify the values you need by calling their names
 ```{r}
 car_stats <-
   mtcars |> 
   compare_conditions(
     x = cyl == 4,
     y = cyl > 4,
-    cols = starts_with("d"),
-    calc = list(avg = mean, min = min)
+    .cols = starts_with("d"),
+    .fns = list(avg = mean, min = min)
   )
 
 view_list(car_stats)
@@ -162,8 +164,8 @@ demo_data() |>
   compare_conditions(
     x = group == "a",
     y = group == "c",
-    cols = c(sales),
-    calc = sum
+    .cols = c(sales),
+    .fns = sum
   ) |> 
   headline_list(
     headline = "Group A is ${delta} {trend} Group C (${x} vs ${y})",
