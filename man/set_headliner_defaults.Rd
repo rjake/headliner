@@ -4,11 +4,32 @@
 \alias{set_headliner_defaults}
 \title{Set the default values used in making headlines}
 \usage{
-set_headliner_defaults(headline = NULL, orig_values = NULL)
+set_headliner_defaults(
+  headline = NULL,
+  orig_values = NULL,
+  if_match = NULL,
+  plural_phrases = NULL,
+  n_decimal = NULL,
+  round_all = NULL,
+  multiplier = NULL
+)
 }
 \arguments{
-\item{default}{string using component names from \code{\link[=compare_values]{compare_values()}}.
-The default is \code{"{trend} of {delta} ({orig_values})"}}
+\item{orig_values}{a string using \code{\link[glue]{glue}} syntax.
+example: \verb{(\{x\} vs \{y\})}}
+
+\item{plural_phrases}{named list of values to use when difference (delta) is
+singular (delta = 1) or plural (delta != 1)}
+
+\item{n_decimal}{numeric value to limit the number of decimal places in
+the returned values.}
+
+\item{round_all}{logical value to indicate if all values should be rounded.
+When FALSE, the values will return with no modification. When TRUE (default)
+all values will be round to the length specified by 'n_decimal'.}
+
+\item{multiplier}{number indicating the scaling factor. When multiplier = 1
+(default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.}
 }
 \description{
 Set the default values used in making headlines
