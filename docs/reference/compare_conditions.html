@@ -63,7 +63,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">compare_conditions</span><span class="op">(</span><span class="va">df</span>, <span class="va">x</span>, <span class="va">y</span>, cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, calc <span class="op">=</span> <span class="fu">lst</span><span class="op">(</span><span class="va">mean</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">compare_conditions</span><span class="op">(</span><span class="va">df</span>, <span class="va">x</span>, <span class="va">y</span>, .cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, .fns <span class="op">=</span> <span class="fu">lst</span><span class="op">(</span><span class="va">mean</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -76,9 +76,9 @@
 <dt>y</dt>
 <dd><p>condition for comparison, same criteria you would use in
 'dplyr::filter', used in contrast to the reference group 'x'</p></dd>
-<dt>cols</dt>
+<dt>.cols</dt>
 <dd><p>columns to use in comparison</p></dd>
-<dt>calc</dt>
+<dt>.fns</dt>
 <dd><p>named list of the functions to use, ex:
 list(avg = mean, sd = sd) 'purrr' style phrases are also supported like
 list(mean = ~mean(.x, na.rm = TRUE), sd = sd) and dplyr::lst(mean, sd) will
@@ -87,22 +87,30 @@ create a list(mean = mean, sd = sd)</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># compare_conditions() produces a list that can be passed to headline_list()</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+<span class="r-in"><span class="co"># compare_conditions works similar to dplyr::across()</span></span>
 <span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
 <span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&lt;=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span class="r-in">    <span class="va">dep_delay</span></span>
+<span class="r-in">    .cols <span class="op">=</span> <span class="va">dep_delay</span></span>
 <span class="r-in">  <span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $mean_dep_delay_x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 14.03664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $mean_dep_delay_y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.556334</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   mean_dep_delay_x mean_dep_delay_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>             14.0             2.56</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">.Last.value</span> |&gt; <span class="fu"><a href="headline.html">headline_list</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in l[[2]]:</span> subscript out of bounds</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># because data frames are just fancy lists, you pass the result to headline_list()</span></span>
+<span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
+<span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
+<span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
+<span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&lt;=</span> <span class="fl">12</span><span class="op">)</span>,</span>
+<span class="r-in">    .cols <span class="op">=</span> <span class="va">dep_delay</span></span>
+<span class="r-in">  <span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu"><a href="headline.html">headline_list</a></span><span class="op">(</span><span class="st">"a difference of {delta} minutes"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a difference of 11.5 minutes"</span>
+<span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"> <span class="co"># you can return multiple objects to compare</span></span>
 <span class="r-in"> <span class="co"># 'view_List()' is a helper to see list objects in a compact way</span></span>
@@ -110,33 +118,31 @@ create a list(mean = mean, sd = sd)</p></dd>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
 <span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&lt;=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span class="r-in">    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dep_delay</span>, <span class="va">arr_delay</span><span class="op">)</span>,</span>
-<span class="r-in">    calc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>, sd <span class="op">=</span> <span class="va">sd</span><span class="op">)</span></span>
+<span class="r-in">    .cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">wind_dir</span>, <span class="va">visib</span><span class="op">)</span>,</span>
+<span class="r-in">    .fns <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/lst.html" class="external-link">lst</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">sd</span><span class="op">)</span></span>
 <span class="r-in">  <span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu"><a href="view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     VALUES</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mean_arr_delay_x  2.621043</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mean_arr_delay_y -5.216871</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mean_dep_delay_x 14.036643</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mean_dep_delay_y  2.556334</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sd_arr_delay_x   49.396265</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sd_arr_delay_y   28.515699</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sd_dep_delay_x   42.733077</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sd_dep_delay_y   21.753064</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mean_visib_x      9.619185</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mean_visib_y      9.484816</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mean_wind_dir_x 205.104405</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mean_wind_dir_y 212.942207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd_visib_x        1.400228</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd_visib_y        1.699849</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd_wind_dir_x    91.027026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd_wind_dir_y   102.533374</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># if you want to compare x to the overall average, use y = TRUE or if there</span></span>
-<span class="r-in"><span class="co"># may be NA values, you can pass anything that will return TRUE such as</span></span>
-<span class="r-in"><span class="co"># !is.na(dep_delay)</span></span>
+<span class="r-in"><span class="co"># if you want to compare x to the overall average, use y = TRUE</span></span>
 <span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
 <span class="r-in">    y <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">    cols <span class="op">=</span> <span class="va">dep_delay</span></span>
-<span class="r-in">  <span class="op">)</span> |&gt;</span>
-<span class="r-in">  <span class="fu"><a href="view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    VALUES</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mean_dep_delay_x 14.03664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mean_dep_delay_y 10.41128</span>
+<span class="r-in">    .cols <span class="op">=</span> <span class="va">dep_delay</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   mean_dep_delay_x mean_dep_delay_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>             14.0             10.4</span>
 </code></pre></div>
     </div>
   </div>
