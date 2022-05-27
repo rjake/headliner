@@ -17,13 +17,26 @@ test_that("aggregate_group() works", {
     aggregate_group(
       df = mtcars,
       name = "_x",
-      cols = c(mpg, hp),
-      calc = list(avg = mean)
+      .cols = c(mpg, hp),
+      .fns = list(avg = mean)
     )
 
   expect_equal(names(x), c("avg_mpg_x", "avg_hp_x"))
   expect_equal(x$avg_mpg_x, mean(mtcars$mpg))
   expect_equal(x$avg_hp_x, mean(mtcars$hp))
+})
+
+
+test_that("aggregate_group() allows grouped df", {
+  x <-
+    aggregate_group(
+      df = dplyr::group_by(mtcars, cyl),
+      name = "_x",
+      .cols = mpg,
+      .fns = mean
+    )
+
+  expect_equal(dim(x), c(3, 2))
 })
 
 
@@ -74,3 +87,4 @@ test_that("get_article() works for numbers", {
   expect_equal(unique(is_an), "an")
 
 })
+
