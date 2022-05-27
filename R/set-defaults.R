@@ -10,7 +10,7 @@ headliner_global$articles <- list(addl_a = "", addl_an = "")
 default_headline <- "{trend} of {delta} ({orig_values})"
 default_orig_values <- "{x} vs. {y}"
 default_if_match <- "There was no difference."
-default_trend_phrases <- headliner::trend_terms()
+#default_trend_phrases <- headliner::trend_terms()
 default_plural_phrases <- NULL
 default_n_decimal <- 1
 default_round_all <- TRUE
@@ -19,7 +19,7 @@ default_multiplier <- 1
 headliner_global$headline <- default_headline
 headliner_global$orig_values <- default_orig_values
 headliner_global$if_match <- default_if_match
-headliner_global$trend_phrases <- default_trend_phrases
+#headliner_global$trend_phrases <- default_trend_phrases
 headliner_global$plural_phrases <- default_plural_phrases
 headliner_global$orig_values <- default_orig_values
 headliner_global$n_decimal <- default_n_decimal
@@ -45,7 +45,7 @@ get_headliner_defaults <- function() {
     headline = headliner_global$headline,
     orig_values = headliner_global$orig_values,
     if_match = headliner_global$if_match,
-    trend_phrases = headliner_global$trend_phrases,
+    #trend_phrases = headliner_global$trend_phrases,
     plural_phrases = headliner_global$plural_phrases,
     orig_values = headliner_global$orig_values,
     n_decimal = headliner_global$n_decimal,
@@ -88,7 +88,7 @@ get_headliner_defaults <- function() {
 set_headliner_defaults <- function(headline = NULL,
                                    orig_values = NULL,
                                    if_match = NULL,
-                                   trend_phrases = NULL,
+                                   #trend_phrases = NULL,
                                    plural_phrases = NULL,
                                    n_decimal = NULL,
                                    round_all = NULL,
@@ -97,7 +97,7 @@ set_headliner_defaults <- function(headline = NULL,
   if (!missing(headline)) update_default(x = "headline", value = headline)
   if (!missing(orig_values)) update_default(x = "orig_values", value = orig_values)
   if (!missing(if_match)) update_default(x = "if_match", value = if_match)
-  if (!missing(trend_phrases)) update_default(x = "trend_phrases", value = trend_phrases)
+  #if (!missing(trend_phrases)) update_default(x = "trend_phrases", value = trend_phrases)
   if (!missing(plural_phrases)) update_default(x = "plural_phrases", value = plural_phrases)
   if (!missing(n_decimal)) update_default(x = "n_decimal", value = n_decimal)
   if (!missing(round_all)) update_default(x = "round_all", value = round_all)

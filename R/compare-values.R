@@ -76,7 +76,7 @@ compare_values <- function(x,
   if (missing(headline)) headline <- headliner_global$headline
   if (missing(orig_values)) orig_values <- headliner_global$orig_values
   if (missing(if_match)) if_match <- headliner_global$if_match
-  if (missing(trend_phrases)) trend_phrases <- headliner_global$trend_phrases
+  #if (missing(trend_phrases)) trend_phrases <- headliner_global$trend_phrases
   if (missing(plural_phrases)) plural_phrases <- headliner_global$plural_phrases
   if (missing(orig_values)) orig_values <- headliner_global$orig_values
   if (missing(n_decimal)) n_decimal <- headliner_global$n_decimal
