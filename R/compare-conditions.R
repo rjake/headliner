@@ -60,6 +60,32 @@ compare_conditions <- function(df,
   res_1 <- aggregate_group(df, name = "_x", .cols = {{.cols}}, .fns = .fns, cond = {{x}})
   res_2 <- aggregate_group(df, name = "_y", .cols = {{.cols}}, .fns = .fns, cond = {{y}})
 
-  final <- append(res_1, res_2)
-  final[order(names(final))]
+  # need to account for grouped data frame & reorder vars so they are in order
+  # ex: mean_x, mean_y, sd_x, sd_y
+  any_groups <- group_vars(df)
+  column_order <-
+    c(
+      any_groups,
+      sort(c(names(res_1), names(res_2)))
+    ) |>
+    unique()
+
+
+  if (length(any_groups)) { # has groups
+    final <-
+      group_data(df) |>
+      select(-.rows) |>
+      left_join(res_1) |>
+      left_join(res_2) |>
+      suppressMessages() # join msg
+
+  } else { # no groups
+    final <-
+      res_1 |>
+      bind_cols(res_2) |>
+      suppressWarnings()
+  }
+
+  final |>
+    relocate(column_order)
 }
