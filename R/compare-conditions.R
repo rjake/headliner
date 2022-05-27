@@ -5,8 +5,8 @@
 #' 'dplyr::filter', used in contrast to the reference group 'y'
 #' @param y condition for comparison, same criteria you would use in
 #' 'dplyr::filter', used in contrast to the reference group 'x'
-#' @param cols columns to use in comparison
-#' @param calc named list of the functions to use, ex:
+#' @param .cols columns to use in comparison
+#' @param .fns named list of the functions to use, ex:
 #' list(avg = mean, sd = sd) 'purrr' style phrases are also supported like
 #' list(mean = ~mean(.x, na.rm = TRUE), sd = sd) and dplyr::lst(mean, sd) will
 #' create a list(mean = mean, sd = sd)
@@ -48,16 +48,17 @@
 compare_conditions <- function(df,
                                x,
                                y,
-                               cols = everything(),
-                               calc = lst(mean)
+                               .cols = everything(),
+                               .fns = lst(mean),
+                               ...
                                ) {
   # sample inputs for debugging
-    # df <- flights_jfk; cols <- as.symbol("dep_delay"); calc <- lst(mean)
+    # df <- flights_jfk; .cols <- as.symbol("dep_delay"); .fns <- lst(mean, sd)
     # x <- rlang::new_quosure(rlang::expr(hour > 12))
     # y <- rlang::new_quosure(rlang::expr(TRUE))
 
-  res_1 <- aggregate_group(df, name = "_x", cols = {{cols}}, calc = calc, cond = {{x}})
-  res_2 <- aggregate_group(df, name = "_y",  cols = {{cols}}, calc = calc, cond = {{y}})
+  res_1 <- aggregate_group(df, name = "_x", .cols = {{.cols}}, .fns = .fns, cond = {{x}})
+  res_2 <- aggregate_group(df, name = "_y", .cols = {{.cols}}, .fns = .fns, cond = {{y}})
 
   final <- append(res_1, res_2)
   final[order(names(final))]
