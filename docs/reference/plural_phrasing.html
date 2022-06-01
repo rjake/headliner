@@ -76,13 +76,21 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">plural_phrasing</span><span class="op">(</span><span class="st">"person"</span>, <span class="st">"people"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">plural_phrasing</span><span class="op">(</span>single <span class="op">=</span> <span class="st">"person"</span>, multi <span class="op">=</span> <span class="st">"people"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $single</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "person"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $multi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "people"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu"><a href="headline.html">headline</a></span><span class="op">(</span></span>
+<span class="r-in">  x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span class="r-in">  y <span class="op">=</span> <span class="fl">0</span>,</span>
+<span class="r-in">  headline <span class="op">=</span> <span class="st">"a difference of {delta} {people}"</span>,</span>
+<span class="r-in">  plural_phrases <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>people <span class="op">=</span> <span class="fu">plural_phrasing</span><span class="op">(</span><span class="st">"person"</span>, <span class="st">"people"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a difference of 1 person" "a difference of 2 people"</span>
 </code></pre></div>
     </div>
   </div>

@@ -18,6 +18,14 @@ Phrases for direction of difference
 }
 \examples{
 trend_terms(same = "no change")
+
+headline(
+  x = c(9, 11),
+  y = 10,
+  headline = "{trend} by {delta_p}\%",
+  trend_phrases = trend_terms("higher", "lower")
+)
+
 }
 \seealso{
 \code{\link[=compare_values]{compare_values()}}
