@@ -1,44 +1,44 @@
 test_that("mean (default) works", {
   x <-
-    flights_jfk |>
+    pixar_films |>
     compare_conditions(
-      x = (carrier == "DL"),
+      x = (rating == "G"),
       y = TRUE,
-      dep_delay
+      bo_domestic
     )
 
-  expect_equal(names(x), c("mean_dep_delay_x", "mean_dep_delay_y"))
+  expect_equal(names(x), c("mean_bo_domestic_x", "mean_bo_domestic_y"))
   expect_equal(
-    x$mean_dep_delay_x,
-    mean(flights_jfk$dep_delay[flights_jfk$carrier == "DL"])
+    x$mean_bo_domestic_x,
+    mean(pixar_films$bo_domestic[pixar_films$rating == "G"])
   )
 
   expect_equal(
-    x$mean_dep_delay_y,
-    mean(flights_jfk$dep_delay)
+    x$mean_bo_domestic_y,
+    mean(pixar_films$bo_domestic)
   )
 })
 
 
 test_that("max works", {
   x <-
-    flights_jfk |>
+    pixar_films |>
     compare_conditions(
-      x = (carrier == "DL"),
+      x = (rating == "G"),
       y = TRUE,
-      .cols = dep_delay,
+      .cols = bo_domestic,
       .fns = list(max = max)
     )
 
-  expect_equal(names(x), c("max_dep_delay_x", "max_dep_delay_y"))
+  expect_equal(names(x), c("max_bo_domestic_x", "max_bo_domestic_y"))
   expect_equal(
-    x$max_dep_delay_x,
-    max(flights_jfk$dep_delay[flights_jfk$carrier == "DL"])
+    x$max_bo_domestic_x,
+    max(pixar_films$bo_domestic[pixar_films$rating == "G"])
   )
 
   expect_equal(
-    x$max_dep_delay_y,
-    max(flights_jfk$dep_delay)
+    x$max_bo_domestic_y,
+    max(pixar_films$bo_domestic)
   )
 })
 
