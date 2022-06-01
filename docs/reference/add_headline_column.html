@@ -129,52 +129,49 @@ all values will be round to the length specified by 'n_decimal'.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># You can use 'add_headline_column()' instead of</span></span>
-<span class="r-in"><span class="co"># `mutate(headline = map2_chr(...))`</span></span>
-<span class="r-in"><span class="co"># here is an example comparing the sleeping habits of animals</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">animal_sleep</span><span class="op">)</span> |&gt;</span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">common_name</span>, <span class="va">hours_asleep</span>, <span class="va">hours_awake</span><span class="op">)</span> |&gt;</span>
+<span class="r-in"><span class="co"># You can use 'add_headline_column()' to reference values in an existing data set.</span></span>
+<span class="r-in"><span class="co"># Here is an example comparing the box office sales of different Pixar films</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pixar_films</span><span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">film</span>, <span class="va">bo_domestic</span>, <span class="va">bo_intl</span><span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu">add_headline_column</span><span class="op">(</span></span>
-<span class="r-in">    x <span class="op">=</span> <span class="va">hours_asleep</span>,</span>
-<span class="r-in">    y <span class="op">=</span> <span class="va">hours_awake</span>,</span>
-<span class="r-in">    headline <span class="op">=</span> <span class="st">"The {common_name} spends {delta} more {hours} {trend} than not {trend}."</span>,</span>
-<span class="r-in">    trend_phrases <span class="op">=</span> <span class="fu"><a href="trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"asleep"</span>, less <span class="op">=</span> <span class="st">"awake"</span><span class="op">)</span>,</span>
-<span class="r-in">    plural_phrases <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>hours <span class="op">=</span> <span class="fu"><a href="plural_phrasing.html">plural_phrasing</a></span><span class="op">(</span>single <span class="op">=</span> <span class="st">"hour"</span>, multi <span class="op">=</span> <span class="st">"hours"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in">    x <span class="op">=</span> <span class="va">bo_domestic</span>,</span>
+<span class="r-in">    y <span class="op">=</span> <span class="va">bo_intl</span>,</span>
+<span class="r-in">    headline <span class="op">=</span> <span class="st">"{film} was ${delta}M higher {trend} (${x}M vs ${y}M)"</span>,</span>
+<span class="r-in">    trend_phrases <span class="op">=</span> <span class="fu"><a href="trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"domestically"</span>, less <span class="op">=</span> <span class="st">"internationally"</span><span class="op">)</span></span>
 <span class="r-in">  <span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="st">"pandoc"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> common_name                  hours_asleep   hours_awake  headline                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------  -------------  ------------  --------------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> African Elephant                      3.3          20.7  The African Elephant spends 17.4 more hours awake than not awake.         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> African Giant Pouched Rat             8.3          15.7  The African Giant Pouched Rat spends 7.4 more hours awake than not awake. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Arctic Fox                           12.5          11.5  The Arctic Fox spends 1 more hour asleep than not asleep.                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Arctic Ground Squirrel               16.6           7.4  The Arctic Ground Squirrel spends 9.2 more hours asleep than not asleep.  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Asian Elephant                        3.9          20.1  The Asian Elephant spends 16.2 more hours awake than not awake.           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Baboon                                9.4          14.6  The Baboon spends 5.2 more hours awake than not awake.                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> film               bo_domestic   bo_intl  headline                                                                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------  ------------  --------  ------------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Toy Story                191.8     181.8  Toy Story was $10M higher domestically ($191.8M vs $181.8M)             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A Bug's Life             162.8     200.5  A Bug's Life was $37.7M higher internationally ($162.8M vs $200.5M)     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Toy Story 2              245.9     251.5  Toy Story 2 was $5.6M higher internationally ($245.9M vs $251.5M)       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Monsters, Inc.           289.9     342.4  Monsters, Inc. was $52.5M higher internationally ($289.9M vs $342.4M)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Finding Nemo             339.7     531.3  Finding Nemo was $191.6M higher internationally ($339.7M vs $531.3M)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The Incredibles          261.4     370.2  The Incredibles was $108.8M higher internationally ($261.4M vs $370.2M) </span>
 <span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># you can also use 'return_cols' to return any and all "talking points".</span></span>
+<span class="r-in"><span class="co"># You can also use 'return_cols' to return any and all "talking points".</span></span>
 <span class="r-in"><span class="co"># You can use tidyselect helpers like 'starts_with("delta")' or</span></span>
-<span class="r-in"><span class="co"># 'everything()'. In this example, I returned the delta &amp; trend columns</span></span>
-<span class="r-in"><span class="co"># and identified the rows at the extremes</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">animal_sleep</span><span class="op">)</span> |&gt;</span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">common_name</span>, <span class="va">hours_asleep</span>, <span class="va">hours_awake</span><span class="op">)</span> |&gt;</span>
+<span class="r-in"><span class="co"># 'everything()'. In this example, I returned the 'raw_delta' &amp; 'trend' columns</span></span>
+<span class="r-in"><span class="co"># and then identified the records at the extremes</span></span>
+<span class="r-in"><span class="va">pixar_films</span> |&gt;</span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">film</span>, <span class="va">bo_domestic</span>, <span class="va">bo_intl</span><span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu">add_headline_column</span><span class="op">(</span></span>
-<span class="r-in">    x <span class="op">=</span> <span class="va">hours_asleep</span>,</span>
-<span class="r-in">    y <span class="op">=</span> <span class="va">hours_awake</span>,</span>
-<span class="r-in">    headline <span class="op">=</span> <span class="st">"more time {trend} ({orig_values} hours)"</span>,</span>
-<span class="r-in">    trend_phrases <span class="op">=</span> <span class="fu"><a href="trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"alseep"</span>, less <span class="op">=</span> <span class="st">"awake"</span><span class="op">)</span>,</span>
-<span class="r-in">    return_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"delta"</span>, <span class="st">"trend"</span><span class="op">)</span></span>
+<span class="r-in">    x <span class="op">=</span> <span class="va">bo_domestic</span>,</span>
+<span class="r-in">    y <span class="op">=</span> <span class="va">bo_intl</span>,</span>
+<span class="r-in">    headline <span class="op">=</span> <span class="st">"${delta}M {trend} (${x}M vs ${y}M)"</span>,</span>
+<span class="r-in">    trend_phrases <span class="op">=</span> <span class="fu"><a href="trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"higher"</span>, less <span class="op">=</span> <span class="st">"lower"</span><span class="op">)</span>,</span>
+<span class="r-in">    return_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">raw_delta</span>, <span class="va">trend</span><span class="op">)</span></span>
 <span class="r-in">  <span class="op">)</span> |&gt;</span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">delta</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">delta</span><span class="op">)</span><span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">raw_delta</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">raw_delta</span><span class="op">)</span><span class="op">)</span> |&gt;</span>
 <span class="r-in">  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="st">"pandoc"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> common_name         hours_asleep   hours_awake  headline                                  delta  trend  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------  -------------  ------------  ---------------------------------------  ------  -------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> African Elephant             3.3          20.7  more time awake (3.3 vs. 20.7 hours)       17.4  awake  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Arctic Fox                  12.5          11.5  more time alseep (12.5 vs. 11.5 hours)      1.0  alseep </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> film    bo_domestic   bo_intl  headline                              raw_delta  trend  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----  ------------  --------  -----------------------------------  ----------  -------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cars          244.1     217.9  $26.2M higher ($244.1M vs $217.9M)         26.2  higher </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Coco          209.7     597.4  $387.7M lower ($209.7M vs $597.4M)       -387.7  lower  </span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
