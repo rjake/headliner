@@ -4,10 +4,10 @@
 # headliner <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
+<!-- [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/headliner)](https://cran.r-project.org/package=headliner) -->
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/headliner)](https://cran.r-project.org/package=headliner)
 [![R-CMD-check](https://github.com/rjake/headliner/workflows/R-CMD-check/badge.svg)](https://github.com/rjake/headliner/actions)
-[![codecov](https://codecov.io/gh/rjake/headliner/branch/main/graph/badge.svg?token=2OZ6INQBYA)](https://codecov.io/gh/rjake/headliner)
+[![codecov](https://app.codecov.io/gh/rjake/headliner/branch/main/graph/badge.svg?token=2OZ6INQBYA)](https://app.codecov.io/gh/rjake/headliner)
 <!-- [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/headliner)](https://cran.r-project.org/package=headliner) -->
 <!-- badges: end -->
 
