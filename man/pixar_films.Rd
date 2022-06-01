@@ -29,7 +29,7 @@ territories}
 pixar_films
 }
 \description{
-The data has box office sales, audience ratings, and release dates for each pixar film
+The data has box office sales, audience ratings, and release dates for each Pixar film
 }
 \examples{
 pixar_films
