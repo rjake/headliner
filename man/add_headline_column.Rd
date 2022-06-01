@@ -64,7 +64,7 @@ all values will be round to the length specified by 'n_decimal'.}
 \code{\link[dplyr]{starts_with}}, etc.}
 }
 \value{
-returns the original data frame with columns appended
+Returns the original data frame with columns appended.
 }
 \description{
 This works similar to \code{headline()} but acts on and returns a

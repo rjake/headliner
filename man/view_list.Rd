@@ -10,7 +10,7 @@ view_list(x)
 \item{x}{a vector or list to be transposed}
 }
 \value{
-returns a data frame to display a list or vector vertically
+Returns a data frame to display a list or vector vertically.
 }
 \description{
 Compact view of list values

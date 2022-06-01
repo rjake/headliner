@@ -1,5 +1,5 @@
 #' Compact view of list values
-#' @return returns a data frame to display a list or vector vertically
+#' @return Returns a data frame to display a list or vector vertically.
 #' @param x a vector or list to be transposed
 #' @export
 #' @seealso [compare_values()]

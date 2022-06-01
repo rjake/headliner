@@ -10,7 +10,7 @@ add_article(x)
 \item{x}{string or numeric value}
 }
 \value{
-returns a vector the same length as the input
+Returns a vector the same length as the input.
 }
 \description{
 Append a/an to word

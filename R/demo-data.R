@@ -1,5 +1,5 @@
 #' Small data set referencing the current date
-#' @return returns a data frame of size `n`
+#' @return Returns a data frame of size `n`.
 #' @param n number of rows to return
 #' @param by string indicating the unit of time between dates in
 #' \code{seq.Date(..., by = )}

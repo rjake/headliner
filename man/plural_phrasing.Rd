@@ -12,7 +12,7 @@ plural_phrasing(single, multi)
 \item{multi}{string to use when delta > 1}
 }
 \value{
-returns a list object
+Returns a list object.
 }
 \description{
 \code{plural_phrasing()} returns a list object describing the value

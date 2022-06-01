@@ -62,8 +62,8 @@ condition y"><meta property="og:image" content="/logo.svg"><!-- mathjax --><scri
 
     <div class="ref-description">
     <p>Using logic that <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></code> can interpret,
-<code>compare_conditions()</code> will summarize the data aggregating condition x and
-condition y</p>
+<code>compare_conditions()</code> will summarize the data aggregating condition <code>x</code> and
+condition <code>y</code></p>
     </div>
 
     <div id="ref-usage">
@@ -90,7 +90,8 @@ create a list(mean = mean, sd = sd)</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a data frame that is either 1 row, or if grouped, 1 row per group</p>
+    <p>Returns a data frame that is either 1 row, or if grouped,
+1 row per group.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -125,7 +126,7 @@ the values <code>mean_my_var_x</code>, <code>mean_my_var_y</code>, <code>sd_my_v
 <span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"PG"</span><span class="op">)</span>,</span>
 <span class="r-in">    .cols <span class="op">=</span> <span class="va">rotten_tomatoes</span></span>
 <span class="r-in">  <span class="op">)</span> |&gt;</span>
-<span class="r-in">  <span class="fu"><a href="headline.html">headline_list</a></span><span class="op">(</span><span class="st">"a difference of {delta} points"</span><span class="op">)</span></span>
+<span class="r-in"> <span class="fu"><a href="headline.html">headline_list</a></span><span class="op">(</span><span class="st">"a difference of {delta} points"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a difference of 3.6 points</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
@@ -150,6 +151,19 @@ the values <code>mean_my_var_x</code>, <code>mean_my_var_y</code>, <code>sd_my_v
 <span class="r-out co"><span class="r-pr">#&gt;</span> sd_rotten_tomatoes_y    8.558621</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
+<span class="r-in"><span class="co"># you can use any of the `tidyselect` helpers</span></span>
+<span class="r-in"><span class="va">pixar_films</span> |&gt;</span>
+<span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
+<span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"G"</span><span class="op">)</span>,</span>
+<span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"PG"</span><span class="op">)</span>,</span>
+<span class="r-in">    .cols <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"bo_"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   mean_bo_domestic_x mean_bo_domestic_y mean_bo_intl_x mean_bo_intl_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>               259.               293.           370.           409.</span>
+<span class="r-in"></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># if you want to compare x to the overall average, use y = TRUE</span></span>
 <span class="r-in"><span class="va">pixar_films</span> |&gt;</span>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
@@ -164,20 +178,34 @@ the values <code>mean_my_var_x</code>, <code>mean_my_var_y</code>, <code>sd_my_v
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># to get the # of observations use length() instead of n()</span></span>
+<span class="r-in"><span class="co"># note: don't pass the parentheses</span></span>
 <span class="r-in"><span class="va">pixar_films</span> |&gt;</span>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"G"</span><span class="op">)</span>,</span>
 <span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"PG"</span><span class="op">)</span>,</span>
-<span class="r-in">    .cols <span class="op">=</span> <span class="fl">1</span>, <span class="co"># can put anything here really</span></span>
+<span class="r-in">    .cols <span class="op">=</span> <span class="va">rotten_tomatoes</span>, <span class="co"># can put anything here really</span></span>
 <span class="r-in">    .fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">length</span><span class="op">)</span></span>
 <span class="r-in">  <span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   n_order_x n_order_y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>        13         9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   n_rotten_tomatoes_x n_rotten_tomatoes_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>                  13                   9</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># you can also look at categorical data with functions like dplyr::n_distinct()</span></span>
+<span class="r-in"><span class="co"># you can also use purrr-style lambdas</span></span>
+<span class="r-in"><span class="va">pixar_films</span> |&gt;</span>
+<span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
+<span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"G"</span><span class="op">)</span>,</span>
+<span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"PG"</span><span class="op">)</span>,</span>
+<span class="r-in">    .cols <span class="op">=</span> <span class="va">rotten_tomatoes</span>,</span>
+<span class="r-in">    .fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>avg <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   avg_rotten_tomatoes_x avg_rotten_tomatoes_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>                  87.4                    91</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># you can compare categorical data with functions like dplyr::n_distinct()</span></span>
 <span class="r-in"><span class="va">pixar_films</span> |&gt;</span>
 <span class="r-in">  <span class="fu">compare_conditions</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"G"</span><span class="op">)</span>,</span>

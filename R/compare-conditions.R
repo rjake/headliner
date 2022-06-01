@@ -1,10 +1,11 @@
 #' Compare two conditions within a data frame
 #'
 #' @description Using logic that \code{\link[dplyr]{filter}} can interpret,
-#' `compare_conditions()` will summarize the data aggregating condition x and
-#' condition y
+#' `compare_conditions()` will summarize the data aggregating condition `x` and
+#' condition `y`
 #'
-#' @return a data frame that is either 1 row, or if grouped, 1 row per group
+#' @return Returns a data frame that is either 1 row, or if grouped,
+#' 1 row per group.
 #'
 #' @details `compare_conditions()` passes its arguments to
 #' \code{\link[dplyr]{across}}. The `.cols` and `.fns` work the same. For
@@ -45,7 +46,7 @@
 #'     y = (rating == "PG"),
 #'     .cols = rotten_tomatoes
 #'   ) |>
-#'   headline_list("a difference of {delta} points")
+#'  headline_list("a difference of {delta} points")
 #'
 #'
 #'  # you can return multiple objects to compare
@@ -60,6 +61,15 @@
 #'   view_list()
 #'
 #'
+#' # you can use any of the `tidyselect` helpers
+#' pixar_films |>
+#'   compare_conditions(
+#'     x = (rating == "G"),
+#'     y = (rating == "PG"),
+#'     .cols = dplyr::starts_with("bo_")
+#'   )
+#'
+#'
 #' # if you want to compare x to the overall average, use y = TRUE
 #' pixar_films |>
 #'   compare_conditions(
@@ -70,16 +80,26 @@
 #'
 #'
 #' # to get the # of observations use length() instead of n()
+#' # note: don't pass the parentheses
 #' pixar_films |>
 #'   compare_conditions(
 #'     x = (rating == "G"),
 #'     y = (rating == "PG"),
-#'     .cols = 1, # can put anything here really
+#'     .cols = rotten_tomatoes, # can put anything here really
 #'     .fns = list(n = length)
 #'   )
 #'
 #'
-#' # you can also look at categorical data with functions like dplyr::n_distinct()
+#' # you can also use purrr-style lambdas
+#' pixar_films |>
+#'   compare_conditions(
+#'     x = (rating == "G"),
+#'     y = (rating == "PG"),
+#'     .cols = rotten_tomatoes,
+#'     .fns = list(avg = ~ sum(.x) / length(.x))
+#'   )
+#'
+#' # you can compare categorical data with functions like dplyr::n_distinct()
 #' pixar_films |>
 #'   compare_conditions(
 #'     x = (rating == "G"),

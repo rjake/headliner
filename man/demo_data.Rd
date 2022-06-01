@@ -13,7 +13,7 @@ demo_data(n = 10, by = "-2 month")
 \code{seq.Date(..., by = )}}
 }
 \value{
-returns a data frame of size \code{n}
+Returns a data frame of size \code{n}.
 }
 \description{
 Small data set referencing the current date

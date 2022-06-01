@@ -1,9 +1,9 @@
 #' Add columns with date calculations based on reference date
 #'
-#' @return returns a data frame with columns appended to describe
+#' @return Returns a data frame with columns appended to describe
 #' date distances from a reference date.
 #'
-#' @description using a reference date (defaults to current date), columns are
+#' @description Using a reference date (defaults to current date), columns are
 #' appended to the data set describing the number of days, weeks, months,
 #' quarters, calendar years and fiscal years since the reference date. If
 #' the new columns share names with an existing column, the function will show

@@ -1,9 +1,9 @@
 #' Phrases for direction of difference
 #'
 #' @description `trend_terms()` returns a list object describing the values to
-#' display when `x` is greater than `y`, less than `y` or the same as `y`
+#' display when `x` is greater than `y`, less than `y` or the same as `y`.
 #'
-#' @return returns a list object
+#' @return Returns a list object.
 #'
 #' @details `trend_terms()` will primarily be used in `headline()` and passed
 #' along to `compare_conditions()`. Similar to `plural_phrasing()` Trend terms

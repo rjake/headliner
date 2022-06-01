@@ -3,7 +3,7 @@
 #' @description This works similar to `headline()` but acts on and returns a
 #' data frame.
 
-#' @return returns the original data frame with columns appended
+#' @return Returns the original data frame with columns appended.
 #'
 #' @details What is nice about this function is you can return some of the
 #' "talking points" used in the headline calculation. For example, if you want

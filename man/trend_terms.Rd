@@ -14,11 +14,11 @@ trend_terms(more = "increase", less = "decrease", same = "no difference")
 \item{same}{string to use when x == y}
 }
 \value{
-returns a list object
+Returns a list object.
 }
 \description{
 \code{trend_terms()} returns a list object describing the values to
-display when \code{x} is greater than \code{y}, less than \code{y} or the same as \code{y}
+display when \code{x} is greater than \code{y}, less than \code{y} or the same as \code{y}.
 }
 \details{
 \code{trend_terms()} will primarily be used in \code{headline()} and passed

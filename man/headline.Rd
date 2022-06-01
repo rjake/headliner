@@ -76,14 +76,18 @@ talking points used to compose the headline}
 \item{l}{a list with values to compare, if named, can call by name}
 }
 \value{
-a character vector the same length as the input
+Returns a character vector the same length as the input,
 }
 \description{
 Given two values, \code{headline()} will use
 \code{\link[glue]{glue}} syntax to string together "talking points".
+For example \code{headline(8, 10)} will describe a difference of 2 and can be
+expressed as
+\code{headline(8, 10, headline = "changed by {delta} ({raw_delta_p}\%)")}. This
+returns "changed by 2 (-20\%)".
 }
 \details{
-\code{headline()} relies heavily on \verb{ \code{\link[glue]{glue_data}}}.
+\code{headline()} relies heavily on \code{\link[glue]{glue_data}}.
 Objects can be combined into a headline using the following search path:
 If given
 
@@ -96,10 +100,10 @@ headline(1, 3, delta = "xxxxxx")
 
 \code{delta} is one of the "talking points" from \code{compare_values()} and would
 usually return "2" but because we passed the named variable
-\code{delta = "none"}, \code{headline()} (really \code{glue_data()}) will look first at the
-named variables, then at the result of \code{compare_values()} then in the global
-environment. So in the example above, the output will return
-\code{"decrease of xxxxxx (1 vs. 3)"}
+\code{delta = "none"}, \code{headline()} (really  \code{\link[glue]{glue_data}})
+will look first at the named variables, then at the result of
+\code{compare_values()} then in the global environment. So in the example above,
+the output will return \code{"decrease of xxxxxx (1 vs. 3)"}
 }
 \examples{
 # values can be manually entered, some headlines are provided by default

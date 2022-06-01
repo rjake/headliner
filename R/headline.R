@@ -2,10 +2,14 @@
 #'
 #' @description Given two values, `headline()` will use
 #' \code{\link[glue]{glue}} syntax to string together "talking points".
+#' For example `headline(8, 10)` will describe a difference of 2 and can be
+#' expressed as
+#' `headline(8, 10, headline = "changed by {delta} ({raw_delta_p}%)")`. This
+#' returns "changed by 2 (-20%)".
 #'
-#' @return a character vector the same length as the input
+#' @return Returns a character vector the same length as the input,
 #'
-#' @details `headline()` relies heavily on ` \code{\link[glue]{glue_data}}`.
+#' @details `headline()` relies heavily on \code{\link[glue]{glue_data}}.
 #' Objects can be combined into a headline using the following search path:
 #' If given
 #' ```{r}
@@ -14,10 +18,10 @@
 #' ```
 #' `delta` is one of the "talking points" from `compare_values()` and would
 #' usually return "2" but because we passed the named variable
-#' `delta = "none"`, `headline()` (really `glue_data()`) will look first at the
-#' named variables, then at the result of `compare_values()` then in the global
-#' environment. So in the example above, the output will return
-#' `"decrease of xxxxxx (1 vs. 3)"`
+#' `delta = "none"`, `headline()` (really  \code{\link[glue]{glue_data}})
+#' will look first at the named variables, then at the result of
+#' `compare_values()` then in the global environment. So in the example above,
+#' the output will return `"decrease of xxxxxx (1 vs. 3)"`
 #'
 #' @param headline a string to format the final output. Uses
 #' \code{\link[glue]{glue}} syntax

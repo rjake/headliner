@@ -1,6 +1,6 @@
 #' Append a/an to word
 #'
-#' @return returns a vector the same length as the input
+#' @return Returns a vector the same length as the input.
 #'
 #' @param x string or numeric value
 #'

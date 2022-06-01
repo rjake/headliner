@@ -4,7 +4,7 @@
 #' to use when display when `x - y` is 1 (single) or not one (multiple or
 #' fraction). This helps write "1 person" vs "2 people"
 #'
-#' @return returns a list object
+#' @return Returns a list object.
 #'
 #' @details  `plural_phrasing()` will primarily be used in `headline()` and
 #' passed along to `compare_conditions()`. Similar to `trend_terms()`.
