@@ -8,6 +8,14 @@
 #' @seealso [compare_values()]
 #' @examples
 #' trend_terms(same = "no change")
+#'
+#' headline(
+#'   x = c(9, 11),
+#'   y = 10,
+#'   headline = "{trend} by {delta_p}%",
+#'   trend_phrases = trend_terms("higher", "lower")
+#' )
+#'
 trend_terms <- function(more = "increase",
                         less = "decrease",
                         same = "difference") {
