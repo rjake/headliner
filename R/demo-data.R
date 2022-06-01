@@ -1,4 +1,5 @@
-#' Small dataset referencing the current date
+#' Small data set referencing the current date
+#' @return returns a data frame of size `n`
 #' @param n number of rows to return
 #' @param by string indicating the unit of time between dates in
 #' \code{seq.Date(..., by = )}
@@ -6,6 +7,8 @@
 #' @export
 #' @examples
 #' demo_data()
+#'
+#' demo_data(n = 8, by = "1 day")
 demo_data <- function(n = 10, by = "-2 month") {
   tibble(
     group = rep_len(rep(letters, each = 2), length.out = n),
