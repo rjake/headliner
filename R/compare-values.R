@@ -1,5 +1,32 @@
 #' Compare two values and get talking points
 #'
+#' @description A function to create "talking points" that
+#' describes the difference between two values.
+#'
+#' @return `compare_values()` returns a list object that can be used with
+#' \code{\link[glue]{glue}} syntax
+#'
+#' @details
+#' Given `compare_values(x = 8, y = 10)` the following items will be returned
+#' in the list:
+#'
+#' |item      | value   | description                         |
+#' |---       |---      |---                                  |
+#' |`x`       | 2 | original `x` value to compare against `y` |
+#' |`y`       | 10| original `y` value                        |
+#' |`delta`   | 8 | absolute difference between `x` & `y`     |
+#' |`delta_p` | 80| % difference between `x` & `y`            |
+#' |`article_delta`   | "an 8" | `delta` with the article included   |
+#' |`article_delta_p` | "an 80"| `delta_p` with the article included |
+#' |`raw_delta`       |  -8| true difference between `x` & `y`   |
+#' |`raw_delta_p`     | -80| true % difference between `x` & `y` |
+#' |`article_raw_delta`   | "a -8" | `raw_delta` with the article   |
+#' |`article_raw_delta_p` | "a -80"| `raw_delta_p` with the article |
+#' |`sign` | -1 | the direction, 1 (increase), -1 (decrease), or 0 (no change) |
+#' |`orig_values` | "2 vs. 10"| shorthand for `{x} vs {y}` |
+#' |`trend` | "decrease"| influenced by the values in `trend_phrases` argument |
+#'
+#'
 #' @param x a numeric value to compare to the reference value of 'y'
 #' @param y a numeric value to act as a control for the 'x' value
 #' @param trend_phrases list of values to use for when y is more than x, y is the
@@ -24,8 +51,9 @@
 #' @importFrom glue glue
 #' @importFrom purrr map_if
 #' @export
+#' @md
 #' @rdname compare_values
-#' @seealso [view_list()], [trend_terms()], and [plural_phrasing()]
+#' @seealso [headline()], [trend_terms()], [plural_phrasing()] and [view_list()]
 #' @examples
 #' # the values can be manually entered
 #'
