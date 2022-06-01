@@ -1,4 +1,24 @@
 #' Compose phrases that describe differences in the data
+#'
+#' @description Given two values, `headline()` will use
+#' \code{\link[glue]{glue}} syntax to string together "talking points".
+#'
+#' @return a character vector the same length as the input
+#'
+#' @details `headline()` relies heavily on ` \code{\link[glue]{glue_data}}`.
+#' Objects can be combined into a headline using the following search path:
+#' If given
+#' ```{r}
+#' delta <- 123
+#' headline(1, 3, delta = "xxxxxx")
+#' ```
+#' `delta` is one of the "talking points" from `compare_values()` and would
+#' usually return "2" but because we passed the named variable
+#' `delta = "none"`, `headline()` (really `glue_data()`) will look first at the
+#' named variables, then at the result of `compare_values()` then in the global
+#' environment. So in the example above, the output will return
+#' `"decrease of xxxxxx (1 vs. 3)"`
+#'
 #' @param headline a string to format the final output. Uses
 #' \code{\link[glue]{glue}} syntax
 #' @param ... arguments passed to \code{\link[glue]{glue_data}}
@@ -14,9 +34,9 @@
 #' @param multiplier number indicating the scaling factor. When multiplier = 1
 #' (default), 0.25 will return 0.25. When multiplier = 100, 0.25 will return 25.
 #' @param return_data logical to indicate whether function should return the
-#' phrase components used to compose the headline
+#' talking points used to compose the headline
 #' @inheritParams compare_values
-#' @importFrom glue glue_data
+#' @importFrom glue glue_data as_glue
 #' @importFrom purrr  map2_chr map_dbl map2
 #' @export
 #' @rdname headline
@@ -75,7 +95,7 @@ headline <- function(x,
                      y,
                      headline = "{trend} of {delta} ({orig_values})",
                      ...,
-                     if_match = "There was no difference.",
+                     if_match = "There was {trend}",
                      trend_phrases = headliner::trend_terms(),
                      plural_phrases = NULL,
                      orig_values = "{x} vs. {y}",
@@ -119,7 +139,7 @@ headline <- function(x,
     return(full_list)
   }
 
-  headlines
+  as_glue(headlines)
 }
 
 
