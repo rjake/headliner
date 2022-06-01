@@ -1,5 +1,18 @@
 #' Add column of headlines
 #'
+#' @description This works similar to `headline()` but acts on and returns a
+#' data frame.
+
+#' @return returns the original data frame with columns appended
+#'
+#' @details What is nice about this function is you can return some of the
+#' "talking points" used in the headline calculation. For example, if you want
+#' to find the most extreme headlines, you can use
+#' `add_headline_column(..., return_cols = delta)` This will bring back a
+#' `headline` column as well as the `delta` talking point (the absolute
+#' difference between `x` and `y`). With this result, you can sort in descending
+#' order and filter for the biggest difference.
+#'
 #' @param df data frame, must be a single row
 #' @param .name string value for the name of the new column to create
 #' @param return_cols arguments that can be passed to
