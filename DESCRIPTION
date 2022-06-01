@@ -8,7 +8,9 @@ Authors@R:
       role = c("aut", "cre"),
       email = "rjake@sas.upenn.edu"
     )
-Description: Write sentences to compare values by generating talking points and stringing them together.
+Description: Create dynamic, data-driven text. Given two values, a list of 
+    talking points is generated and can be combined using string
+    interpolation. Based on the 'glue' package.
 License: MIT + file LICENSE
 BugReports: https://github.com/rjake/headliner/issues
 Suggests: 
