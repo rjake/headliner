@@ -15,5 +15,12 @@ plural_phrasing(single, multi)
 List of values to use when change is plural (or singular)
 }
 \examples{
-plural_phrasing("person", "people")
+plural_phrasing(single = "person", multi = "people")
+
+headline(
+  x = 1:2,
+  y = 0,
+  headline = "a difference of {delta} {people}",
+  plural_phrases = list(people = plural_phrasing("person", "people"))
+)
 }

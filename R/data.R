@@ -1,7 +1,7 @@
 #' This data comes from \href{https://erictleung.com/pixarfilms/}{\code{pixarfilms}}
 #' package by Eric Leung (2022)
 #'
-#' The data has box office sales, audience ratings, and release dates for each pixar film
+#' The data has box office sales, audience ratings, and release dates for each Pixar film
 #'
 #' @format A tibble with 22 rows and 10 columns:
 #' \describe{
