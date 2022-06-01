@@ -10,3 +10,4 @@
 ^_pkgdown\.yml$
 ^codecov\.yml$
 man/figures/logo.svg
+^CRAN-SUBMISSION$
