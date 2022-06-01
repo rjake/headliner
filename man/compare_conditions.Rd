@@ -22,8 +22,21 @@ list(avg = mean, sd = sd) 'purrr' style phrases are also supported like
 list(mean = ~mean(.x, na.rm = TRUE), sd = sd) and dplyr::lst(mean, sd) will
 create a list(mean = mean, sd = sd)}
 }
+\value{
+a data frame that is either 1 row, or if grouped, 1 row per group
+}
 \description{
-Compare two conditions within a data frame
+Using logic that \code{\link[dplyr]{filter}} can interpret,
+\code{compare_conditions()} will summarize the data aggregating condition x and
+condition y
+}
+\details{
+\code{compare_conditions()} passes its arguments to
+\code{\link[dplyr]{across}}. The \code{.cols} and \code{.fns} work the same. For
+clarity, it is helpful to use the \code{\link[dplyr]{lst}} function for the
+\code{.fns} parameter. Using
+\code{compare_conditions(..., .cols = my_var, .fns = lst(mean, sd))} will return
+the values \code{mean_my_var_x}, \code{mean_my_var_y}, \code{sd_my_var_x} and \code{sd_my_var_x}
 }
 \examples{
 

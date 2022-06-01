@@ -47,8 +47,32 @@ a difference of zero may be due to rounding. Ex: 0.16 and 0.24 with
 'n_decimal = 1' will both return 0.2. Because this will show no difference,
 a message will be displayed}
 }
+\value{
+\code{compare_values()} returns a list object that can be used with
+\code{\link[glue]{glue}} syntax
+}
 \description{
-Compare two values and get talking points
+A function to create "talking points" that
+describes the difference between two values.
+}
+\details{
+Given \code{compare_values(x = 8, y = 10)} the following items will be returned
+in the list:\tabular{lll}{
+   item \tab value \tab description \cr
+   \code{x} \tab 2 \tab original \code{x} value to compare against \code{y} \cr
+   \code{y} \tab 10 \tab original \code{y} value \cr
+   \code{delta} \tab 8 \tab absolute difference between \code{x} & \code{y} \cr
+   \code{delta_p} \tab 80 \tab \% difference between \code{x} & \code{y} \cr
+   \code{article_delta} \tab "an 8" \tab \code{delta} with the article included \cr
+   \code{article_delta_p} \tab "an 80" \tab \code{delta_p} with the article included \cr
+   \code{raw_delta} \tab -8 \tab true difference between \code{x} & \code{y} \cr
+   \code{raw_delta_p} \tab -80 \tab true \% difference between \code{x} & \code{y} \cr
+   \code{article_raw_delta} \tab "a -8" \tab \code{raw_delta} with the article \cr
+   \code{article_raw_delta_p} \tab "a -80" \tab \code{raw_delta_p} with the article \cr
+   \code{sign} \tab -1 \tab the direction, 1 (increase), -1 (decrease), or 0 (no change) \cr
+   \code{orig_values} \tab "2 vs. 10" \tab shorthand for \verb{\{x\} vs \{y\}} \cr
+   \code{trend} \tab "decrease" \tab influenced by the values in \code{trend_phrases} argument \cr
+}
 }
 \examples{
 # the values can be manually entered
@@ -83,5 +107,5 @@ compare_values(0.1234, 0.4321, n_decimal = 3)$orig_values
 compare_values(0.1234, 0.4321, multiplier = 100)$orig_values
 }
 \seealso{
-\code{\link[=view_list]{view_list()}}, \code{\link[=trend_terms]{trend_terms()}}, and \code{\link[=plural_phrasing]{plural_phrasing()}}
+\code{\link[=headline]{headline()}}, \code{\link[=trend_terms]{trend_terms()}}, \code{\link[=plural_phrasing]{plural_phrasing()}} and \code{\link[=view_list]{view_list()}}
 }

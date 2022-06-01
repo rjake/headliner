@@ -2,7 +2,7 @@
 % Please edit documentation in R/demo-data.R
 \name{demo_data}
 \alias{demo_data}
-\title{Small dataset referencing the current date}
+\title{Small data set referencing the current date}
 \usage{
 demo_data(n = 10, by = "-2 month")
 }
@@ -12,9 +12,14 @@ demo_data(n = 10, by = "-2 month")
 \item{by}{string indicating the unit of time between dates in
 \code{seq.Date(..., by = )}}
 }
+\value{
+returns a data frame of size \code{n}
+}
 \description{
-Small dataset referencing the current date
+Small data set referencing the current date
 }
 \examples{
 demo_data()
+
+demo_data(n = 8, by = "1 day")
 }

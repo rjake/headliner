@@ -7,13 +7,19 @@
 view_list(x)
 }
 \arguments{
-\item{x}{list from 'compare_values()'}
+\item{x}{a vector or list to be transposed}
+}
+\value{
+returns a data frame to display a list or vector vertically
 }
 \description{
 Compact view of list values
 }
 \examples{
 compare_values(10, 8) |>
+  view_list()
+
+add_article(c(1,8,10, 11, 18)) |>
   view_list()
 }
 \seealso{
