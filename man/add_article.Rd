@@ -9,6 +9,9 @@ add_article(x)
 \arguments{
 \item{x}{string or numeric value}
 }
+\value{
+Returns a vector the same length as the input.
+}
 \description{
 Append a/an to word
 }
@@ -37,7 +40,7 @@ add_article("increase")
 
 add_article("decrease")
 
-add_article(c(8, 11, 18))
+add_article(c(1, 8, 10, 11, 18, 20, 80))
 
 add_article(18123)
 

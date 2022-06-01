@@ -63,8 +63,21 @@ all values will be round to the length specified by 'n_decimal'.}
 \code{\link[dplyr]{select}}, ex: c("a", "b"),
 \code{\link[dplyr]{starts_with}}, etc.}
 }
+\value{
+Returns the original data frame with columns appended.
+}
 \description{
-Add column of headlines
+This works similar to \code{headline()} but acts on and returns a
+data frame.
+}
+\details{
+What is nice about this function is you can return some of the
+"talking points" used in the headline calculation. For example, if you want
+to find the most extreme headlines, you can use
+\code{add_headline_column(..., return_cols = delta)} This will bring back a
+\code{headline} column as well as the \code{delta} talking point (the absolute
+difference between \code{x} and \code{y}). With this result, you can sort in descending
+order and filter for the biggest difference.
 }
 \examples{
 

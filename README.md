@@ -35,7 +35,7 @@ compare_values(5, 7) |> # returns a list
   view_list() # show as a data frame
 ```
 
-    ##                       VALUES
+    ##                        value
     ## x                          5
     ## y                          7
     ## delta                      2

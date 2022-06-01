@@ -71,6 +71,10 @@
     <dl><dt>x</dt>
 <dd><p>string or numeric value</p></dd>
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>Returns a vector the same length as the input.</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>This function uses crude logic to append 'a' or 'an' to numbers and phrases.</p><ul><li><p>words that start with aeiou</p></li>
@@ -94,8 +98,8 @@
 <span class="r-in"><span class="fu">add_article</span><span class="op">(</span><span class="st">"decrease"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a decrease"</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu">add_article</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">11</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "an 8"  "an 11" "an 18"</span>
+<span class="r-in"><span class="fu">add_article</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">18</span>, <span class="fl">20</span>, <span class="fl">80</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a 1"   "an 8"  "a 10"  "an 11" "an 18" "a 20"  "an 80"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">add_article</span><span class="op">(</span><span class="fl">18123</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "an 18123"</span>

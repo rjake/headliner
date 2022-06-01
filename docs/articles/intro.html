@@ -145,7 +145,7 @@ a report.</p>
 <h3 id="a-simple-headline">A simple headline<a class="anchor" aria-label="anchor" href="#a-simple-headline"></a>
 </h3>
 <p>What we want is to say something like this:</p>
-<pre><code><span class="co">#&gt; [1] "We have seen a 5.6% decrease compared to the same time last year (101 vs. 107)."</span></code></pre>
+<pre><code><span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></code></pre>
 <p>We can look at the data an see that about 12 months ago,
 <code>sales</code> was 107 where as today it is 101. We can give these
 values to <code><a href="../reference/headline.html">headline()</a></code> and get a simple phrase</p>
@@ -154,14 +154,14 @@ values to <code><a href="../reference/headline.html">headline()</a></code> and g
   x <span class="op">=</span> <span class="fl">101</span>, 
   y <span class="op">=</span> <span class="fl">107</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "decrease of 6 (101 vs. 107)"</span></code></pre></div>
+<span class="co">#&gt; decrease of 6 (101 vs. 107)</span></code></pre></div>
 <p>To see how the sentence was constructed, we can look at the
 components used under the hood. This <code>return_data = TRUE</code>
 returns a named list. I will condense with <code><a href="../reference/view_list.html">view_list()</a></code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span><span class="fl">101</span>, <span class="fl">107</span>, return_data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt; 
   <span class="fu"><a href="../reference/view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt;                                          VALUES</span>
+<span class="co">#&gt;                                           value</span>
 <span class="co">#&gt; headline            decrease of 6 (101 vs. 107)</span>
 <span class="co">#&gt; x                                           101</span>
 <span class="co">#&gt; y                                           107</span>
@@ -188,7 +188,7 @@ syntax</p>
   y <span class="op">=</span> <span class="fl">107</span>, 
   headline <span class="op">=</span> <span class="st">"We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "We have seen a 5.6% decrease compared to the same time last year (101 vs. 107)."</span></code></pre></div>
+<span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></code></pre></div>
 <p>You might have noticed that there are multiple <code>article_*</code>
 components available. <code>article_delta</code> is for the difference
 between the two values (“<strong>a</strong> 6 person loss” vs
@@ -264,7 +264,7 @@ Another good option for adding headlines to data frames is
   <span class="fu"><a href="../reference/headline.html">headline_list</a></span><span class="op">(</span>
     headline <span class="op">=</span> <span class="st">"We have seen {article_delta_p}% {trend} compared to the same time last year ({orig_values})."</span>
   <span class="op">)</span> 
-<span class="co">#&gt; [1] "We have seen a 5.6% decrease compared to the same time last year (101 vs. 107)."</span></code></pre></div>
+<span class="co">#&gt; We have seen a 5.6% decrease compared to the same time last year (101 vs. 107).</span></code></pre></div>
 <p>If your result has more than 2 values, you can specify the values you
 need by calling their names</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -278,7 +278,7 @@ need by calling their names</p>
   <span class="op">)</span>
 
 <span class="fu"><a href="../reference/view_list.html">view_list</a></span><span class="op">(</span><span class="va">car_stats</span><span class="op">)</span>
-<span class="co">#&gt;                VALUES</span>
+<span class="co">#&gt;                 value</span>
 <span class="co">#&gt; avg_disp_x 105.136364</span>
 <span class="co">#&gt; avg_disp_y 296.504762</span>
 <span class="co">#&gt; avg_drat_x   4.070909</span>
@@ -294,7 +294,7 @@ need by calling their names</p>
     y <span class="op">=</span> <span class="va">avg_disp_y</span>,
     headline <span class="op">=</span> <span class="st">"Difference in avg. displacement of {delta}cu.in. ({orig_values})"</span>
   <span class="op">)</span>
-<span class="co">#&gt; [1] "Difference in avg. displacement of 191.4cu.in. (105.1 vs. 296.5)"</span>
+<span class="co">#&gt; Difference in avg. displacement of 191.4cu.in. (105.1 vs. 296.5)</span>
 
 <span class="va">car_stats</span> |&gt;
   <span class="fu"><a href="../reference/headline.html">headline_list</a></span><span class="op">(</span>
@@ -302,7 +302,7 @@ need by calling their names</p>
     y <span class="op">=</span> <span class="va">avg_drat_y</span>,
     headline <span class="op">=</span> <span class="st">"Difference in avg. rear axle ratio of {delta} ({orig_values})"</span>
   <span class="op">)</span>
-<span class="co">#&gt; [1] "Difference in avg. rear axle ratio of 0.7 (4.1 vs. 3.3)"</span></code></pre></div>
+<span class="co">#&gt; Difference in avg. rear axle ratio of 0.7 (4.1 vs. 3.3)</span></code></pre></div>
 <p><code><a href="../reference/compare_conditions.html">compare_conditions()</a></code> can also be used to compare
 categorical criteria.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -319,7 +319,7 @@ categorical criteria.</p>
     trend_phrases <span class="op">=</span> <span class="fu"><a href="../reference/trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"higher"</span>,  less <span class="op">=</span> <span class="st">"lower"</span><span class="op">)</span>,
     n_decimal <span class="op">=</span> <span class="fl">0</span>
   <span class="op">)</span>
-<span class="co">#&gt; [1] "Metacritic has an avg. rating of 87 for G-rated films and 91 for PG-rated films (4 points lower)"</span>
+<span class="co">#&gt; Metacritic has an avg. rating of 87 for G-rated films and 91 for PG-rated films (4 points lower)</span>
 
 
 <span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> |&gt;
@@ -333,7 +333,7 @@ categorical criteria.</p>
     headline <span class="op">=</span> <span class="st">"Group A is ${delta} {trend} Group C (${x} vs ${y})"</span>,
     trend_phrases <span class="op">=</span> <span class="fu"><a href="../reference/trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"ahead"</span>,  less <span class="op">=</span> <span class="st">"behind"</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="co">#&gt; [1] "Group A is $8 behind Group C ($203 vs $211)"</span></code></pre></div>
+<span class="co">#&gt; Group A is $8 behind Group C ($203 vs $211)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="within-a-data-frame">Within a data frame<a class="anchor" aria-label="anchor" href="#within-a-data-frame"></a>
@@ -384,7 +384,7 @@ use in my headline.</p>
     people <span class="op">=</span> <span class="fu"><a href="../reference/plural_phrasing.html">plural_phrasing</a></span><span class="op">(</span>single <span class="op">=</span> <span class="st">"person"</span>, multi <span class="op">=</span> <span class="st">"people"</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "10% decrease (1 person)"</span></code></pre></div>
+<span class="co">#&gt; 10% decrease (1 person)</span></code></pre></div>
 <p>You can actually pass multiple <code><a href="../reference/trend_terms.html">trend_terms()</a></code> and
 <code><a href="../reference/plural_phrasing.html">plural_phrasing()</a></code> options.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -409,7 +409,7 @@ use in my headline.</p>
   trend_phrases <span class="op">=</span> <span class="va">more_less</span>,
   plural_phrases <span class="op">=</span> <span class="va">are_people</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "There are 2 more people (an increase of 8.7%)"</span>
+<span class="co">#&gt; There are 2 more people (an increase of 8.7%)</span>
 
 <span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="fl">25</span>, 
@@ -418,7 +418,7 @@ use in my headline.</p>
   trend_phrases <span class="op">=</span> <span class="va">more_less</span>,
   plural_phrases <span class="op">=</span> <span class="va">are_people</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "There is 1 less person (a decrease of 3.8%)"</span></code></pre></div>
+<span class="co">#&gt; There is 1 less person (a decrease of 3.8%)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="when-theres-no-change">When there’s no change<a class="anchor" aria-label="anchor" href="#when-theres-no-change"></a>
@@ -426,10 +426,10 @@ use in my headline.</p>
 <p>You can also adjust the text if the numbers are the same</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt; [1] "There was no difference."</span>
+<span class="co">#&gt; There was no difference</span>
 
 <span class="fu"><a href="../reference/headline.html">headline</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, if_match <span class="op">=</span> <span class="st">"There were no additional applicants ({x} total)"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "There were no additional applicants (3 total)"</span></code></pre></div>
+<span class="co">#&gt; There were no additional applicants (3 total)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="an-example-with-valuebox">An example with <code>valueBox()</code><a class="anchor" aria-label="anchor" href="#an-example-with-valuebox"></a>

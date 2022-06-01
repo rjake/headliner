@@ -1,9 +1,10 @@
 #' Append a/an to word
 #'
+#' @return Returns a vector the same length as the input.
+#'
 #' @param x string or numeric value
 #'
 #' @export
-#'
 #' @md
 #' @details
 #' This function uses crude logic to append 'a' or 'an' to numbers and phrases.
@@ -24,7 +25,7 @@
 #'
 #' add_article("decrease")
 #'
-#' add_article(c(8, 11, 18))
+#' add_article(c(1, 8, 10, 11, 18, 20, 80))
 #'
 #' add_article(18123)
 #'

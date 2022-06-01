@@ -11,8 +11,18 @@ plural_phrasing(single, multi)
 
 \item{multi}{string to use when delta > 1}
 }
+\value{
+Returns a list object.
+}
 \description{
-List of values to use when change is plural (or singular)
+\code{plural_phrasing()} returns a list object describing the value
+to use when display when \code{x - y} is 1 (single) or not one (multiple or
+fraction). This helps write "1 person" vs "2 people"
+}
+\details{
+\code{plural_phrasing()} will primarily be used in \code{headline()} and
+passed along to \code{compare_conditions()}. Similar to \code{trend_terms()}.
+Plural phrases can be passed in a list. See examples below.
 }
 \examples{
 plural_phrasing(single = "person", multi = "people")
@@ -22,5 +32,24 @@ headline(
   y = 0,
   headline = "a difference of {delta} {people}",
   plural_phrases = list(people = plural_phrasing("person", "people"))
+)
+
+
+# a complex example passing multiple trends and plural phrases
+headline(
+  35, 30,
+  headline =
+    "We had {an_increase} of {delta} {people}.
+    That is {delta} {more} {employees} \\\\
+    than the same time last year ({orig_values}).",
+  trend_phrases = list(
+    an_increase = trend_terms("an increase", "a decrease"),
+    more = trend_terms("more", "less")
+  ),
+  plural_phrases =
+    list(
+      people = plural_phrasing("person", "people"),
+      employees = plural_phrasing("employee", "employees")
+    )
 )
 }

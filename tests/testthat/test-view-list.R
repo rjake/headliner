@@ -11,6 +11,6 @@ test_that("view_list works", {
 
   expect_equal(
     x$orig_values,
-    x_df["orig_values", "VALUES"]
+    x_df["orig_values", "value"]
   )
 })

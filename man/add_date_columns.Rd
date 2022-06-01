@@ -30,10 +30,28 @@ TRUE, the original columns will be removed and replaced with the new field
 of the same name. Otherwise, columns with the same name will be appended with
 a '1'}
 }
+\value{
+Returns a data frame with columns appended to describe
+date distances from a reference date.
+}
 \description{
-Add columns with date calculations based on reference date
+Using a reference date (defaults to current date), columns are
+appended to the data set describing the number of days, weeks, months,
+quarters, calendar years and fiscal years since the reference date. If
+the new columns share names with an existing column, the function will show
+a warning.
 }
 \examples{
 demo_data() |>
   add_date_columns(date_col = date)
+
+# if columns overlap, you will see a warning
+demo_data() |>
+  dplyr::mutate(week = 1) |>
+  add_date_columns(date_col = date)
+
+# to drop the old column and keep the new column use `drop = TRUE`
+demo_data() |>
+  dplyr::mutate(week = 1) |>
+  add_date_columns(date_col = date, drop = TRUE)
 }
