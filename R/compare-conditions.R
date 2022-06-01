@@ -1,5 +1,18 @@
 #' Compare two conditions within a data frame
 #'
+#' @description Using logic that \code{\link[dplyr]{filter}} can interpret,
+#' `compare_conditions()` will summarize the data aggregating condition x and
+#' condition y
+#'
+#' @return a data frame that is either 1 row, or if grouped, 1 row per group
+#'
+#' @details `compare_conditions()` passes its arguments to
+#' \code{\link[dplyr]{across}}. The `.cols` and `.fns` work the same. For
+#' clarity, it is helpful to use the \code{\link[dplyr]{lst}} function for the
+#' `.fns` parameter. Using
+#' `compare_conditions(..., .cols = my_var, .fns = lst(mean, sd))` will return
+#' the values `mean_my_var_x`, `mean_my_var_y`, `sd_my_var_x` and `sd_my_var_x`
+#'
 #' @param df data frame
 #' @param x condition for comparison, same criteria you would use in
 #' 'dplyr::filter', used in contrast to the reference group 'y'
