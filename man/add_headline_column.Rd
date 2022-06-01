@@ -68,35 +68,32 @@ Add column of headlines
 }
 \examples{
 
-# You can use 'add_headline_column()' instead of
-# `mutate(headline = map2_chr(...))`
-# here is an example comparing the sleeping habits of animals
-head(animal_sleep) |>
-  dplyr::select(common_name, hours_asleep, hours_awake) |>
+# You can use 'add_headline_column()' to reference values in an existing data set.
+# Here is an example comparing the box office sales of different Pixar films
+head(pixar_films) |>
+  dplyr::select(film, bo_domestic, bo_intl) |>
   add_headline_column(
-    x = hours_asleep,
-    y = hours_awake,
-    headline = "The {common_name} spends {delta} more {hours} {trend} than not {trend}.",
-    trend_phrases = trend_terms(more = "asleep", less = "awake"),
-    plural_phrases = list(hours = plural_phrasing(single = "hour", multi = "hours"))
+    x = bo_domestic,
+    y = bo_intl,
+    headline = "{film} was ${delta}M higher {trend} (${x}M vs ${y}M)",
+    trend_phrases = trend_terms(more = "domestically", less = "internationally")
   ) |>
   knitr::kable("pandoc")
 
-
-# you can also use 'return_cols' to return any and all "talking points".
+# You can also use 'return_cols' to return any and all "talking points".
 # You can use tidyselect helpers like 'starts_with("delta")' or
-# 'everything()'. In this example, I returned the delta & trend columns
-# and identified the rows at the extremes
-head(animal_sleep) |>
-  dplyr::select(common_name, hours_asleep, hours_awake) |>
+# 'everything()'. In this example, I returned the 'raw_delta' & 'trend' columns
+# and then identified the records at the extremes
+pixar_films |>
+  dplyr::select(film, bo_domestic, bo_intl) |>
   add_headline_column(
-    x = hours_asleep,
-    y = hours_awake,
-    headline = "more time {trend} ({orig_values} hours)",
-    trend_phrases = trend_terms(more = "alseep", less = "awake"),
-    return_cols = c("delta", "trend")
+    x = bo_domestic,
+    y = bo_intl,
+    headline = "${delta}M {trend} (${x}M vs ${y}M)",
+    trend_phrases = trend_terms(more = "higher", less = "lower"),
+    return_cols = c(raw_delta, trend)
   ) |>
-  dplyr::filter(delta \%in\% range(delta)) |>
+  dplyr::filter(raw_delta \%in\% range(raw_delta)) |>
   knitr::kable("pandoc")
 
 }

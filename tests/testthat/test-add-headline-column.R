@@ -27,12 +27,12 @@ test_that("add headline column returns columns", {
 test_that("add headline can access other columns", {
   df <-
     add_headline_column(
-      df = animal_sleep,
-      x = hours_asleep,
-      y = hours_awake,
-      headline = "{common_name} ({orig_values})"
+      df = pixar_films,
+      x = bo_domestic,
+      y = bo_intl,
+      headline = "{film} ({orig_values})"
     ) |>
-    mutate(has_text = purrr::map2_lgl(common_name, headline, grepl))
+    mutate(has_text = purrr::map2_lgl(film, headline, grepl))
 
   expect_true(all(df$has_text))
 })
@@ -41,10 +41,10 @@ test_that("add headline can access other columns", {
 test_that("add headline can pass '...", {
   df <-
     add_headline_column(
-      df = animal_sleep,
-      x = hours_asleep,
-      y = hours_awake,
-      headline = "{abc} {common_name} {trend}",
+      df = pixar_films,
+      x = bo_domestic,
+      y = bo_intl,
+      headline = "{abc} {film} {trend}",
       abc = "123"
     )  |>
     mutate(has_text = purrr::map2_lgl("^123", headline, grepl))

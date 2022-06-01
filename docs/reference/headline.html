@@ -205,16 +205,20 @@ phrase components used to compose the headline</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "there was a 100% increase, an increase of 8 (16 vs. 8)"</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># compare_conditions() produces a list that can be</span></span>
+<span class="r-in"><span class="co"># compare_conditions() produces a one-row data frame that can be</span></span>
 <span class="r-in"><span class="co"># passed to headline_list()</span></span>
-<span class="r-in"><span class="va">flights_jfk</span> |&gt;</span>
+<span class="r-in"><span class="va">pixar_films</span> |&gt;</span>
 <span class="r-in">  <span class="fu"><a href="compare_conditions.html">compare_conditions</a></span><span class="op">(</span></span>
-<span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&gt;</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">hour</span> <span class="op">&lt;=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span class="r-in">    <span class="va">dep_delay</span></span>
+<span class="r-in">    x <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"G"</span><span class="op">)</span>,</span>
+<span class="r-in">    y <span class="op">=</span> <span class="op">(</span><span class="va">rating</span> <span class="op">==</span> <span class="st">"PG"</span><span class="op">)</span>,</span>
+<span class="r-in">    <span class="va">rotten_tomatoes</span></span>
 <span class="r-in">  <span class="op">)</span> |&gt;</span>
-<span class="r-in">  <span class="fu">headline_list</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "increase of 11.5 (14 vs. 2.6)"</span>
+<span class="r-in">  <span class="fu">headline_list</span><span class="op">(</span></span>
+<span class="r-in">    headline <span class="op">=</span> <span class="st">"On average, G-rated films score {delta} points {trend} than \\</span>
+<span class="r-in">    PG films on Rotten Tomatoes"</span>,</span>
+<span class="r-in">    trend_phrases <span class="op">=</span> <span class="fu"><a href="trend_terms.html">trend_terms</a></span><span class="op">(</span>more <span class="op">=</span> <span class="st">"higher"</span>, less <span class="op">=</span> <span class="st">"lower"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "On average, G-rated films score 3.6 points lower than PG films on Rotten Tomatoes"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># if you have more than 2 list items, you can specify them by name</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>

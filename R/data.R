@@ -1,45 +1,54 @@
-#' Flights from JFK Airport
+#' This data comes from \href{https://erictleung.com/pixarfilms/}{\code{pixarfilms}}
+#' package by Eric Leung (2022)
 #'
-#' A modified subset of  \code{\link[nycflights13]{flights}}.
+#' The data has box office sales, audience ratings, and release dates for each pixar film
 #'
-#' @format A tibble with 12,367 rows and 10 columns:
+#' @format A tibble with 22 rows and 10 columns:
 #' \describe{
-#'   \item{year}{year of arrival, 2012-2013}
-#'   \item{date}{scheduled date of arrival}
-#'   \item{hour}{hour of scheduled arrival, 9 AM to 9 PM}
-#'   \item{carrier}{airline carrier, American Airlines (AA), Jet Blue (B6),
-#'   and Delta (DL)}
-#'   \item{dest}{destination, Las Vegas (LAS), Los Angeles (LAX),
-#'    and San Francisco (SFO)}
-#'   \item{tailnum}{tail number of plane}
-#'   \item{distance}{distance from origin to destination}
-#'   \item{air_time}{time in air from origin to destination}
-#'   \item{dep_delay}{departure delay (minutes)}
-#'   \item{arr_delay}{arrival delay (minutes)}
-#'   \item{temp}{temperature (F)}
-#'   \item{dewp}{dewpoint (F)}
-#'   \item{humid}{relative humidity}
-#'   \item{wind_dir}{wind direction (degrees)}
-#'   \item{wind_speed}{wind speed (mph)}
-#'   \item{precip}{precipitation (inches)}
-#'   \item{pressure}{sea level pressure (millibars)}
-#'   \item{visib}{visibility (miles)}
+#'   \item{order}{order of release}
+#'   \item{film}{name of film}
+#'   \item{release_date}{date film premiered}
+#'   \item{year}{the year the film premiered}
+#'   \item{run_time}{film length in minutes}
+#'   \item{film_rating}{rating based on Motion Picture Association (MPA) film
+#'   rating system}
+#'   \item{rotten_tomatoes}{score from the American review-aggregation website
+#'     Rotten Tomatoes; scored out of 100}
+#'   \item{metacritic}{score from Metacritic where scores are weighted average
+#'     of reviews; scored out of 100}
+#'   \item{bo_domestic}{box office gross amount in U.S. dollars (millions) for
+#'     U.S. and Canada}
+#'   \item{bo_intl}{box office gross amount in U.S. dollars (millions) for other
+#'     territories}
 #' }
-"flights_jfk"
-
-
-
-#' Animal Sleep
+#' @examples
+#' pixar_films
 #'
-#' A modified subset of  \code{\link[ggplot2]{msleep}}. The data originally comes from V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007.
+#' library(ggplot2)
+#' ggplot(pixar_films, aes(bo_intl, rating)) +
+#'   geom_boxplot() +
+#'   xlim(0, NA) +
+#'   labs(title = "International Box Office by MPA Rating")
 #'
-#' @format A tibble with 56 rows and 7 columns:
-#' \describe{
-#'    \item{common_name}{common name}
-#'    \item{order}{Taxonomic order (between 'Class' and 'Family')}
-#'    \item{hours_asleep}{total hours asleep in a 24-hour period}
-#'    \item{hours_awake}{total hours awake in a 24-hour period}
-#'    \item{brain_kg}{brain weight in kilograms}
-#'    \item{body_kg}{body weight in kilograms}
-#' }
-"animal_sleep"
+#'
+#' ggplot(pixar_films, aes(release_date, run_time)) +
+#'   geom_line() +
+#'   geom_point() +
+#'   ylim(0, NA) +
+#'   labs(title = "Film runtimes by release date")
+#'
+#'
+#' ggplot(pixar_films, aes(y = reorder(film, rotten_tomatoes))) +
+#'   geom_linerange(aes(xmin = rotten_tomatoes, xmax = metacritic), size = 2, color = "grey85") +
+#'   geom_point(aes(x = rotten_tomatoes, color = "rotten_tomatoes")) +
+#'   geom_point(aes(x = metacritic, color = "metacritic")) +
+#'   scale_color_manual(values = c("steelblue1", "coral2")) +
+#'   theme_minimal(base_size = 9) +
+#'   labs(
+#'     title = "Rotten Tomatoes vs Metacritic by film",
+#'     color = NULL,
+#'     y = NULL,
+#'     x = "Audience Score"
+#'   )
+#'
+"pixar_films"

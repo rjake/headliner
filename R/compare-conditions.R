@@ -17,61 +17,61 @@
 #' @examples
 #'
 #' # compare_conditions works similar to dplyr::across()
-#' flights_jfk |>
+#' pixar_films |>
 #'   compare_conditions(
-#'     x = (hour > 12),
-#'     y = (hour <= 12),
-#'     .cols = dep_delay
+#'     x = (rating == "G"),
+#'     y = (rating == "PG"),
+#'     .cols = rotten_tomatoes
 #'   )
 #'
 #'
 #' # because data frames are just fancy lists, you pass the result to headline_list()
-#' flights_jfk |>
+#' pixar_films |>
 #'   compare_conditions(
-#'     x = (hour > 12),
-#'     y = (hour <= 12),
-#'     .cols = dep_delay
+#'     x = (rating == "G"),
+#'     y = (rating == "PG"),
+#'     .cols = rotten_tomatoes
 #'   ) |>
-#'   headline_list("a difference of {delta} minutes")
+#'   headline_list("a difference of {delta} points")
 #'
 #'
 #'  # you can return multiple objects to compare
 #'  # 'view_List()' is a helper to see list objects in a compact way
-#' flights_jfk |>
+#'  pixar_films |>
 #'   compare_conditions(
-#'     x = (hour > 12),
-#'     y = (hour <= 12),
-#'     .cols = c(wind_dir, visib),
+#'     x = (rating == "G"),
+#'     y = (rating == "PG"),
+#'     .cols = c(rotten_tomatoes, metacritic),
 #'     .fns = dplyr::lst(mean, sd)
 #'   ) |>
 #'   view_list()
 #'
 #'
 #' # if you want to compare x to the overall average, use y = TRUE
-#' flights_jfk |>
+#' pixar_films |>
 #'   compare_conditions(
-#'     x = (hour > 12),
+#'     x = (rating == "G"),
 #'     y = TRUE,
-#'     .cols = dep_delay
+#'     .cols = rotten_tomatoes
 #'   )
 #'
 #'
 #' # to get the # of observations use length() instead of n()
-#' flights_jfk |>
+#' pixar_films |>
 #'   compare_conditions(
-#'     x = (hour > 12),
-#'     y = (hour <= 12),
+#'     x = (rating == "G"),
+#'     y = (rating == "PG"),
 #'     .cols = 1, # can put anything here really
 #'     .fns = list(n = length)
 #'   )
 #'
 #'
 #' # you can also look at categorical data with functions like dplyr::n_distinct()
-#' flights_jfk |>
+#' pixar_films |>
 #'   compare_conditions(
-#'     x = (hour > 12),
-#'     y = (hour <= 12),
-#'     .cols = tailnum,
+#'     x = (rating == "G"),
+#'     y = (rating == "PG"),
+#'     .cols = film,
 #'     .fns = list(distinct = dplyr::n_distinct)
 #'   )
 compare_conditions <- function(df,
@@ -81,8 +81,8 @@ compare_conditions <- function(df,
                                .fns = lst(mean)
                                ) {
   # sample inputs for debugging
-    # df <- flights_jfk; .cols <- as.symbol("dep_delay"); .fns <- lst(mean, sd)
-    # x <- rlang::new_quosure(rlang::expr(hour > 12))
+    # df <- pixar_films; .cols <- as.symbol("rotten_tomatoes"); .fns <- lst(mean, sd)
+    # x <- rlang::new_quosure(rlang::expr(rating == "G"))
     # y <- rlang::new_quosure(rlang::expr(TRUE))
 
   res_1 <- aggregate_group(df, name = "_x", .cols = {{.cols}}, .fns = .fns, cond = {{x}})
