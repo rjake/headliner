@@ -29,5 +29,4 @@ reference:
     and vignettes
   contents:
   - demo_data
-  - flights_jfk
-  - animal_sleep
+  - pixar_films

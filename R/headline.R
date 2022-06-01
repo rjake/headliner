@@ -129,15 +129,19 @@ headline <- function(x,
 #' @export
 #' @examples
 #'
-#' # compare_conditions() produces a list that can be
+#' # compare_conditions() produces a one-row data frame that can be
 #' # passed to headline_list()
-#' flights_jfk |>
+#' pixar_films |>
 #'   compare_conditions(
-#'     x = (hour > 12),
-#'     y = (hour <= 12),
-#'     dep_delay
+#'     x = (rating == "G"),
+#'     y = (rating == "PG"),
+#'     rotten_tomatoes
 #'   ) |>
-#'   headline_list()
+#'   headline_list(
+#'     headline = "On average, G-rated films score {delta} points {trend} than \\
+#'     PG films on Rotten Tomatoes",
+#'     trend_phrases = trend_terms(more = "higher", less = "lower")
+#'   )
 #'
 #' # if you have more than 2 list items, you can specify them by name
 #' list(

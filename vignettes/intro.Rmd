@@ -130,7 +130,7 @@ yoy |>
   ) 
 ```
 
-If your result  has more than 2 values, you can specify the values you need by calling their names
+If your result has more than 2 values, you can specify the values you need by calling their names
 ```{r}
 car_stats <-
   mtcars |> 
@@ -160,6 +160,21 @@ car_stats |>
 
 `compare_conditions()` can also be used to compare categorical criteria.
 ```{r}
+pixar_films |> 
+  compare_conditions(
+    rating == "G", 
+    rating == "PG", 
+    .cols = rotten_tomatoes
+  ) |> 
+  headline_list(
+    headline = 
+      "Metacritic has an avg. rating of {x} for G-rated films and {y} for PG-rated films \\
+    ({delta} points {trend})",
+    trend_phrases = trend_terms(more = "higher",  less = "lower"),
+    n_decimal = 0
+  )
+
+
 demo_data() |>
   compare_conditions(
     x = group == "a",
@@ -177,17 +192,13 @@ demo_data() |>
 
 You can also use `add_headline_column()` to append a column to your data frame with headlines describing each row. You can reference existing columns in the headline and you can bring back specific talking points using `return_cols = `. You can use this to find the most interesting phrases.
 ```{r}
-tibble::tibble(
-  med = tail(LETTERS, 5),
-  lab = rep(c("HDL", "LDL"), length.out = 5),
-  pre = 70 + 1:5,
-  post = 70 + 6:2
-) |> 
+pixar_films |> 
+  select(film, rotten_tomatoes, metacritic) |> 
   add_headline_column(
-    x = post, 
-    y = pre,
-    headline = "Using Brand {med}, {lab} {trend}d by {delta} mg/dL",
-    return_cols = c("delta")
+    x = rotten_tomatoes, 
+    y = metacritic,
+    headline = "{film} had a difference of {delta} points",
+    return_cols = c(delta)
   ) |> 
   arrange(desc(delta))
 
