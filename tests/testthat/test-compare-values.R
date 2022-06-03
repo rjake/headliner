@@ -101,3 +101,17 @@ test_that("return_trend_phrases() works", {
     return_trend_phrases(test_list)
   )
 })
+
+
+test_that("returns a list of NA if NA", {
+  with_value <- compare_values(1, 2)
+  with_na_x <- compare_values(NA, 2)
+  with_na_y <- compare_values(1, NA)
+  expected <- rep(NA, length(with_value))
+
+  expect_equal(expected, unlist(with_na_x) |> unname())
+  expect_equal(expected, unlist(with_na_y) |> unname())
+
+  expect_equal(names(with_value), names(with_na_x))
+  expect_equal(names(with_value), names(with_na_y))
+})
