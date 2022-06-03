@@ -74,3 +74,16 @@ test_that("warning if columns renamed", {
   add_headline_column(y, x, return_cols = everything()) |>
   expect_message("New names")
 })
+
+
+test_that("returns NA instead of error", {
+  expect_error(
+    object = {
+      tibble(x = 1:4, y = c(3:1, NA)) |>
+        add_headline_column(x, y)
+
+    },
+    regexp = NA # no error
+  )
+})
+

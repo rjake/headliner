@@ -94,6 +94,18 @@ compare_values <- function(x,
                            round_all = TRUE,
                            multiplier = 1,
                            check_rounding = TRUE) {
+  if (length(x) > 1 | length(y) > 1) {
+    stop(
+      "compare_values() expects a single value for 'x' and ",
+      "a single value for 'y'. ",
+      "If you need to pass multiple inputs, use purrr::map2()"
+    )
+  }
+
+  if (any(is.na(c(x, y)))) {
+    values <- compare_values(1, 1) # dummy list, need names in headliner
+    return(map(values, ~NA)) # replace everything with NA & early return
+  }
   # calcs
   comp <- (x * multiplier)
   ref <- (y * multiplier)

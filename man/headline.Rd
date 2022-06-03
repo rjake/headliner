@@ -92,10 +92,10 @@ Objects can be combined into a headline using the following search path:
 If given
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{delta <- 123
-headline(1, 3, delta = "xxxxxx")
+headline(1, 3, delta = "abc")
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## decrease of xxxxxx (1 vs. 3)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## decrease of abc (1 vs. 3)
 }\if{html}{\out{</div>}}
 
 \code{delta} is one of the "talking points" from \code{compare_values()} and would
