@@ -83,3 +83,10 @@ test_that("is vectorized", {
     expected = 3
   )
 })
+
+test_that("returns NA instead of error", {
+  expect_error(
+    object = headline(c(NA, 1:2), 3:1),
+    regexp = NA # no error
+  )
+})
