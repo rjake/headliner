@@ -115,3 +115,9 @@ test_that("returns a list of NA if NA", {
   expect_equal(names(with_value), names(with_na_x))
   expect_equal(names(with_value), names(with_na_y))
 })
+
+
+test_that("error if length > 1", {
+  expect_error(compare_values(x = 1:2, y = 2  ))
+  expect_error(compare_values(x = 1,   y = 1:2))
+})
