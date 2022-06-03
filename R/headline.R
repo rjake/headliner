@@ -14,7 +14,7 @@
 #' If given
 #' ```{r}
 #' delta <- 123
-#' headline(1, 3, delta = "xxxxxx")
+#' headline(1, 3, delta = "abc")
 #' ```
 #' `delta` is one of the "talking points" from `compare_values()` and would
 #' usually return "2" but because we passed the named variable
