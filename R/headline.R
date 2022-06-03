@@ -41,7 +41,7 @@
 #' talking points used to compose the headline
 #' @inheritParams compare_values
 #' @importFrom glue glue_data as_glue
-#' @importFrom purrr  map2_chr map_dbl map2
+#' @importFrom purrr possibly map2_chr map_dbl map2
 #' @export
 #' @rdname headline
 #' @seealso [compare_values()], [trend_terms()], and [add_article()]
@@ -112,30 +112,39 @@ headline <- function(x,
       .x = x,
       .y = y,
       .f =
-        ~compare_values(
-          .x,
-          .y,
-          trend_phrases = trend_phrases,
-          plural_phrases = plural_phrases,
-          orig_values = orig_values,
-          n_decimal = n_decimal,
-          round_all = round_all,
-          multiplier = multiplier,
-          check_rounding = FALSE # will do separately to limit # of warnings
-        )
+        # possibly(
+        #   .f =
+            ~ compare_values(
+              .x,
+              .y,
+              trend_phrases = trend_phrases,
+              plural_phrases = plural_phrases,
+              orig_values = orig_values,
+              n_decimal = n_decimal,
+              round_all = round_all,
+              multiplier = multiplier,
+              check_rounding = FALSE # will do separately to limit # of warnings
+            )#,otherwise = NA_character_)
     )
 
   # check rounding
   check_rounding(x, y, n_decimal)
 
   # determine which headline phrasing to use & pass to glue
+  use_phrases <-
+    ifelse(
+      map_dbl(res, pluck, "sign", .default = NA) == 0,
+      if_match,
+      headline
+    )
+
   headlines <-
     map2_chr(
       .x = res,
-      .y = ifelse(map_dbl(res, pluck, "sign") == 0, if_match, headline),
-      .f = glue_data,
-      ...
-    )
+      .y = use_phrases,
+      .f = glue_data, ...
+      # WORKS possibly(glue_data, NA_character_)
+    ) #|> print()
 
 
   if (return_data) {
