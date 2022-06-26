@@ -84,9 +84,30 @@ test_that("is vectorized", {
   )
 })
 
+
 test_that("returns NA instead of error", {
   expect_error(
     object = headline(c(NA, 1:2), 3:1),
     regexp = NA # no error
+  )
+})
+
+
+test_that("defaults are the same across similar functions", {
+  hl <- formals(headline)
+  cv <- formals(compare_values)
+  hc <- formals(add_headline_column)
+
+  hl_cv <- intersect(names(hl), names(cv))
+  hl_hc <- intersect(names(hl), names(hc))
+
+  expect_equal(
+    hl[hl_cv],
+    cv[hl_cv]
+  )
+
+  expect_equal(
+    hl[hl_hc],
+    hc[hl_hc]
   )
 })
