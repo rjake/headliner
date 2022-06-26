@@ -110,7 +110,30 @@ test_that("uses dynamic headline", {
     add_headline_column(a, b, phrase)
 
   expect_equal(
-    c("car has decreased", "33.3"),
-    res$headline
+    res$headline,
+    c("car has decreased", "33.3")
+  )
+})
+
+test_that("lists passed correctly", {
+  res <-
+    data.frame(
+      a = c(2, 5),
+      b = 3
+    ) |>
+    add_headline_column(
+      a, b,
+      headline = "{delta} {more} {cat} ({higher})",
+      trend_phrases = list(
+        higher = trend_terms("higher", "lower"),
+        more = trend_terms("more", "less")
+      ),
+      plural_phrases = list(
+        cat = plural_phrasing("cat", "cats")
+      )
+    )
+  expect_equal(
+    res$headline,
+    c("1 less cat (lower)", "2 more cats (higher)")
   )
 })
