@@ -1,7 +1,7 @@
 #' Phrases for direction of difference
 #'
 #' @description `trend_terms()` returns a list object describing the values to
-#' display when `x` is greater than `y`, less than `y` or the same as `y`.
+#' display when `x` is greater than `y` or `x` is less than `y`.
 #'
 #' @return Returns a list object.
 #'
@@ -11,12 +11,10 @@
 #'
 #' @param more string to use when x > y
 #' @param less string to use when x < y
-#' @param same string to use when x == y
 #'
 #' @export
 #' @seealso [compare_values()]
 #' @examples
-#' trend_terms(same = "no change")
 #'
 #' headline(
 #'   x = c(9, 11),
@@ -43,11 +41,9 @@
 #'     )
 #' )
 trend_terms <- function(more = "increase",
-                        less = "decrease",
-                        same = "no difference") {
+                        less = "decrease") {
   list(
     more = more,
-    less = less,
-    same = same
+    less = less
   )
 }

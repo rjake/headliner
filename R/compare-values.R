@@ -29,8 +29,8 @@
 #'
 #' @param x a numeric value to compare to the reference value of 'y'
 #' @param y a numeric value to act as a control for the 'x' value
-#' @param trend_phrases list of values to use for when y is more than x, y is the
-#' same as x, or y is less than x. You can pass it just
+#' @param trend_phrases list of values to use for when x is more than y
+#' or x is less than y. You can pass it just
 #' \code{\link{trend_terms}} (the default) and call the result with
 #' \code{"...{trend}..."} or pass is a named list (see examples)
 #' @param plural_phrases named list of values to use when difference (delta) is
@@ -195,19 +195,26 @@ return_trend_phrases <- function(trend_phrases, sign = 1) {
   # TRUE when used in a list of trend terms
   passed_as_list <- is.list(trend_phrases[[1]])
 
-  if(passed_as_list) {
+  if (passed_as_list) {
     trend_list <- trend_phrases
   } else {
     # else make list
     trend_list <- list(trend = trend_phrases)
   }
 
+  # early retun if 0
+  if (sign == 0) {
+    return(
+      map(trend_list, pluck, 1) |>
+        map(~"same")
+    )
+  }
+
   which_trend <-
     switch(
       as.character(sign),
       "1" = "more",
-      "-1" = "less",
-      "0" = "same"
+      "-1" = "less"
     )
 
   map(trend_list, pluck, which_trend)
