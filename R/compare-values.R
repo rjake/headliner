@@ -29,8 +29,8 @@
 #'
 #' @param x a numeric value to compare to the reference value of 'y'
 #' @param y a numeric value to act as a control for the 'x' value
-#' @param trend_phrases list of values to use for when y is more than x, y is the
-#' same as x, or y is less than x. You can pass it just
+#' @param trend_phrases list of values to use for when x is more than y
+#' or x is less than y. You can pass it just
 #' \code{\link{trend_terms}} (the default) and call the result with
 #' \code{"...{trend}..."} or pass is a named list (see examples)
 #' @param plural_phrases named list of values to use when difference (delta) is
