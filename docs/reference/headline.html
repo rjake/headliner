@@ -120,8 +120,8 @@ returns "changed by 2 (-20%)".</p>
 <dd><p>string to display if numbers match, uses
 <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></code> syntax</p></dd>
 <dt>trend_phrases</dt>
-<dd><p>list of values to use for when y is more than x, y is the
-same as x, or y is less than x. You can pass it just
+<dd><p>list of values to use for when x is more than y
+or x is less than y. You can pass it just
 <code><a href="trend_terms.html">trend_terms</a></code> (the default) and call the result with
 <code>"...{trend}..."</code> or pass is a named list (see examples)</p></dd>
 <dt>plural_phrases</dt>
@@ -179,7 +179,7 @@ the output will return <code>"decrease of xxxxxx (1 vs. 3)"</code></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> decrease of 2 (8 vs. 10)</span>
 <span class="r-in"><span class="fu">headline</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> decrease of 2 (1 vs. 3)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> There was no difference</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> There was same</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> increase of 2 (3 vs. 1)</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># most likely you'll edit the headline by hand</span></span>

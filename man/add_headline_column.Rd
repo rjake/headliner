@@ -38,8 +38,8 @@ add_headline_column(
 \item{if_match}{string to display if numbers match, uses
 \code{\link[glue]{glue}} syntax}
 
-\item{trend_phrases}{list of values to use for when y is more than x, y is the
-same as x, or y is less than x. You can pass it just
+\item{trend_phrases}{list of values to use for when x is more than y
+or x is less than y. You can pass it just
 \code{\link{trend_terms}} (the default) and call the result with
 \code{"...{trend}..."} or pass is a named list (see examples)}
 

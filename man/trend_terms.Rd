@@ -4,21 +4,19 @@
 \alias{trend_terms}
 \title{Phrases for direction of difference}
 \usage{
-trend_terms(more = "increase", less = "decrease", same = "no difference")
+trend_terms(more = "increase", less = "decrease")
 }
 \arguments{
 \item{more}{string to use when x > y}
 
 \item{less}{string to use when x < y}
-
-\item{same}{string to use when x == y}
 }
 \value{
 Returns a list object.
 }
 \description{
 \code{trend_terms()} returns a list object describing the values to
-display when \code{x} is greater than \code{y}, less than \code{y} or the same as \code{y}.
+display when \code{x} is greater than \code{y} or \code{x} is less than \code{y}.
 }
 \details{
 \code{trend_terms()} will primarily be used in \code{headline()} and passed
@@ -26,7 +24,6 @@ along to \code{compare_conditions()}. Similar to \code{plural_phrasing()} Trend 
 can be passed in a list. See examples below.
 }
 \examples{
-trend_terms(same = "no change")
 
 headline(
   x = c(9, 11),
