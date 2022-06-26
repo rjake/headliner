@@ -13,3 +13,4 @@
 
 * First update since released last month
 * Stops error on NA values and improves communication for other errors
+* URL fixed from prior submission
