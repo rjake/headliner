@@ -195,19 +195,26 @@ return_trend_phrases <- function(trend_phrases, sign = 1) {
   # TRUE when used in a list of trend terms
   passed_as_list <- is.list(trend_phrases[[1]])
 
-  if(passed_as_list) {
+  if (passed_as_list) {
     trend_list <- trend_phrases
   } else {
     # else make list
     trend_list <- list(trend = trend_phrases)
   }
 
+  # early retun if 0
+  if (sign == 0) {
+    return(
+      map(trend_list, pluck, 1) |>
+        map(~"same")
+    )
+  }
+
   which_trend <-
     switch(
       as.character(sign),
       "1" = "more",
-      "-1" = "less",
-      "0" = "same"
+      "-1" = "less"
     )
 
   map(trend_list, pluck, which_trend)
