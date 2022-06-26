@@ -11,7 +11,7 @@ add_headline_column(
   headline = "{trend} of {delta} ({orig_values})",
   ...,
   .name = "headline",
-  if_match = "There was no difference.",
+  if_match = "There was no difference",
   trend_phrases = headliner::trend_terms(),
   plural_phrases = NULL,
   orig_values = "{x} vs. {y}",

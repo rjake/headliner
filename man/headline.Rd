@@ -10,7 +10,7 @@ headline(
   y,
   headline = "{trend} of {delta} ({orig_values})",
   ...,
-  if_match = "There was {trend}",
+  if_match = "There was no difference",
   trend_phrases = headliner::trend_terms(),
   plural_phrases = NULL,
   orig_values = "{x} vs. {y}",
