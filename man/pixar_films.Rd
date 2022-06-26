@@ -35,6 +35,14 @@ The data has box office sales, audience ratings, and release dates for each Pixa
 pixar_films
 
 library(ggplot2)
+
+headline(
+  x = min(pixar_films$run_time),
+  y = max(pixar_films$run_time),
+  headline =
+    "The shortest film was {delta} minutes less than the longest film ({orig_values} minutes)"
+)
+
 ggplot(pixar_films, aes(bo_intl, rating)) +
   geom_boxplot() +
   xlim(0, NA) +
