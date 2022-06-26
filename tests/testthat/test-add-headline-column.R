@@ -71,7 +71,11 @@ test_that("warning if columns renamed", {
     x = 1:3,
     y = 3:1
   ) |>
-  add_headline_column(y, x, return_cols = everything()) |>
+  add_headline_column(
+    x = y,
+    y = x,
+    return_cols = everything()
+  ) |>
   expect_message("New names")
 })
 
@@ -87,3 +91,49 @@ test_that("returns NA instead of error", {
   )
 })
 
+test_that("uses dynamic headline", {
+  headlines <- c(
+    "{other} has {trend}d",
+    "{delta_p}"
+  )
+
+  df <-
+    data.frame(
+      a = 1:2,
+      b = 2:3,
+      other = "car"
+    ) |>
+    mutate(phrase = headlines)
+
+  res <-
+    df |>
+    add_headline_column(a, b, phrase)
+
+  expect_equal(
+    res$headline,
+    c("car has decreased", "33.3")
+  )
+})
+
+test_that("lists passed correctly", {
+  res <-
+    data.frame(
+      a = c(2, 5),
+      b = 3
+    ) |>
+    add_headline_column(
+      a, b,
+      headline = "{delta} {more} {cat} ({higher})",
+      trend_phrases = list(
+        higher = trend_terms("higher", "lower"),
+        more = trend_terms("more", "less")
+      ),
+      plural_phrases = list(
+        cat = plural_phrasing("cat", "cats")
+      )
+    )
+  expect_equal(
+    res$headline,
+    c("1 less cat (lower)", "2 more cats (higher)")
+  )
+})
