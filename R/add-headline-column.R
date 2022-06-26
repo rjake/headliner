@@ -22,10 +22,10 @@
 #' @inheritParams headline
 #' @export
 #' @importFrom glue glue
-#' @importFrom dplyr pull mutate transmute select
+#' @importFrom dplyr pull mutate transmute select one_of bind_cols rowwise ungroup
 #' @importFrom tidyr unnest_wider
 #' @importFrom rlang := .data abort warn
-#' @importFrom purrr map2 map_dfr flatten
+#' @importFrom purrr pmap map_dfr flatten
 #' @examples
 #'
 #' # You can use 'add_headline_column()' to reference values in an existing data set.
@@ -81,7 +81,24 @@ add_headline_column <- function(df,
     warn()
   }
 
-  headline_pattern <- headline
+  df_vals <-
+    df |>
+    mutate(# give unique name in case user passes x = y
+      use_x = {{x}},
+      use_y = {{y}}
+    ) |>
+    transmute(
+      x = use_x,
+      y = use_y,
+      headline = {{headline}},
+      trend_phrases = list(trend_phrases),
+      plural_phrases = list(plural_phrases),
+      orig_values = orig_values,
+      n_decimal = n_decimal,
+      round_all = round_all,
+      multiplier = multiplier,
+      check_rounding = FALSE # done separately to limit # of warnings
+    )
 
   # check rounding
   check_rounding(
@@ -90,38 +107,36 @@ add_headline_column <- function(df,
     n_decimal
   )
 
-  df |>
+  prep_results <-
+    df_vals |>
+    select(-headline) |>
+    pmap(compare_values) |>
+    map_dfr(flatten)
+
+  headline_results <-
+    prep_results |>
+    bind_cols(
+      df |>
+        select(-one_of(names(prep_results))) |>
+        suppressWarnings()
+    ) |>
+    mutate(headline = df_vals$headline) |>
+    rowwise() |>
+    mutate(headline = glue(headline, ...)) |>
+    ungroup() |>
     mutate(
-      comp_values = # returns a list per row
-        map2(
-          .x = {{x}},
-          .y = {{y}},
-          .f =
-            ~compare_values(
-              .x,
-              .y,
-              trend_phrases = trend_phrases,
-              plural_phrases = plural_phrases,
-              orig_values = orig_values,
-              n_decimal = n_decimal,
-              round_all = round_all,
-              multiplier = multiplier,
-              check_rounding = FALSE # will do separately to limit # of warnings
-            )
-        ) |>
-        map_dfr(flatten) |>
-        mutate(
-          {{.name}} :=
-            ifelse(
-              test = .data$x == .data$y,
-              yes = if_match,
-              no = glue(headline_pattern, ...)
-            )
-        ) |>
-        select({{.name}}, {{return_cols}})
-      ) |>
-      unnest_wider(
-        .data$comp_values,
-        names_repair = "unique"
-      )
+      {{.name}} :=
+        ifelse(
+          test = .data$x == .data$y,
+          yes = if_match,
+          no = headline
+        )
+    ) |>
+    select({{.name}}, {{return_cols}})
+
+  bind_cols(
+    df,
+    headline_results,
+    .name_repair = "unique"
+  )
 }
