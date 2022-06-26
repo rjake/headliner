@@ -88,8 +88,8 @@ add_headline_column <- function(df,
       use_y = {{y}}
     ) |>
     transmute(
-      x = use_x,
-      y = use_y,
+      x = .data$use_x,
+      y = .data$use_y,
       headline = {{headline}},
       trend_phrases = list(trend_phrases),
       plural_phrases = list(plural_phrases),
@@ -109,7 +109,7 @@ add_headline_column <- function(df,
 
   prep_results <-
     df_vals |>
-    select(-headline) |>
+    select(-.data$headline) |>
     pmap(compare_values) |>
     map_dfr(flatten)
 
@@ -122,14 +122,14 @@ add_headline_column <- function(df,
     ) |>
     mutate(headline = df_vals$headline) |>
     rowwise() |>
-    mutate(headline = glue(headline, ...)) |>
+    mutate(headline = glue(.data$headline, ...)) |>
     ungroup() |>
     mutate(
       {{.name}} :=
         ifelse(
           test = .data$x == .data$y,
           yes = if_match,
-          no = headline
+          no = .data$headline
         )
     ) |>
     select({{.name}}, {{return_cols}})
