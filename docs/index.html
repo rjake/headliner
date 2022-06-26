@@ -90,7 +90,6 @@
 <div class="page-header"><h1 id="headliner-">headliner <img src="reference/figures/logo.png" align="right" alt="" width="120"><a class="anchor" aria-label="anchor" href="#headliner-"></a>
 </h1></div>
 <!-- badges: start -->
-<!-- [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/headliner)](https://cran.r-project.org/package=headliner) -->
 
 <p>The goal of <code>headliner</code> is to translate facts into insights. Given two values, <code>headliner</code> generates building blocks for creating dynamic text. These talking points can be combined using using <code>glue</code> syntax to add informative titles to plots, section headers or other text in a report.</p>
 <div class="section level2">
@@ -105,28 +104,28 @@
 
 <span class="fu"><a href="reference/compare_values.html">compare_values</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span> |&gt; <span class="co"># returns a list</span>
   <span class="fu"><a href="reference/view_list.html">view_list</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show as a data frame</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##                        value</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## x                          5</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## y                          7</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="do">## delta                      2</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">## delta_p                 28.6</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## article_delta            a 2</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">## article_delta_p       a 28.6</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## raw_delta                 -2</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## raw_delta_p            -28.6</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="do">## article_raw_delta       a -2</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="do">## article_raw_delta_p  a -28.6</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="do">## sign                      -1</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## orig_values          5 vs. 7</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="do">## trend               decrease</span></span></code></pre></div>
-<p>We can string these together these talking points like this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                        value</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x                          5</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y                          7</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; delta                      2</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; delta_p                 28.6</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; article_delta            a 2</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; article_delta_p       a 28.6</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; raw_delta                 -2</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; raw_delta_p            -28.6</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; article_raw_delta       a -2</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; article_raw_delta_p  a -28.6</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sign                      -1</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; orig_values          5 vs. 7</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; trend               decrease</span></span></code></pre></div>
+<p>We can string the talking points together like this:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/headline.html">headline</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="fl">5</span>, 
   y <span class="op">=</span> <span class="fl">7</span>, 
   headline <span class="op">=</span> <span class="st">"There was {article_delta_p}% {trend} ({orig_values})"</span>
 <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "There was a 28.6% decrease (5 vs. 7)"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; There was a 28.6% decrease (5 vs. 7)</span></span></code></pre></div>
 <p>See <a href="https://rjake.github.io/headliner/articles/intro.html" class="external-link">here</a> for a longer introduction.</p>
 </div>
 </div>
@@ -175,8 +174,9 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/rjake/headliner/actions" class="external-link"><img src="https://github.com/rjake/headliner/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/rjake/headliner" class="external-link"><img src="https://codecov.io/gh/rjake/headliner/branch/main/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://cran.r-project.org/package=headliner/" class="external-link"><img src="https://www.r-pkg.org/badges/version/headliner" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://app.codecov.io/gh/rjake/headliner/" class="external-link"><img src="https://codecov.io/gh/rjake/headliner/branch/main/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://github.com/rjake/headliner/actions/" class="external-link"><img src="https://github.com/rjake/headliner/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 

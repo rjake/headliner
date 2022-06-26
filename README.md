@@ -4,10 +4,10 @@
 # headliner <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
-<!-- [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/headliner)](https://cran.r-project.org/package=headliner) -->
 
-[![R-CMD-check](https://github.com/rjake/headliner/workflows/R-CMD-check/badge.svg)](https://github.com/rjake/headliner/actions)
-[![codecov](https://codecov.io/gh/rjake/headliner/branch/main/graph/badge.svg)](https://codecov.io/gh/rjake/headliner)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/headliner)](https://cran.r-project.org/package=headliner/)
+[![codecov](https://codecov.io/gh/rjake/headliner/branch/main/graph/badge.svg)](https://app.codecov.io/gh/rjake/headliner/)
+[![R-CMD-check](https://github.com/rjake/headliner/workflows/R-CMD-check/badge.svg)](https://github.com/rjake/headliner/actions/)
 <!-- [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/headliner)](https://cran.r-project.org/package=headliner) -->
 <!-- badges: end -->
 
@@ -35,22 +35,22 @@ compare_values(5, 7) |> # returns a list
   view_list() # show as a data frame
 ```
 
-    ##                        value
-    ## x                          5
-    ## y                          7
-    ## delta                      2
-    ## delta_p                 28.6
-    ## article_delta            a 2
-    ## article_delta_p       a 28.6
-    ## raw_delta                 -2
-    ## raw_delta_p            -28.6
-    ## article_raw_delta       a -2
-    ## article_raw_delta_p  a -28.6
-    ## sign                      -1
-    ## orig_values          5 vs. 7
-    ## trend               decrease
+    #>                        value
+    #> x                          5
+    #> y                          7
+    #> delta                      2
+    #> delta_p                 28.6
+    #> article_delta            a 2
+    #> article_delta_p       a 28.6
+    #> raw_delta                 -2
+    #> raw_delta_p            -28.6
+    #> article_raw_delta       a -2
+    #> article_raw_delta_p  a -28.6
+    #> sign                      -1
+    #> orig_values          5 vs. 7
+    #> trend               decrease
 
-We can string these together these talking points like this:
+We can string the talking points together like this:
 
 ``` r
 headline(
@@ -60,7 +60,7 @@ headline(
 )
 ```
 
-    ## [1] "There was a 28.6% decrease (5 vs. 7)"
+    #> There was a 28.6% decrease (5 vs. 7)
 
 See [here](https://rjake.github.io/headliner/articles/intro.html) for a
 longer introduction.
