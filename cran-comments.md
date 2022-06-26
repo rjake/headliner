@@ -9,6 +9,7 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-* This is a new release.
+* First update since released last month
+* Stops error on NA values and improves communication for other errors

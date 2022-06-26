@@ -3,7 +3,7 @@
 \docType{data}
 \name{pixar_films}
 \alias{pixar_films}
-\title{This data comes from \href{https://erictleung.com/pixarfilms/}{\code{pixarfilms}}
+\title{This data comes from \href{https://github.com/erictleung/pixarfilms/}{\code{pixarfilms}}
 package by Eric Leung (2022)}
 \format{
 A tibble with 22 rows and 10 columns:
