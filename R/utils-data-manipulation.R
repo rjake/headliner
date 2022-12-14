@@ -41,8 +41,13 @@ aggregate_group <- function(df, name, .cols, .fns, cond) {
   # df <- mtcars; name = "_x";  .cols <- as.symbol("mpg"); .fns = mean
   # cond <- dplyr::quo(cyl > 4);
 
+  cond <- rlang::enquo(cond)
+
+  if (!rlang::quo_is_missing(cond)) {
+    df <- filter(df, {{cond}})
+  }
+
   df |>
-    filter({{cond}}) |>
     summarise(
       across({{.cols}}, .fns, .names = "{.fn}_{.col}{name}")
     )
