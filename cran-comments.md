@@ -1,6 +1,6 @@
 ## Test environments
 * local
-    * Windows 11, R 4.2.0
+    * Windows 11, R 4.2.2
     * R devel via devtools::check_win_devel()
 * github-actions
     * macOS (release)
@@ -11,6 +11,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-* First update since released last month
-* Stops error on NA values and improves communication for other errors
-* URL fixed from prior submission
+* Applying patch for upcoming dplyr release
