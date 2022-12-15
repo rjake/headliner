@@ -12,18 +12,10 @@ Description: Create dynamic, data-driven text. Given two values, a list of
     talking points is generated and can be combined using string
     interpolation. Based on the 'glue' package.
 License: MIT + file LICENSE
+URL: https://rjake.github.io/headliner, https://github.com/rjake/headliner
 BugReports: https://github.com/rjake/headliner/issues
-Suggests: 
-    ggplot2,
-    knitr,
-    nycflights13,
-    rmarkdown,
-    testthat
-Encoding: UTF-8
-Language: en-US
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+Depends: 
+    R (>= 4.1)
 Imports: 
     dplyr,
     glue,
@@ -32,7 +24,15 @@ Imports:
     rlang,
     tibble,
     tidyr
-Depends: 
-    R (>= 4.1)
+Suggests: 
+    ggplot2,
+    knitr,
+    nycflights13,
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
-URL: https://github.com/rjake/headliner
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
