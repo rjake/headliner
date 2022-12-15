@@ -1,4 +1,5 @@
-# headliner (development version)
+# headliner 0.0.3
+- Patch fix ahead of `dplyr` 1.1.0 (#121)
 - Reformat `NEWS.md` headers (#117)
 
 # headliner 0.0.2

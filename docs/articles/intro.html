@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="headliner">
 <title>Introduction to headliner • headliner</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,12 +13,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to headliner">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to headliner">
 <meta property="og:description" content="headliner">
 <meta property="og:image" content="/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -25,72 +25,64 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">headliner</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
-      </span>
-    </div>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">headliner</a>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/intro.html">Introduction to headliner</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/rjake/headliner/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/intro.html">Introduction to headliner</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/rjake/headliner/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Introduction to headliner</h1>
+
+
+
+<div class="row">
+  <main id="main"><div class="page-header">
+      <img src="../logo.svg" class="logo" alt=""><h1>Introduction to headliner</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/rjake/headliner/blob/HEAD/vignettes/intro.Rmd" class="external-link"><code>vignettes/intro.Rmd</code></a></small>
-      <div class="hidden name"><code>intro.Rmd</code></div>
-
+      <div class="d-none name"><code>intro.Rmd</code></div>
     </div>
 
     
@@ -122,7 +114,7 @@ a report.</p>
 </h3>
 <p>For these examples, I will use a function called
 <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date
-(this was last run on 06/29/22).</p>
+(this was last run on 12/14/22).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rjake/headliner" class="external-link">headliner</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
@@ -130,16 +122,16 @@ a report.</p>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 5</span></span>
 <span class="co">#&gt;    group sales count on_sale date      </span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-06-29</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-04-29</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-03-01</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-12-29</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-10-29</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-08-29</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-06-29</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-04-29</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-03-01</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-12-29</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-12-14</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-10-14</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-08-14</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2022-06-14</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2022-04-14</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2022-02-14</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-12-14</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-10-14</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-08-14</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2021-06-14</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="a-simple-headline">A simple headline<a class="anchor" aria-label="anchor" href="#a-simple-headline"></a>
@@ -207,7 +199,7 @@ decrease”.</p>
 <p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code>
 to calculate distances from the current date (or the reference date
 specified) to the values in the <code>date</code> column . With these
-new fields we can see that 04/29/22 was 61 days ago (or 9 weeks or 2
+new fields we can see that 10/14/22 was 61 days ago (or 9 weeks or 2
 months, …) from the current date.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> |&gt;
@@ -215,16 +207,16 @@ months, …) from the current date.</p>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 11</span></span>
 <span class="co">#&gt;    group sales count on_sale date         day  week month quarter calendar_year</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-06-29     0     0     0       0             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-04-29   -<span style="color: #BB0000;">61</span>    -<span style="color: #BB0000;">9</span>    -<span style="color: #BB0000;">2</span>       0             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-03-01  -<span style="color: #BB0000;">120</span>   -<span style="color: #BB0000;">17</span>    -<span style="color: #BB0000;">3</span>      -<span style="color: #BB0000;">1</span>             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2021-12-29  -<span style="color: #BB0000;">182</span>   -<span style="color: #BB0000;">26</span>    -<span style="color: #BB0000;">6</span>      -<span style="color: #BB0000;">2</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2021-10-29  -<span style="color: #BB0000;">243</span>   -<span style="color: #BB0000;">35</span>    -<span style="color: #BB0000;">8</span>      -<span style="color: #BB0000;">2</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2021-08-29  -<span style="color: #BB0000;">304</span>   -<span style="color: #BB0000;">44</span>   -<span style="color: #BB0000;">10</span>      -<span style="color: #BB0000;">3</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-06-29  -<span style="color: #BB0000;">365</span>   -<span style="color: #BB0000;">52</span>   -<span style="color: #BB0000;">12</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-04-29  -<span style="color: #BB0000;">426</span>   -<span style="color: #BB0000;">61</span>   -<span style="color: #BB0000;">14</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-03-01  -<span style="color: #BB0000;">485</span>   -<span style="color: #BB0000;">69</span>   -<span style="color: #BB0000;">15</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2020-12-29  -<span style="color: #BB0000;">547</span>   -<span style="color: #BB0000;">78</span>   -<span style="color: #BB0000;">18</span>      -<span style="color: #BB0000;">6</span>            -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-12-14     0     0     0       0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-10-14   -<span style="color: #BB0000;">61</span>    -<span style="color: #BB0000;">9</span>    -<span style="color: #BB0000;">2</span>       0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-08-14  -<span style="color: #BB0000;">122</span>   -<span style="color: #BB0000;">18</span>    -<span style="color: #BB0000;">4</span>      -<span style="color: #BB0000;">1</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2022-06-14  -<span style="color: #BB0000;">183</span>   -<span style="color: #BB0000;">26</span>    -<span style="color: #BB0000;">6</span>      -<span style="color: #BB0000;">2</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2022-04-14  -<span style="color: #BB0000;">244</span>   -<span style="color: #BB0000;">35</span>    -<span style="color: #BB0000;">8</span>      -<span style="color: #BB0000;">2</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2022-02-14  -<span style="color: #BB0000;">303</span>   -<span style="color: #BB0000;">43</span>   -<span style="color: #BB0000;">10</span>      -<span style="color: #BB0000;">3</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-12-14  -<span style="color: #BB0000;">365</span>   -<span style="color: #BB0000;">52</span>   -<span style="color: #BB0000;">12</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-10-14  -<span style="color: #BB0000;">426</span>   -<span style="color: #BB0000;">61</span>   -<span style="color: #BB0000;">14</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-08-14  -<span style="color: #BB0000;">487</span>   -<span style="color: #BB0000;">70</span>   -<span style="color: #BB0000;">16</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2021-06-14  -<span style="color: #BB0000;">548</span>   -<span style="color: #BB0000;">78</span>   -<span style="color: #BB0000;">18</span>      -<span style="color: #BB0000;">6</span>            -<span style="color: #BB0000;">1</span></span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: fiscal_year &lt;dbl&gt;</span></span></code></pre></div>
 <p>We can then identify some conditions for our group of interest
 (<code>x</code>) and our reference group (<code>y</code>). This step
@@ -456,33 +448,26 @@ text.</p>
 </div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
+    <footer><div class="pkgdown-footer-left">
   <p></p>
 <p>Developed by Jake Riley.</p>
 </div>
 
-<div class="pkgdown">
+<div class="pkgdown-footer-right">
   <p></p>
 <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-
 
   
 
