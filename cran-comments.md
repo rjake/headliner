@@ -12,3 +12,4 @@
 0 errors | 0 warnings | 0 notes
 
 * Applying patch for upcoming dplyr release
+* Fixed issue with links not starting 'https'
