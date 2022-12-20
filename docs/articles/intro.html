@@ -114,7 +114,7 @@ a report.</p>
 </h3>
 <p>For these examples, I will use a function called
 <code><a href="../reference/demo_data.html">demo_data()</a></code> to build a data set based on the current date
-(this was last run on 12/14/22).</p>
+(this was last run on 12/19/22).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rjake/headliner" class="external-link">headliner</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
@@ -122,16 +122,16 @@ a report.</p>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 5</span></span>
 <span class="co">#&gt;    group sales count on_sale date      </span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-12-14</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-10-14</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-08-14</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2022-06-14</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2022-04-14</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2022-02-14</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-12-14</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-10-14</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-08-14</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2021-06-14</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-12-19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-10-19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-08-19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2022-06-19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2022-04-19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2022-02-19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-12-19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-10-19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-08-19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2021-06-19</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="a-simple-headline">A simple headline<a class="anchor" aria-label="anchor" href="#a-simple-headline"></a>
@@ -199,7 +199,7 @@ decrease”.</p>
 <p>First, we can use a function called <code><a href="../reference/add_date_columns.html">add_date_columns()</a></code>
 to calculate distances from the current date (or the reference date
 specified) to the values in the <code>date</code> column . With these
-new fields we can see that 10/14/22 was 61 days ago (or 9 weeks or 2
+new fields we can see that 10/19/22 was 61 days ago (or 9 weeks or 2
 months, …) from the current date.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/demo_data.html">demo_data</a></span><span class="op">(</span><span class="op">)</span> |&gt;
@@ -207,16 +207,16 @@ months, …) from the current date.</p>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 11</span></span>
 <span class="co">#&gt;    group sales count on_sale date         day  week month quarter calendar_year</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-12-14     0     0     0       0             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-10-14   -<span style="color: #BB0000;">61</span>    -<span style="color: #BB0000;">9</span>    -<span style="color: #BB0000;">2</span>       0             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-08-14  -<span style="color: #BB0000;">122</span>   -<span style="color: #BB0000;">18</span>    -<span style="color: #BB0000;">4</span>      -<span style="color: #BB0000;">1</span>             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2022-06-14  -<span style="color: #BB0000;">183</span>   -<span style="color: #BB0000;">26</span>    -<span style="color: #BB0000;">6</span>      -<span style="color: #BB0000;">2</span>             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2022-04-14  -<span style="color: #BB0000;">244</span>   -<span style="color: #BB0000;">35</span>    -<span style="color: #BB0000;">8</span>      -<span style="color: #BB0000;">2</span>             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2022-02-14  -<span style="color: #BB0000;">303</span>   -<span style="color: #BB0000;">43</span>   -<span style="color: #BB0000;">10</span>      -<span style="color: #BB0000;">3</span>             0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-12-14  -<span style="color: #BB0000;">365</span>   -<span style="color: #BB0000;">52</span>   -<span style="color: #BB0000;">12</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-10-14  -<span style="color: #BB0000;">426</span>   -<span style="color: #BB0000;">61</span>   -<span style="color: #BB0000;">14</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-08-14  -<span style="color: #BB0000;">487</span>   -<span style="color: #BB0000;">70</span>   -<span style="color: #BB0000;">16</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2021-06-14  -<span style="color: #BB0000;">548</span>   -<span style="color: #BB0000;">78</span>   -<span style="color: #BB0000;">18</span>      -<span style="color: #BB0000;">6</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> a       101    35       1 2022-12-19     0     0     0       0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> a       102    34       0 2022-10-19   -<span style="color: #BB0000;">61</span>    -<span style="color: #BB0000;">9</span>    -<span style="color: #BB0000;">2</span>       0             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b       103    33       1 2022-08-19  -<span style="color: #BB0000;">122</span>   -<span style="color: #BB0000;">18</span>    -<span style="color: #BB0000;">4</span>      -<span style="color: #BB0000;">1</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b       104    32       0 2022-06-19  -<span style="color: #BB0000;">183</span>   -<span style="color: #BB0000;">27</span>    -<span style="color: #BB0000;">6</span>      -<span style="color: #BB0000;">2</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> c       105    31       1 2022-04-19  -<span style="color: #BB0000;">244</span>   -<span style="color: #BB0000;">35</span>    -<span style="color: #BB0000;">8</span>      -<span style="color: #BB0000;">2</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> c       106    30       0 2022-02-19  -<span style="color: #BB0000;">303</span>   -<span style="color: #BB0000;">44</span>   -<span style="color: #BB0000;">10</span>      -<span style="color: #BB0000;">3</span>             0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> d       107    29       1 2021-12-19  -<span style="color: #BB0000;">365</span>   -<span style="color: #BB0000;">53</span>   -<span style="color: #BB0000;">12</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> d       108    28       0 2021-10-19  -<span style="color: #BB0000;">426</span>   -<span style="color: #BB0000;">61</span>   -<span style="color: #BB0000;">14</span>      -<span style="color: #BB0000;">4</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e       109    27       1 2021-08-19  -<span style="color: #BB0000;">487</span>   -<span style="color: #BB0000;">70</span>   -<span style="color: #BB0000;">16</span>      -<span style="color: #BB0000;">5</span>            -<span style="color: #BB0000;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e       110    26       0 2021-06-19  -<span style="color: #BB0000;">548</span>   -<span style="color: #BB0000;">79</span>   -<span style="color: #BB0000;">18</span>      -<span style="color: #BB0000;">6</span>            -<span style="color: #BB0000;">1</span></span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: fiscal_year &lt;dbl&gt;</span></span></code></pre></div>
 <p>We can then identify some conditions for our group of interest
 (<code>x</code>) and our reference group (<code>y</code>). This step
