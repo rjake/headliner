@@ -1,0 +1,14 @@
+.btn-group-container-sw {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 coolumns*/
+  }
+
+.radiobtn {
+    width: 100%;
+}
+
+.form-control {
+    height: 75%;
+    font-family: monospace;
+}
+
